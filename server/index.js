@@ -6,7 +6,7 @@ const PORT = 2020;
 var path = require('path');
 const db = require("../database");
 
-app.use(cors())
+app.use(cors({ origin: '*', preflightContinue: false, optionsSuccessStatus: 204 }))
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
