@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const bodyParser = require("body-parser");
-const PORT = 2020;
+var PORT = process.env.PORT || 2020;
 var path = require('path');
 const db = require("../database");
 
