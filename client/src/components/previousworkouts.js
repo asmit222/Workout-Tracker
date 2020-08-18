@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import App from "../../App";
 import $ from 'jquery';
+import axios from 'axios';
 
 class Previousworkouts extends Component {
 
@@ -14,23 +15,20 @@ class Previousworkouts extends Component {
   }
 
   componentDidMount() {
-    // console.log(this.props.location.state.name);
-    // console.log('test')
     var thisBind = this;
-    $.ajax({
-      type: "POST",
-      url: 'http://localhost:2020/getWorkouts',
-      data: `${[thisBind.props.location.state.name]}`,
-      success: function (data) {
-        data.reverse();
-        thisBind.setState({
-          data: data,
-        })
-      },
-      dataType: 'json'
+
+    axios.post('http://localhost:2020/getWorkouts',
+      `${[thisBind.props.location.state.name]}`
+    )
+    .then((response) => {
+      response.data.reverse();
+      thisBind.setState({
+             data: response.data,
+            })
+    }, (error) => {
+      alert(error);
     });
 
-    setTimeout(() =>console.log(this.state.data), 3000);
   }
 
 
