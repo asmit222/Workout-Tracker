@@ -1,0 +1,71 @@
+.container {
+  margin-top: 5px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.bg-img {
+  margin-top: 5px;
+  background-image: url("https://wallpaperaccess.com/full/1245041.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #999;
+  height: 85vh;
+}
+
+.section {
+  height: 100vh;
+}
+
+.margin {
+  margin-top: 5px;
+}
+
+#workoutheader {
+  background-color: rgb(170, 170, 170);
+}
+
+.dateaboveprev {
+  font-weight: 800;
+}
+
+#hide {
+  display: none;
+}
+
+#datefornewworkout {
+  width: 30%;
+}
+
+#notesheader {
+  background-color: rgb(235, 235, 74);
+  color: black;
+}
+
+.notes {
+  margin-top: -5px;
+}
+
+table td {
+  position: relative;
+}
+
+#tdinput {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  border: none;
+  /* padding: 10px; */
+  box-sizing: border-box;
+  font-size: x-small;
+}
+
+.marginbottom {
+  margin-bottom: 3px;
+}
