@@ -35,6 +35,10 @@
   display: none;
 }
 
+#hide1 {
+  display: none;
+}
+
 #datefornewworkout {
   width: 30%;
 }
@@ -61,11 +65,28 @@ table td {
   height: 100%;
   width: 100%;
   border: none;
-  /* padding: 10px; */
   box-sizing: border-box;
   font-size: x-small;
 }
 
 .marginbottom {
   margin-bottom: 3px;
+}
+
+#loginForm {
+  width: 50%;
+  margin-left: 25%;
+  margin-top: 20%;
+  margin-bottom: 5px;
+}
+
+.loginInput {
+  margin-bottom: 5px;
+}
+
+.buttonContainer {
+  margin-top: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

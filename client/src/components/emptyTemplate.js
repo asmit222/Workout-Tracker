@@ -3,52 +3,77 @@ import Previousworkouts from "./previousworkouts";
 import { Prompt } from "react-router";
 import $ from 'jquery';
 
-class Day1 extends Component {
+class EmptyTemplate extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: ' ',
       workoutDate: null,
-      workout1: ["Squat", "3", "5", "   ", "   ", "   ", "   "],
-      workout2: ["Hip Thrust", "3-4", "10-12", "   ", "   ", "   ", "   "],
-      workout3: ["Bench Press", "3", "5", "   ", "   ", "   ", "   "],
-      workout4: ["Chin Ups", "3", "6-10", "   ", "   ", "   ", "   "],
+      workout1: [" ", " ", " ", "   ", "   ", "   ", "   "],
+      workout2: [" ", " ", " ", "   ", "   ", "   ", "   "],
+      workout3: [" ", " ", " ", "   ", "   ", "   ", "   "],
+      workout4: [" ", " ", " ", "   ", "   ", "   ", "   "],
       workout5: [
-        "DB Farmer Carry",
-        "3",
-        "50 steps",
+        " ",
+        " ",
+        " ",
         "   ",
         "   ",
         "   ",
         "   ",
       ],
-      workout6: ["Face Pulls", "2", "12", "   ", "   ", "   ", "   "],
+      workout6: [" ", " ", " ", "   ", "   ", "   ", "   "],
       workout7: ["    ", "   ", "   ", "   ", "   ", "   ", "   "],
       notes: "",
     };
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleSubmitWorkout = this.handleSubmitWorkout.bind(this);
 
+    this.handleChangeSquat0 = this.handleChangeSquat0.bind(this);
+    this.handleChangeSquat1 = this.handleChangeSquat1.bind(this);
+this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     this.handleChangeSquat3 = this.handleChangeSquat3.bind(this);
     this.handleChangeSquat4 = this.handleChangeSquat4.bind(this);
     this.handleChangeSquat5 = this.handleChangeSquat5.bind(this);
     this.handleChangeSquat6 = this.handleChangeSquat6.bind(this);
 
+    this.handleChangeHipThrust0 = this.handleChangeHipThrust0.bind(this);
+    this.handleChangeHipThrust1 = this.handleChangeHipThrust1.bind(this);
+    this.handleChangeHipThrust2 = this.handleChangeHipThrust2.bind(this);
     this.handleChangeHipThrust3 = this.handleChangeHipThrust3.bind(this);
     this.handleChangeHipThrust4 = this.handleChangeHipThrust4.bind(this);
     this.handleChangeHipThrust5 = this.handleChangeHipThrust5.bind(this);
     this.handleChangeHipThrust6 = this.handleChangeHipThrust6.bind(this);
 
+    this.handleChangeBenchPress0 = this.handleChangeBenchPress0.bind(this);
+    this.handleChangeBenchPress1 = this.handleChangeBenchPress1.bind(this);
+    this.handleChangeBenchPress2 = this.handleChangeBenchPress2.bind(this);
     this.handleChangeBenchPress3 = this.handleChangeBenchPress3.bind(this);
     this.handleChangeBenchPress4 = this.handleChangeBenchPress4.bind(this);
     this.handleChangeBenchPress5 = this.handleChangeBenchPress5.bind(this);
     this.handleChangeBenchPress6 = this.handleChangeBenchPress6.bind(this);
 
+    this.handleChangeChinUps0 = this.handleChangeChinUps0.bind(this);
+    this.handleChangeChinUps1 = this.handleChangeChinUps1.bind(this);
+    this.handleChangeChinUps2 = this.handleChangeChinUps2.bind(this);
     this.handleChangeChinUps3 = this.handleChangeChinUps3.bind(this);
     this.handleChangeChinUps4 = this.handleChangeChinUps4.bind(this);
     this.handleChangeChinUps5 = this.handleChangeChinUps5.bind(this);
     this.handleChangeChinUps6 = this.handleChangeChinUps6.bind(this);
 
+
+
+
+
+    this.handleChangeDBFarmerCarry0 = this.handleChangeDBFarmerCarry0.bind(
+      this
+    );
+    this.handleChangeDBFarmerCarry1 = this.handleChangeDBFarmerCarry1.bind(
+      this
+    );
+    this.handleChangeDBFarmerCarry2 = this.handleChangeDBFarmerCarry2.bind(
+      this
+    );
     this.handleChangeDBFarmerCarry3 = this.handleChangeDBFarmerCarry3.bind(
       this
     );
@@ -62,12 +87,16 @@ class Day1 extends Component {
       this
     );
 
+    this.handleChangeFacePulls0 = this.handleChangeFacePulls0.bind(this);
+    this.handleChangeFacePulls1 = this.handleChangeFacePulls1.bind(this);
+    this.handleChangeFacePulls2 = this.handleChangeFacePulls2.bind(this);
     this.handleChangeFacePulls3 = this.handleChangeFacePulls3.bind(this);
     this.handleChangeFacePulls4 = this.handleChangeFacePulls4.bind(this);
     this.handleChangeFacePulls5 = this.handleChangeFacePulls5.bind(this);
     this.handleChangeFacePulls6 = this.handleChangeFacePulls6.bind(this);
 
     this.handleChangeExtraWorkout0 = this.handleChangeExtraWorkout0.bind(this);
+    this.handleChangeExtraWorkout1 = this.handleChangeExtraWorkout1.bind(this);
     this.handleChangeExtraWorkout2 = this.handleChangeExtraWorkout2.bind(this);
 
     this.handleChangeExtraWorkout3 = this.handleChangeExtraWorkout3.bind(this);
@@ -95,6 +124,21 @@ class Day1 extends Component {
     });
   }
 
+  handleChangeSquat0(e) {
+    e.preventDefault();
+    this.state.workout1[0] = e.target.value;
+  }
+
+  handleChangeSquat1(e) {
+    e.preventDefault();
+    this.state.workout1[1] = e.target.value;
+  }
+
+  handleChangeSquat2(e) {
+    e.preventDefault();
+    this.state.workout1[2] = e.target.value;
+  }
+
   handleChangeSquat3(e) {
     e.preventDefault();
     this.state.workout1[3] = e.target.value;
@@ -115,6 +159,21 @@ class Day1 extends Component {
     this.state.workout1[6] = e.target.value;
   }
 
+  handleChangeHipThrust0(e) {
+    e.preventDefault();
+    this.state.workout2[0] = e.target.value;
+  }
+
+  handleChangeHipThrust1(e) {
+    e.preventDefault();
+    this.state.workout2[1] = e.target.value;
+  }
+
+  handleChangeHipThrust2(e) {
+    e.preventDefault();
+    this.state.workout2[2] = e.target.value;
+  }
+
   handleChangeHipThrust3(e) {
     e.preventDefault();
     this.state.workout2[3] = e.target.value;
@@ -132,6 +191,21 @@ class Day1 extends Component {
     this.state.workout2[6] = e.target.value;
   }
 
+
+  handleChangeBenchPress0(e) {
+    e.preventDefault();
+    this.state.workout3[0] = e.target.value;
+  }
+
+  handleChangeBenchPress1(e) {
+    e.preventDefault();
+    this.state.workout3[1] = e.target.value;
+  }
+
+  handleChangeBenchPress2(e) {
+    e.preventDefault();
+    this.state.workout3[2] = e.target.value;
+  }
   handleChangeBenchPress3(e) {
     e.preventDefault();
     this.state.workout3[3] = e.target.value;
@@ -147,6 +221,18 @@ class Day1 extends Component {
   handleChangeBenchPress6(e) {
     e.preventDefault();
     this.state.workout3[6] = e.target.value;
+  }
+  handleChangeChinUps0(e) {
+    e.preventDefault();
+    this.state.workout4[0] = e.target.value;
+  }
+  handleChangeChinUps1(e) {
+    e.preventDefault();
+    this.state.workout4[1] = e.target.value;
+  }
+  handleChangeChinUps2(e) {
+    e.preventDefault();
+    this.state.workout4[2] = e.target.value;
   }
 
   handleChangeChinUps3(e) {
@@ -166,6 +252,21 @@ class Day1 extends Component {
     this.state.workout4[6] = e.target.value;
   }
 
+  handleChangeDBFarmerCarry0(e) {
+    e.preventDefault();
+    this.state.workout5[0] = e.target.value;
+  }
+
+  handleChangeDBFarmerCarry1(e) {
+    e.preventDefault();
+    this.state.workout5[1] = e.target.value;
+  }
+
+  handleChangeDBFarmerCarry2(e) {
+    e.preventDefault();
+    this.state.workout5[2] = e.target.value;
+  }
+
   handleChangeDBFarmerCarry3(e) {
     e.preventDefault();
     this.state.workout5[3] = e.target.value;
@@ -183,6 +284,21 @@ class Day1 extends Component {
     this.state.workout5[6] = e.target.value;
   }
 
+
+  handleChangeFacePulls0(e) {
+    e.preventDefault();
+    this.state.workout6[0] = e.target.value;
+  }
+
+  handleChangeFacePulls1(e) {
+    e.preventDefault();
+    this.state.workout6[1] = e.target.value;
+  }
+
+  handleChangeFacePulls2(e) {
+    e.preventDefault();
+    this.state.workout6[2] = e.target.value;
+  }
   handleChangeFacePulls3(e) {
     e.preventDefault();
     this.state.workout6[3] = e.target.value;
@@ -220,6 +336,11 @@ class Day1 extends Component {
   handleChangeExtraWorkout0(e) {
     e.preventDefault();
     this.state.workout7[0] = e.target.value;
+  }
+
+  handleChangeExtraWorkout1(e) {
+    e.preventDefault();
+    this.state.workout7[1] = e.target.value;
   }
 
   handleChangeExtraWorkout2(e) {
@@ -283,9 +404,24 @@ class Day1 extends Component {
               </thead>
               <tbody>
                 <tr>
-                  <td>Squat</td>
-                  <td>3</td>
-                  <td>5</td>
+                  <td>  <input
+                      id="tdinput"
+                      onChange={this.handleChangeSquat0}
+                      type="text"
+                      className="input"
+                    ></input></td>
+                  <td>  <input
+                      id="tdinput"
+                      onChange={this.handleChangeSquat1}
+                      type="text"
+                      className="input"
+                    ></input></td>
+                  <td>  <input
+                      id="tdinput"
+                      onChange={this.handleChangeSquat2}
+                      type="text"
+                      className="input"
+                    ></input></td>
                   <td>
                     {" "}
                     <input
@@ -321,9 +457,24 @@ class Day1 extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>Hip Thrust</td>
-                  <td>3-4</td>
-                  <td>10-12</td>
+                  <td> <input
+                      id="tdinput"
+                      onChange={this.handleChangeHipThrust0}
+                      type="text"
+                      className="input"
+                    ></input></td>
+                  <td> <input
+                      id="tdinput"
+                      onChange={this.handleChangeHipThrust1}
+                      type="text"
+                      className="input"
+                    ></input></td>
+                  <td> <input
+                      id="tdinput"
+                      onChange={this.handleChangeHipThrust2}
+                      type="text"
+                      className="input"
+                    ></input></td>
                   <td>
                     {" "}
                     <input
@@ -359,9 +510,24 @@ class Day1 extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>Bench Press</td>
-                  <td>3</td>
-                  <td>5-6</td>
+                  <td><input
+                      id="tdinput"
+                      onChange={this.handleChangeBenchPress0}
+                      type="text"
+                      className="input"
+                    ></input></td>
+                  <td><input
+                      id="tdinput"
+                      onChange={this.handleChangeBenchPress1}
+                      type="text"
+                      className="input"
+                    ></input></td>
+                  <td><input
+                      id="tdinput"
+                      onChange={this.handleChangeBenchPress2}
+                      type="text"
+                      className="input"
+                    ></input></td>
                   <td>
                     {" "}
                     <input
@@ -397,9 +563,24 @@ class Day1 extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>Chin Ups</td>
-                  <td>3</td>
-                  <td>6-10</td>
+                  <td> <input
+                      id="tdinput"
+                      onChange={this.handleChangeChinUps0}
+                      type="text"
+                      className="input"
+                    ></input></td>
+                  <td> <input
+                      id="tdinput"
+                      onChange={this.handleChangeChinUps1}
+                      type="text"
+                      className="input"
+                    ></input></td>
+                  <td> <input
+                      id="tdinput"
+                      onChange={this.handleChangeChinUps2}
+                      type="text"
+                      className="input"
+                    ></input></td>
                   <td>
                     {" "}
                     <input
@@ -435,9 +616,24 @@ class Day1 extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>DB Farmer Carry</td>
-                  <td>3</td>
-                  <td>50 steps</td>
+                  <td> <input
+                      id="tdinput"
+                      onChange={this.handleChangeDBFarmerCarry0}
+                      type="text"
+                      className="input"
+                    ></input></td>
+                  <td> <input
+                      id="tdinput"
+                      onChange={this.handleChangeDBFarmerCarry1}
+                      type="text"
+                      className="input"
+                    ></input></td>
+                  <td> <input
+                      id="tdinput"
+                      onChange={this.handleChangeDBFarmerCarry2}
+                      type="text"
+                      className="input"
+                    ></input></td>
                   <td>
                     {" "}
                     <input
@@ -473,9 +669,24 @@ class Day1 extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>Face Pulls</td>
-                  <td>2</td>
-                  <td>12</td>
+                  <td> <input
+                      id="tdinput"
+                      onChange={this.handleChangeFacePulls0}
+                      type="text"
+                      className="input"
+                    ></input></td>
+                  <td> <input
+                      id="tdinput"
+                      onChange={this.handleChangeFacePulls1}
+                      type="text"
+                      className="input"
+                    ></input></td>
+                  <td> <input
+                      id="tdinput"
+                      onChange={this.handleChangeFacePulls2}
+                      type="text"
+                      className="input"
+                    ></input></td>
                   <td>
                     {" "}
                     <input
@@ -519,7 +730,12 @@ class Day1 extends Component {
                       className="input"
                     ></input>
                   </td>
-                  <td>3</td>
+                  <td><input
+                      id="tdinput"
+                      onChange={this.handleChangeExtraWorkout1}
+                      type="text"
+                      className="input"
+                    ></input></td>
                   <td>
                     <input
                       id="tdinput"
@@ -592,4 +808,4 @@ class Day1 extends Component {
   }
 }
 
-export default Day1;
+export default EmptyTemplate;

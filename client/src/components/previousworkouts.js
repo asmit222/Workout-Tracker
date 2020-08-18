@@ -1,12 +1,46 @@
 import React, { Component } from "react";
 import App from "../../App";
+import $ from 'jquery';
 
 class Previousworkouts extends Component {
+
+
+  constructor(props) {
+    super(props);
+    this.state = {
+     data: [],
+    };
+
+  }
+
+  componentDidMount() {
+    // console.log(this.props.location.state.name);
+    // console.log('test')
+    var thisBind = this;
+    $.ajax({
+      type: "POST",
+      url: 'http://localhost:2020/getWorkouts',
+      data: `${[thisBind.props.location.state.name]}`,
+      success: function (data) {
+        data.reverse();
+        thisBind.setState({
+          data: data,
+        })
+      },
+      dataType: 'json'
+    });
+
+    setTimeout(() =>console.log(this.state.data), 3000);
+  }
+
+
   render() {
     return (
+ <div>
+{this.state.data.map((workout) => (
       <div className="margin">
         <table className="content is-small table is-bordered">
-          <thead className="dateaboveprev">8/11/2020</thead>
+<thead className="dateaboveprev">{workout.workoutDate}</thead>
           <thead id="workoutheader">
             <tr>
               <th>Workout</th>
@@ -20,67 +54,67 @@ class Previousworkouts extends Component {
           </thead>
           <tbody>
             <tr>
-              <td>Bench Press</td>
-              <td>3</td>
-              <td>5</td>
-              <td>135/5</td>
-              <td>135/6</td>
-              <td>185/5</td>
-              <td>185/4</td>
+              <td>{workout.workout1.split(',')[0]}</td>
+              <td>{workout.workout1.split(',')[1]}</td>
+              <td>{workout.workout1.split(',')[2]}</td>
+              <td>{workout.workout1.split(',')[3]}</td>
+              <td>{workout.workout1.split(',')[4]}</td>
+              <td>{workout.workout1.split(',')[5]}</td>
+              <td>{workout.workout1.split(',')[6]}</td>
             </tr>
             <tr>
-              <td>Workout 2</td>
-              <td>4</td>
-              <td>8</td>
-              <td>135/5</td>
-              <td>135/6</td>
-              <td>185/5</td>
-              <td>185/4</td>
+            <td>{workout.workout2.split(',')[0]}</td>
+              <td>{workout.workout2.split(',')[1]}</td>
+              <td>{workout.workout2.split(',')[2]}</td>
+              <td>{workout.workout2.split(',')[3]}</td>
+              <td>{workout.workout2.split(',')[4]}</td>
+              <td>{workout.workout2.split(',')[5]}</td>
+              <td>{workout.workout2.split(',')[6]}</td>
             </tr>
             <tr>
-              <td>Workout 3</td>
-              <td>3</td>
-              <td>8-10</td>
-              <td>135/5</td>
-              <td>135/6</td>
-              <td>185/5</td>
-              <td>185/4</td>
+            <td>{workout.workout3.split(',')[0]}</td>
+              <td>{workout.workout3.split(',')[1]}</td>
+              <td>{workout.workout3.split(',')[2]}</td>
+              <td>{workout.workout3.split(',')[3]}</td>
+              <td>{workout.workout3.split(',')[4]}</td>
+              <td>{workout.workout3.split(',')[5]}</td>
+              <td>{workout.workout3.split(',')[6]}</td>
             </tr>
             <tr>
-              <td>Workout 4</td>
-              <td>3</td>
-              <td>5</td>
-              <td>135/5</td>
-              <td>135/6</td>
-              <td>185/5</td>
-              <td>185/4</td>
+            <td>{workout.workout4.split(',')[0]}</td>
+              <td>{workout.workout4.split(',')[1]}</td>
+              <td>{workout.workout4.split(',')[2]}</td>
+              <td>{workout.workout4.split(',')[3]}</td>
+              <td>{workout.workout4.split(',')[4]}</td>
+              <td>{workout.workout4.split(',')[5]}</td>
+              <td>{workout.workout4.split(',')[6]}</td>
             </tr>
             <tr>
-              <td>Workout 5</td>
-              <td>3</td>
-              <td>5</td>
-              <td>135/5</td>
-              <td>135/6</td>
-              <td>185/5</td>
-              <td>185/4</td>
+            <td>{workout.workout5.split(',')[0]}</td>
+              <td>{workout.workout5.split(',')[1]}</td>
+              <td>{workout.workout5.split(',')[2]}</td>
+              <td>{workout.workout5.split(',')[3]}</td>
+              <td>{workout.workout5.split(',')[4]}</td>
+              <td>{workout.workout5.split(',')[5]}</td>
+              <td>{workout.workout5.split(',')[6]}</td>
             </tr>
             <tr>
-              <td>Workout 6</td>
-              <td>3</td>
-              <td>5</td>
-              <td>135/5</td>
-              <td>135/6</td>
-              <td>185/5</td>
-              <td>185/4</td>
+            <td>{workout.workout6.split(',')[0]}</td>
+              <td>{workout.workout6.split(',')[1]}</td>
+              <td>{workout.workout6.split(',')[2]}</td>
+              <td>{workout.workout6.split(',')[3]}</td>
+              <td>{workout.workout6.split(',')[4]}</td>
+              <td>{workout.workout6.split(',')[5]}</td>
+              <td>{workout.workout6.split(',')[6]}</td>
             </tr>
             <tr>
-              <td>Workout 7</td>
-              <td>3</td>
-              <td>5</td>
-              <td>135/5</td>
-              <td>135/6</td>
-              <td>185/5</td>
-              <td>185/4</td>
+            <td>{workout.workout7.split(',')[0]}</td>
+              <td>{workout.workout7.split(',')[1]}</td>
+              <td>{workout.workout7.split(',')[2]}</td>
+              <td>{workout.workout7.split(',')[3]}</td>
+              <td>{workout.workout7.split(',')[4]}</td>
+              <td>{workout.workout7.split(',')[5]}</td>
+              <td>{workout.workout7.split(',')[6]}</td>
             </tr>
           </tbody>
         </table>
@@ -90,89 +124,12 @@ class Previousworkouts extends Component {
             <p>Notes</p>
           </div>
           <div className="message-body">
-            The notes will go here when I figure out wtf I am doing...
+{workout.notes}
           </div>
         </article>
 
-        <table className="content is-small table is-bordered">
-          <thead className="dateaboveprev">8/8/2020</thead>
-          <thead id="workoutheader">
-            <tr>
-              <th>Workout</th>
-              <th>Sets</th>
-              <th>Reps</th>
-              <th>1</th>
-              <th>2</th>
-              <th>3</th>
-              <th>4</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Bench Press</td>
-              <td>3</td>
-              <td>5</td>
-              <td>135/5</td>
-              <td>135/6</td>
-              <td>185/5</td>
-              <td>185/4</td>
-            </tr>
-            <tr>
-              <td>Workout 2</td>
-              <td>4</td>
-              <td>8</td>
-              <td>135/5</td>
-              <td>135/6</td>
-              <td>185/5</td>
-              <td>185/4</td>
-            </tr>
-            <tr>
-              <td>Workout 3</td>
-              <td>3</td>
-              <td>8-10</td>
-              <td>135/5</td>
-              <td>135/6</td>
-              <td>185/5</td>
-              <td>185/4</td>
-            </tr>
-            <tr>
-              <td>Workout 4</td>
-              <td>3</td>
-              <td>5</td>
-              <td>135/5</td>
-              <td>135/6</td>
-              <td>185/5</td>
-              <td>185/4</td>
-            </tr>
-            <tr>
-              <td>Workout 5</td>
-              <td>3</td>
-              <td>5</td>
-              <td>135/5</td>
-              <td>135/6</td>
-              <td>185/5</td>
-              <td>185/4</td>
-            </tr>
-            <tr>
-              <td>Workout 6</td>
-              <td>3</td>
-              <td>5</td>
-              <td>135/5</td>
-              <td>135/6</td>
-              <td>185/5</td>
-              <td>185/4</td>
-            </tr>
-            <tr>
-              <td>Workout 7</td>
-              <td>3</td>
-              <td>5</td>
-              <td>135/5</td>
-              <td>135/6</td>
-              <td>185/5</td>
-              <td>185/4</td>
-            </tr>
-          </tbody>
-        </table>
+      </div>
+))}
       </div>
     );
   }
