@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Previousworkouts from "./previousworkouts";
 import { Prompt } from "react-router";
 import $ from 'jquery';
+import axios from 'axios';
 
 class Day1 extends Component {
   constructor(props) {
@@ -230,26 +231,29 @@ class Day1 extends Component {
   handleSubmitWorkout(e) {
     var thisBind = this;
     e.preventDefault();
-    $.ajax({
-      type: "POST",
-      url: 'http://localhost:2020/test',
-      data: `${[
-        [this.state.workoutDate],
-        [
-          this.state.workout1,
-          this.state.workout2,
-          this.state.workout3,
-          this.state.workout4,
-          this.state.workout5,
-          this.state.workout6,
-          this.state.workout7,
-        ],
-        [this.state.notes],
-        this.props.name,
-      ]}`,
-      success: console.log('workout sent!'),
-      dataType: 'json'
-    });
+
+    axios.post('/test',
+    `${[
+      [this.state.workoutDate],
+      [
+        this.state.workout1,
+        this.state.workout2,
+        this.state.workout3,
+        this.state.workout4,
+        this.state.workout5,
+        this.state.workout6,
+        this.state.workout7,
+      ],
+      [this.state.notes],
+      this.props.name,
+    ]}`
+  )
+  .then((response) => {
+    console.log('workout sent!')
+  }, (error) => {
+    alert(error);
+  });
+
 
   }
 

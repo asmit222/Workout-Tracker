@@ -60,22 +60,6 @@ this.handleSubmitLogin = this.handleSubmitLogin.bind(this);
       alert('invalid username or password');
     }
 
-    // $.ajax({
-    //   type: "POST",
-    //   url: 'http://localhost:2020/userAndPassChecker',
-    //   data: `${[
-    //     this.state.loginName,
-    //     this.state.loginPass
-    //   ]}`,
-    //   success: function (res) {
-
-    //     thisBind.setState({
-    //       name: res,
-    //     });
-    //     this.props.history.push('/Home');
-    //   },
-    //   dataType: 'json'
-    // });
 
   }
 

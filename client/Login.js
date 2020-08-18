@@ -11,6 +11,7 @@ import Previousworkouts from "./src/components/previousworkouts";
 import Home from "./src/components/Home";
 import App from "./App";
 import $ from 'jquery';
+import axios from 'axios';
 
 
 class Login extends Component {
@@ -47,25 +48,21 @@ this.handleChangeLogin2 = this.handleChangeLogin2.bind(this);
 
     var thisBind = this;
     e.preventDefault();
-    // this.props.history.push('/Home')
-    // // console.log(this.state.loginName, this.state.loginPass);
 
-    $.ajax({
-      type: "POST",
-      url: 'http://localhost:2020/userAndPassChecker',
-      data: `${[
-        this.state.loginName,
-        this.state.loginPass
-      ]}`,
-      success: function (res) {
-
-        thisBind.setState({
-          name: res,
-        });
-        thisBind.props.history.push('/Home');
-      },
-      dataType: 'json'
-    });
+    axios.post('/userAndPassChecker',
+    `${[
+      this.state.loginName,
+      this.state.loginPass
+    ]}`
+  )
+  .then((response) => {
+    thisBind.setState({
+           name: response.data,
+          });
+          thisBind.props.history.push('/Home');
+  }, (error) => {
+    alert(error);
+  });
 
 
   }
@@ -84,7 +81,7 @@ this.handleChangeLogin2 = this.handleChangeLogin2.bind(this);
   <form id='loginForm'>
       <div className="field control">
         <input type="text" onChange={this.handleChangeLogin1} className="input is-medium loginInput" placeholder="Name"></input>
-        <input type="text" onChange={this.handleChangeLogin2} className="input is-medium loginInput" placeholder="Password"></input>
+        <input type="password" onChange={this.handleChangeLogin2} className="input is-medium loginInput" placeholder="Password"></input>
       </div>
     </form>
     </div>
