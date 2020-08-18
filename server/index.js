@@ -1,9 +1,12 @@
-const express = require('express')
+const express = require('express');
+const cors = require('cors');
 const app = express();
 const bodyParser = require("body-parser");
 const PORT = 2020;
 var path = require('path');
 const db = require("../database");
+
+app.use(cors())
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
