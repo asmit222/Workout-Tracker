@@ -65,15 +65,6 @@ this.handleHideNav = this.handleHideNav.bind(this);
       this.setState({
         name: 'AUSTIN',
       })
-      if (this.state.loginName.toUpperCase() === 'BLAKE' && this.state.loginPass === 'password') {
-        this.setState({
-          name: 'BLAKE',
-        })
-
-      if (this.state.loginName.toUpperCase() === 'JOSH' && this.state.loginPass === 'password') {
-        this.setState({
-          name: 'JOSH',
-        })
     } else if (this.state.loginName.toUpperCase() === 'NATALIE' && this.state.loginPass === 'godnr17247') {
       this.setState({
         name: 'NATALIE',
