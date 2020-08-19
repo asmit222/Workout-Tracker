@@ -21,8 +21,6 @@ var name = dataSplit[51].slice(0, dataSplit[51].length - 5);
 
   var sql = `INSERT INTO workout1 VALUES ('${name}', 'plan1', '${date}', '${workout1}', '${workout2}', '${workout3}', '${workout4}', '${workout5}', '${workout6}', '${workout7}', '${notes}');`;
 
-  // var sql = `INSERT INTO highscores (name, easy, medium, hard, nightmare) VALUES ('${name}', 0, 0, 0, 0);`;
-
   connection.query(sql, function(err, results) {
     if (err) {
      console.log('error!: ', err);
@@ -32,13 +30,11 @@ var name = dataSplit[51].slice(0, dataSplit[51].length - 5);
   });
 
 console.log(name);
-// console.log(notes);
 
 };
 
 const getWorkouts = function (data, callback) {
   var name = data.slice(2, data.length - 5);
-// console.log(name)
   var sql = `select * from workout1 where name = '${name.toUpperCase()}'`;
 
   connection.query(sql, function(err, results) {

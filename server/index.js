@@ -24,20 +24,22 @@ app.get('/', function (req, res) {
 
 app.post('/userAndPassChecker', function (req, res) {
   res.status(200)
-  db.checkUser(JSON.stringify(req.body), function (result, givenUser, givenPass) {
-    if(result.length > 0) {
-    var realUser = result[0].name;
-    var realPass = result[0].password;
-    }
+  // db.checkUser(JSON.stringify(req.body), function (result, givenUser, givenPass) {
+  //   if(result.length > 0) {
+  //   var realUser = result[0].name;
+  //   var realPass = result[0].password;
+  //   }
     // console.log(realUser, realPass, givenUser, givenPass);
 
-    if(realPass === givenPass) {
-      res.json(realUser);
-    }
-  })
+    // if(realPass === givenPass) {
+    //   res.json(realUser);
+    // }
+  // })
+  res.json('done');
 });
 
 app.post('/getWorkouts', function (req, res) {
+  console.log('get workouts - request received');
   res.status(200);
   db.getWorkouts(JSON.stringify(req.body), function (data) {
     res.json(data);
@@ -48,7 +50,8 @@ app.post('/getWorkouts', function (req, res) {
 
 
 app.post('/test', function (req, res) {
+  console.log('trying to save workout');
   res.status(200);
-  db.saveWorkout(JSON.stringify(req.body), () => console.log('checked user!'));
+  db.saveWorkout(JSON.stringify(req.body), () => console.log('saved workout!'));
   res.send('done')
   });
