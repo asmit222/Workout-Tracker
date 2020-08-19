@@ -36,7 +36,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/index.js",
-    "build": "webpack --mode=development",
+    "build": "webpack --mode=production",
     "watch": "webpack --watch"
   },
   "author": "",
