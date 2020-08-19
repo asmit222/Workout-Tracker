@@ -431,7 +431,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
               ],
               [this.state.notes],
               this.props.name,
-              this.state.workoutName,
+              this.props.day,
             ];
 
            for (var i = 0; i < arr.length - 2; i++) {
