@@ -28,7 +28,8 @@
 }
 
 .dateaboveprev {
-  font-weight: 800;
+  font-weight: 500;
+  margin-bottom: 2px;
 }
 
 #hide {
@@ -89,4 +90,17 @@ table td {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.workoutName {
+  font-weight: 700;
+  color: rgb(228, 112, 96);
+}
+
+.notesBody {
+  margin-bottom: 25px;
+}
+
+.selector {
+  margin-top: 5px;
 }

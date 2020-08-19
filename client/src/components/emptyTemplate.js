@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import Previousworkouts from "./previousworkouts";
 import { Prompt } from "react-router";
-import $ from 'jquery';
 import axios from 'axios';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 class EmptyTemplate extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: ' ',
-      workoutDate: null,
       workout1: [" ", " ", " ", "   ", "   ", "   ", "   "],
       workout2: [" ", " ", " ", "   ", "   ", "   ", "   "],
       workout3: [" ", " ", " ", "   ", "   ", "   ", "   "],
@@ -26,7 +27,10 @@ class EmptyTemplate extends Component {
       workout6: [" ", " ", " ", "   ", "   ", "   ", "   "],
       workout7: ["    ", "   ", "   ", "   ", "   ", "   ", "   "],
       notes: "",
+      workoutDate: new Date(),
     };
+    this.handleChangeDatePicker = this.handleChangeDatePicker.bind(this);
+
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleSubmitWorkout = this.handleSubmitWorkout.bind(this);
 
@@ -349,11 +353,17 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     this.state.workout7[2] = e.target.value;
   }
 
+  handleChangeDatePicker = date => {
+    this.setState({
+      workoutDate: date
+    });
+  };
+
   handleSubmitWorkout(e) {
     var thisBind = this;
     e.preventDefault();
-    axios.post('/test',
-    `${[
+
+    var arr = [
       [this.state.workoutDate],
       [
         this.state.workout1,
@@ -366,7 +376,27 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
       ],
       [this.state.notes],
       this.props.name,
-    ]}`
+      this.props.day,
+    ];
+
+   for (var i = 0; i < arr.length - 2; i++) {
+     for (var j = 0; j < arr[i].length; j++) {
+       if(typeof arr[i][j] === 'string') {
+         var modified = arr[i][j];
+         modified = modified.split(',').join('');
+         arr[i][j] = modified;
+       } else {
+         for (var k = 0; k < arr[i][j].length; k++) {
+          var modified = arr[i][j][k];
+          modified = modified.split(',').join('');
+          arr[i][j][k] = modified;
+         }
+       }
+     }
+   }
+
+    axios.post('/test',
+    `${arr}`
   )
   .then((response) => {
     console.log('workout sent for Empty Template!')
@@ -382,17 +412,13 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
         <Prompt when={true === true} message="Discard workout?" />
         <div className="block">
           <form autocomplete="off">
-            <div id="datefornewworkout" className="field">
-              <label className="label">Date</label>
-              <input
-                onChange={this.handleDateChange}
-                type="text"
-                className="input"
-                placeholder="mm/dd/yyyy"
-              ></input>
-            </div>
 
-            <table className="margin content is-small table is-bordered">
+            <DatePicker
+        selected={this.state.workoutDate}
+        onChange={this.handleChangeDatePicker}
+      />
+
+            <table className="margin content is-small table is-bordered is-striped">
               <thead id="workoutheader">
                 <tr>
                   <th>Workout</th>

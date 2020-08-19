@@ -29,6 +29,8 @@ class Previousworkouts extends Component {
       alert(error);
     });
 
+    setTimeout(() => console.log(this.state.data), 1000);
+
   }
 
 
@@ -37,8 +39,9 @@ class Previousworkouts extends Component {
  <div>
 {this.state.data.map((workout) => (
       <div className="margin">
+        <div className='workoutName is-info'>{workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)}</div>
         <table className="content is-small table is-bordered">
-<thead className="dateaboveprev">{workout.workoutDate}</thead>
+<thead className="dateaboveprev">{`${workout.workoutDate.split(' ').slice(1, 4).join(' ')}`}</thead>
           <thead id="workoutheader">
             <tr>
               <th>Workout</th>
@@ -121,7 +124,7 @@ class Previousworkouts extends Component {
           <div id='notesheader' className="message-header">
             <p>Notes</p>
           </div>
-          <div className="message-body">
+          <div className="message-body notesBody">
 {workout.notes}
           </div>
         </article>

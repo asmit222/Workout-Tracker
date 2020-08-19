@@ -4,6 +4,7 @@ const mariadbConfig = require("./config.js");
 const connection = mariadb.createConnection(mariadbConfig);
 
 const saveWorkout = function(data, callback) {
+
   var dataSplit = data.split(',');
 
 var date = dataSplit[0].slice(2);
@@ -16,10 +17,12 @@ var workout6 = [dataSplit[36], dataSplit[37], dataSplit[38], dataSplit[39], data
 var workout7 = [dataSplit[43], dataSplit[44], dataSplit[45], dataSplit[46], dataSplit[47], dataSplit[48], dataSplit[49]];
 var notes = [`${dataSplit[50]}`];
 
-var name = dataSplit[51].slice(0, dataSplit[51].length - 5);
+var name = dataSplit[51];
+
+var day = JSON.stringify(dataSplit[52].slice(0, dataSplit[52].length - 5));
 
 
-  var sql = `INSERT INTO workout1 VALUES ('${name}', 'plan1', '${date}', '${workout1}', '${workout2}', '${workout3}', '${workout4}', '${workout5}', '${workout6}', '${workout7}', '${notes}');`;
+  var sql = `INSERT INTO workout1 VALUES ('${name}', '${day}', '${date}', '${workout1}', '${workout2}', '${workout3}', '${workout4}', '${workout5}', '${workout6}', '${workout7}', '${notes}');`;
 
   connection.query(sql, function(err, results) {
     if (err) {
@@ -29,7 +32,7 @@ var name = dataSplit[51].slice(0, dataSplit[51].length - 5);
     }
   });
 
-console.log(name);
+console.log('day: ', day);
 
 };
 

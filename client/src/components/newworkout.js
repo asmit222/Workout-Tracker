@@ -11,6 +11,7 @@ class newworkout extends Component {
     this.state = {
       day1Selected: "hide",
       emptyTemplateSelected: "hide1",
+      day: '',
     };
     this.handleDaySelection = this.handleDaySelection.bind(this);
   }
@@ -20,18 +21,21 @@ class newworkout extends Component {
     e.preventDefault();
     newDay = e.target.value;
     console.log(newDay);
-    if (newDay === "Empty Template") {
+    if (newDay === "Custom Workout") {
       thisBind.setState({
         day1Selected: "hide",
         emptyTemplateSelected: "show1",
+        day: 'Custom Workout'
       });
     } else if (newDay === "Austin's Day 1") {
       thisBind.setState({
+        day: 'Austins Day 1',
         day1Selected: "show",
         emptyTemplateSelected: "hide1",
       });
     } else {
       thisBind.setState({
+        day: '',
         day1Selected: "hide",
         emptyTemplateSelected: "hide1"
       });
@@ -41,8 +45,7 @@ class newworkout extends Component {
   render() {
     return (
       <div className="block">
-        <div className="field">
-          <label className="label">Workout</label>
+        <div className="field selector">
           <p className="control">
             <span className="select">
               <select
@@ -51,17 +54,17 @@ class newworkout extends Component {
               >
                 <option>Select a workout</option>
                 <option>Austin's Day 1</option>
-                <option>Empty Template</option>
+                <option>Custom Workout</option>
               </select>
             </span>
           </p>
         </div>
 
         <div id={this.state.day1Selected}>
-          <Day1 name={this.props.location.state.name}/>
+          <Day1 name={this.props.location.state.name} day={this.state.day}/>
         </div>
         <div id={this.state.emptyTemplateSelected}>
-          <EmptyTemplate name={this.props.location.state.name}/>
+          <EmptyTemplate name={this.props.location.state.name} day={this.state.day}/>
         </div>
 
       </div>
