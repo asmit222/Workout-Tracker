@@ -17,6 +17,10 @@ class Previousworkouts extends Component {
   componentDidMount() {
     var thisBind = this;
 
+    console.log(thisBind.props.location);
+    console.log(thisBind.props.location.state);
+
+
     axios.post('/getWorkouts',
       `${[thisBind.props.location.state.name]}`
     )

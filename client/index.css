@@ -104,3 +104,14 @@ table td {
 .selector {
   margin-top: 5px;
 }
+
+.afterSubmitButtons {
+  width: 100%;
+}
+
+.afterSubmissionHomeButton {
+  margin-top: 5%;
+}
+.datePicker {
+  margin-bottom: 10px;
+}

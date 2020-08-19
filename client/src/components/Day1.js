@@ -2,13 +2,26 @@ import React, { Component } from "react";
 import Previousworkouts from "./previousworkouts";
 import { Prompt } from "react-router";
 import axios from 'axios';
+
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { confirmAlert } from 'react-confirm-alert';
+
+import { Route , withRouter} from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  HashRouter,
+  Link,
+  Switch,
+} from "react-router-dom";
 
 class Day1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      hideButtons: '',
       username: ' ',
       workout1: ["Squat", "3", "5", "   ", "   ", "   ", "   "],
       workout2: ["Hip Thrust", "3-4", "10-12", "   ", "   ", "   ", "   "],
@@ -27,6 +40,7 @@ class Day1 extends Component {
       workout7: ["    ", "   ", "   ", "   ", "   ", "   ", "   "],
       notes: "",
       workoutDate: new Date(),
+      submitted: false,
     };
     this.handleChangeDatePicker = this.handleChangeDatePicker.bind(this);
 
@@ -80,6 +94,27 @@ class Day1 extends Component {
     this.handleChangeExtraWorkout6 = this.handleChangeExtraWorkout6.bind(this);
 
     this.handleNotes = this.handleNotes.bind(this);
+
+    this.handleHomeClick = this.handleHomeClick.bind(this);
+    this.handlePreviousClick = this.handlePreviousClick.bind(this);
+  }
+
+  handleHomeClick () {
+
+    this.props.hideDropDown();
+    this.props.hideNav();
+    this.setState({
+      hideButtons: 'hide',
+    })
+  }
+
+  handlePreviousClick () {
+
+    this.props.hideDropDown();
+    this.props.hideNav();
+    this.setState({
+      hideButtons: 'hide',
+    })
   }
 
   handleNotes(e) {
@@ -241,63 +276,83 @@ class Day1 extends Component {
     var thisBind = this;
     e.preventDefault();
 
-   var arr = [
-      [this.state.workoutDate],
-      [
-        this.state.workout1,
-        this.state.workout2,
-        this.state.workout3,
-        this.state.workout4,
-        this.state.workout5,
-        this.state.workout6,
-        this.state.workout7,
-      ],
-      [this.state.notes],
-      this.props.name,
-      this.props.day,
-    ];
 
-   for (var i = 0; i < arr.length - 2; i++) {
-     for (var j = 0; j < arr[i].length; j++) {
-       if(typeof arr[i][j] === 'string') {
-         var modified = arr[i][j];
-         modified = modified.split(',').join('');
-         arr[i][j] = modified;
-       } else {
-         for (var k = 0; k < arr[i][j].length; k++) {
-          var modified = arr[i][j][k];
-          modified = modified.split(',').join('');
-          arr[i][j][k] = modified;
-         }
-       }
-     }
-   }
+    confirmAlert({
+      title: 'Are you sure?',
+      buttons: [
+        {
+          label: 'Submit',
+          onClick: () => {
+            this.props.hideDropDown();
+            this.props.hideNav();
+            this.setState({
+              submitted: true,
+            })
+           var arr = [
+              [this.state.workoutDate],
+              [
+                this.state.workout1,
+                this.state.workout2,
+                this.state.workout3,
+                this.state.workout4,
+                this.state.workout5,
+                this.state.workout6,
+                this.state.workout7,
+              ],
+              [this.state.notes],
+              this.props.name,
+              this.props.day,
+            ];
 
-    axios.post('/test',
-    `${arr}`
-  )
-  .then((response) => {
-    console.log('workout sent for Day1!')
-  }, (error) => {
-    alert(error);
-  });
+           for (var i = 0; i < arr.length - 2; i++) {
+             for (var j = 0; j < arr[i].length; j++) {
+               if(typeof arr[i][j] === 'string') {
+                 var modified = arr[i][j];
+                 modified = modified.split(',').join('');
+                 arr[i][j] = modified;
+               } else {
+                 for (var k = 0; k < arr[i][j].length; k++) {
+                  var modified = arr[i][j][k];
+                  modified = modified.split(',').join('');
+                  arr[i][j][k] = modified;
+                 }
+               }
+             }
+           }
 
-
+            axios.post('/test',
+            `${arr}`
+          )
+          .then((response) => {
+            console.log('workout sent for Day1!')
+          }, (error) => {
+            alert(error);
+          });
+          }
+        },
+        {
+          label: 'Cancel',
+          onClick: () => {
+            console.log('user clicked no')
+            this.setState({
+              submitted: false,
+            })
+          }
+        }
+      ]
+    });
   }
 
   render() {
+    if (this.state.submitted === false) {
     return (
       <React.Fragment>
-        <Prompt when={true === true} message="Discard workout?" />
+        <Prompt when={this.state.submitted === false} message="Discard workout?" />
         <div className="block">
           <form autocomplete="off">
 
 
 
-            <DatePicker
-        selected={this.state.workoutDate}
-        onChange={this.handleChangeDatePicker}
-      />
 
 
             <table className="margin content is-small table is-bordered">
@@ -596,6 +651,12 @@ class Day1 extends Component {
               </tbody>
             </table>
 
+            <DatePicker className='datePicker'
+        selected={this.state.workoutDate}
+        onChange={this.handleChangeDatePicker}
+      />
+
+
             <form>
               <div className="field">
                 <label className="label">Notes</label>
@@ -609,6 +670,7 @@ class Day1 extends Component {
               </div>
             </form>
 
+
             <button
               onClick={this.handleSubmitWorkout}
               href=""
@@ -616,11 +678,71 @@ class Day1 extends Component {
             >
               Submit workout
             </button>
+
+
           </form>
         </div>
       </React.Fragment>
     );
+
+    } else {
+     return (
+       <React.Fragment>
+
+<section id={this.state.hideButtons} class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+       Your workout has been submitted!
+      </h1>
+      <h2 class="subtitle">
+      </h2>
+    </div>
+  </div>
+</section>
+
+<Link to={{
+  pathname: '/Home',
+  state: {
+    name: this.props.name,
+  }
+}}>
+    <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="afterSubmitButtons afterSubmissionHomeButton button margin is-dark is-large ">
+      <span>Home</span>
+    </a>
+  </Link>
+
+        <Link to={{
+  pathname: '/previousworkouts',
+  state: {
+    name: this.props.name,
+  }
+}}>
+    <a id={this.state.hideButtons} onClick={this.handlePreviousClick} className="afterSubmitButtons button margin is-info is-large ">
+      <span>Workout History</span>
+    </a>
+  </Link>
+
+
+
+    <Link to={{
+  pathname: '/newworkout',
+  state: {
+    name: this.props.name,
+  }
+}}>
+    <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="afterSubmitButtons button margin is-warning is-large ">
+      <span>New Workout</span>
+    </a>
+  </Link>
+
+
+
+       </React.Fragment>
+     )
+
+    }
   }
 }
 
-export default Day1;
+export default withRouter(Day1);

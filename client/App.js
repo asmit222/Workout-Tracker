@@ -18,6 +18,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      hideNav: '',
       loginName: '',
       loginPass: '',
      name: '',
@@ -25,6 +26,19 @@ class App extends Component {
 this.handleChangeLogin1 = this.handleChangeLogin1.bind(this);
 this.handleChangeLogin2 = this.handleChangeLogin2.bind(this);
 this.handleSubmitLogin = this.handleSubmitLogin.bind(this);
+this.handleHideNav = this.handleHideNav.bind(this);
+  }
+
+  handleHideNav () {
+    if(this.state.hideNav === '') {
+    this.setState({
+      hideNav: 'hide',
+    })
+  } else {
+    this.setState({
+      hideNav: '',
+    })
+  }
   }
 
   handleChangeLogin1 (e) {
@@ -54,7 +68,7 @@ this.handleSubmitLogin = this.handleSubmitLogin.bind(this);
       })
     } else if (this.state.loginName.toUpperCase() === 'NATALIE' && this.state.loginPass === 'godnr17247') {
       this.setState({
-        name: 'POOK',
+        name: 'NATALIE',
       })
     } else {
       alert('invalid username or password');
@@ -79,8 +93,8 @@ this.handleSubmitLogin = this.handleSubmitLogin.bind(this);
     name: this.state.name,
   }
 }}>
-                    <a className="button marginbottom is-dark">
-                      <span>Home</span>
+                    <a id={this.state.hideNav} className="button marginbottom is-dark">
+                      <span >Home</span>
                     </a>
                   </Link>
                 </p>
@@ -89,10 +103,11 @@ this.handleSubmitLogin = this.handleSubmitLogin.bind(this);
   pathname: '/newworkout',
   state: {
     name: this.state.name,
+    hideNav: this.handleHideNav,
   }
 }}>
-                    <a className="button marginbottom is-success">
-                      <span>New workout</span>
+                    <a id={this.state.hideNav} className="button marginbottom is-success">
+                      <span >New Workout</span>
                     </a>
                   </Link>
                 </p>
@@ -103,8 +118,8 @@ this.handleSubmitLogin = this.handleSubmitLogin.bind(this);
     name: this.state.name,
   }
 }}>
-                    <a className="button marginbottom is-info">
-                      <span>Previous workouts</span>
+                    <a id={this.state.hideNav} className="button marginbottom is-info">
+                      <span >Workout History</span>
                     </a>
                   </Link>
                 </p>
@@ -135,7 +150,7 @@ this.handleSubmitLogin = this.handleSubmitLogin.bind(this);
   <form id='loginForm'>
       <div className="field control">
         <input type="text" onChange={this.handleChangeLogin1} className="input is-medium loginInput" placeholder="Name"></input>
-        <input type="text" onChange={this.handleChangeLogin2} className="input is-medium loginInput" placeholder="Password"></input>
+        <input type="password" onChange={this.handleChangeLogin2} className="input is-medium loginInput" placeholder="Password"></input>
       </div>
     </form>
     </div>

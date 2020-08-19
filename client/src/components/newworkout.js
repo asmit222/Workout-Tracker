@@ -3,24 +3,42 @@ import Previousworkouts from "./previousworkouts";
 import Day1 from "./Day1";
 import EmptyTemplate from "./emptyTemplate";
 
+
 var newDay;
 
 class newworkout extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      dropDown: '',
       day1Selected: "hide",
       emptyTemplateSelected: "hide1",
       day: '',
     };
     this.handleDaySelection = this.handleDaySelection.bind(this);
+    this.hideDropDown = this.hideDropDown.bind(this);
+  }
+
+  hideDropDown (e) {
+    if(this.state.dropDown === '') {
+    this.setState({
+      dropDown: 'hide',
+    })
+  } else {
+    this.setState({
+      dropDown: '',
+    })
+  }
+    setTimeout(() => console.log(this.state.dropDown), 2000);
   }
 
   handleDaySelection(e) {
     var thisBind = this;
     e.preventDefault();
     newDay = e.target.value;
-    console.log(newDay);
+
+    console.log('state:', this.state);
+
     if (newDay === "Custom Workout") {
       thisBind.setState({
         day1Selected: "hide",
@@ -45,7 +63,7 @@ class newworkout extends Component {
   render() {
     return (
       <div className="block">
-        <div className="field selector">
+        <div id={this.state.dropDown} className="field selector">
           <p className="control">
             <span className="select">
               <select
@@ -61,10 +79,10 @@ class newworkout extends Component {
         </div>
 
         <div id={this.state.day1Selected}>
-          <Day1 name={this.props.location.state.name} day={this.state.day}/>
+          <Day1 name={this.props.location.state.name} day={this.state.day} hideDropDown={this.hideDropDown} hideNav={this.props.location.state.hideNav}/>
         </div>
         <div id={this.state.emptyTemplateSelected}>
-          <EmptyTemplate name={this.props.location.state.name} day={this.state.day}/>
+          <EmptyTemplate name={this.props.location.state.name} day={this.state.day} hideDropDown={this.hideDropDown} hideNav={this.props.location.state.hideNav}/>
         </div>
 
       </div>
