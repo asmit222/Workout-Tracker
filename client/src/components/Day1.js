@@ -249,7 +249,7 @@ class Day1 extends Component {
     ]}`
   )
   .then((response) => {
-    console.log('workout sent!')
+    console.log('workout sent for Day1!')
   }, (error) => {
     alert(error);
   });

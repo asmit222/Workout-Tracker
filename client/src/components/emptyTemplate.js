@@ -369,7 +369,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     ]}`
   )
   .then((response) => {
-    console.log('workout sent!')
+    console.log('workout sent for Empty Template!')
   }, (error) => {
     alert(error);
   });
