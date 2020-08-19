@@ -466,11 +466,6 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
         <div className="block">
           <form autocomplete="off">
 
-            <DatePicker
-        selected={this.state.workoutDate}
-        onChange={this.handleChangeDatePicker}
-      />
-
             <table className="margin content is-small table is-bordered is-striped">
               <thead id="workoutheader">
                 <tr>
@@ -861,6 +856,10 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
                 </tr>
               </tbody>
             </table>
+            <DatePicker
+        selected={this.state.workoutDate}
+        onChange={this.handleChangeDatePicker}
+      />
 
             <form>
               <div className="field">

@@ -10,6 +10,7 @@ password: 'acec938e',
 port: 3306
 });
 
+
 // const connection = mariadb.createConnection(mariadbConfig.config);
 
 const saveWorkout = function(data, callback) {
@@ -57,8 +58,6 @@ const saveWorkout = function(data, callback) {
 };
 
 const getWorkouts = function (data, callback) {
-
-
 
 mariadbConfig.pool.getConnection(function(err, conn) {
   if(err) {
