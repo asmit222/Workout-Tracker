@@ -398,7 +398,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     e.preventDefault();
 
     confirmAlert({
-      title: 'Are you sure?',
+      title: 'Submit workout?',
       buttons: [
         {
           label: 'Submit',

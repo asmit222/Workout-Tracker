@@ -42,7 +42,11 @@ app.post('/getWorkouts', function (req, res) {
   console.log('get workouts - request received');
   res.status(200);
   db.getWorkouts(JSON.stringify(req.body), function (data) {
-    res.json(data);
+    if(data) {
+      res.json(data);
+    } else {
+      console.log('error');
+    }
   })
 });
 

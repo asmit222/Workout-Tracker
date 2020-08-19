@@ -278,7 +278,7 @@ class Day1 extends Component {
 
 
     confirmAlert({
-      title: 'Are you sure?',
+      title: 'Submit workout?',
       buttons: [
         {
           label: 'Submit',

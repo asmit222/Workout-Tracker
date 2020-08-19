@@ -60,7 +60,6 @@ this.handleHideNav = this.handleHideNav.bind(this);
   handleSubmitLogin (e) {
     var thisBind = this;
     e.preventDefault();
-    console.log(this.state.loginName.toUpperCase(), this.state.loginPass);
 
     if (this.state.loginName.toUpperCase() === 'AUSTIN' && this.state.loginPass === 'pw') {
       this.setState({

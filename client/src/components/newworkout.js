@@ -29,7 +29,6 @@ class newworkout extends Component {
       dropDown: '',
     })
   }
-    setTimeout(() => console.log(this.state.dropDown), 2000);
   }
 
   handleDaySelection(e) {
@@ -37,7 +36,6 @@ class newworkout extends Component {
     e.preventDefault();
     newDay = e.target.value;
 
-    console.log('state:', this.state);
 
     if (newDay === "Custom Workout") {
       thisBind.setState({
