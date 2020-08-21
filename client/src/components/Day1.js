@@ -355,7 +355,7 @@ class Day1 extends Component {
 
 
 
-            <table className="margin content is-small table is-bordered">
+            <table id='customTable' className="margin content is-small table is-bordered">
               <thead id="workoutheader">
                 <tr>
                   <th>Workout</th>

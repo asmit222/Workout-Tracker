@@ -490,7 +490,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
       </form>
     </div>
 
-            <table className="margin content is-small table is-bordered is-striped">
+            <table id='customTable' className="margin content is-small table is-bordered is-striped">
               <thead id="workoutheader">
                 <tr>
                   <th>Workout</th>
