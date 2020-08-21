@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Previousworkouts from "./previousworkouts";
 import Day1 from "./Day1";
 import EmptyTemplate from "./emptyTemplate";
+import axios from 'axios';
 
 
 var newDay;
@@ -10,6 +11,7 @@ class newworkout extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      templates: [],
       dropDown: '',
       day1Selected: "hide",
       emptyTemplateSelected: "hide1",
@@ -18,6 +20,26 @@ class newworkout extends Component {
     this.handleDaySelection = this.handleDaySelection.bind(this);
     this.hideDropDown = this.hideDropDown.bind(this);
   }
+
+componentDidMount() {
+var thisBind = this;
+
+  axios.post('/getTemplates',
+      `${[thisBind.props.location.state.name]}`
+    )
+    .then((response) => {
+      response.data.reverse();
+
+      thisBind.setState({
+             templates: response.data,
+            })
+    }, (error) => {
+      alert(error);
+    });
+
+setTimeout(() => console.log(this.state.templates), 2000);
+
+}
 
   hideDropDown (e) {
     if(this.state.dropDown === '') {

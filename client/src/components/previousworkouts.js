@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import App from "../../App";
-import $ from 'jquery';
 import axios from 'axios';
 
 class Previousworkouts extends Component {

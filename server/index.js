@@ -67,4 +67,18 @@ app.post('/test', function (req, res) {
     res.send('done')
     });
 
+    app.post('/getTemplates', function (req, res) {
+
+      res.status(200);
+
+      db.getTemplates(JSON.stringify(req.body), function (data) {
+        if(data) {
+          res.json(data);
+        } else {
+          console.log('error');
+        }
+      })
+
+      });
+
 

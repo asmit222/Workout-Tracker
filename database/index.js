@@ -96,24 +96,48 @@ var workout7 = [dataSplit[18], dataSplit[19], dataSplit[20]];
 var name = dataSplit[22];
 var workoutName = JSON.stringify(dataSplit[24].slice(0, dataSplit[24].length - 5));
 
-console.log(name, workoutName);
 
+var sql = `INSERT INTO templates VALUES ('${name}', '${workoutName}', '${workout1}', '${workout2}', '${workout3}', '${workout4}', '${workout5}', '${workout6}', '${workout7}');`;
 
-      // var name = data.slice(2, data.length - 5);
-      // var sql = `select * from workout1 where name = '${name.toUpperCase()}'`;
-      // conn.query(sql, function(err, results) {
-      //   conn.release();
-      //   if (err) {
-      //    console.log('error ! ! !: ', err);
-      //   } else {
-      //     console.log('connected!!!!')
-      //     callback(results);
-      //   }
-      // });
+conn.query(sql, function(err, results) {
+  conn.release();
+  if (err) {
+   console.log('error!: ', err);
+  } else {
+    console.log('template saved!');
+  }
+
+});
 
     }
   })
 
+
+
+}
+
+const getTemplates = function(data, callback) {
+
+mariadbConfig.pool.getConnection(function(err, conn) {
+  if(err) {
+    conn.release();
+    console.log(err);
+  } else {
+
+    var name = data.slice(2, data.length - 5);
+    var sql = `select * from templates where name = '${name.toUpperCase()}'`;
+    conn.query(sql, function(err, results) {
+      conn.release();
+      if (err) {
+       console.log('error ! ! !: ', err);
+      } else {
+        console.log('connected!!!!')
+        callback(results);
+      }
+    });
+
+  }
+})
 
 
 }
@@ -149,4 +173,5 @@ console.log(name, workoutName);
 module.exports.saveWorkout = saveWorkout;
 module.exports.getWorkouts = getWorkouts;
 module.exports.addTemplate = addTemplate;
+module.exports.getTemplates = getTemplates;
 
