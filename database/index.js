@@ -2,15 +2,6 @@ const mariadb = require("mariadb/callback");
 const mariadbConfig = require("./config.js");
 const { Pool } = require('pg');
 
-const pool = new Pool({
-  user: 'b2f7b55503f0b9',
-host: 'us-cdbr-east-02.cleardb.com',
-database: 'heroku_1234d80025b881f',
-password: 'acec938e',
-port: 3306
-});
-
-
 // const connection = mariadb.createConnection(mariadbConfig.config);
 
 const saveWorkout = function(data, callback) {

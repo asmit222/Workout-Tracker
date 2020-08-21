@@ -302,9 +302,10 @@ class Day1 extends Component {
               [this.state.notes],
               this.props.name,
               this.props.day,
+              'Austins Day 1',
             ];
 
-           for (var i = 0; i < arr.length - 2; i++) {
+           for (var i = 0; i < arr.length - 3; i++) {
              for (var j = 0; j < arr[i].length; j++) {
                if(typeof arr[i][j] === 'string') {
                  var modified = arr[i][j];
