@@ -36,7 +36,7 @@ const saveWorkout = function(data, callback) {
 
       var name = dataSplit[51];
 
-      var day = JSON.stringify(dataSplit[52].slice(0, dataSplit[52].length - 5));
+      var day = JSON.stringify(dataSplit[53].slice(0, dataSplit[53].length - 5));
 
 
         var sql = `INSERT INTO workout1 VALUES ('${name}', '${day}', '${date}', '${workout1}', '${workout2}', '${workout3}', '${workout4}', '${workout5}', '${workout6}', '${workout7}', '${notes}');`;

@@ -21,6 +21,7 @@ class EmptyTemplate extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      workoutName: 'Custom',
       hideButtons: '',
       username: ' ',
       workout1: [" ", " ", " ", "   ", "   ", "   ", "   "],
@@ -42,6 +43,8 @@ class EmptyTemplate extends Component {
       workoutDate: new Date(),
       submitted: false,
     };
+this.handleChangeWorkoutName = this.handleChangeWorkoutName.bind(this);
+
     this.handleChangeDatePicker = this.handleChangeDatePicker.bind(this);
 
     this.handleDateChange = this.handleDateChange.bind(this);
@@ -126,6 +129,13 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
 
     this.handleHomeClick = this.handleHomeClick.bind(this);
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
+  }
+
+  handleChangeWorkoutName(e) {
+    e.preventDefault();
+    this.setState({
+      workoutName: e.target.value,
+    })
   }
 
   handleHomeClick () {
@@ -422,9 +432,10 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
               [this.state.notes],
               this.props.name,
               this.props.day,
+              this.state.workoutName,
             ];
 
-           for (var i = 0; i < arr.length - 2; i++) {
+           for (var i = 0; i < arr.length - 3; i++) {
              for (var j = 0; j < arr[i].length; j++) {
                if(typeof arr[i][j] === 'string') {
                  var modified = arr[i][j];
@@ -465,6 +476,19 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
         <Prompt when={true === true} message="Discard workout?" />
         <div className="block">
           <form autocomplete="off">
+
+          <div class="block nameYourWorkout">
+      <form>
+        <div class="field">
+          <input onChange={this.handleChangeWorkoutName} type="text" class="input" placeholder="Name your workout"></input>
+        </div>
+
+
+
+
+
+      </form>
+    </div>
 
             <table className="margin content is-small table is-bordered is-striped">
               <thead id="workoutheader">
