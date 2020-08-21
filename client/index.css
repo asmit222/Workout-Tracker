@@ -19,10 +19,6 @@
   height: 100vh;
 }
 
-.margin {
-  margin-top: 5px;
-}
-
 #workoutheader {
   background-color: rgb(170, 170, 170);
 }
@@ -122,4 +118,21 @@ table td {
 
 #customTable {
   min-height: 250px;
+  margin-top: -10px;
+}
+
+.newWorkoutButton {
+  width: 100%;
+}
+
+.homeButton {
+  min-width: 110px;
+}
+
+.templateName {
+  margin-top: 10px;
+}
+
+.createTemplateButton {
+  margin-left: 70%;
 }

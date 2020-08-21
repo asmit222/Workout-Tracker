@@ -59,3 +59,12 @@ app.post('/test', function (req, res) {
   db.saveWorkout(JSON.stringify(req.body), () => console.log('saved workout!'));
   res.send('done')
   });
+
+  app.post('/createTemplate', function (req, res) {
+    console.log('trying to save workout');
+    res.status(200);
+    db.addTemplate(JSON.stringify(req.body), () => console.log('added template!'));
+    res.send('done')
+    });
+
+

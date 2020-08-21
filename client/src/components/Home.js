@@ -1,15 +1,25 @@
 import React, { Component } from "react";
 import App from "../../App";
+import {
+  BrowserRouter as Router,
+  HashRouter,
+  Route,
+  Link,
+  Switch,
+} from "react-router-dom";
+import Previousworkouts from "./previousworkouts";
+import WorkoutTemplates from "./WorkoutTemplates";
 
 class Home extends Component {
   render() {
     return (
       <div className="bg-img">
-        <section class="hero">
-          <div class="hero-body">
-            <div class="container">
-              <h1 class="title"></h1>
-              <h2 class="subtitle"></h2>
+
+        <section className="hero">
+          <div className="hero-body">
+            <div className="container">
+              <h1 className="title"></h1>
+              <h2 className="subtitle"></h2>
             </div>
           </div>
         </section>

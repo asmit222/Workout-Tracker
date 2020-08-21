@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import newworkout from "./src/components/newworkout";
 import Previousworkouts from "./src/components/previousworkouts";
+import WorkoutTemplates from "./src/components/WorkoutTemplates";
 import Home from "./src/components/Home";
 import Login from "./Login";
 import $ from 'jquery';
@@ -93,6 +94,7 @@ this.handleHideNav = this.handleHideNav.bind(this);
   return (
     <div className="container">
       <HashRouter>
+
         <nav className="nav">
           <div className="nav-right nav-menu">
             <div className="nav-item">
@@ -102,23 +104,27 @@ this.handleHideNav = this.handleHideNav.bind(this);
   pathname: '/Home',
   state: {
     name: this.state.name,
+    hideNav: this.handleHideNav,
   }
 }}>
-                    <a id={this.state.hideNav} className="button marginbottom is-dark">
+                    <a id={this.state.hideNav} className="homeButton button marginbottom is-dark">
                       <span >Home</span>
                     </a>
                   </Link>
                 </p>
+
+
+
                 <p className="control">
                   <Link to={{
-  pathname: '/newworkout',
+  pathname: '/workoutTemplates',
   state: {
     name: this.state.name,
     hideNav: this.handleHideNav,
   }
 }}>
-                    <a id={this.state.hideNav} className="button marginbottom is-success">
-                      <span >New Workout</span>
+                    <a id={this.state.hideNav} className="button marginbottom workoutTemplatesButton is-warning">
+                      <span >Templates</span>
                     </a>
                   </Link>
                 </p>
@@ -127,6 +133,7 @@ this.handleHideNav = this.handleHideNav.bind(this);
   pathname: '/previousworkouts',
   state: {
     name: this.state.name,
+    hideNav: this.handleHideNav,
   }
 }}>
                     <a id={this.state.hideNav} className="button marginbottom is-info">
@@ -138,12 +145,31 @@ this.handleHideNav = this.handleHideNav.bind(this);
             </div>
           </div>
         </nav>
+
+        <p className="control">
+                  <Link to={{
+  pathname: '/newworkout',
+  state: {
+    name: this.state.name,
+    hideNav: this.handleHideNav,
+  }
+}}>
+                    <a  id={this.state.hideNav} className="button marginbottom newWorkoutButton is-success">
+                      <span >New Workout</span>
+                    </a>
+                  </Link>
+                </p>
+
         <div className="content">
         <Route exact path="/" component={Home} />
           <Route exact path="/Home" component={Home} />
           <Route path="/newworkout" component={newworkout} />
+          <Route path="/workoutTemplates" component={WorkoutTemplates} />
           <Route path="/previousworkouts" component={Previousworkouts} />
         </div>
+
+
+
       </HashRouter>
     </div>
    );

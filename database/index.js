@@ -73,6 +73,51 @@ mariadbConfig.pool.getConnection(function(err, conn) {
 
 }
 
+const addTemplate = function (data, callback) {
+
+
+
+
+  mariadbConfig.pool.getConnection(function(err, conn) {
+    if(err) {
+      conn.release();
+      console.log(err);
+    } else {
+var dataSplit = data.split(',');
+console.log(dataSplit);
+var workout1 = [dataSplit[0].slice(2), dataSplit[1], dataSplit[2]];
+var workout2 = [dataSplit[3], dataSplit[4], dataSplit[5]];
+var workout3 = [dataSplit[6], dataSplit[7], dataSplit[8]];
+var workout4 = [dataSplit[9], dataSplit[10], dataSplit[11]];
+var workout5 = [dataSplit[12], dataSplit[13], dataSplit[14]];
+var workout6 = [dataSplit[15], dataSplit[16], dataSplit[17]];
+var workout7 = [dataSplit[18], dataSplit[19], dataSplit[20]];
+
+var name = dataSplit[22];
+var workoutName = JSON.stringify(dataSplit[24].slice(0, dataSplit[24].length - 5));
+
+console.log(name, workoutName);
+
+
+      // var name = data.slice(2, data.length - 5);
+      // var sql = `select * from workout1 where name = '${name.toUpperCase()}'`;
+      // conn.query(sql, function(err, results) {
+      //   conn.release();
+      //   if (err) {
+      //    console.log('error ! ! !: ', err);
+      //   } else {
+      //     console.log('connected!!!!')
+      //     callback(results);
+      //   }
+      // });
+
+    }
+  })
+
+
+
+}
+
 // const checkUser = function (data, callback) {
 
 //   mariadbConfig.pool.getConnection(function(err, conn) {
@@ -103,4 +148,5 @@ mariadbConfig.pool.getConnection(function(err, conn) {
 // module.exports.checkUser = checkUser;
 module.exports.saveWorkout = saveWorkout;
 module.exports.getWorkouts = getWorkouts;
+module.exports.addTemplate = addTemplate;
 
