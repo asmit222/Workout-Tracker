@@ -155,10 +155,10 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
             `${[thisBind.props.location.state.name]}`
           )
           .then((response) => {
+            console.log(response.data)
             response.data.reverse();
 
             thisBind.setState({
-              name: response.data[0].name.toUpperCase(),
                    templates: response.data,
                   })
           }, (error) => {
@@ -887,7 +887,7 @@ handleSubmitWorkout(e) {
 
       } else {
         return <div className="block">
-        <section className="hero is-warning">
+        <section className="hero is-danger">
         <button value={template.templateName} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></button>
 
           <div className="hero-body heroBody">
