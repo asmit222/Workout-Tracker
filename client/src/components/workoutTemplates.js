@@ -21,6 +21,7 @@ class WorkoutTemplates extends Component {
   constructor(props) {
     super (props);
     this.state = {
+      templates: [{'templateName': 'one'}, {'templateName': 'two'}],
       workoutName: 'Custom',
       hideButtons: '',
       username: ' ',
@@ -409,6 +410,29 @@ handleChangeDatePicker = date => {
   });
 };
 
+componentDidMount() {
+  var thisBind = this;
+
+  if (this.props.location.state !== undefined){
+    axios.post('/getTemplates',
+        `${[thisBind.props.location.state.name]}`
+      )
+      .then((response) => {
+        response.data.reverse();
+
+        thisBind.setState({
+               templates: response.data,
+              })
+      }, (error) => {
+        alert(error);
+      });
+    } else {
+      this.props.history.push('/Home')
+    }
+  setTimeout(() => console.log('temps: ', this.state.templates), 2000);
+
+  }
+
 handleSubmitWorkout(e) {
   var thisBind = this;
   e.preventDefault();
@@ -475,6 +499,80 @@ handleSubmitWorkout(e) {
 }
 
   render() {
+    const templates = this.state.templates.map((template, index) => {
+      if(index === 1) {
+        return <div className="block">
+        <section className="hero is-danger">
+          <div className="hero-body">
+            <div className="container">
+              <h1 className="title">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
+            </div>
+          </div>
+        </section>
+      </div>
+      }
+      if(index % 2 === 0 && index !== 0) {
+        return <div className="block">
+        <section className="hero is-primary">
+          <div className="hero-body">
+            <div className="container">
+              <h1 className="title">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
+            </div>
+          </div>
+        </section>
+      </div>
+      }
+      if(index % 3 === 0 && index!== 0) {
+        return <div className="block">
+        <section className="hero is-success">
+          <div className="hero-body">
+            <div className="container">
+              <h1 className="title">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
+            </div>
+          </div>
+        </section>
+      </div>
+      }
+      if(index % 4 === 0 && index!== 0) {
+        return <div className="block">
+        <section className="hero is-danger">
+          <div className="hero-body">
+            <div className="container">
+              <h1 className="title">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
+            </div>
+          </div>
+        </section>
+      </div>
+      }
+      if(index % 5 === 0 && index!== 0) {
+        return <div className="block">
+        <section className="hero is-info">
+          <div className="hero-body">
+            <div className="container">
+              <h1 className="title">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
+            </div>
+          </div>
+        </section>
+      </div>
+      } else {
+        return <div className="block">
+        <section className="hero is-warning">
+          <div className="hero-body">
+            <div className="container">
+              <h1 className="title">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
+            </div>
+          </div>
+        </section>
+      </div>
+      }
+
+
+
+
+    })
+
+
+
 if(this.state.clicked === false) {
     return (
       <div className='block'>
@@ -485,11 +583,6 @@ if(this.state.clicked === false) {
       <div className="field is-grouped">
       <p className="control">
 
-      <div className='buttonContainer '>
-            <button  onClick={this.handleClickCreateTemplate} id='loginButton' className="is-rounded button marginbottom createTemplateButton newWorkoutButton button is-dark is-large">
-              <span >Create Template</span>
-            </button>
-      </div>
 
         </p>
 
@@ -498,6 +591,31 @@ if(this.state.clicked === false) {
   </div>
 </nav>
 
+<div className="block">
+
+<div id='createTemplateButton1' className='buttonContainer'>
+            <button  onClick={this.handleClickCreateTemplate} id='loginButton' className="is-outlined is-rounded button marginbottom createTemplateButton  newWorkoutButton button is-dark">
+              <span >+</span>
+            </button>
+      </div>
+
+{templates}
+
+
+{/* <div>
+
+<section className="hero">
+  <div className="hero-body">
+    <div className="container">
+      <span className='span1'></span>
+      <h1 className="title">h1</h1>
+      <h2 className="subtitle">h2</h2>
+    </div>
+  </div>
+</section>
+</div> */}
+
+      </div>
       </div>
     );
   } else {

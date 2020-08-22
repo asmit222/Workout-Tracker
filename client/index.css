@@ -130,7 +130,9 @@ table td {
 }
 
 .createTemplateButton {
+  font-size: large;
   margin-left: 70%;
+  width: 6%;
 }
 
 #notesForm {
@@ -196,4 +198,11 @@ table td {
 
 .margin5 {
   margin-bottom: 5px;
+}
+
+#createTemplateButton1 {
+  margin: 0;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-right: 42%;
 }
