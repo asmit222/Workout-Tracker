@@ -21,7 +21,7 @@ class WorkoutTemplates extends Component {
   constructor(props) {
     super (props);
     this.state = {
-      templates: [{'templateName': 'one'}, {'templateName': 'two'}],
+      templates: [{'templateName': ''}, {'templateName': ''}],
       workoutName: 'Custom',
       hideButtons: '',
       username: ' ',
@@ -488,6 +488,7 @@ handleSubmitWorkout(e) {
         }, (error) => {
           alert(error);
         });
+        thisBind.props.history.push('/Home');
         }
       },
       {
@@ -500,6 +501,7 @@ handleSubmitWorkout(e) {
 
   render() {
     const templates = this.state.templates.map((template, index) => {
+      if(template.templateName.length > 0) {
       if(index === 1) {
         return <div className="block">
         <section className="hero is-danger">
@@ -566,7 +568,7 @@ handleSubmitWorkout(e) {
       </div>
       }
 
-
+    }
 
 
     })

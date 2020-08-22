@@ -496,6 +496,7 @@ for (var j = 0; j < arr[1][6].length; j++) {
           }, (error) => {
             alert(error);
           });
+
           }
         },
         {
