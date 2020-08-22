@@ -2,15 +2,19 @@ const mariadb = require("mariadb/callback");
 const mariadbConfig = require("./config.js");
 const { Pool } = require('pg');
 
-// const connection = mariadb.createConnection(mariadbConfig.config);
+const connection = mariadb.createConnection({
+  host     : 'database-1.cscmgcicurmq.us-east-1.rds.amazonaws.com',
+  user     : 'root',
+  password : 'samaung1',
+  database : 'test',
+});
 
 const saveWorkout = function(data, callback) {
 
-
-  mariadbConfig.pool.getConnection(function(err, conn) {
+  connection.connect((err) => {
     if(err) {
-      conn.release();
-      console.log(err);
+      console.log('error connecting to database: ', err);
+      return;
     } else {
 
       var dataSplit = data.split(',');
@@ -32,12 +36,13 @@ const saveWorkout = function(data, callback) {
 
         var sql = `INSERT INTO workout1 VALUES ('${name}', '${day}', '${date}', '${workout1}', '${workout2}', '${workout3}', '${workout4}', '${workout5}', '${workout6}', '${workout7}', '${notes}');`;
 
-        conn.query(sql, function(err, results) {
-          conn.release();
+        connection.query(sql, function(err, results) {
+
           if (err) {
-           console.log('error!: ', err);
+            console.log('error querying database: ', err);
           } else {
             console.log('workout saved!');
+            // connection.end();
           }
 
         });
@@ -50,41 +55,57 @@ const saveWorkout = function(data, callback) {
 
 const getWorkouts = function (data, callback) {
 
-mariadbConfig.pool.getConnection(function(err, conn) {
-  if(err) {
-    conn.release();
-    console.log(err);
-  } else {
-
+  connection.connect((err) => {
+    if(err) {
+      console.log('error connecting to database: ', err);
+      return;
+    }
+    console.log('connection established');
     var name = data.slice(2, data.length - 5);
-    var sql = `select * from workout1 where name = '${name.toUpperCase()}'`;
-    conn.query(sql, function(err, results) {
-      conn.release();
-      if (err) {
-       console.log('error ! ! !: ', err);
-      } else {
-        console.log('connected!!!!')
-        callback(results);
-      }
-    });
+        var sql = `select * from workout1 where name = '${name.toUpperCase()}'`;
+        connection.query(sql, function(err, results) {
+          if (err) {
+           console.log('error querying database: ', err);
+          } else {
+            callback(results);
+            // connection.end();
+          }
+        });
 
-  }
-})
+  })
+
+
+
+// mariadbConfig.pool.getConnection(function(err, conn) {
+//   if(err) {
+//     console.log(err);
+//     process.exit();
+//   } else {
+
+//     var name = data.slice(2, data.length - 5);
+//     var sql = `select * from workout1 where name = '${name.toUpperCase()}'`;
+//     conn.query(sql, function(err, results) {
+//       if (err) {
+//        console.log('error ! ! !: ', err);
+//       } else {
+//         console.log('connected!!!!')
+//         callback(results);
+//       }
+//     });
+
+//   }
+// })
 
 }
 
 const addTemplate = function (data, callback) {
 
-
-
-
-  mariadbConfig.pool.getConnection(function(err, conn) {
+  connection.connect((err) => {
     if(err) {
-      conn.release();
-      console.log(err);
+      console.log('error connecting to database: ', err);
+      return;
     } else {
 var dataSplit = data.split(',');
-console.log(dataSplit);
 var workout1 = [dataSplit[0].slice(2), dataSplit[1], dataSplit[2]];
 var workout2 = [dataSplit[3], dataSplit[4], dataSplit[5]];
 var workout3 = [dataSplit[6], dataSplit[7], dataSplit[8]];
@@ -99,12 +120,12 @@ var workoutName = JSON.stringify(dataSplit[24].slice(0, dataSplit[24].length - 5
 
 var sql = `INSERT INTO templates VALUES ('${name}', '${workoutName}', '${workout1}', '${workout2}', '${workout3}', '${workout4}', '${workout5}', '${workout6}', '${workout7}');`;
 
-conn.query(sql, function(err, results) {
-  conn.release();
+connection.query(sql, function(err, results) {
   if (err) {
-   console.log('error!: ', err);
+    console.log('error querying database: ', err);
   } else {
     console.log('template saved!');
+    // connection.end();
   }
 
 });
@@ -112,27 +133,24 @@ conn.query(sql, function(err, results) {
     }
   })
 
-
-
 }
 
 const getTemplates = function(data, callback) {
 
-mariadbConfig.pool.getConnection(function(err, conn) {
+connection.connect((err) => {
   if(err) {
-    conn.release();
-    console.log(err);
+    console.log('error connecting to database: ', err);
+      return;
   } else {
 
     var name = data.slice(2, data.length - 5);
     var sql = `select * from templates where name = '${name.toUpperCase()}'`;
-    conn.query(sql, function(err, results) {
-      conn.release();
+    connection.query(sql, function(err, results) {
       if (err) {
        console.log('error ! ! !: ', err);
       } else {
-        console.log('connected!!!!')
         callback(results);
+        // connection.end();
       }
     });
 
@@ -146,7 +164,6 @@ mariadbConfig.pool.getConnection(function(err, conn) {
 
 //   mariadbConfig.pool.getConnection(function(err, conn) {
 //     if(err) {
-//       conn.release();
 //       console.log(err);
 //     } else {
 

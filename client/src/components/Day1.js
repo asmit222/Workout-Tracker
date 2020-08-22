@@ -356,7 +356,7 @@ class Day1 extends Component {
 
 
 
-            <table id='customTable' className="margin content is-small table is-bordered">
+            <table id='customTable' className="content is-small table is-bordered">
               <thead id="workoutheader">
                 <tr>
                   <th>Workout</th>
@@ -652,13 +652,13 @@ class Day1 extends Component {
               </tbody>
             </table>
 
-            <DatePicker className='datePicker'
+            <DatePicker id='datePickerRectangle'
         selected={this.state.workoutDate}
         onChange={this.handleChangeDatePicker}
       />
 
 
-            <form>
+            <form id='notesForm'>
               <div className="field">
                 <label className="label">Notes</label>
                 <p className="control">

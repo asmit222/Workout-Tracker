@@ -11,7 +11,7 @@ class newworkout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      templates: [],
+      templates: [{'templateName': 'one'}, {'templateName': 'two'}],
       dropDown: '',
       day1Selected: "hide",
       emptyTemplateSelected: "hide1",
@@ -93,6 +93,12 @@ setTimeout(() => console.log(this.state.templates), 2000);
                 <option>Select a workout</option>
                 <option>Austin's Day 1</option>
                 <option>Custom Workout</option>
+{/* <div>
+                {this.state.templates.map((template) => (
+        <option>{template.templateName}</option>
+    ))}
+    </div> */}
+
               </select>
             </span>
           </p>

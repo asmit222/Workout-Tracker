@@ -477,10 +477,10 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
         <div className="block">
           <form autocomplete="off">
 
-          <div class="block nameYourWorkout">
+          <div className="block nameYourWorkout">
       <form>
-        <div class="field">
-          <input onChange={this.handleChangeWorkoutName} type="text" class="input" placeholder="Name your workout"></input>
+        <div className="field">
+          <input onChange={this.handleChangeWorkoutName} type="text" className="input" placeholder="Name your workout"></input>
         </div>
 
 
@@ -490,7 +490,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
       </form>
     </div>
 
-            <table id='customTable' className="margin content is-small table is-bordered is-striped">
+            <table id='customTable' className="content is-small table is-bordered">
               <thead id="workoutheader">
                 <tr>
                   <th>Workout</th>
@@ -880,12 +880,12 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
                 </tr>
               </tbody>
             </table>
-            <DatePicker
+            <DatePicker id='datePickerRectangle'
         selected={this.state.workoutDate}
         onChange={this.handleChangeDatePicker}
       />
 
-            <form>
+            <form id='notesForm'>
               <div className="field">
                 <label className="label">Notes</label>
                 <p className="control">
