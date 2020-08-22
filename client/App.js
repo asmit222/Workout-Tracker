@@ -12,13 +12,14 @@ import Previousworkouts from "./src/components/previousworkouts";
 import WorkoutTemplates from "./src/components/workoutTemplates";
 import Home from "./src/components/Home";
 import Login from "./Login";
-import $ from 'jquery';
+import axios from 'axios';
 
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      creatingAccount: false,
       hideNav: '',
       loginName: '',
       loginPass: '',
@@ -28,7 +29,10 @@ this.handleChangeLogin1 = this.handleChangeLogin1.bind(this);
 this.handleChangeLogin2 = this.handleChangeLogin2.bind(this);
 this.handleSubmitLogin = this.handleSubmitLogin.bind(this);
 this.handleHideNav = this.handleHideNav.bind(this);
+
+this.handleSubmitCreateAccount = this.handleSubmitCreateAccount.bind(this);
   }
+
 
   handleHideNav () {
     if(this.state.hideNav === '') {
@@ -62,34 +66,66 @@ this.handleHideNav = this.handleHideNav.bind(this);
     var thisBind = this;
     e.preventDefault();
 
-    if (this.state.loginName.toUpperCase() === 'AUSTIN' && this.state.loginPass === 'pw') {
-      this.setState({
-        name: 'AUSTIN',
-      })
-    } else if (this.state.loginName.toUpperCase() === 'NATALIE' && this.state.loginPass === 'godnr17247') {
-      this.setState({
-        name: 'NATALIE',
-      })
-    } else if (this.state.loginName.toUpperCase() === 'BLAKE' && this.state.loginPass === 'password') {
-      this.setState({
-        name: 'BLAKE',
-      })
-    } else if (this.state.loginName.toUpperCase() === 'JOSH' && this.state.loginPass === 'password') {
-      this.setState({
-        name: 'JOSH',
-      })
-    } else  if (this.state.loginName.toUpperCase() === 'MICAH' && this.state.loginPass === 'password') {
-      this.setState({
-        name: 'MICAH',
-      })
-    } else {
-      alert('invalid username or password');
-    }
-
-
+    axios.post('/attemptLogin',
+    `${[thisBind.state.loginName, thisBind.state.loginPass]}`
+  )
+  .then((res) => {
+if(res.data.length > 0) {
+  thisBind.setState({
+    name: thisBind.state.loginName,
+  })
+} else {
+  alert('invalid username or password');
+}
+  }, (error) => {
+    alert(error);
+  });
   }
 
+  handleSubmitCreateAccount(e) {
+    var thisBind = this;
+    e.preventDefault();
+
+if(this.state.loginPass.length < 3) {
+  alert('Please choose a password that is at least 3 characters long');
+} else {
+
+    axios.post('/createAccount',
+    `${[thisBind.state.loginName, thisBind.state.loginPass]}`
+  )
+  .then((res) => {
+if (res.data === '0') {
+  if(thisBind.state.loginName === '') {
+alert('Please enter a username and password')
+  } else {
+    alert('Username is taken');
+  }
+}
+if(typeof res.data === 'object') {
+  console.log('account created, logging in')
+  thisBind.setState({
+    creatingAccount: true,
+  })
+
+  setTimeout(() => {
+    thisBind.setState({
+      name: thisBind.state.loginName,
+      creatingAccount: false,
+    })
+  }, 2000);
+
+
+
+
+}
+  }, (error) => {
+    alert(error);
+  });
+  }
+}
+
   render() {
+    if (this.state.creatingAccount === false) {
     if (this.state.name.length > 0) {
   return (
     <div className="container">
@@ -184,15 +220,41 @@ this.handleHideNav = this.handleHideNav.bind(this);
             Log in
           </button>
           </div>
+          <div className='or'>or</div>
+
+          <div className='buttonContainer2'>
+      <button onClick={this.handleSubmitCreateAccount}
+            href=""
+            className="margin button is-dark"
+          >
+            Create Account
+          </button>
+          </div>
+
   <form id='loginForm'>
       <div className="field control">
         <input type="text" onChange={this.handleChangeLogin1} className="input is-medium loginInput" placeholder="Name"></input>
         <input type="password" onChange={this.handleChangeLogin2} className="input is-medium loginInput" placeholder="Password"></input>
       </div>
     </form>
+
+
+
     </div>
     )
   }
+} else {
+  return (
+    <React.Fragment>
+    <div className='meterContainer'>
+    <div className="meter">
+    <span className="progress"></span>
+</div>
+</div>
+<div className='creatingAccountWords'>Creating Account...</div>
+</React.Fragment>
+  )
+}
  }
 }
 

@@ -60,25 +60,47 @@ app.post('/test', function (req, res) {
   res.send('done')
   });
 
-  app.post('/createTemplate', function (req, res) {
-    console.log('trying to save workout');
+app.post('/createTemplate', function (req, res) {
+  console.log('trying to save workout');
+  res.status(200);
+  db.addTemplate(JSON.stringify(req.body), () => console.log('added template!'));
+  res.send('done')
+  });
+
+app.post('/getTemplates', function (req, res) {
+
+  res.status(200);
+
+  db.getTemplates(JSON.stringify(req.body), function (data) {
+    if(data) {
+      res.json(data);
+    } else {
+      console.log('error');
+    }
+  })
+
+  });
+
+app.post('/createAccount', function (req, res) {
+  res.status(200);
+  db.createAccount(JSON.stringify(req.body), function (data) {
+    if(data) {
+      res.json(data);
+    } else {
+      console.log('error');
+    }
+  })
+  });
+
+  app.post('/attemptLogin', function (req, res) {
     res.status(200);
-    db.addTemplate(JSON.stringify(req.body), () => console.log('added template!'));
-    res.send('done')
+    db.attemptLogin(JSON.stringify(req.body), function (data) {
+      if(data) {
+        res.json(data);
+      } else {
+        console.log('error');
+      }
+    })
     });
-
-    app.post('/getTemplates', function (req, res) {
-
-      res.status(200);
-
-      db.getTemplates(JSON.stringify(req.body), function (data) {
-        if(data) {
-          res.json(data);
-        } else {
-          console.log('error');
-        }
-      })
-
-      });
 
 

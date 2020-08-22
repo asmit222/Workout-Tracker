@@ -932,7 +932,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
    name: this.props.name,
  }
 }}>
-   <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="afterSubmitButtons afterSubmissionHomeButton button margin is-dark is-large ">
+   <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="afterSubmitButtons afterSubmissionHomeButton button margin5 is-dark is-large ">
      <span>Home</span>
    </a>
  </Link>
@@ -943,7 +943,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
    name: this.props.name,
  }
 }}>
-   <a id={this.state.hideButtons} onClick={this.handlePreviousClick} className="afterSubmitButtons button margin is-info is-large ">
+   <a id={this.state.hideButtons} onClick={this.handlePreviousClick} className="afterSubmitButtons button margin5 is-info is-large ">
      <span>Workout History</span>
    </a>
  </Link>
@@ -956,7 +956,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
    name: this.props.name,
  }
 }}>
-   <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="afterSubmitButtons button margin is-warning is-large ">
+   <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="afterSubmitButtons button margin5 is-warning is-large ">
      <span>New Workout</span>
    </a>
  </Link>

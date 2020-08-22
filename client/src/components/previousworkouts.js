@@ -129,7 +129,6 @@ class Previousworkouts extends Component {
 {workout.notes}
           </div>
         </article>
-
       </div>
 ))}
       </div>

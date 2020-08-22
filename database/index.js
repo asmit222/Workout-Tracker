@@ -156,9 +156,75 @@ connection.connect((err) => {
 
   }
 })
-
-
 }
+
+const createAccount = function(data, callback) {
+
+  connection.connect((err) => {
+    if(err) {
+      console.log('error connecting to database: ', err);
+        return;
+    } else {
+      const dataSplit = data.split(',')
+      var name = dataSplit[0].slice(2).toUpperCase();
+      var password = dataSplit[1].slice(0, dataSplit[1].length - 5);
+
+      var sql = `select * from usersAndPasses where name = '${name}'`;
+      connection.query(sql, function(err, results) {
+        if (err) {
+         console.log('error ! ! !: ', err);
+        } else {
+          if (results.length === 0) {
+
+            var sql = `insert into usersAndPasses values ('${name}', '${password}')`
+            connection.query(sql, function(err, results) {
+              if (err) {
+               console.log('error ! ! !: ', err);
+              } else {
+                callback(results);
+                }
+              }
+            );
+
+          } else {
+            callback('0');
+          }
+        }
+      });
+
+  }
+  })
+
+
+  }
+
+
+  const attemptLogin = function(data, callback) {
+
+    connection.connect((err) => {
+      if(err) {
+        console.log('error connecting to database: ', err);
+          return;
+      } else {
+        const dataSplit = data.split(',')
+        var name = dataSplit[0].slice(2).toUpperCase();
+        var password = dataSplit[1].slice(0, dataSplit[1].length - 5);
+
+        var sql = `select * from usersAndPasses where name = '${name}' and password = '${password}';`
+        connection.query(sql, function(err, res) {
+          if (err) {
+           console.log('error ! ! !: ', err);
+          } else {
+            callback(res);
+            }
+          });
+
+
+    }
+    })
+
+
+    }
 
 // const checkUser = function (data, callback) {
 
@@ -191,4 +257,6 @@ module.exports.saveWorkout = saveWorkout;
 module.exports.getWorkouts = getWorkouts;
 module.exports.addTemplate = addTemplate;
 module.exports.getTemplates = getTemplates;
+module.exports.createAccount = createAccount;
+module.exports.attemptLogin = attemptLogin;
 
