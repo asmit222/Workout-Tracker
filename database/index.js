@@ -118,7 +118,7 @@ var name = dataSplit[22];
 var workoutName = JSON.stringify(dataSplit[24].slice(0, dataSplit[24].length - 5));
 
 
-var sql = `INSERT INTO templates VALUES ('${name}', '${workoutName}', '${workout1}', '${workout2}', '${workout3}', '${workout4}', '${workout5}', '${workout6}', '${workout7}');`;
+var sql = `INSERT INTO templates VALUES ('${name.toUpperCase()}', '${workoutName}', '${workout1}', '${workout2}', '${workout3}', '${workout4}', '${workout5}', '${workout6}', '${workout7}');`;
 
 connection.query(sql, function(err, results) {
   if (err) {
@@ -226,6 +226,35 @@ const createAccount = function(data, callback) {
 
     }
 
+    const deleteTemplate = function(data, callback) {
+var dataSplit = JSON.stringify(data).split(',');
+
+      connection.connect((err) => {
+        if(err) {
+          console.log('error connecting to database: ', err);
+            return;
+        } else {
+
+
+console.log(dataSplit);
+const name = dataSplit[1].slice(0, dataSplit[1].length - 5);
+const template = dataSplit[0].slice(4, dataSplit[0].length - 2);
+console.log(name, template)
+
+
+          var sql = `delete from templates where templateName = '${JSON.stringify(template)}' and name = '${name}';`
+          connection.query(sql, function(err, res) {
+            if (err) {
+             console.log('error ! ! !: ', err);
+            } else {
+              callback(res);
+              }
+            });
+      }
+      })
+
+    }
+
 // const checkUser = function (data, callback) {
 
 //   mariadbConfig.pool.getConnection(function(err, conn) {
@@ -259,4 +288,5 @@ module.exports.addTemplate = addTemplate;
 module.exports.getTemplates = getTemplates;
 module.exports.createAccount = createAccount;
 module.exports.attemptLogin = attemptLogin;
+module.exports.deleteTemplate = deleteTemplate;
 

@@ -157,6 +157,7 @@ setTimeout(() => console.log(this.state.templates), 2000);
           <EmptyTemplate name={this.props.location.state !== undefined ? this.props.location.state.name : null} day={this.state.day} hideDropDown={this.hideDropDown} hideNav={this.props.location.state !== undefined ? this.props.location.state.hideNav : null}/>
         </div>
 
+
       </div>
     );
   }

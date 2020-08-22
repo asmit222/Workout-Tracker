@@ -104,3 +104,16 @@ app.post('/createAccount', function (req, res) {
     });
 
 
+    app.post('/deleteTemplate', function (req, res) {
+      res.status(200);
+      db.deleteTemplate(req.body, function (data) {
+        if(data) {
+          // console.log(data)
+          res.json(data);
+        } else {
+          console.log('error');
+        }
+      })
+      });
+
+

@@ -21,6 +21,7 @@ class WorkoutTemplates extends Component {
   constructor(props) {
     super (props);
     this.state = {
+      name: '',
       templates: [{'templateName': ''}, {'templateName': ''}],
       workoutName: 'Custom',
       hideButtons: '',
@@ -41,6 +42,8 @@ class WorkoutTemplates extends Component {
       submitted: false,
 clicked: false,
     }
+this.handleDeleteClick = this.handleDeleteClick.bind(this);
+
     this.handleClickCreateTemplate = this.handleClickCreateTemplate.bind(this);
     this.handleChangeWorkoutName = this.handleChangeWorkoutName.bind(this);
 
@@ -129,6 +132,57 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     this.handleHomeClick = this.handleHomeClick.bind(this);
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
   }
+
+  handleDeleteClick(e) {
+    e.preventDefault();
+    const thisBind = this;
+    const value = e.target.value;
+
+    confirmAlert({
+      title: 'Delete template?',
+      buttons: [
+        {
+          label: 'Delete',
+          onClick: () => {
+
+            axios.post('/deleteTemplate',
+            `${[value, this.state.name]}`
+          )
+          .then((res) => {
+           if(typeof res === 'object') {
+
+            axios.post('/getTemplates',
+            `${[thisBind.props.location.state.name]}`
+          )
+          .then((response) => {
+            response.data.reverse();
+
+            thisBind.setState({
+              name: response.data[0].name.toUpperCase(),
+                   templates: response.data,
+                  })
+          }, (error) => {
+            alert(error);
+          });
+
+
+console.log('deleted!');
+           }
+
+          }, (error) => {
+            alert(error);
+          });
+
+          }
+        },
+        {
+          label: 'Cancel',
+          onClick: () => console.log('Click No')
+        }
+      ]
+    });
+  };
+
 
 handleClickCreateTemplate(e) {
   e.preventDefault();
@@ -421,6 +475,7 @@ componentDidMount() {
         response.data.reverse();
 
         thisBind.setState({
+          name: response.data[0].name.toUpperCase(),
                templates: response.data,
               })
       }, (error) => {
@@ -488,6 +543,7 @@ handleSubmitWorkout(e) {
         }, (error) => {
           alert(error);
         });
+
         thisBind.props.history.push('/Home');
         }
       },
@@ -502,12 +558,68 @@ handleSubmitWorkout(e) {
   render() {
     const templates = this.state.templates.map((template, index) => {
       if(template.templateName.length > 0) {
+
+
       if(index === 1) {
         return <div className="block">
         <section className="hero is-danger">
-          <div className="hero-body">
+        <button value={template.templateName} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></button>
+
+          <div className="hero-body heroBody">
             <div className="container">
-              <h1 className="title">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
+
+            <h1 className="title heroTitle">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
+
+            <table id='customTable2' className="content is-small table is-bordered">
+              <thead id="workoutheader">
+                <tr>
+                  <th>Workout</th>
+                  <th>Sets</th>
+                  <th>Reps</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{template.workout1.split(',')[0]}</td>
+                  <td>{template.workout1.split(',')[1]}</td>
+                  <td>{template.workout1.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout2.split(',')[0]}</td>
+                  <td>{template.workout2.split(',')[1]}</td>
+                  <td>{template.workout2.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout3.split(',')[0]}</td>
+                  <td>{template.workout3.split(',')[1]}</td>
+                  <td>{template.workout3.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout4.split(',')[0]}</td>
+                  <td>{template.workout4.split(',')[1]}</td>
+                  <td>{template.workout4.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout5.split(',')[0]}</td>
+                  <td>{template.workout5.split(',')[1]}</td>
+                  <td>{template.workout5.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout6.split(',')[0]}</td>
+                  <td>{template.workout6.split(',')[1]}</td>
+                  <td>{template.workout6.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout7.split(',')[0]}</td>
+                  <td>{template.workout7.split(',')[1]}</td>
+                  <td>{template.workout7.split(',')[2]}</td>
+                </tr>
+                </tbody>
+                </table>
+
+
+
+
             </div>
           </div>
         </section>
@@ -516,9 +628,63 @@ handleSubmitWorkout(e) {
       if(index % 2 === 0 && index !== 0) {
         return <div className="block">
         <section className="hero is-primary">
-          <div className="hero-body">
+        <button value={template.templateName} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></button>
+
+          <div className="hero-body heroBody">
             <div className="container">
-              <h1 className="title">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
+
+            <h1 className="title heroTitle">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
+
+            <table id='customTable2' className="content is-small table is-bordered">
+              <thead id="workoutheader">
+                <tr>
+                  <th>Workout</th>
+                  <th>Sets</th>
+                  <th>Reps</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{template.workout1.split(',')[0]}</td>
+                  <td>{template.workout1.split(',')[1]}</td>
+                  <td>{template.workout1.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout2.split(',')[0]}</td>
+                  <td>{template.workout2.split(',')[1]}</td>
+                  <td>{template.workout2.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout3.split(',')[0]}</td>
+                  <td>{template.workout3.split(',')[1]}</td>
+                  <td>{template.workout3.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout4.split(',')[0]}</td>
+                  <td>{template.workout4.split(',')[1]}</td>
+                  <td>{template.workout4.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout5.split(',')[0]}</td>
+                  <td>{template.workout5.split(',')[1]}</td>
+                  <td>{template.workout5.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout6.split(',')[0]}</td>
+                  <td>{template.workout6.split(',')[1]}</td>
+                  <td>{template.workout6.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout7.split(',')[0]}</td>
+                  <td>{template.workout7.split(',')[1]}</td>
+                  <td>{template.workout7.split(',')[2]}</td>
+                </tr>
+                </tbody>
+                </table>
+
+
+
+
             </div>
           </div>
         </section>
@@ -527,9 +693,63 @@ handleSubmitWorkout(e) {
       if(index % 3 === 0 && index!== 0) {
         return <div className="block">
         <section className="hero is-success">
-          <div className="hero-body">
+        <button value={template.templateName} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></button>
+
+          <div className="hero-body heroBody">
             <div className="container">
-              <h1 className="title">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
+
+            <h1 className="title heroTitle">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
+
+            <table id='customTable2' className="content is-small table is-bordered">
+              <thead id="workoutheader">
+                <tr>
+                  <th>Workout</th>
+                  <th>Sets</th>
+                  <th>Reps</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{template.workout1.split(',')[0]}</td>
+                  <td>{template.workout1.split(',')[1]}</td>
+                  <td>{template.workout1.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout2.split(',')[0]}</td>
+                  <td>{template.workout2.split(',')[1]}</td>
+                  <td>{template.workout2.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout3.split(',')[0]}</td>
+                  <td>{template.workout3.split(',')[1]}</td>
+                  <td>{template.workout3.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout4.split(',')[0]}</td>
+                  <td>{template.workout4.split(',')[1]}</td>
+                  <td>{template.workout4.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout5.split(',')[0]}</td>
+                  <td>{template.workout5.split(',')[1]}</td>
+                  <td>{template.workout5.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout6.split(',')[0]}</td>
+                  <td>{template.workout6.split(',')[1]}</td>
+                  <td>{template.workout6.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout7.split(',')[0]}</td>
+                  <td>{template.workout7.split(',')[1]}</td>
+                  <td>{template.workout7.split(',')[2]}</td>
+                </tr>
+                </tbody>
+                </table>
+
+
+
+
             </div>
           </div>
         </section>
@@ -538,9 +758,63 @@ handleSubmitWorkout(e) {
       if(index % 4 === 0 && index!== 0) {
         return <div className="block">
         <section className="hero is-danger">
-          <div className="hero-body">
+        <button value={template.templateName} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></button>
+
+          <div className="hero-body heroBody">
             <div className="container">
-              <h1 className="title">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
+
+            <h1 className="title heroTitle">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
+
+            <table id='customTable2' className="content is-small table is-bordered">
+              <thead id="workoutheader">
+                <tr>
+                  <th>Workout</th>
+                  <th>Sets</th>
+                  <th>Reps</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{template.workout1.split(',')[0]}</td>
+                  <td>{template.workout1.split(',')[1]}</td>
+                  <td>{template.workout1.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout2.split(',')[0]}</td>
+                  <td>{template.workout2.split(',')[1]}</td>
+                  <td>{template.workout2.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout3.split(',')[0]}</td>
+                  <td>{template.workout3.split(',')[1]}</td>
+                  <td>{template.workout3.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout4.split(',')[0]}</td>
+                  <td>{template.workout4.split(',')[1]}</td>
+                  <td>{template.workout4.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout5.split(',')[0]}</td>
+                  <td>{template.workout5.split(',')[1]}</td>
+                  <td>{template.workout5.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout6.split(',')[0]}</td>
+                  <td>{template.workout6.split(',')[1]}</td>
+                  <td>{template.workout6.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout7.split(',')[0]}</td>
+                  <td>{template.workout7.split(',')[1]}</td>
+                  <td>{template.workout7.split(',')[2]}</td>
+                </tr>
+                </tbody>
+                </table>
+
+
+
+
             </div>
           </div>
         </section>
@@ -549,19 +823,128 @@ handleSubmitWorkout(e) {
       if(index % 5 === 0 && index!== 0) {
         return <div className="block">
         <section className="hero is-info">
-          <div className="hero-body">
+        <button value={template.templateName} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></button>
+
+          <div className="hero-body heroBody">
             <div className="container">
-              <h1 className="title">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
+
+            <h1 className="title heroTitle">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
+
+            <table id='customTable2' className="content is-small table is-bordered">
+              <thead id="workoutheader">
+                <tr>
+                  <th>Workout</th>
+                  <th>Sets</th>
+                  <th>Reps</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{template.workout1.split(',')[0]}</td>
+                  <td>{template.workout1.split(',')[1]}</td>
+                  <td>{template.workout1.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout2.split(',')[0]}</td>
+                  <td>{template.workout2.split(',')[1]}</td>
+                  <td>{template.workout2.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout3.split(',')[0]}</td>
+                  <td>{template.workout3.split(',')[1]}</td>
+                  <td>{template.workout3.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout4.split(',')[0]}</td>
+                  <td>{template.workout4.split(',')[1]}</td>
+                  <td>{template.workout4.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout5.split(',')[0]}</td>
+                  <td>{template.workout5.split(',')[1]}</td>
+                  <td>{template.workout5.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout6.split(',')[0]}</td>
+                  <td>{template.workout6.split(',')[1]}</td>
+                  <td>{template.workout6.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout7.split(',')[0]}</td>
+                  <td>{template.workout7.split(',')[1]}</td>
+                  <td>{template.workout7.split(',')[2]}</td>
+                </tr>
+                </tbody>
+                </table>
+
+
+
+
             </div>
           </div>
         </section>
       </div>
+
       } else {
         return <div className="block">
         <section className="hero is-warning">
-          <div className="hero-body">
+        <button value={template.templateName} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></button>
+
+          <div className="hero-body heroBody">
             <div className="container">
-              <h1 className="title">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
+
+            <h1 className="title heroTitle">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
+
+            <table id='customTable2' className="content is-small table is-bordered">
+              <thead id="workoutheader">
+                <tr>
+                  <th>Workout</th>
+                  <th>Sets</th>
+                  <th>Reps</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{template.workout1.split(',')[0]}</td>
+                  <td>{template.workout1.split(',')[1]}</td>
+                  <td>{template.workout1.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout2.split(',')[0]}</td>
+                  <td>{template.workout2.split(',')[1]}</td>
+                  <td>{template.workout2.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout3.split(',')[0]}</td>
+                  <td>{template.workout3.split(',')[1]}</td>
+                  <td>{template.workout3.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout4.split(',')[0]}</td>
+                  <td>{template.workout4.split(',')[1]}</td>
+                  <td>{template.workout4.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout5.split(',')[0]}</td>
+                  <td>{template.workout5.split(',')[1]}</td>
+                  <td>{template.workout5.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout6.split(',')[0]}</td>
+                  <td>{template.workout6.split(',')[1]}</td>
+                  <td>{template.workout6.split(',')[2]}</td>
+                </tr>
+                <tr>
+                  <td>{template.workout7.split(',')[0]}</td>
+                  <td>{template.workout7.split(',')[1]}</td>
+                  <td>{template.workout7.split(',')[2]}</td>
+                </tr>
+                </tbody>
+                </table>
+
+
+
+
             </div>
           </div>
         </section>

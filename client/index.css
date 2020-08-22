@@ -206,3 +206,22 @@ table td {
   margin-bottom: 5%;
   margin-right: 42%;
 }
+
+#customTable2 {
+  min-height: 100px;
+  margin-top: -4px;
+}
+
+.deleteButton {
+  margin-top: 5px;
+  margin-right: 5px;
+  align-self: flex-end;
+}
+
+.heroTitle {
+}
+
+.heroBody {
+  padding: 0;
+  padding-bottom: 5px;
+}
