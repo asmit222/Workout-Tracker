@@ -2,22 +2,25 @@ import React, { Component } from "react";
 import App from "../../App";
 import axios from 'axios';
 
+
 class Previousworkouts extends Component {
 
 
   constructor(props) {
     super(props);
     this.state = {
+      name: '',
      data: [],
     };
 
   }
 
+
+
   componentDidMount() {
     var thisBind = this;
 
-
-
+if (this.props.location.state !== undefined){
     axios.post('/getWorkouts',
       `${[thisBind.props.location.state.name]}`
     )
@@ -29,7 +32,9 @@ class Previousworkouts extends Component {
     }, (error) => {
       alert(error);
     });
-
+  } else {
+this.props.history.push('/Home')
+  }
     setTimeout(() => console.log(this.state.data), 1000);
 
   }

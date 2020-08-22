@@ -129,6 +129,7 @@ if(typeof res.data === 'object') {
     if (this.state.name.length > 0) {
   return (
     <div className="container">
+
       <HashRouter>
 
         <nav className="nav">
@@ -220,6 +221,7 @@ if(typeof res.data === 'object') {
             Log in
           </button>
           </div>
+
           <div className='or'>or</div>
 
           <div className='buttonContainer2'>

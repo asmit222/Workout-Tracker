@@ -24,6 +24,7 @@ class newworkout extends Component {
 componentDidMount() {
 var thisBind = this;
 
+if (this.props.location.state !== undefined){
   axios.post('/getTemplates',
       `${[thisBind.props.location.state.name]}`
     )
@@ -36,7 +37,9 @@ var thisBind = this;
     }, (error) => {
       alert(error);
     });
-
+  } else {
+    this.props.history.push('/Home')
+  }
 setTimeout(() => console.log(this.state.templates), 2000);
 
 }
@@ -105,10 +108,10 @@ setTimeout(() => console.log(this.state.templates), 2000);
         </div>
 
         <div id={this.state.day1Selected}>
-          <Day1 name={this.props.location.state.name} day={this.state.day} hideDropDown={this.hideDropDown} hideNav={this.props.location.state.hideNav}/>
+          <Day1 name={this.props.location.state !== undefined ? this.props.location.state.name : null} day={this.state.day} hideDropDown={this.hideDropDown} hideNav={this.props.location.state !== undefined ? this.props.location.state.hideNav : null}/>
         </div>
         <div id={this.state.emptyTemplateSelected}>
-          <EmptyTemplate name={this.props.location.state.name} day={this.state.day} hideDropDown={this.hideDropDown} hideNav={this.props.location.state.hideNav}/>
+          <EmptyTemplate name={this.props.location.state !== undefined ? this.props.location.state.name : null} day={this.state.day} hideDropDown={this.hideDropDown} hideNav={this.props.location.state !== undefined ? this.props.location.state.hideNav : null}/>
         </div>
 
       </div>
