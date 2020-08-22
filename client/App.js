@@ -9,7 +9,6 @@ import {
 } from "react-router-dom";
 import newworkout from "./src/components/newworkout";
 import Previousworkouts from "./src/components/previousworkouts";
-import WorkoutTemplates from "./src/components/WorkoutTemplates";
 import Home from "./src/components/Home";
 import Login from "./Login";
 import $ from 'jquery';

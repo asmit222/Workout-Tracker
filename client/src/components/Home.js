@@ -8,7 +8,6 @@ import {
   Switch,
 } from "react-router-dom";
 import Previousworkouts from "./previousworkouts";
-import WorkoutTemplates from "./WorkoutTemplates";
 
 class Home extends Component {
   render() {
