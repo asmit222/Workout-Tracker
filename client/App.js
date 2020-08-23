@@ -33,6 +33,10 @@ this.handleHideNav = this.handleHideNav.bind(this);
 this.handleSubmitCreateAccount = this.handleSubmitCreateAccount.bind(this);
   }
 
+componentDidMount() {
+  this.setState({isLoading: false})
+
+}
 
   handleHideNav () {
     if(this.state.hideNav === '') {
@@ -125,6 +129,7 @@ if(typeof res.data === 'object') {
 }
 
   render() {
+
     if (this.state.creatingAccount === false) {
     if (this.state.name.length > 0) {
   return (
@@ -212,7 +217,7 @@ if(typeof res.data === 'object') {
    );
   } else {
     return (
-      <div>
+      <div className='loginBackground'>
       <div className='buttonContainer'>
       <button onClick={this.handleSubmitLogin} id='loginButton'
             href=""
@@ -258,6 +263,10 @@ if(typeof res.data === 'object') {
   )
 }
  }
+}
+
+function demoAsyncCall() {
+  return new Promise((resolve) => setTimeout(() => resolve(), 2500));
 }
 
 export default App;
