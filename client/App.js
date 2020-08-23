@@ -161,7 +161,7 @@ if(typeof res.data === 'object') {
   }
 }}>
                     <a id={this.state.hideNav} className="button marginbottom workoutTemplatesButton is-warning">
-                      <span >Templates</span>
+                      <span >Manage Templates</span>
                     </a>
                   </Link>
                 </p>
@@ -173,8 +173,8 @@ if(typeof res.data === 'object') {
     hideNav: this.handleHideNav,
   }
 }}>
-                    <a id={this.state.hideNav} className="button marginbottom is-info">
-                      <span >Workout History</span>
+                    <a id={this.state.hideNav} className="historyButton button marginbottom is-info">
+                      <span >History</span>
                     </a>
                   </Link>
                 </p>
