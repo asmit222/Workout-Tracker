@@ -33,19 +33,32 @@ const saveWorkout = function(data, callback) {
 
       var day = JSON.stringify(dataSplit[53].slice(0, dataSplit[53].length - 5));
 
+var color;
+  var sql3 = `select * from templates where templateName = '${day}';`;
 
-        var sql = `INSERT INTO workout1 VALUES ('${name}', '${day}', '${date}', '${workout1}', '${workout2}', '${workout3}', '${workout4}', '${workout5}', '${workout6}', '${workout7}', '${notes}');`;
-
-        connection.query(sql, function(err, results) {
-
+        connection.query(sql3, function(err, results) {
+console.log('day', day)
           if (err) {
             console.log('error querying database: ', err);
           } else {
-            console.log('workout saved!');
-            // connection.end();
+            console.log('res: ', results);
+           color = results[0].color;
+           var sql = `INSERT INTO workout1 VALUES ('${name}', '${day}', '${date}', '${workout1}', '${workout2}', '${workout3}', '${workout4}', '${workout5}', '${workout6}', '${workout7}', '${notes}', '${color}');`;
+
+           connection.query(sql, function(err, results) {
+             if (err) {
+               console.log('error querying database: ', err);
+             } else {
+               console.log('workout saved!');
+             }
+           });
+
+
           }
 
         });
+
+
       }
     })
 
@@ -68,33 +81,10 @@ const getWorkouts = function (data, callback) {
            console.log('error querying database: ', err);
           } else {
             callback(results);
-            // connection.end();
           }
         });
 
   })
-
-
-
-// mariadbConfig.pool.getConnection(function(err, conn) {
-//   if(err) {
-//     console.log(err);
-//     process.exit();
-//   } else {
-
-//     var name = data.slice(2, data.length - 5);
-//     var sql = `select * from workout1 where name = '${name.toUpperCase()}'`;
-//     conn.query(sql, function(err, results) {
-//       if (err) {
-//        console.log('error ! ! !: ', err);
-//       } else {
-//         console.log('connected!!!!')
-//         callback(results);
-//       }
-//     });
-
-//   }
-// })
 
 }
 
@@ -125,7 +115,6 @@ connection.query(sql, function(err, results) {
     console.log('error querying database: ', err);
   } else {
     console.log('template saved!');
-    // connection.end();
   }
 
 });
@@ -150,7 +139,6 @@ connection.connect((err) => {
        console.log('error ! ! !: ', err);
       } else {
         callback(results);
-        // connection.end();
       }
     });
 
@@ -255,33 +243,46 @@ console.log(name, template)
 
     }
 
-// const checkUser = function (data, callback) {
 
-//   mariadbConfig.pool.getConnection(function(err, conn) {
-//     if(err) {
-//       console.log(err);
-//     } else {
 
-//       var dataSplit = data.split(',')
-//       var username = dataSplit[0].slice(2);
-//       var password = dataSplit[1].slice(0, dataSplit[1].length-5);
+    const changeColor = function(data, callback) {
 
-//       var sql = `select * from usersAndPasses where name = '${username}'`;
-//       pool.query(sql, function(err, results) {
-//         if (err) {
-//          console.log('error ! ! !: ', err);
-//         } else {
-//           callback(results, username, password);
-//         }
+      connection.connect((err) => {
+        if(err) {
+          console.log('error connecting to database: ', err);
+            return;
+        } else {
 
-//       });
+          const dataSplit = JSON.stringify(data).split(',')
 
-//     }
-//   })
+var templateName = dataSplit[0].slice(4, dataSplit[0].length - 2);
+var color = dataSplit[1].slice(0, dataSplit[1].length - 5);
 
-// }
 
-// module.exports.checkUser = checkUser;
+
+          var sql = `update templates set color = '${color}' where templateName = '"${templateName}"';`
+          connection.query(sql, function(err, res) {
+            if (err) {
+             console.log('error ! ! !: ', err);
+            } else {
+              callback(res);
+              }
+            });
+
+            var sql2 = `update workout1 set color = '${color}' where workoutPlan = '"${templateName}"';`
+            connection.query(sql2, function(err, res) {
+              if (err) {
+               console.log('error ! ! !: ', err);
+              }
+              });
+
+
+      }
+      })
+
+
+      }
+
 module.exports.saveWorkout = saveWorkout;
 module.exports.getWorkouts = getWorkouts;
 module.exports.addTemplate = addTemplate;
@@ -289,4 +290,5 @@ module.exports.getTemplates = getTemplates;
 module.exports.createAccount = createAccount;
 module.exports.attemptLogin = attemptLogin;
 module.exports.deleteTemplate = deleteTemplate;
+module.exports.changeColor = changeColor;
 

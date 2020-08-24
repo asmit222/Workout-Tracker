@@ -15,8 +15,6 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import { confirmAlert } from 'react-confirm-alert';
 
 
-
-
 class WorkoutTemplates extends Component {
   constructor(props) {
     super (props);
@@ -42,6 +40,9 @@ class WorkoutTemplates extends Component {
       submitted: false,
 clicked: false,
     }
+
+    this.handleChangeColorPicker = this.handleChangeColorPicker.bind(this);
+
 this.handleDeleteClick = this.handleDeleteClick.bind(this);
 
     this.handleClickCreateTemplate = this.handleClickCreateTemplate.bind(this);
@@ -131,6 +132,42 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
 
     this.handleHomeClick = this.handleHomeClick.bind(this);
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
+  }
+
+  handleChangeColorPicker(e) {
+    e.preventDefault();
+    var thisBind = this;
+
+
+    var index = e.nativeEvent.target.selectedIndex;
+    var color = e.nativeEvent.target[index].text
+    var workoutName = e.target.value
+
+if(color !== 'Color') {
+    axios.post('/changeColor',
+        `${[workoutName, color]}`
+      )
+      .then((response) => {
+console.log(response);
+axios.post('/getTemplates',
+`${[thisBind.props.location.state.name]}`
+)
+.then((response) => {
+console.log(response.data)
+response.data.reverse();
+
+thisBind.setState({
+       templates: response.data,
+      })
+}, (error) => {
+alert(error);
+});
+
+      }, (error) => {
+        alert(error);
+      });
+    }
+
   }
 
   handleDeleteClick(e) {
@@ -559,276 +596,53 @@ handleSubmitWorkout(e) {
     const templates = this.state.templates.map((template, index) => {
       if(template.templateName.length > 0) {
 
-
-      if(index === 1) {
         return <div className="block">
-        <section className="hero is-danger">
+        <section id={template.color} className="hero" >
         <button value={template.templateName} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></button>
 
           <div className="hero-body heroBody">
             <div className="container">
 
-            <h1 className="title heroTitle">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
+            {(template.color === ('Black' || 'Red' || 'Blue')) ? <span id='whiteText' className="title heroTitle">{template.templateName.slice(1, template.templateName.length - 1)}
 
-            <table id='customTable2' className="content is-small table is-bordered">
-              <thead id="workoutheader">
-                <tr>
-                  <th>Workout</th>
-                  <th>Sets</th>
-                  <th>Reps</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{template.workout1.split(',')[0]}</td>
-                  <td>{template.workout1.split(',')[1]}</td>
-                  <td>{template.workout1.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout2.split(',')[0]}</td>
-                  <td>{template.workout2.split(',')[1]}</td>
-                  <td>{template.workout2.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout3.split(',')[0]}</td>
-                  <td>{template.workout3.split(',')[1]}</td>
-                  <td>{template.workout3.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout4.split(',')[0]}</td>
-                  <td>{template.workout4.split(',')[1]}</td>
-                  <td>{template.workout4.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout5.split(',')[0]}</td>
-                  <td>{template.workout5.split(',')[1]}</td>
-                  <td>{template.workout5.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout6.split(',')[0]}</td>
-                  <td>{template.workout6.split(',')[1]}</td>
-                  <td>{template.workout6.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout7.split(',')[0]}</td>
-                  <td>{template.workout7.split(',')[1]}</td>
-                  <td>{template.workout7.split(',')[2]}</td>
-                </tr>
-                </tbody>
-                </table>
+            <span id='colorSelector' className="field selector">
+            <span className="select">
+              <select
 
+                onChange={this.handleChangeColorPicker}
+              >
+                <option>Color</option>
+                <option value={template.templateName}>Green</option>
+                <option value={template.templateName}>Blue</option>
+                <option value={template.templateName}>Turquoise</option>
+                <option value={template.templateName}>Yellow</option>
+                <option value={template.templateName}>Cyan</option>
+                <option value={template.templateName}>Red</option>
+                <option value={template.templateName}>Black</option>
+                <option value={template.templateName}>Gray</option>
+              </select>
+            </span>
+        </span>
+        </span> : <span id='heroTitle' className="title heroTitle">{template.templateName.slice(1, template.templateName.length - 1)}
 
-
-
-            </div>
-          </div>
-        </section>
-      </div>
-      }
-      if(index % 2 === 0 && index !== 0) {
-        return <div className="block">
-        <section className="hero is-primary">
-        <button value={template.templateName} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></button>
-
-          <div className="hero-body heroBody">
-            <div className="container">
-
-            <h1 className="title heroTitle">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
-
-            <table id='customTable2' className="content is-small table is-bordered">
-              <thead id="workoutheader">
-                <tr>
-                  <th>Workout</th>
-                  <th>Sets</th>
-                  <th>Reps</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{template.workout1.split(',')[0]}</td>
-                  <td>{template.workout1.split(',')[1]}</td>
-                  <td>{template.workout1.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout2.split(',')[0]}</td>
-                  <td>{template.workout2.split(',')[1]}</td>
-                  <td>{template.workout2.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout3.split(',')[0]}</td>
-                  <td>{template.workout3.split(',')[1]}</td>
-                  <td>{template.workout3.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout4.split(',')[0]}</td>
-                  <td>{template.workout4.split(',')[1]}</td>
-                  <td>{template.workout4.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout5.split(',')[0]}</td>
-                  <td>{template.workout5.split(',')[1]}</td>
-                  <td>{template.workout5.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout6.split(',')[0]}</td>
-                  <td>{template.workout6.split(',')[1]}</td>
-                  <td>{template.workout6.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout7.split(',')[0]}</td>
-                  <td>{template.workout7.split(',')[1]}</td>
-                  <td>{template.workout7.split(',')[2]}</td>
-                </tr>
-                </tbody>
-                </table>
-
-
-
-
-            </div>
-          </div>
-        </section>
-      </div>
-      }
-      if(index % 3 === 0 && index!== 0) {
-        return <div className="block">
-        <section className="hero is-success">
-        <button value={template.templateName} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></button>
-
-          <div className="hero-body heroBody">
-            <div className="container">
-
-            <h1 className="title heroTitle">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
-
-            <table id='customTable2' className="content is-small table is-bordered">
-              <thead id="workoutheader">
-                <tr>
-                  <th>Workout</th>
-                  <th>Sets</th>
-                  <th>Reps</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{template.workout1.split(',')[0]}</td>
-                  <td>{template.workout1.split(',')[1]}</td>
-                  <td>{template.workout1.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout2.split(',')[0]}</td>
-                  <td>{template.workout2.split(',')[1]}</td>
-                  <td>{template.workout2.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout3.split(',')[0]}</td>
-                  <td>{template.workout3.split(',')[1]}</td>
-                  <td>{template.workout3.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout4.split(',')[0]}</td>
-                  <td>{template.workout4.split(',')[1]}</td>
-                  <td>{template.workout4.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout5.split(',')[0]}</td>
-                  <td>{template.workout5.split(',')[1]}</td>
-                  <td>{template.workout5.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout6.split(',')[0]}</td>
-                  <td>{template.workout6.split(',')[1]}</td>
-                  <td>{template.workout6.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout7.split(',')[0]}</td>
-                  <td>{template.workout7.split(',')[1]}</td>
-                  <td>{template.workout7.split(',')[2]}</td>
-                </tr>
-                </tbody>
-                </table>
-
-
-
-
-            </div>
-          </div>
-        </section>
-      </div>
-      }
-      if(index % 4 === 0 && index!== 0) {
-        return <div className="block">
-        <section className="hero is-danger">
-        <button value={template.templateName} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></button>
-
-          <div className="hero-body heroBody">
-            <div className="container">
-
-            <h1 className="title heroTitle">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
-
-            <table id='customTable2' className="content is-small table is-bordered">
-              <thead id="workoutheader">
-                <tr>
-                  <th>Workout</th>
-                  <th>Sets</th>
-                  <th>Reps</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{template.workout1.split(',')[0]}</td>
-                  <td>{template.workout1.split(',')[1]}</td>
-                  <td>{template.workout1.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout2.split(',')[0]}</td>
-                  <td>{template.workout2.split(',')[1]}</td>
-                  <td>{template.workout2.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout3.split(',')[0]}</td>
-                  <td>{template.workout3.split(',')[1]}</td>
-                  <td>{template.workout3.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout4.split(',')[0]}</td>
-                  <td>{template.workout4.split(',')[1]}</td>
-                  <td>{template.workout4.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout5.split(',')[0]}</td>
-                  <td>{template.workout5.split(',')[1]}</td>
-                  <td>{template.workout5.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout6.split(',')[0]}</td>
-                  <td>{template.workout6.split(',')[1]}</td>
-                  <td>{template.workout6.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout7.split(',')[0]}</td>
-                  <td>{template.workout7.split(',')[1]}</td>
-                  <td>{template.workout7.split(',')[2]}</td>
-                </tr>
-                </tbody>
-                </table>
-
-
-
-
-            </div>
-          </div>
-        </section>
-      </div>
-      }
-      if(index % 5 === 0 && index!== 0) {
-        return <div className="block">
-        <section className="hero is-info">
-        <button value={template.templateName} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></button>
-
-          <div className="hero-body heroBody">
-            <div className="container">
-
-            <h1 className="title heroTitle">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
+<span id='colorSelector' className="field selector">
+<span className="select">
+  <select
+    onChange={this.handleChangeColorPicker}
+  >
+    <option>Color</option>
+    <option value={template.templateName}>Green</option>
+    <option value={template.templateName}>Blue</option>
+    <option value={template.templateName}>Turquoise</option>
+    <option value={template.templateName}>Yellow</option>
+    <option value={template.templateName}>Cyan</option>
+    <option value={template.templateName}>Red</option>
+    <option value={template.templateName}>Black</option>
+    <option value={template.templateName}>Gray</option>
+  </select>
+</span>
+</span>
+</span>}
 
             <table id='customTable2' className="content is-small table is-bordered">
               <thead id="workoutheader">
@@ -885,71 +699,7 @@ handleSubmitWorkout(e) {
         </section>
       </div>
 
-      } else {
-        return <div className="block">
-        <section className="hero is-danger">
-        <button value={template.templateName} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></button>
 
-          <div className="hero-body heroBody">
-            <div className="container">
-
-            <h1 className="title heroTitle">{template.templateName.slice(1, template.templateName.length - 1)}</h1>
-
-            <table id='customTable2' className="content is-small table is-bordered">
-              <thead id="workoutheader">
-                <tr>
-                  <th>Workout</th>
-                  <th>Sets</th>
-                  <th>Reps</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{template.workout1.split(',')[0]}</td>
-                  <td>{template.workout1.split(',')[1]}</td>
-                  <td>{template.workout1.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout2.split(',')[0]}</td>
-                  <td>{template.workout2.split(',')[1]}</td>
-                  <td>{template.workout2.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout3.split(',')[0]}</td>
-                  <td>{template.workout3.split(',')[1]}</td>
-                  <td>{template.workout3.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout4.split(',')[0]}</td>
-                  <td>{template.workout4.split(',')[1]}</td>
-                  <td>{template.workout4.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout5.split(',')[0]}</td>
-                  <td>{template.workout5.split(',')[1]}</td>
-                  <td>{template.workout5.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout6.split(',')[0]}</td>
-                  <td>{template.workout6.split(',')[1]}</td>
-                  <td>{template.workout6.split(',')[2]}</td>
-                </tr>
-                <tr>
-                  <td>{template.workout7.split(',')[0]}</td>
-                  <td>{template.workout7.split(',')[1]}</td>
-                  <td>{template.workout7.split(',')[2]}</td>
-                </tr>
-                </tbody>
-                </table>
-
-
-
-
-            </div>
-          </div>
-        </section>
-      </div>
-      }
 
     }
 

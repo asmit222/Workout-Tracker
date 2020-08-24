@@ -10,7 +10,6 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  /* background-color: #999; */
   height: 92vh;
 }
 
@@ -20,6 +19,7 @@
 
 #workoutheader {
   background-color: rgb(170, 170, 170);
+  /* background-color: rgb(212, 20, 20); */
 }
 
 .dateaboveprev {
@@ -89,7 +89,10 @@ table td {
 
 .workoutName {
   font-weight: 700;
-  color: rgb(228, 112, 96);
+  font-size: xx-large;
+  color: rgb(255, 255, 255);
+  background-color: #000000;
+  text-align: center;
 }
 
 .notesBody {
@@ -213,16 +216,13 @@ table td {
 
 #customTable2 {
   min-height: 100px;
-  margin-top: -4px;
+  margin-top: 10px;
 }
 
 .deleteButton {
   margin-top: 5px;
   margin-right: 5px;
   align-self: flex-end;
-}
-
-.heroTitle {
 }
 
 .heroBody {
@@ -261,4 +261,59 @@ table td {
   position: fixed;
   top: 0;
   bottom: 0;
+}
+
+#colorSelector {
+  font-size: x-small;
+  float: right;
+  margin-bottom: 10px;
+}
+
+#Black {
+  background-color: hsl(0, 0%, 21%);
+}
+
+#Gray {
+  background-color: hsl(0, 0%, 96%);
+}
+
+#Turquoise {
+  background-color: hsl(171, 100%, 41%);
+}
+
+#Blue {
+  background-color: hsl(217, 71%, 53%);
+}
+
+#Cyan {
+  background-color: hsl(204, 86%, 53%);
+}
+
+#Green {
+  background-color: hsl(141, 53%, 53%);
+}
+
+#Yellow {
+  background-color: hsl(48, 100%, 67%);
+}
+
+#Red {
+  background-color: hsl(348, 100%, 61%);
+}
+
+#whiteText {
+  color: hsl(0, 0%, 96%);
+}
+
+#workoutHistoryText {
+  font-size: xx-large;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: underline;
+  background-image: url("https://i.ytimg.com/vi/fNmmvnPx-jI/hqdefault.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+  height: 24vh;
 }

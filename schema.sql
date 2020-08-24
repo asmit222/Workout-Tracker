@@ -27,7 +27,8 @@ CREATE TABLE templates (
   workout4 varchar(500),
   workout5 varchar(500),
   workout6 varchar(500),
-  workout7 varchar(500)
+  workout7 varchar(500),
+  color varchar(20)
 );
 
 CREATE TABLE usersAndPasses (

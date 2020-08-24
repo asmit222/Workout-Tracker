@@ -116,4 +116,16 @@ app.post('/createAccount', function (req, res) {
       })
       });
 
+      app.post('/changeColor', function (req, res) {
+        res.status(200);
+        db.changeColor(req.body, function (data) {
+          if(data) {
+            // console.log(data)
+            res.json(data);
+          } else {
+            console.log('error');
+          }
+        })
+        });
+
 
