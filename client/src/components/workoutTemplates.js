@@ -662,7 +662,7 @@ thisBind.setState({
 
             <table id='customTable2' className="content is-small table is-bordered">
               <thead id="workoutheader">
-                <tr>
+                <tr id='workoutHeader2'>
                   <th>Workout</th>
                   <th>Sets</th>
                   <th>Reps</th>

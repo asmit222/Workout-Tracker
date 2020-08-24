@@ -18,8 +18,9 @@
 }
 
 #workoutheader {
-  background-color: rgb(170, 170, 170);
+  /* background-color: rgb(170, 170, 170); */
   /* background-color: rgb(212, 20, 20); */
+  background-color: #dbdbdb;
 }
 
 .dateaboveprev {
@@ -368,4 +369,8 @@ table td {
 
 #Gray2 {
   background-color: hsl(0, 0%, 96%);
+}
+
+#workoutHeader2 {
+  background-color: #dbdbdb;
 }
