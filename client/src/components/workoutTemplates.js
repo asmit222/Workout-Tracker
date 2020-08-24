@@ -580,8 +580,24 @@ handleSubmitWorkout(e) {
         }, (error) => {
           alert(error);
         });
+thisBind.setState({
+  clicked: false,
+})
 
-        thisBind.props.history.push('/Home');
+        axios.post('/getTemplates',
+        `${[thisBind.props.location.state.name]}`
+      )
+      .then((response) => {
+        response.data.reverse();
+
+        thisBind.setState({
+          name: response.data[0].name.toUpperCase(),
+               templates: response.data,
+              })
+      }, (error) => {
+        alert(error);
+      });
+
         }
       },
       {
@@ -597,7 +613,7 @@ handleSubmitWorkout(e) {
       if(template.templateName.length > 0) {
 
         return <div className="block">
-        <section id={template.color} className="hero" >
+        <section id={`${template.color}2`} className="hero" >
         <button value={template.templateName} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></button>
 
           <div className="hero-body heroBody">

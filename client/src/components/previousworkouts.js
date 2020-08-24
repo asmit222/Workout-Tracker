@@ -43,12 +43,15 @@ this.props.history.push('/Home')
   render() {
     return (
  <div>
-    <div id={'workoutHistoryText'}>
-          </div>
+    {/* <div id={'workoutHistoryText'}>
+          </div> */}
 {this.state.data.map((workout) =>(
-      <div className="margin historyBackground">
+      <div  id={workout.color} className="margin historyBackground">
 
-        <div id={workout.color} className='workoutName is-info'>{workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)}</div>
+        <div  className='workoutName is-info'>{workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)}</div>
+
+        {/* <div className='colorSpan' id={workout.color}></div> */}
+
         <table className="content is-small table is-bordered">
 <thead className="dateaboveprev">{`${workout.workoutDate.split(' ').slice(1, 4).join(' ')}`}</thead>
           <thead id="workoutheader">
@@ -129,14 +132,14 @@ this.props.history.push('/Home')
           </tbody>
         </table>
 
-        <article className="content is-small message notes">
+        {workout.notes.length > 0 ? <article className="content is-small message notes">
           <div id='notesheader' className="message-header">
             <p>Notes</p>
           </div>
           <div className="message-body notesBody">
 {workout.notes}
           </div>
-        </article>
+        </article> : <div id='hide'> </div>}
       </div>
 ))}
       </div>

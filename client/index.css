@@ -40,7 +40,9 @@
 }
 
 #notesheader {
-  background-color: rgb(235, 235, 74);
+  /* background-color: rgb(235, 235, 74); */
+
+  background-color: rgb(236, 238, 111);
   color: black;
 }
 
@@ -88,11 +90,9 @@ table td {
 }
 
 .workoutName {
-  font-weight: 700;
-  font-size: xx-large;
-  color: rgb(255, 255, 255);
-  background-color: #000000;
-  text-align: center;
+  font-weight: 600;
+  font-size: large;
+  color: rgb(212, 91, 10);
 }
 
 .notesBody {
@@ -270,35 +270,48 @@ table td {
 }
 
 #Black {
-  background-color: hsl(0, 0%, 21%);
+  border-left: solid 3px hsl(0, 0%, 21%);
+  padding-left: 3px;
 }
 
 #Gray {
-  background-color: hsl(0, 0%, 96%);
+  border-left: solid 3px hsl(0, 0%, 96%);
+  padding-left: 3px;
 }
 
 #Turquoise {
-  background-color: hsl(171, 100%, 41%);
+  border-left: solid 3px hsl(171, 100%, 41%);
+  padding-left: 3px;
 }
 
 #Blue {
-  background-color: hsl(217, 71%, 53%);
+  border-left: solid 3px hsl(217, 71%, 53%);
+  padding-left: 3px;
 }
 
 #Cyan {
-  background-color: hsl(204, 86%, 53%);
+  border-left: solid 3px hsl(204, 86%, 53%);
+  padding-left: 3px;
 }
 
 #Green {
-  background-color: hsl(141, 53%, 53%);
+  border-left: solid 3px hsl(141, 53%, 53%);
+  padding-left: 3px;
 }
 
 #Yellow {
-  background-color: hsl(48, 100%, 67%);
+  border-left: solid 3px hsl(48, 100%, 67%);
+  padding-left: 3px;
 }
 
 #Red {
-  background-color: hsl(348, 100%, 61%);
+  border-left: solid 3px hsl(348, 100%, 61%);
+  padding-left: 3px;
+}
+
+#Gray {
+  border-left: solid 3px hsl(0, 0%, 96%);
+  padding-left: 3px;
 }
 
 #whiteText {
@@ -306,14 +319,55 @@ table td {
 }
 
 #workoutHistoryText {
-  font-size: xx-large;
   font-weight: 800;
   text-align: center;
   text-decoration: underline;
-  background-image: url("https://i.ytimg.com/vi/fNmmvnPx-jI/hqdefault.jpg");
+  /* background-image: url("https://i.ytimg.com/vi/fNmmvnPx-jI/hqdefault.jpg"); */
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-size: cover;
-  height: 24vh;
+  height: 27vh;
+}
+
+.colorSpan {
+  height: 3px;
+  width: 25%;
+}
+
+#Black2 {
+  background-color: hsl(0, 0%, 21%);
+}
+
+#Gray2 {
+  background-color: hsl(0, 0%, 96%);
+}
+
+#Turquoise2 {
+  background-color: hsl(171, 100%, 41%);
+}
+
+#Blue2 {
+  /* background-color: hsl(217, 71%, 53%); */
+  background-color: hsl(217, 71%, 53%);
+}
+
+#Cyan2 {
+  background-color: hsl(204, 86%, 53%);
+}
+
+#Green2 {
+  background-color: hsl(141, 53%, 53%);
+}
+
+#Yellow2 {
+  background-color: hsl(48, 100%, 67%);
+}
+
+#Red2 {
+  background-color: hsl(348, 100%, 61%);
+}
+
+#Gray2 {
+  background-color: hsl(0, 0%, 96%);
 }

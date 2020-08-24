@@ -42,7 +42,9 @@ console.log('day', day)
             console.log('error querying database: ', err);
           } else {
             console.log('res: ', results);
-           color = results[0].color;
+            if(results[0] !== undefined) {
+              color = results[0].color;
+            }
            var sql = `INSERT INTO workout1 VALUES ('${name}', '${day}', '${date}', '${workout1}', '${workout2}', '${workout3}', '${workout4}', '${workout5}', '${workout6}', '${workout7}', '${notes}', '${color}');`;
 
            connection.query(sql, function(err, results) {
@@ -108,7 +110,7 @@ var name = dataSplit[22];
 var workoutName = JSON.stringify(dataSplit[24].slice(0, dataSplit[24].length - 5));
 
 
-var sql = `INSERT INTO templates VALUES ('${name.toUpperCase()}', '${workoutName}', '${workout1}', '${workout2}', '${workout3}', '${workout4}', '${workout5}', '${workout6}', '${workout7}');`;
+var sql = `INSERT INTO templates VALUES ('${name.toUpperCase()}', '${workoutName}', '${workout1}', '${workout2}', '${workout3}', '${workout4}', '${workout5}', '${workout6}', '${workout7}', 'Red');`;
 
 connection.query(sql, function(err, results) {
   if (err) {
