@@ -745,8 +745,8 @@ if(this.state.clicked === false) {
 <div className="block">
 
 <div id='createTemplateButton1' className='buttonContainer'>
-            <button  onClick={this.handleClickCreateTemplate} id='loginButton' className="is-outlined is-rounded button marginbottom createTemplateButton  newWorkoutButton button is-dark">
-              <span >+</span>
+            <button  onClick={this.handleClickCreateTemplate} id='loginButton' className="is-outlined is-rounded is-large button marginbottom createTemplateButton  newWorkoutButton button is-dark">
+              <span >+ New</span>
             </button>
       </div>
 
