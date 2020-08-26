@@ -221,7 +221,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     thisBind.setState({
       workoutDate: workoutDate,
     });
-    this.sendWorkout();
+    // this.sendWorkout();
 
   }
 
@@ -551,7 +551,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     this.setState({
       workoutDate: date
     });
-    this.sendWorkout();
+    // this.sendWorkout();
 
   };
 
