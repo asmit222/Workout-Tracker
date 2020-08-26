@@ -121,6 +121,101 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
 
     this.handleHomeClick = this.handleHomeClick.bind(this);
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
+
+    this.sendWorkout = this.sendWorkout.bind(this);
+  }
+
+  sendWorkout () {
+    var thisBind = this;
+    setTimeout(() => {
+      var arr = [
+        [this.state.workoutDate],
+        [
+          this.state.workout1,
+          this.state.workout2,
+          this.state.workout3,
+          this.state.workout4,
+          this.state.workout5,
+          this.state.workout6,
+          this.state.workout7,
+        ],
+        [this.state.notes],
+        this.props.name,
+        this.props.day,
+        this.props.workoutName,
+      ];
+
+     for (var i = 0; i < arr.length - 3; i++) {
+       for (var j = 0; j < arr[i].length; j++) {
+         if(typeof arr[i][j] === 'string') {
+           var modified = arr[i][j];
+           modified = modified.split(',').join('');
+           arr[i][j] = modified;
+         } else {
+           for (var k = 0; k < arr[i][j].length; k++) {
+            var modified = arr[i][j][k];
+            modified = modified.split(',').join('');
+            arr[i][j][k] = modified;
+           }
+         }
+       }
+     }
+
+// for (var j = 0; j < arr[1][0].length; j++) {
+// if(arr[1][0][j] === "") {
+// arr[1][0][j] = thisBind.props.currentTemplate.workout1.split(',')[j];
+// }
+// }
+
+// for (var j = 0; j < arr[1][1].length; j++) {
+// if(arr[1][1][j] === "") {
+// arr[1][1][j] = thisBind.props.currentTemplate.workout2.split(',')[j];
+// }
+// }
+
+// for (var j = 0; j < arr[1][2].length; j++) {
+// if(arr[1][2][j] === "") {
+// arr[1][2][j] = thisBind.props.currentTemplate.workout3.split(',')[j];
+// }
+// }
+
+// for (var j = 0; j < arr[1][3].length; j++) {
+// if(arr[1][3][j] === "") {
+// arr[1][3][j] = thisBind.props.currentTemplate.workout4.split(',')[j];
+// }
+// }
+
+// for (var j = 0; j < arr[1][4].length; j++) {
+// if(arr[1][4][j] === "") {
+// arr[1][4][j] = thisBind.props.currentTemplate.workout5.split(',')[j];
+// }
+// }
+
+// for (var j = 0; j < arr[1][5].length; j++) {
+// if(arr[1][5][j] === "") {
+// arr[1][5][j] = thisBind.props.currentTemplate.workout6.split(',')[j];
+// }
+// }
+
+// for (var j = 0; j < arr[1][6].length; j++) {
+// if(arr[1][6][j] === "") {
+// arr[1][6][j] = thisBind.props.currentTemplate.workout7.split(',')[j];
+// }
+// }
+
+
+
+      axios.post('/test',
+      `${arr}`
+    )
+    .then((response) => {
+      console.log('workout sent for Template!')
+    }, (error) => {
+      alert(error);
+    });
+
+    }, 3000)
+
   }
 
   handleChangeWorkoutName(e) {
@@ -128,6 +223,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     this.setState({
       workoutName: e.target.value,
     })
+    this.sendWorkout();
   }
 
   handleHomeClick () {
@@ -154,6 +250,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     this.setState({
       notes: e.target.value,
     });
+    this.sendWorkout();
   }
 
   handleDateChange(e) {
@@ -163,236 +260,287 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     thisBind.setState({
       workoutDate: workoutDate,
     });
+    this.sendWorkout();
   }
 
   handleChangeSquat0(e) {
     e.preventDefault();
     this.state.workout1[0] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeSquat1(e) {
     e.preventDefault();
     this.state.workout1[1] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeSquat2(e) {
     e.preventDefault();
     this.state.workout1[2] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeSquat3(e) {
     e.preventDefault();
     this.state.workout1[3] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeSquat4(e) {
     e.preventDefault();
     this.state.workout1[4] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeSquat5(e) {
     e.preventDefault();
     this.state.workout1[5] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeSquat6(e) {
     e.preventDefault();
     this.state.workout1[6] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeHipThrust0(e) {
     e.preventDefault();
     this.state.workout2[0] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeHipThrust1(e) {
     e.preventDefault();
     this.state.workout2[1] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeHipThrust2(e) {
     e.preventDefault();
     this.state.workout2[2] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeHipThrust3(e) {
     e.preventDefault();
     this.state.workout2[3] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeHipThrust4(e) {
     e.preventDefault();
     this.state.workout2[4] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeHipThrust5(e) {
     e.preventDefault();
     this.state.workout2[5] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeHipThrust6(e) {
     e.preventDefault();
     this.state.workout2[6] = e.target.value;
+    this.sendWorkout();
   }
 
 
   handleChangeBenchPress0(e) {
     e.preventDefault();
     this.state.workout3[0] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeBenchPress1(e) {
     e.preventDefault();
     this.state.workout3[1] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeBenchPress2(e) {
     e.preventDefault();
     this.state.workout3[2] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeBenchPress3(e) {
     e.preventDefault();
     this.state.workout3[3] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeBenchPress4(e) {
     e.preventDefault();
     this.state.workout3[4] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeBenchPress5(e) {
     e.preventDefault();
     this.state.workout3[5] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeBenchPress6(e) {
     e.preventDefault();
     this.state.workout3[6] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeChinUps0(e) {
     e.preventDefault();
     this.state.workout4[0] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeChinUps1(e) {
     e.preventDefault();
     this.state.workout4[1] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeChinUps2(e) {
     e.preventDefault();
     this.state.workout4[2] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeChinUps3(e) {
     e.preventDefault();
     this.state.workout4[3] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeChinUps4(e) {
     e.preventDefault();
     this.state.workout4[4] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeChinUps5(e) {
     e.preventDefault();
     this.state.workout4[5] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeChinUps6(e) {
     e.preventDefault();
     this.state.workout4[6] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeDBFarmerCarry0(e) {
     e.preventDefault();
     this.state.workout5[0] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeDBFarmerCarry1(e) {
     e.preventDefault();
     this.state.workout5[1] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeDBFarmerCarry2(e) {
     e.preventDefault();
     this.state.workout5[2] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeDBFarmerCarry3(e) {
     e.preventDefault();
     this.state.workout5[3] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeDBFarmerCarry4(e) {
     e.preventDefault();
     this.state.workout5[4] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeDBFarmerCarry5(e) {
     e.preventDefault();
     this.state.workout5[5] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeDBFarmerCarry6(e) {
     e.preventDefault();
     this.state.workout5[6] = e.target.value;
+    this.sendWorkout();
   }
 
 
   handleChangeFacePulls0(e) {
     e.preventDefault();
     this.state.workout6[0] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeFacePulls1(e) {
     e.preventDefault();
     this.state.workout6[1] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeFacePulls2(e) {
     e.preventDefault();
     this.state.workout6[2] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeFacePulls3(e) {
     e.preventDefault();
     this.state.workout6[3] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeFacePulls4(e) {
     e.preventDefault();
     this.state.workout6[4] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeFacePulls5(e) {
     e.preventDefault();
     this.state.workout6[5] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeFacePulls6(e) {
     e.preventDefault();
     this.state.workout6[6] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeExtraWorkout3(e) {
     e.preventDefault();
     this.state.workout7[3] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeExtraWorkout4(e) {
     e.preventDefault();
     this.state.workout7[4] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeExtraWorkout5(e) {
     e.preventDefault();
     this.state.workout7[5] = e.target.value;
+    this.sendWorkout();
   }
   handleChangeExtraWorkout6(e) {
     e.preventDefault();
     this.state.workout7[6] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeExtraWorkout0(e) {
     e.preventDefault();
     this.state.workout7[0] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeExtraWorkout1(e) {
     e.preventDefault();
     this.state.workout7[1] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeExtraWorkout2(e) {
     e.preventDefault();
     this.state.workout7[2] = e.target.value;
+    this.sendWorkout();
   }
 
   handleChangeDatePicker = date => {
     this.setState({
       workoutDate: date
     });
+    this.sendWorkout();
   };
 
   handleSubmitWorkout(e) {

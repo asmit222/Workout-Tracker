@@ -19,7 +19,7 @@ const saveWorkout = function(data, callback) {
 
       var dataSplit = data.split(',');
 
-      var date = dataSplit[0].slice(2);
+      var date = dataSplit[0].slice(2).split(' ').slice(1, 4).join(' ');
       var workout1 = [dataSplit[1], dataSplit[2], dataSplit[3], dataSplit[4], dataSplit[5], dataSplit[6], dataSplit[7]];
       var workout2 = [dataSplit[8], dataSplit[9], dataSplit[10], dataSplit[11], dataSplit[12], dataSplit[13], dataSplit[14]];
       var workout3 = [dataSplit[15], dataSplit[16], dataSplit[17], dataSplit[18], dataSplit[19], dataSplit[20], dataSplit[21]];
@@ -28,6 +28,8 @@ const saveWorkout = function(data, callback) {
       var workout6 = [dataSplit[36], dataSplit[37], dataSplit[38], dataSplit[39], dataSplit[40], dataSplit[41], dataSplit[42]];
       var workout7 = [dataSplit[43], dataSplit[44], dataSplit[45], dataSplit[46], dataSplit[47], dataSplit[48], dataSplit[49]];
       var notes = [`${dataSplit[50]}`];
+
+      console.log('date: ', date);
 
       var name = dataSplit[51];
 
@@ -45,15 +47,51 @@ console.log('day', day)
             if(results[0] !== undefined) {
               color = results[0].color;
             }
-           var sql = `INSERT INTO workout1 VALUES ('${name}', '${day}', '${date}', '${workout1}', '${workout2}', '${workout3}', '${workout4}', '${workout5}', '${workout6}', '${workout7}', '${notes}', '${color}');`;
 
-           connection.query(sql, function(err, results) {
-             if (err) {
-               console.log('error querying database: ', err);
-             } else {
-               console.log('workout saved!');
-             }
-           });
+            var sql4 = `delete from workout1 where name = '${name}' and  workoutDate = '${date}';`;
+
+
+            // var sql4 = `update workout1 set name = '${name}', workoutPlan = '${day}', workoutDate = '${date}', workout1 = '${workout1}', workout2 = '${workout2}', workout3 = '${workout3}', workout4 = '${workout4}', workout5 = '${workout5}', workout6 = '${workout6}', workout7 = '${workout7}' , notes = '${notes}', color = '${color}' where name = '${name}' and  workoutDate = '${date}';`;
+
+            connection.query(sql4, function(err, results) {
+              if (err) {
+                console.log('error querying database: ', err);
+              } else {
+
+                var sql = `INSERT IGNORE INTO workout1 VALUES ('${name}', '${day}', '${date}', '${workout1}', '${workout2}', '${workout3}', '${workout4}', '${workout5}', '${workout6}', '${workout7}', '${notes}', '${color}');`;
+
+                connection.query(sql, function(err, results) {
+                  if (err) {
+                    console.log('error querying database: ', err);
+                  } else {
+
+                    console.log('workout saved!');
+                  }
+                });
+
+              }
+
+
+
+
+
+
+
+
+
+
+
+            });
+
+
+
+
+
+
+
+
+
+
 
 
           }

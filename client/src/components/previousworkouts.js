@@ -53,7 +53,7 @@ this.props.history.push('/Home')
         {/* <div className='colorSpan' id={workout.color}></div> */}
 
         <table className="content is-small table is-bordered">
-<thead className="dateaboveprev">{`${workout.workoutDate.split(' ').slice(1, 4).join(' ')}`}</thead>
+<thead className="dateaboveprev">{workout.workoutDate}</thead>
           <thead id="workoutheader">
             <tr>
               <th>Workout</th>
