@@ -1108,19 +1108,19 @@ for (var j = 0; j < arr[1][6].length; j++) {
     return (
       <React.Fragment>
 
-<section id={this.state.hideButtons} class="hero is-success">
- <div class="hero-body">
-   <div class="container">
-     <h1 class="title">
+<section id={this.state.hideButtons} className="hero whiteBorder2 is-dark">
+ <div className="hero-body">
+   <div className="container">
+     <h1 className="title">
       Your workout has been submitted!
      </h1>
-     <h2 class="subtitle">
+     <h2 className="subtitle">
      </h2>
    </div>
  </div>
 </section>
 
-<Link to={{
+{/* <Link to={{
  pathname: '/Home',
  state: {
    name: this.props.name,
@@ -1153,8 +1153,47 @@ for (var j = 0; j < arr[1][6].length; j++) {
    <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="afterSubmitButtons button margin5 is-warning is-large ">
      <span>New Workout</span>
    </a>
- </Link>
-
+ </Link> */}
+ <Link to={{
+  pathname: '/Home',
+  state: {
+    name: this.props.name,
+  }
+}}>
+                    <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="homeButton afterSubmitButtons button marginbottom buttonBackground">
+                      <span></span>
+                    </a>
+                  </Link>
+                  <Link to={{
+  pathname: '/newworkout',
+  state: {
+    name: this.props.name,
+  }
+}}>
+                    <a  id={this.state.hideButtons} onClick={this.handleHomeClick} className="button afterSubmitButtons marginbottom newWorkoutButton">
+                      <span ></span>
+                    </a>
+                  </Link>
+                  <Link to={{
+  pathname: '/workoutTemplates',
+  state: {
+    name: this.props.name,
+  }
+}}>
+                    <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="button afterSubmitButtons marginbottom workoutTemplatesButton ">
+                      <span ></span>
+                    </a>
+                  </Link>
+                  <Link to={{
+  pathname: '/previousworkouts',
+  state: {
+    name: this.props.name,
+  }
+}}>
+                    <a id={this.state.hideButtons} onClick={this.handlePreviousClick} className="historyButton afterSubmitButtons button marginbottom ">
+                      <span ></span>
+                    </a>
+                  </Link>
 
 
       </React.Fragment>

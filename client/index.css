@@ -10,7 +10,7 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  height: 92vh;
+  height: 90vh;
 }
 
 .section {
@@ -93,7 +93,7 @@ table td {
 .workoutName {
   font-weight: 600;
   font-size: large;
-  color: rgb(212, 91, 10);
+  color: rgb(0, 130, 134);
 }
 
 .notesBody {
@@ -102,10 +102,6 @@ table td {
 
 .selector {
   margin-top: 5px;
-}
-
-.afterSubmitButtons {
-  width: 100%;
 }
 
 .afterSubmissionHomeButton {
@@ -466,4 +462,20 @@ textarea {
 
 .newWorkoutButton2 {
   background-color: #f8f8f8;
+}
+
+.backgroundColor {
+  /* background-color: #000000; */
+  /* height: 90vh; */
+}
+
+.afterSubmitButtons {
+  width: 50%;
+  min-height: 200px;
+  max-width: 200px;
+  border: solid 3px white;
+}
+
+.whiteBorder2 {
+  border: solid 3px white;
 }
