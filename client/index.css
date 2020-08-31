@@ -242,11 +242,17 @@ table td {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  background-color: rgb(221, 233, 255);
+  background-color: #dbdbdb;
 
   position: fixed;
   top: 0;
   bottom: 0;
+  background-image: url("https://i.pinimg.com/originals/ac/45/0d/ac450d2bf3abef40196b9cae4a0a10b4.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  height: 98vh;
 }
 
 #colorSelector {
@@ -478,4 +484,18 @@ textarea {
 
 .whiteBorder2 {
   border: solid 3px white;
+}
+
+.workoutTemplatesButton:focus {
+  border: solid 1px green;
+}
+
+.homeButton:focus {
+  border: solid 1px green;
+}
+
+.historyButton {
+}
+
+.newWorkoutButton {
 }
