@@ -131,6 +131,8 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
 
     this.sendWorkout = this.sendWorkout.bind(this);
+
+    this.saveAsTemplate = this.saveAsTemplate.bind(this);
   }
 
   sendWorkout () {
@@ -555,16 +557,128 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
 
   };
 
-  handleSubmitWorkout(e) {
-    var thisBind = this;
-    e.preventDefault();
+  saveAsTemplate() {
 
     confirmAlert({
-      title: 'Submit workout?',
+      title: 'Save as template?',
       buttons: [
         {
-          label: 'Submit',
+          label: 'Yes',
           onClick: () => {
+
+           var arr = [
+              [this.state.workoutDate],
+              [
+                this.state.workout1,
+                this.state.workout2,
+                this.state.workout3,
+                this.state.workout4,
+                this.state.workout5,
+                this.state.workout6,
+                this.state.workout7,
+              ],
+              [this.state.notes],
+              this.props.name,
+              this.props.day,
+              this.state.workoutName,
+            ];
+
+           for (var i = 0; i < arr.length - 3; i++) {
+             for (var j = 0; j < arr[i].length; j++) {
+               if(typeof arr[i][j] === 'string') {
+                 var modified = arr[i][j];
+                 modified = modified.split(',').join('');
+                 arr[i][j] = modified;
+               } else {
+                 for (var k = 0; k < arr[i][j].length; k++) {
+                  var modified = arr[i][j][k];
+                  modified = modified.split(',').join('');
+                  arr[i][j][k] = modified;
+                 }
+               }
+             }
+           }
+
+            axios.post('/test',
+            `${arr}`
+          )
+          .then((response) => {
+            console.log('workout sent for Custom Workout!')
+
+
+
+            var arr2 = [
+              [
+                this.state.workout1,
+                this.state.workout2,
+                this.state.workout3,
+                this.state.workout4,
+                this.state.workout5,
+                this.state.workout6,
+                this.state.workout7,
+              ],
+              [this.state.notes],
+              this.props.name,
+              this.props.day,
+              this.state.workoutName,
+            ];
+
+            arr2[0][0] = arr2[0][0].slice(0, 3)
+            arr2[0][1] = arr2[0][1].slice(0, 3)
+            arr2[0][2] = arr2[0][2].slice(0, 3)
+            arr2[0][3] = arr2[0][3].slice(0, 3)
+            arr2[0][4] = arr2[0][4].slice(0, 3)
+            arr2[0][5] = arr2[0][5].slice(0, 3)
+            arr2[0][6] = arr2[0][6].slice(0, 3)
+
+
+           for (var i = 0; i < arr2.length - 3; i++) {
+             for (var j = 0; j < arr2[i].length; j++) {
+               if(typeof arr2[i][j] === 'string') {
+                 var modified = arr2[i][j];
+                 modified = modified.split(',').join('');
+                 arr2[i][j] = modified;
+               } else {
+                 for (var k = 0; k < arr2[i][j].length; k++) {
+                  var modified = arr2[i][j][k];
+                  modified = modified.split(',').join('');
+                  arr2[i][j][k] = modified;
+                 }
+               }
+             }
+           }
+
+            axios.post('/createTemplate',
+            `${arr2}`
+          )
+          .then((response) => {
+            console.log('saved template!')
+            this.props.hideDropDown();
+            this.props.hideNav();
+            this.setState({
+              submitted: true,
+            })
+          }, (error) => {
+            alert(error);
+          });
+
+
+
+
+
+          }, (error) => {
+            alert(error);
+          });
+
+
+
+
+          }
+        },
+        {
+          label: 'No',
+          onClick: () => {
+
             this.props.hideDropDown();
             this.props.hideNav();
             this.setState({
@@ -611,6 +725,39 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
           }, (error) => {
             alert(error);
           });
+
+
+
+
+
+
+
+
+          }
+        }
+      ]
+    });
+
+
+  }
+
+  handleSubmitWorkout(e) {
+    var thisBind = this;
+    e.preventDefault();
+
+    confirmAlert({
+      title: 'Submit workout?',
+      buttons: [
+        {
+          label: 'Submit',
+          onClick: () => {
+
+
+
+
+            setTimeout(() => {
+              this.saveAsTemplate();
+            }, 1)
           }
         },
         {
@@ -626,7 +773,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     return (
       <React.Fragment>
         <Prompt when={true === true} message="Discard workout?" />
-        <div className="block">
+        <div className="block minWidthBlock">
           <form autocomplete="off">
 
           <div className="block nameYourWorkout">

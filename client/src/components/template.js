@@ -660,13 +660,13 @@ for (var j = 0; j < arr[1][6].length; j++) {
     return (
       <React.Fragment>
         <Prompt when={true === true} message="Discard workout?" />
-        <div className="block">
+        <div className="block minWidthBlock">
           <form autocomplete="off">
 
             <table id='customTable' className="content is-small table is-bordered">
               <thead id="workoutheader">
                 <tr>
-                  <th>Workout</th>
+                  <th id='workoutWidth'>Workout</th>
                   <th>Sets</th>
                   <th>Reps</th>
                   <th>Set 1</th>

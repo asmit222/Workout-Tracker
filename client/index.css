@@ -121,18 +121,6 @@ table td {
   margin-top: -4px;
 }
 
-.newWorkoutButton {
-  width: 100%;
-}
-
-.homeButton {
-  min-width: 80px;
-}
-
-.historyButton {
-  min-width: 120px;
-}
-
 .templateName {
   margin-top: 10px;
 }
@@ -147,6 +135,9 @@ table td {
 
 #datePickerRectangle {
   margin-bottom: 7px;
+  max-width: 80px;
+  border: solid 1px #dbdbdb;
+  padding-left: 3px;
 }
 
 .buttonContainer2 {
@@ -373,4 +364,106 @@ table td {
 
 #workoutHeader2 {
   background-color: #dbdbdb;
+}
+
+#workoutWidth {
+  min-width: 160px;
+}
+
+input,
+textarea {
+  margin: 0;
+  vertical-align: bottom;
+}
+
+#customTable {
+  /* min-width: 700px; */
+}
+
+.minWidthBlock {
+  min-width: 600px;
+  padding-right: 5px;
+}
+
+/* .float-container {
+  border: 3px solid #fff;
+  padding: 20px;
+}
+
+.float-child {
+  width: 50%;
+  float: left;
+  padding: 20px;
+  border: 2px solid red;
+} */
+
+#fiftyPercent {
+  width: 50%;
+  float: left;
+  max-height: 200px;
+}
+
+.testing123 {
+  padding-left: 3px;
+  border: solid 3px white;
+}
+
+.templateMargins {
+  /* margin-left: 20%; */
+  color: #dbdbdb;
+}
+
+#customTable3 {
+  min-height: 200px;
+  margin-top: 10px;
+  font-size: xx-small;
+  border-collapse: collapse;
+  border: none;
+  color: #dbdbdb;
+}
+
+.buttonBackground {
+  background-image: url("https://png.pngtree.com/png-vector/20190121/ourlarge/pngtree-vector-house-icon-png-image_332900.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.workoutTemplatesButton {
+  min-height: 80px;
+  min-width: 80px;
+  background-image: url("https://cdn0.iconfinder.com/data/icons/ikooni-outline-seo-web/128/seo2-63-512.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #f8f8f8;
+}
+
+.homeButton {
+  min-width: 80px;
+  min-height: 80px;
+}
+
+.historyButton {
+  min-width: 80px;
+  min-height: 80px;
+  background-image: url("https://img.icons8.com/nolan/2x/order-history.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #f8f8f8;
+}
+
+.newWorkoutButton {
+  min-width: 117px;
+  min-height: 80px;
+  background-image: url("https://ramayogainstitute.com/wp-content/uploads/2020/03/Workout-Icon-copy-3-300x200.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #f8f8f8;
+}
+
+.newWorkoutButton2 {
+  background-color: #f8f8f8;
 }

@@ -141,6 +141,7 @@ if(typeof res.data === 'object') {
           <div className="nav-right nav-menu">
             <div className="nav-item">
               <div className="field is-grouped">
+
                 <p className="control">
                   <Link to={{
   pathname: '/Home',
@@ -149,12 +150,24 @@ if(typeof res.data === 'object') {
     hideNav: this.handleHideNav,
   }
 }}>
-                    <a id={this.state.hideNav} className="homeButton button marginbottom is-dark">
-                      <span >Home</span>
+                    <a id={this.state.hideNav} className="homeButton button marginbottom buttonBackground">
+                      <span></span>
                     </a>
                   </Link>
                 </p>
-
+                <p className="control">
+                  <Link to={{
+  pathname: '/newworkout',
+  state: {
+    name: this.state.name,
+    hideNav: this.handleHideNav,
+  }
+}}>
+                    <a  id={this.state.hideNav} className="button marginbottom newWorkoutButton">
+                      <span ></span>
+                    </a>
+                  </Link>
+                </p>
 
 
                 <p className="control">
@@ -165,8 +178,8 @@ if(typeof res.data === 'object') {
     hideNav: this.handleHideNav,
   }
 }}>
-                    <a id={this.state.hideNav} className="button marginbottom workoutTemplatesButton is-warning">
-                      <span >Manage Templates</span>
+                    <a id={this.state.hideNav} className="button marginbottom workoutTemplatesButton ">
+                      <span ></span>
                     </a>
                   </Link>
                 </p>
@@ -178,29 +191,18 @@ if(typeof res.data === 'object') {
     hideNav: this.handleHideNav,
   }
 }}>
-                    <a id={this.state.hideNav} className="historyButton button marginbottom is-info">
-                      <span >History</span>
+                    <a id={this.state.hideNav} className="historyButton button marginbottom ">
+                      <span ></span>
                     </a>
                   </Link>
                 </p>
+
               </div>
             </div>
           </div>
         </nav>
 
-        <p className="control">
-                  <Link to={{
-  pathname: '/newworkout',
-  state: {
-    name: this.state.name,
-    hideNav: this.handleHideNav,
-  }
-}}>
-                    <a  id={this.state.hideNav} className="button marginbottom newWorkoutButton is-success">
-                      <span >New Workout</span>
-                    </a>
-                  </Link>
-                </p>
+
 
         <div className="content">
         <Route exact path="/" component={Home} />

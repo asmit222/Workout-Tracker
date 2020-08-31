@@ -556,6 +556,7 @@ handleSubmitWorkout(e) {
             this.state.workoutName,
           ];
 
+
          for (var i = 0; i < arr.length - 3; i++) {
            for (var j = 0; j < arr[i].length; j++) {
              if(typeof arr[i][j] === 'string') {
@@ -576,7 +577,7 @@ handleSubmitWorkout(e) {
           `${arr}`
         )
         .then((response) => {
-          console.log('workout sent for Custom Workout!')
+          console.log('saved template!')
         }, (error) => {
           alert(error);
         });
@@ -619,7 +620,7 @@ thisBind.setState({
           <div className="hero-body heroBody">
             <div className="container">
 
-            {(template.color === ('Black' || 'Red' || 'Blue')) ? <span id='whiteText' className="title heroTitle">{template.templateName.slice(1, template.templateName.length - 1)}
+            {(template.color === 'Black' || template.color === 'Blue' ||template.color === 'Red') ? <span id='whiteText' className="title heroTitle">{template.templateName.slice(1, template.templateName.length - 1)}
 
             <span id='colorSelector' className="field selector">
             <span className="select">
@@ -745,7 +746,7 @@ if(this.state.clicked === false) {
 <div className="block">
 
 <div id='createTemplateButton1' className='buttonContainer'>
-            <button  onClick={this.handleClickCreateTemplate} id='loginButton' className="is-outlined is-rounded is-large button marginbottom createTemplateButton  newWorkoutButton button is-dark">
+            <button  onClick={this.handleClickCreateTemplate} id='loginButton' className="is-outlined is-rounded is-large button marginbottom createTemplateButton  newWorkoutButton2 button is-dark">
               <span >+ New</span>
             </button>
       </div>
