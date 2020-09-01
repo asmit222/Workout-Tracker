@@ -1097,7 +1097,11 @@ for (var j = 0; j < arr[1][6].length; j++) {
               href=""
               className="margin button is-danger"
             >
-              Submit workout
+               <span className="icon is-small">
+      <i className="fa fa-check"></i>
+    </span>
+    <span>Submit workout</span>
+
             </button>
           </form>
         </div>

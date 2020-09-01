@@ -483,3 +483,10 @@ textarea {
 .whiteBorder2 {
   border: solid 3px white;
 }
+
+.homeButton:active,
+.newWorkoutButton:active,
+.historyButton:active,
+.workoutTemplatesButton:active {
+  border: solid rgb(218, 98, 255) 2px;
+}
