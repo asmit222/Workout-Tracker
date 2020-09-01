@@ -18,14 +18,13 @@
 }
 
 #workoutheader {
-  /* background-color: rgb(170, 170, 170); */
-  /* background-color: rgb(212, 20, 20); */
   background-color: #dbdbdb;
 }
 
 .dateaboveprev {
-  font-weight: 500;
+  font-weight: 400;
   margin-bottom: 2px;
+  color: #a5a5a5;
 }
 
 #hide {
@@ -41,9 +40,7 @@
 }
 
 #notesheader {
-  /* background-color: rgb(235, 235, 74); */
-
-  background-color: rgb(236, 238, 111);
+  background-color: #ffff88;
   color: black;
 }
 
@@ -91,9 +88,9 @@ table td {
 }
 
 .workoutName {
-  font-weight: 600;
+  font-weight: 500;
   font-size: large;
-  color: rgb(0, 130, 134);
+  color: rgb(0, 0, 0);
 }
 
 .notesBody {
@@ -146,6 +143,7 @@ table td {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: rgb(0, 0, 0);
 }
 
 .meter {
@@ -484,18 +482,4 @@ textarea {
 
 .whiteBorder2 {
   border: solid 3px white;
-}
-
-.workoutTemplatesButton:focus {
-  border: solid 1px green;
-}
-
-.homeButton:focus {
-  border: solid 1px green;
-}
-
-.historyButton {
-}
-
-.newWorkoutButton {
 }

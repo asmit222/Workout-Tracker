@@ -43,14 +43,12 @@ this.props.history.push('/Home')
   render() {
     return (
  <div>
-    {/* <div id={'workoutHistoryText'}>
-          </div> */}
+
 {this.state.data.map((workout) =>(
       <div  id={workout.color} className="margin historyBackground">
 
         <div  className='workoutName is-info'>{workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)}</div>
 
-        {/* <div className='colorSpan' id={workout.color}></div> */}
 
         <table className="content is-small table is-bordered">
 <thead className="dateaboveprev">{workout.workoutDate}</thead>
