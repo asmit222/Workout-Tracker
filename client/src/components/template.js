@@ -1124,40 +1124,6 @@ for (var j = 0; j < arr[1][6].length; j++) {
  </div>
 </section>
 
-{/* <Link to={{
- pathname: '/Home',
- state: {
-   name: this.props.name,
- }
-}}>
-   <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="afterSubmitButtons afterSubmissionHomeButton button margin5 is-dark is-large ">
-     <span>Home</span>
-   </a>
- </Link>
-
-       <Link to={{
- pathname: '/previousworkouts',
- state: {
-   name: this.props.name,
- }
-}}>
-   <a id={this.state.hideButtons} onClick={this.handlePreviousClick} className="afterSubmitButtons button margin5 is-info is-large ">
-     <span>Workout History</span>
-   </a>
- </Link>
-
-
-
-   <Link to={{
- pathname: '/newworkout',
- state: {
-   name: this.props.name,
- }
-}}>
-   <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="afterSubmitButtons button margin5 is-warning is-large ">
-     <span>New Workout</span>
-   </a>
- </Link> */}
  <Link to={{
   pathname: '/Home',
   state: {

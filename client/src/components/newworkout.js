@@ -135,7 +135,6 @@ setTimeout(() => console.log(this.state.templates), 2000);
                 value={this.state.value}
               >
                 <option>Select a workout</option>
-                {/* <option>Austin's Day 1</option> */}
                 <option>Custom Workout</option>
 
                 {templates}

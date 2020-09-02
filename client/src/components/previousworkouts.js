@@ -45,14 +45,14 @@ this.props.history.push('/Home')
  <div>
 
 {this.state.data.map((workout) =>(
-      <div  id={workout.color} className="margin historyBackground">
+      <div  className="margin historyBackground">
 
         <div  className='workoutName is-info'>{workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)}</div>
 
 
         <table className="content is-small table is-bordered">
 <thead className="dateaboveprev">{workout.workoutDate}</thead>
-          <thead id="workoutheader">
+          <thead id='workoutheader' className={workout.color}>
             <tr>
               <th>Workout</th>
               <th>Sets</th>
@@ -63,7 +63,7 @@ this.props.history.push('/Home')
               <th>4</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className={workout.color}>
             <tr>
               <td>{workout.workout1.split(',')[0]}</td>
               <td>{workout.workout1.split(',')[1]}</td>
@@ -82,7 +82,7 @@ this.props.history.push('/Home')
               <td>{workout.workout2.split(',')[5]}</td>
               <td>{workout.workout2.split(',')[6]}</td>
             </tr>
-            <tr>
+            {workout.workout3.split(',')[0] !== ' ' && workout.workout3.split(',')[0] !== '' ? <tr>
             <td>{workout.workout3.split(',')[0]}</td>
               <td>{workout.workout3.split(',')[1]}</td>
               <td>{workout.workout3.split(',')[2]}</td>
@@ -90,8 +90,8 @@ this.props.history.push('/Home')
               <td>{workout.workout3.split(',')[4]}</td>
               <td>{workout.workout3.split(',')[5]}</td>
               <td>{workout.workout3.split(',')[6]}</td>
-            </tr>
-            <tr>
+              </tr> : <tr id='hide'></tr>}
+            {workout.workout4.split(',')[0] !== ' ' && workout.workout3.split(',')[0] !== '' ? <tr>
             <td>{workout.workout4.split(',')[0]}</td>
               <td>{workout.workout4.split(',')[1]}</td>
               <td>{workout.workout4.split(',')[2]}</td>
@@ -99,8 +99,8 @@ this.props.history.push('/Home')
               <td>{workout.workout4.split(',')[4]}</td>
               <td>{workout.workout4.split(',')[5]}</td>
               <td>{workout.workout4.split(',')[6]}</td>
-            </tr>
-            <tr>
+              </tr> : <tr id='hide'></tr>}
+            {workout.workout5.split(',')[0] !== ' ' && workout.workout3.split(',')[0] !== '' ? <tr>
             <td>{workout.workout5.split(',')[0]}</td>
               <td>{workout.workout5.split(',')[1]}</td>
               <td>{workout.workout5.split(',')[2]}</td>
@@ -108,8 +108,8 @@ this.props.history.push('/Home')
               <td>{workout.workout5.split(',')[4]}</td>
               <td>{workout.workout5.split(',')[5]}</td>
               <td>{workout.workout5.split(',')[6]}</td>
-            </tr>
-            <tr>
+              </tr> : <tr id='hide'></tr>}
+            {workout.workout6.split(',')[0] !== ' ' && workout.workout3.split(',')[0] !== '' ? <tr>
             <td>{workout.workout6.split(',')[0]}</td>
               <td>{workout.workout6.split(',')[1]}</td>
               <td>{workout.workout6.split(',')[2]}</td>
@@ -117,8 +117,8 @@ this.props.history.push('/Home')
               <td>{workout.workout6.split(',')[4]}</td>
               <td>{workout.workout6.split(',')[5]}</td>
               <td>{workout.workout6.split(',')[6]}</td>
-            </tr>
-            <tr>
+              </tr> : <tr id='hide'></tr>}
+            {workout.workout7.split(',')[0] !== ' ' && workout.workout3.split(',')[0] !== '' ? <tr>
             <td>{workout.workout7.split(',')[0]}</td>
               <td>{workout.workout7.split(',')[1]}</td>
               <td>{workout.workout7.split(',')[2]}</td>
@@ -126,7 +126,7 @@ this.props.history.push('/Home')
               <td>{workout.workout7.split(',')[4]}</td>
               <td>{workout.workout7.split(',')[5]}</td>
               <td>{workout.workout7.split(',')[6]}</td>
-            </tr>
+            </tr> : <tr id='hide'></tr>}
           </tbody>
         </table>
 

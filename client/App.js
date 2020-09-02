@@ -133,7 +133,7 @@ if(typeof res.data === 'object') {
     if (this.state.creatingAccount === false) {
     if (this.state.name.length > 0) {
   return (
-    <div className="container">
+    <div className="container background">
 
       <HashRouter>
 

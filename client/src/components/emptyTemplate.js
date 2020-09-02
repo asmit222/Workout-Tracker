@@ -1202,7 +1202,11 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
               href=""
               className="margin button is-danger"
             >
-              Submit workout
+               <span className="icon is-small">
+      <i className="fa fa-check"></i>
+    </span>
+    <span>Submit workout</span>
+
             </button>
           </form>
         </div>
@@ -1213,53 +1217,58 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     return (
       <React.Fragment>
 
-<section id={this.state.hideButtons} class="hero is-success">
- <div class="hero-body">
-   <div class="container">
-     <h1 class="title">
+<section id={this.state.hideButtons} className="hero whiteBorder2 is-dark">
+ <div className="hero-body">
+   <div className="container">
+     <h1 className="title">
       Your workout has been submitted!
      </h1>
-     <h2 class="subtitle">
+     <h2 className="subtitle">
      </h2>
    </div>
  </div>
 </section>
 
-<Link to={{
- pathname: '/Home',
- state: {
-   name: this.props.name,
- }
+ <Link to={{
+  pathname: '/Home',
+  state: {
+    name: this.props.name,
+  }
 }}>
-   <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="afterSubmitButtons afterSubmissionHomeButton button margin5 is-dark is-large ">
-     <span>Home</span>
-   </a>
- </Link>
-
-       <Link to={{
- pathname: '/previousworkouts',
- state: {
-   name: this.props.name,
- }
+                    <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="homeButton afterSubmitButtons button marginbottom buttonBackground">
+                      <span></span>
+                    </a>
+                  </Link>
+                  <Link to={{
+  pathname: '/newworkout',
+  state: {
+    name: this.props.name,
+  }
 }}>
-   <a id={this.state.hideButtons} onClick={this.handlePreviousClick} className="afterSubmitButtons button margin5 is-info is-large ">
-     <span>Workout History</span>
-   </a>
- </Link>
-
-
-
-   <Link to={{
- pathname: '/newworkout',
- state: {
-   name: this.props.name,
- }
+                    <a  id={this.state.hideButtons} onClick={this.handleHomeClick} className="button afterSubmitButtons marginbottom newWorkoutButton">
+                      <span ></span>
+                    </a>
+                  </Link>
+                  <Link to={{
+  pathname: '/workoutTemplates',
+  state: {
+    name: this.props.name,
+  }
 }}>
-   <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="afterSubmitButtons button margin5 is-warning is-large ">
-     <span>New Workout</span>
-   </a>
- </Link>
-
+                    <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="button afterSubmitButtons marginbottom workoutTemplatesButton ">
+                      <span ></span>
+                    </a>
+                  </Link>
+                  <Link to={{
+  pathname: '/previousworkouts',
+  state: {
+    name: this.props.name,
+  }
+}}>
+                    <a id={this.state.hideButtons} onClick={this.handlePreviousClick} className="historyButton afterSubmitButtons button marginbottom ">
+                      <span ></span>
+                    </a>
+                  </Link>
 
 
       </React.Fragment>
