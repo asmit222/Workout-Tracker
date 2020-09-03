@@ -151,7 +151,7 @@ if(typeof res.data === 'object') {
   }
 }}>
                     <a id={this.state.hideNav} className="homeButton button marginbottom buttonBackground">
-                      <span></span>
+<span></span>
                     </a>
                   </Link>
                 </p>

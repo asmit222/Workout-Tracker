@@ -1,3 +1,7 @@
+body {
+  font-family: Verdana, Tahoma, sans-serif;
+}
+
 .container {
   margin-top: 5px;
   margin-right: 5px;
@@ -105,11 +109,6 @@ table td {
   width: 174px;
 }
 
-#customTable {
-  min-height: 250px;
-  margin-top: -4px;
-}
-
 .templateName {
   margin-top: 10px;
 }
@@ -119,15 +118,17 @@ table td {
 }
 
 #notesForm {
+  /* margin-top: -16px; */
   margin-bottom: 8px;
-  width: 65.8%;
+  width: 100%;
 }
 
 #datePickerRectangle {
-  margin-bottom: 7px;
   max-width: 80px;
   border: solid 1px #dbdbdb;
   padding-left: 3px;
+  margin-bottom: 5px;
+  margin-top: 10px;
 }
 
 .buttonContainer2 {
@@ -257,47 +258,42 @@ table td {
 }
 
 .Black {
-  border-left: solid 3px hsl(0, 0%, 21%);
+  border-left: solid 5px hsl(0, 0%, 21%);
   padding-left: 3px;
 }
 
 .Gray {
-  border-left: solid 3px hsl(0, 0%, 96%);
+  border-left: solid 5px hsl(0, 0%, 96%);
   padding-left: 3px;
 }
 
 .Turquoise {
-  border-left: solid 3px hsl(171, 100%, 41%);
+  border-left: solid 5px hsl(171, 100%, 41%);
   padding-left: 3px;
 }
 
 .Blue {
-  border-left: solid 3px hsl(217, 71%, 53%);
+  border-left: solid 5px hsl(217, 71%, 53%);
   padding-left: 3px;
 }
 
 .Cyan {
-  border-left: solid 3px hsl(204, 86%, 53%);
+  border-left: solid 5px hsl(204, 86%, 53%);
   padding-left: 3px;
 }
 
 .Green {
-  border-left: solid 3px hsl(141, 53%, 53%);
+  border-left: solid 5px hsl(141, 53%, 53%);
   padding-left: 3px;
 }
 
 .Yellow {
-  border-left: solid 3px hsl(48, 100%, 67%);
+  border-left: solid 5px hsl(48, 100%, 67%);
   padding-left: 3px;
 }
 
 .Red {
-  border-left: solid 3px hsl(348, 100%, 61%);
-  padding-left: 3px;
-}
-
-.Gray {
-  border-left: solid 3px hsl(0, 0%, 96%);
+  border-left: solid 5px hsl(348, 100%, 61%);
   padding-left: 3px;
 }
 
@@ -374,7 +370,8 @@ textarea {
 }
 
 #customTable {
-  /* min-width: 700px; */
+  min-height: 250px;
+  /* margin-top: -8px; */
 }
 
 .minWidthBlock {
@@ -511,7 +508,7 @@ textarea {
 
 .historyModalContainer {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3), inset 0 -3px 3px rgba(0, 0, 0, 0.1);
-  border: solid hsl(48, 100%, 67%) 2px;
+  border: solid hsl(48, 100%, 67%) 3px;
   border-radius: 10px;
   position: relative;
   max-height: 260px;
@@ -527,19 +524,56 @@ textarea {
   padding-right: 5px;
 }
 
-.historyModalContainer2 {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3), inset 0 -3px 3px rgba(0, 0, 0, 0.1);
-  border: solid hsl(48, 100%, 67%) 2px;
-  border-radius: 10px;
-  position: relative;
-  max-height: 260px;
-  width: 65.7%;
-  z-index: 100;
-  overflow-y: scroll;
-  margin-top: -2px;
-}
-
 .smallHistoryButton2 {
   margin-top: -17px;
   margin-bottom: -6px;
+}
+
+.quickStartContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.quickStartButton {
+  width: 95%;
+}
+
+.centerContent {
+  display: flex;
+  justify-content: center;
+  font-size: small;
+}
+
+.centerButtons {
+  text-align: center;
+}
+
+.templateButton {
+  margin-bottom: 10px;
+  width: 95%;
+}
+
+.scrollContainer {
+  margin-top: -5px;
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.scrollContainer2 {
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  padding-right: 2px;
+  padding-left: 2px;
+  white-space: nowrap;
+}
+
+.submitWorkoutButton {
+  margin-bottom: 5px;
+}
+
+.previousContainer {
+  width: 100%;
 }

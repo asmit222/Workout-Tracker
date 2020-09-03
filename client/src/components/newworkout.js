@@ -12,6 +12,7 @@ class newworkout extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      quickStartSelected: '',
       currentTemplate: {name: "AUSTIN",
       templateName: "'template5'",
       workout1: " , , ",
@@ -31,6 +32,21 @@ class newworkout extends Component {
     };
     this.handleDaySelection = this.handleDaySelection.bind(this);
     this.hideDropDown = this.hideDropDown.bind(this);
+
+    this.handleQuickStart = this.handleQuickStart.bind(this);
+  }
+
+  handleQuickStart (e) {
+    e.preventDefault();
+
+    this.setState({
+      day1Selected: "hide",
+      emptyTemplateSelected: "show1",
+      templateSelected: 'hide',
+      day: 'Custom Workout',
+      quickStartSelected: 'hide'
+    });
+
   }
 
 componentDidMount() {
@@ -79,7 +95,8 @@ setTimeout(() => console.log(this.state.templates), 2000);
         day1Selected: "hide",
         emptyTemplateSelected: "show1",
         templateSelected: 'hide',
-        day: 'Custom Workout'
+        day: 'Custom Workout',
+        quickStartSelected: 'hide'
       });
     } else if (newDay === "Austin's Day 1") {
       thisBind.setState({
@@ -87,6 +104,7 @@ setTimeout(() => console.log(this.state.templates), 2000);
         day1Selected: "show",
         templateSelected: 'hide',
         emptyTemplateSelected: "hide1",
+        quickStartSelected: 'hide'
       });
     } else if (newDay === "Select a workout") {
       thisBind.setState({
@@ -94,6 +112,7 @@ setTimeout(() => console.log(this.state.templates), 2000);
         day1Selected: "hide",
         templateSelected: 'hide',
         emptyTemplateSelected: "hide1",
+        quickStartSelected: ''
       });
     } else {
 
@@ -102,6 +121,7 @@ setTimeout(() => console.log(this.state.templates), 2000);
         day1Selected: "hide",
         emptyTemplateSelected: "hide1",
         templateSelected: 'show',
+        quickStartSelected: 'hide'
       },
       after
       );
@@ -126,6 +146,7 @@ setTimeout(() => console.log(this.state.templates), 2000);
     return <option>{template.templateName.slice(1, template.templateName.length - 1)}</option>
     })
     return (
+      <React.Fragment>
       <div className="block">
         <div id={this.state.dropDown} className="field selector">
           <p className="control">
@@ -153,6 +174,17 @@ setTimeout(() => console.log(this.state.templates), 2000);
         </div>
 
       </div>
+      {/* <div className='block quickStartContainer'>
+      <button id={this.state.quickStartSelected} onClick={this.handleQuickStart} className='button is-small is-info quickStartButton'>Quick Start - Empty Template</button>
+      </div>
+      <div className='block'>
+      <div className='block centerContent'>My Templates</div>
+      <div className='centerButtons'>
+     {templates}
+      </div>
+      </div> */}
+
+      </React.Fragment>
     );
   }
 }

@@ -707,7 +707,7 @@ for (var j = 0; j < arr[1][6].length; j++) {
       <div  className="margin historyBackground">
 
         <div className='workoutName is-info'>{workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)}</div>
-
+<div className='scrollContainer2'>
         <table className="content is-small table is-bordered">
 <thead className="dateaboveprev">{workout.workoutDate}</thead>
           <thead id='workoutheader' className={workout.color}>
@@ -787,6 +787,7 @@ for (var j = 0; j < arr[1][6].length; j++) {
             </tr> : <tr id='hide'></tr>}
           </tbody>
         </table>
+        </div>
 
         {workout.notes.length > 0 ? <article className="content is-small message notes">
           <div id='notesheader' className="message-header">
@@ -808,6 +809,7 @@ for (var j = 0; j < arr[1][6].length; j++) {
 
  {/*======================================================================================== */}
         </div>
+        <div className='scrollContainer'>
         <div className="block minWidthBlock">
           <form autocomplete="off">
 
@@ -1222,10 +1224,13 @@ for (var j = 0; j < arr[1][6].length; j++) {
                 </tr>
               </tbody>
             </table>
+            </form>
+    </div>
+    </div>
             <DatePicker id='datePickerRectangle'
         selected={this.state.workoutDate}
         onChange={this.handleChangeDatePicker}
-      />
+        />
 
             <form id='notesForm'>
               <div className="field">
@@ -1248,11 +1253,9 @@ for (var j = 0; j < arr[1][6].length; j++) {
                <span className="icon is-small">
       <i className="fa fa-check"></i>
     </span>
-    <span>Submit workout</span>
+    <span className='submitWorkoutButton'>Submit workout</span>
 
             </button>
-          </form>
-        </div>
       </React.Fragment>
     );
 

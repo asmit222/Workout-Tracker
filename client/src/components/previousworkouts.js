@@ -28,7 +28,7 @@ handleDeleteClick (e) {
       {
         label: 'Delete',
         onClick: () => {
-
+alert('that doesnt work yet, sorry...')
 
 
         }
@@ -72,11 +72,12 @@ this.props.history.push('/Home')
  <div>
 
 {this.state.data.map((workout) =>(
-      <div  className="margin historyBackground">
+      <div  className="previousContainer">
 
         <div className='workoutName is-info'>{workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)}</div>
 
         <button value={[workout.workoutDate, workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)]} onClick={this.handleDeleteClick} className="delete deleteButtonHistory is-small "></button>
+        <div className='scrollContainer2'>
         <table className="content is-small table is-bordered">
 <thead className="dateaboveprev">{workout.workoutDate}</thead>
           <thead id='workoutheader' className={workout.color}>
@@ -156,6 +157,7 @@ this.props.history.push('/Home')
             </tr> : <tr id='hide'></tr>}
           </tbody>
         </table>
+        </div>
 
         {workout.notes.length > 0 ? <article className="content is-small message notes">
           <div id='notesheader' className="message-header">

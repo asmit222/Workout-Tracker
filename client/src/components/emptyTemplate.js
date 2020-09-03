@@ -809,8 +809,6 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     return (
       <React.Fragment>
         <Prompt when={true === true} message="Discard workout?" />
-        <div className="block minWidthBlock">
-          <form autocomplete="off">
 
           <div className="block nameYourWorkout">
       <form>
@@ -821,7 +819,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     </div>
         <button onClick={this.handleSmallButtonClick} className="button is-small is-warning smallHistoryButton2">History peek</button>
 
-        <div id={this.state.historyPeek} className='block historyModalContainer2'>
+        <div id={this.state.historyPeek} className='block historyModalContainer'>
 {/*========================================================================================= */}
 
 <div className='insideContainer'>
@@ -830,7 +828,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
       <div  className="margin historyBackground">
 
         <div className='workoutName is-info'>{workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)}</div>
-
+        <div className='scrollContainer2'>
         <table className="content is-small table is-bordered">
 <thead className="dateaboveprev">{workout.workoutDate}</thead>
           <thead id='workoutheader' className={workout.color}>
@@ -910,6 +908,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
             </tr> : <tr id='hide'></tr>}
           </tbody>
         </table>
+        </div>
 
         {workout.notes.length > 0 ? <article className="content is-small message notes">
           <div id='notesheader' className="message-header">
@@ -931,6 +930,9 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
 
  {/*======================================================================================== */}
         </div>
+        <div className='scrollContainer'>
+        <div className="block minWidthBlock">
+        <form autocomplete="off">
 
             <table id='customTable' className="content is-small table is-bordered">
               <thead id="workoutheader">
@@ -1322,6 +1324,9 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
                 </tr>
               </tbody>
             </table>
+            </form>
+                        </div>
+                        </div>
             <DatePicker id='datePickerRectangle'
         selected={this.state.workoutDate}
         onChange={this.handleChangeDatePicker}
@@ -1348,11 +1353,9 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
                <span className="icon is-small">
       <i className="fa fa-check"></i>
     </span>
-    <span>Submit workout</span>
+    <span className='submitWorkoutButton'>Submit workout</span>
 
             </button>
-          </form>
-        </div>
       </React.Fragment>
     );
 
