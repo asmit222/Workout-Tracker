@@ -148,14 +148,9 @@ setTimeout(() => console.log(this.state.templates), 2000);
           <Template currentTemplate={this.state.currentTemplate} templates={this.state.templates} workoutName={this.state.workoutName} name={this.props.location.state !== undefined ? this.props.location.state.name : null} day={this.state.day} hideDropDown={this.hideDropDown} hideNav={this.props.location.state !== undefined ? this.props.location.state.hideNav : null}/>
         </div>
 
-        <div id={this.state.day1Selected}>
-          <Day1 name={this.props.location.state !== undefined ? this.props.location.state.name : null} day={this.state.day} hideDropDown={this.hideDropDown} hideNav={this.props.location.state !== undefined ? this.props.location.state.hideNav : null}/>
-        </div>
-
         <div id={this.state.emptyTemplateSelected}>
           <EmptyTemplate name={this.props.location.state !== undefined ? this.props.location.state.name : null} day={this.state.day} hideDropDown={this.hideDropDown} hideNav={this.props.location.state !== undefined ? this.props.location.state.hideNav : null}/>
         </div>
-
 
       </div>
     );

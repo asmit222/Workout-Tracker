@@ -21,6 +21,8 @@ class Template extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      historyPeek: 'hide',
+      data: [],
       workoutName: 'Custom',
       hideButtons: '',
       username: ' ',
@@ -123,6 +125,40 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
 
     this.sendWorkout = this.sendWorkout.bind(this);
+
+    this.handleSmallButtonClick = this.handleSmallButtonClick.bind(this);
+  }
+
+  componentDidMount() {
+var thisBind = this;
+
+    axios.post('/getWorkouts',
+    `${[thisBind.props.name]}`
+  )
+  .then((response) => {
+    response.data.reverse();
+      thisBind.setState({
+             data: response.data,
+            })
+  }, (error) => {
+    alert(error);
+  });
+  }
+
+  handleSmallButtonClick(e) {
+    e.preventDefault();
+    var thisBind = this;
+
+    if(this.state.historyPeek === 'hide') {
+      this.setState({
+        historyPeek: '',
+      })
+    } else {
+      this.setState({
+        historyPeek: 'hide',
+      })
+    }
+
   }
 
   sendWorkout () {
@@ -659,7 +695,119 @@ for (var j = 0; j < arr[1][6].length; j++) {
     if (this.state.submitted === false) {
     return (
       <React.Fragment>
+            <button onClick={this.handleSmallButtonClick} className="button is-small is-warning smallHistoryButton">History peek</button>
+
         <Prompt when={true === true} message="Discard workout?" />
+        <div id={this.state.historyPeek} className='block historyModalContainer'>
+{/*========================================================================================= */}
+
+<div className='insideContainer'>
+
+{this.state.data.map((workout) =>(
+      <div  className="margin historyBackground">
+
+        <div className='workoutName is-info'>{workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)}</div>
+
+        <table className="content is-small table is-bordered">
+<thead className="dateaboveprev">{workout.workoutDate}</thead>
+          <thead id='workoutheader' className={workout.color}>
+            <tr>
+              <th>Workout</th>
+              <th>Sets</th>
+              <th>Reps</th>
+              <th>1</th>
+              <th>2</th>
+              <th>3</th>
+              <th>4</th>
+            </tr>
+          </thead>
+          <tbody className={workout.color}>
+            <tr>
+              <td>{workout.workout1.split(',')[0]}</td>
+              <td>{workout.workout1.split(',')[1]}</td>
+              <td>{workout.workout1.split(',')[2]}</td>
+              <td>{workout.workout1.split(',')[3]}</td>
+              <td>{workout.workout1.split(',')[4]}</td>
+              <td>{workout.workout1.split(',')[5]}</td>
+              <td>{workout.workout1.split(',')[6]}</td>
+            </tr>
+            <tr>
+            <td>{workout.workout2.split(',')[0]}</td>
+              <td>{workout.workout2.split(',')[1]}</td>
+              <td>{workout.workout2.split(',')[2]}</td>
+              <td>{workout.workout2.split(',')[3]}</td>
+              <td>{workout.workout2.split(',')[4]}</td>
+              <td>{workout.workout2.split(',')[5]}</td>
+              <td>{workout.workout2.split(',')[6]}</td>
+            </tr>
+            {workout.workout3.split(',')[0] !== ' ' && workout.workout3.split(',')[0] !== '' ? <tr>
+            <td>{workout.workout3.split(',')[0]}</td>
+              <td>{workout.workout3.split(',')[1]}</td>
+              <td>{workout.workout3.split(',')[2]}</td>
+              <td>{workout.workout3.split(',')[3]}</td>
+              <td>{workout.workout3.split(',')[4]}</td>
+              <td>{workout.workout3.split(',')[5]}</td>
+              <td>{workout.workout3.split(',')[6]}</td>
+              </tr> : <tr id='hide'></tr>}
+            {workout.workout4.split(',')[0] !== ' ' && workout.workout3.split(',')[0] !== '' ? <tr>
+            <td>{workout.workout4.split(',')[0]}</td>
+              <td>{workout.workout4.split(',')[1]}</td>
+              <td>{workout.workout4.split(',')[2]}</td>
+              <td>{workout.workout4.split(',')[3]}</td>
+              <td>{workout.workout4.split(',')[4]}</td>
+              <td>{workout.workout4.split(',')[5]}</td>
+              <td>{workout.workout4.split(',')[6]}</td>
+              </tr> : <tr id='hide'></tr>}
+            {workout.workout5.split(',')[0] !== ' ' && workout.workout3.split(',')[0] !== '' ? <tr>
+            <td>{workout.workout5.split(',')[0]}</td>
+              <td>{workout.workout5.split(',')[1]}</td>
+              <td>{workout.workout5.split(',')[2]}</td>
+              <td>{workout.workout5.split(',')[3]}</td>
+              <td>{workout.workout5.split(',')[4]}</td>
+              <td>{workout.workout5.split(',')[5]}</td>
+              <td>{workout.workout5.split(',')[6]}</td>
+              </tr> : <tr id='hide'></tr>}
+            {workout.workout6.split(',')[0] !== ' ' && workout.workout3.split(',')[0] !== '' ? <tr>
+            <td>{workout.workout6.split(',')[0]}</td>
+              <td>{workout.workout6.split(',')[1]}</td>
+              <td>{workout.workout6.split(',')[2]}</td>
+              <td>{workout.workout6.split(',')[3]}</td>
+              <td>{workout.workout6.split(',')[4]}</td>
+              <td>{workout.workout6.split(',')[5]}</td>
+              <td>{workout.workout6.split(',')[6]}</td>
+              </tr> : <tr id='hide'></tr>}
+            {workout.workout7.split(',')[0] !== ' ' && workout.workout3.split(',')[0] !== '' ? <tr>
+            <td>{workout.workout7.split(',')[0]}</td>
+              <td>{workout.workout7.split(',')[1]}</td>
+              <td>{workout.workout7.split(',')[2]}</td>
+              <td>{workout.workout7.split(',')[3]}</td>
+              <td>{workout.workout7.split(',')[4]}</td>
+              <td>{workout.workout7.split(',')[5]}</td>
+              <td>{workout.workout7.split(',')[6]}</td>
+            </tr> : <tr id='hide'></tr>}
+          </tbody>
+        </table>
+
+        {workout.notes.length > 0 ? <article className="content is-small message notes">
+          <div id='notesheader' className="message-header">
+            <p>Notes</p>
+          </div>
+          <div className="message-body notesBody">
+{workout.notes}
+          </div>
+        </article> : <div id='hide'> </div>}
+      </div>
+))}
+      </div>
+
+
+
+
+
+
+
+ {/*======================================================================================== */}
+        </div>
         <div className="block minWidthBlock">
           <form autocomplete="off">
 

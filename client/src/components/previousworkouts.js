@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import App from "../../App";
 import axios from 'axios';
+import { confirmAlert } from 'react-confirm-alert';
 
 
 class Previousworkouts extends Component {
-
 
   constructor(props) {
     super(props);
@@ -13,11 +13,38 @@ class Previousworkouts extends Component {
      data: [],
     };
 
+    this.handleDeleteClick = this.handleDeleteClick.bind(this);
   }
 
+handleDeleteClick (e) {
+  e.preventDefault();
+  var thisBind = this;
+  var workout = e.target.value;
+  console.log('workout: ', workout);
 
+  confirmAlert({
+    title: `Delete ${workout.split(',')[1]} - ${workout.split(',')[0]} from history?`,
+    buttons: [
+      {
+        label: 'Delete',
+        onClick: () => {
+
+
+
+        }
+      },
+      {
+        label: 'Cancel',
+        onClick: () => console.log('Click No')
+      }
+    ]
+  });
+
+}
 
   componentDidMount() {
+    this._isMounted = true;
+
     var thisBind = this;
 
 if (this.props.location.state !== undefined){
@@ -26,9 +53,9 @@ if (this.props.location.state !== undefined){
     )
     .then((response) => {
       response.data.reverse();
-      thisBind.setState({
-             data: response.data,
-            })
+        thisBind.setState({
+               data: response.data,
+              })
     }, (error) => {
       alert(error);
     });
@@ -47,9 +74,9 @@ this.props.history.push('/Home')
 {this.state.data.map((workout) =>(
       <div  className="margin historyBackground">
 
-        <div  className='workoutName is-info'>{workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)}</div>
+        <div className='workoutName is-info'>{workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)}</div>
 
-
+        <button value={[workout.workoutDate, workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)]} onClick={this.handleDeleteClick} className="delete deleteButtonHistory is-small "></button>
         <table className="content is-small table is-bordered">
 <thead className="dateaboveprev">{workout.workoutDate}</thead>
           <thead id='workoutheader' className={workout.color}>

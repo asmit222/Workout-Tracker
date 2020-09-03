@@ -319,9 +319,8 @@ var color = dataSplit[1].slice(0, dataSplit[1].length - 5);
 
       }
       })
-
-
       }
+
 
 module.exports.saveWorkout = saveWorkout;
 module.exports.getWorkouts = getWorkouts;
