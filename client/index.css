@@ -9,7 +9,7 @@ body {
 }
 
 .bg-img {
-  background-image: url("https://wallpaperaccess.com/full/1245041.png");
+  background-image: url("https://iili.io/dmhYSp.md.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -115,6 +115,7 @@ table td {
 
 .createTemplateButton {
   margin-left: 70%;
+  font-size: xx-large;
 }
 
 #notesForm {
@@ -258,42 +259,42 @@ table td {
 }
 
 .Black {
-  border-left: solid 5px hsl(0, 0%, 21%);
+  border-left: solid 4px hsl(0, 0%, 21%);
   padding-left: 3px;
 }
 
 .Gray {
-  border-left: solid 5px hsl(0, 0%, 96%);
+  border-left: solid 4px hsl(0, 0%, 96%);
   padding-left: 3px;
 }
 
 .Turquoise {
-  border-left: solid 5px hsl(171, 100%, 41%);
+  border-left: solid 4px hsl(171, 100%, 41%);
   padding-left: 3px;
 }
 
 .Blue {
-  border-left: solid 5px hsl(217, 71%, 53%);
+  border-left: solid 4px hsl(217, 71%, 53%);
   padding-left: 3px;
 }
 
 .Cyan {
-  border-left: solid 5px hsl(204, 86%, 53%);
+  border-left: solid 4px hsl(204, 86%, 53%);
   padding-left: 3px;
 }
 
 .Green {
-  border-left: solid 5px hsl(141, 53%, 53%);
+  border-left: solid 4px hsl(141, 53%, 53%);
   padding-left: 3px;
 }
 
 .Yellow {
-  border-left: solid 5px hsl(48, 100%, 67%);
+  border-left: solid 4px hsl(48, 100%, 67%);
   padding-left: 3px;
 }
 
 .Red {
-  border-left: solid 5px hsl(348, 100%, 61%);
+  border-left: solid 4px hsl(348, 100%, 61%);
   padding-left: 3px;
 }
 
@@ -455,10 +456,6 @@ textarea {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #f8f8f8;
-}
-
-.newWorkoutButton2 {
   background-color: #f8f8f8;
 }
 
