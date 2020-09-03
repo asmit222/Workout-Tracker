@@ -1248,12 +1248,12 @@ for (var j = 0; j < arr[1][6].length; j++) {
             <button
               onClick={this.handleSubmitWorkout}
               href=""
-              className="margin button is-danger"
+              className="submitWorkoutButton button is-danger"
             >
                <span className="icon is-small">
       <i className="fa fa-check"></i>
     </span>
-    <span className='submitWorkoutButton'>Submit workout</span>
+    <span>Submit workout</span>
 
             </button>
       </React.Fragment>
