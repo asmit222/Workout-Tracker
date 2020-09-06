@@ -21,6 +21,7 @@ class EmptyTemplate extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      historyBox: 'closed',
       historyPeek: 'hide',
       data: [],
       workoutName: 'Custom',
@@ -162,10 +163,12 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
         if(this.state.historyPeek === 'hide') {
           this.setState({
             historyPeek: '',
+            historyBox: 'open'
           })
         } else {
           this.setState({
             historyPeek: 'hide',
+            historyBox: 'closed'
           })
         }
 
@@ -817,15 +820,17 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
         </div>
       </form>
     </div>
-        <button onClick={this.handleSmallButtonClick} className="button is-small is-warning smallHistoryButton2">History peek</button>
+    {this.state.historyBox === 'closed' ? <button onClick={this.handleSmallButtonClick} className="button is-small is-success smallHistoryButton2"><span>Toggle history box</span> <i className="fa fa-angle-up downArrow" aria-hidden="true"></i></button> :    <button onClick={this.handleSmallButtonClick} className="button is-small is-warning smallHistoryButton2"><span>Toggle history box</span> <i className="fa fa-angle-down downArrow" aria-hidden="true"></i></button>}
+
 
         <div id={this.state.historyPeek} className='block historyModalContainer'>
 {/*========================================================================================= */}
 
 <div className='insideContainer'>
+  <div className='workoutHistoryTitle'>Workout History</div>
 
 {this.state.data.map((workout) =>(
-      <div  className="margin historyBackground">
+      <div  className="margin historyBackground previousWorkout">
 
         <div className='workoutName is-info'>{workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)}</div>
         <div className='scrollContainer2'>
@@ -911,7 +916,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
         </div>
 
         {workout.notes.length > 0 ? <article className="content is-small message notes">
-          <div id='notesheader' className="message-header">
+          <div id='notesheader2' className="message-header">
             <p>Notes</p>
           </div>
           <div className="message-body notesBody">

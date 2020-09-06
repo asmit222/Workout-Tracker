@@ -21,6 +21,7 @@ class Template extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      historyBox: 'closed',
       historyPeek: 'hide',
       data: [],
       workoutName: 'Custom',
@@ -152,10 +153,12 @@ var thisBind = this;
     if(this.state.historyPeek === 'hide') {
       this.setState({
         historyPeek: '',
+        historyBox: 'open'
       })
     } else {
       this.setState({
         historyPeek: 'hide',
+        historyBox: 'closed'
       })
     }
 
@@ -695,16 +698,17 @@ for (var j = 0; j < arr[1][6].length; j++) {
     if (this.state.submitted === false) {
     return (
       <React.Fragment>
-            <button onClick={this.handleSmallButtonClick} className="button is-small is-warning smallHistoryButton">History peek</button>
+              {this.state.historyBox === 'closed' ? <button onClick={this.handleSmallButtonClick} className="button is-small is-success smallHistoryButton"><span>Toggle history box</span> <i className="fa fa-angle-up downArrow" aria-hidden="true"></i></button> :    <button onClick={this.handleSmallButtonClick} className="button is-small is-warning smallHistoryButton"><span>Toggle history box</span> <i className="fa fa-angle-down downArrow" aria-hidden="true"></i></button>}
 
         <Prompt when={true === true} message="Discard workout?" />
         <div id={this.state.historyPeek} className='block historyModalContainer'>
 {/*========================================================================================= */}
 
 <div className='insideContainer'>
+<div className='workoutHistoryTitle'>Workout History</div>
 
 {this.state.data.map((workout) =>(
-      <div  className="margin historyBackground">
+      <div  className="margin historyBackground previousWorkout">
 
         <div className='workoutName is-info'>{workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)}</div>
 <div className='scrollContainer2'>
@@ -790,7 +794,7 @@ for (var j = 0; j < arr[1][6].length; j++) {
         </div>
 
         {workout.notes.length > 0 ? <article className="content is-small message notes">
-          <div id='notesheader' className="message-header">
+          <div id='notesheader2' className="message-header">
             <p>Notes</p>
           </div>
           <div className="message-body notesBody">

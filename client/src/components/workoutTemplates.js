@@ -960,8 +960,10 @@ if(this.state.clicked === false) {
               onClick={this.handleSubmitWorkout}
               href=""
               className="margin button is-danger"
-            >
-              Create template
+            > <span className="icon is-small">
+            <i className="fa fa-check"></i>
+          </span><span> Create template</span>
+
             </button>
           </form>
         </div>

@@ -72,7 +72,7 @@ this.props.history.push('/Home')
  <div>
 
 {this.state.data.map((workout) =>(
-      <div  className="previousContainer">
+      <div  className="previousContainer previousWorkout">
 
         <div className='workoutName is-info'>{workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)}</div>
 
@@ -160,7 +160,7 @@ this.props.history.push('/Home')
         </div>
 
         {workout.notes.length > 0 ? <article className="content is-small message notes">
-          <div id='notesheader' className="message-header">
+          <div id='notesheader2' className="message-header">
             <p>Notes</p>
           </div>
           <div className="message-body notesBody">
