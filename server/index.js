@@ -128,3 +128,15 @@ app.post('/createAccount', function (req, res) {
         })
         });
 
+
+        app.post('/deleteWorkout', function (req, res) {
+          res.status(200);
+          db.deleteWorkout(req.body, function (data) {
+            if(data) {
+              // console.log(data)
+              res.json(data);
+            } else {
+              console.log('error');
+            }
+          })
+          });

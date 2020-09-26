@@ -29,11 +29,28 @@ const saveWorkout = function(data, callback) {
       var workout7 = [dataSplit[43], dataSplit[44], dataSplit[45], dataSplit[46], dataSplit[47], dataSplit[48], dataSplit[49]];
       var notes = [`${dataSplit[50]}`];
 
+      var notesSplit = notes[0].split(' ');
+      for (var k = 0; k < notesSplit.length; k++) {
+        if(notesSplit[k] === '":"') {
+          notesSplit[k] = '=';
+        }
+      }
+      notes = [notesSplit.join(' ')];
+
+      if (notes[0].indexOf('":"') !== -1) {
+        notesSplit = notes[0].split('":"');
+        notes = [notesSplit.join('=')];
+      }
+
+      setTimeout(() => {
+console.log('dataaaa: ', dataSplit, notes[0].indexOf('":"') !== -1);
+      }, 3000)
+
       console.log('date: ', date);
 
       var name = dataSplit[51];
 
-      var day = JSON.stringify(dataSplit[53].slice(0, dataSplit[53].length - 5));
+      var day = (notes[0].indexOf('=') !== -1 || notes[0].indexOf('":"') !== -1) ? JSON.stringify(dataSplit[53].slice(0, dataSplit[53].length - 2)) : JSON.stringify(dataSplit[53].slice(0, dataSplit[53].length - 5));
 
 var color;
   var sql3 = `select * from templates where templateName = '${day}';`;
@@ -322,6 +339,36 @@ var color = dataSplit[1].slice(0, dataSplit[1].length - 5);
       }
 
 
+
+      const deleteWorkout = function(data, callback) {
+        var dataSplit = JSON.stringify(data).split(',');
+        console.log('data!: ', dataSplit)
+        var workoutName = dataSplit[0].slice(2, dataSplit[0].length);
+var date = dataSplit[1].slice(0, dataSplit[1].length - 5);
+
+
+
+              connection.connect((err) => {
+                if(err) {
+                  console.log('error connecting to database: ', err);
+                    return;
+                } else {
+
+                  var sql = `delete from workout1 where workoutPlan = '"${workoutName}"' and workoutDate = '${date}';`
+                  connection.query(sql, function(err, res) {
+                    if (err) {
+                     console.log('error ! ! !: ', err);
+                    } else {
+                      console.log(res)
+                      callback(res);
+                      }
+                    });
+              }
+              })
+
+            }
+
+
 module.exports.saveWorkout = saveWorkout;
 module.exports.getWorkouts = getWorkouts;
 module.exports.addTemplate = addTemplate;
@@ -330,4 +377,5 @@ module.exports.createAccount = createAccount;
 module.exports.attemptLogin = attemptLogin;
 module.exports.deleteTemplate = deleteTemplate;
 module.exports.changeColor = changeColor;
+module.exports.deleteWorkout = deleteWorkout;
 

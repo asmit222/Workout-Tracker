@@ -28,8 +28,33 @@ handleDeleteClick (e) {
       {
         label: 'Delete',
         onClick: () => {
-alert('that doesnt work yet, sorry...')
+// alert('that doesnt work yet, sorry...')
+axios.post('/deleteWorkout',
+`${[workout.split(',')[1], workout.split(',')[0]]}`
+)
+.then((response) => {
 
+  this._isMounted = true;
+if (this.props.location.state !== undefined){
+    axios.post('/getWorkouts',
+      `${[thisBind.props.location.state.name]}`
+    )
+    .then((response) => {
+      response.data.reverse();
+        thisBind.setState({
+               data: response.data,
+              })
+    }, (error) => {
+      alert(error);
+    });
+  } else {
+this.props.history.push('/Home')
+  }
+
+
+}, (error) => {
+alert(error);
+});
 
         }
       },
@@ -47,6 +72,8 @@ alert('that doesnt work yet, sorry...')
 
     var thisBind = this;
 
+
+
 if (this.props.location.state !== undefined){
     axios.post('/getWorkouts',
       `${[thisBind.props.location.state.name]}`
@@ -62,7 +89,7 @@ if (this.props.location.state !== undefined){
   } else {
 this.props.history.push('/Home')
   }
-    setTimeout(() => console.log(this.state.data), 1000);
+    setTimeout(() => console.log('data:', this.state.data), 1000);
 
   }
 
