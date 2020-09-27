@@ -747,7 +747,7 @@ if(this.state.clicked === false) {
 
 <div id='createTemplateButton1' className='buttonContainer'>
             <div  onClick={this.handleClickCreateTemplate} id='loginButton' className=" marginbottom createTemplateButton is-dark">
-            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+            <i className="fa fa-plus" aria-hidden="true"></i>
             </div>
       </div>
 
