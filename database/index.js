@@ -344,9 +344,8 @@ var color = dataSplit[1].slice(0, dataSplit[1].length - 5);
         var dataSplit = JSON.stringify(data).split(',');
         console.log('data!: ', dataSplit)
         var workoutName = dataSplit[0].slice(2, dataSplit[0].length);
-var date = dataSplit[1].slice(0, dataSplit[1].length - 5);
-
-
+var date = dataSplit[1];
+var name = dataSplit[2].slice(0, dataSplit[2].length - 5);
 
               connection.connect((err) => {
                 if(err) {
@@ -354,7 +353,7 @@ var date = dataSplit[1].slice(0, dataSplit[1].length - 5);
                     return;
                 } else {
 
-                  var sql = `delete from workout1 where workoutPlan = '"${workoutName}"' and workoutDate = '${date}';`
+                  var sql = `delete from workout1 where workoutPlan = '"${workoutName}"' and workoutDate = '${date}' and name = '${name}';`
                   connection.query(sql, function(err, res) {
                     if (err) {
                      console.log('error ! ! !: ', err);

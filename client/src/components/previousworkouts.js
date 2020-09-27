@@ -30,7 +30,7 @@ handleDeleteClick (e) {
         onClick: () => {
 // alert('that doesnt work yet, sorry...')
 axios.post('/deleteWorkout',
-`${[workout.split(',')[1], workout.split(',')[0]]}`
+`${[workout.split(',')[1], workout.split(',')[0], thisBind.props.location.state.name]}`
 )
 .then((response) => {
 
