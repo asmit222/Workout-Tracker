@@ -775,7 +775,7 @@ if(this.state.clicked === false) {
 
 
 <React.Fragment>
-        <div className="block">
+        <div className="block forwardInAnimation">
           <form autocomplete="off">
 
           <div class="block nameYourWorkout templateName">

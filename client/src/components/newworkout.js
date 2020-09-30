@@ -12,6 +12,7 @@ class newworkout extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      pookClassName: 'pook',
       quickStartSelected: '',
       currentTemplate: {name: "AUSTIN",
       templateName: "'template5'",
@@ -44,12 +45,14 @@ class newworkout extends Component {
       emptyTemplateSelected: "show1",
       templateSelected: 'hide',
       day: 'Custom Workout',
-      quickStartSelected: 'hide'
+      quickStartSelected: 'hide',
+      pook: 'hide'
     });
 
   }
 
 componentDidMount() {
+
 var thisBind = this;
 
 if (this.props.location.state !== undefined){
@@ -96,7 +99,8 @@ setTimeout(() => console.log(this.state.templates), 2000);
         emptyTemplateSelected: "show1",
         templateSelected: 'hide',
         day: 'Custom Workout',
-        quickStartSelected: 'hide'
+        quickStartSelected: 'hide',
+        pookClassName: 'hide'
       });
     } else if (newDay === "Austin's Day 1") {
       thisBind.setState({
@@ -104,7 +108,8 @@ setTimeout(() => console.log(this.state.templates), 2000);
         day1Selected: "show",
         templateSelected: 'hide',
         emptyTemplateSelected: "hide1",
-        quickStartSelected: 'hide'
+        quickStartSelected: 'hide',
+        pookClassName: 'hide'
       });
     } else if (newDay === "Select a workout") {
       thisBind.setState({
@@ -112,7 +117,8 @@ setTimeout(() => console.log(this.state.templates), 2000);
         day1Selected: "hide",
         templateSelected: 'hide',
         emptyTemplateSelected: "hide1",
-        quickStartSelected: ''
+        quickStartSelected: '',
+        pookClassName: 'pook'
       });
     } else {
 
@@ -121,7 +127,8 @@ setTimeout(() => console.log(this.state.templates), 2000);
         day1Selected: "hide",
         emptyTemplateSelected: "hide1",
         templateSelected: 'show',
-        quickStartSelected: 'hide'
+        quickStartSelected: 'hide',
+        pookClassName: 'hide'
       },
       after
       );
@@ -166,14 +173,23 @@ setTimeout(() => console.log(this.state.templates), 2000);
         </div>
 
         <div id={this.state.templateSelected}>
-          <Template currentTemplate={this.state.currentTemplate} templates={this.state.templates} workoutName={this.state.workoutName} name={this.props.location.state !== undefined ? this.props.location.state.name : null} day={this.state.day} hideDropDown={this.hideDropDown} hideNav={this.props.location.state !== undefined ? this.props.location.state.hideNav : null}/>
+          <Template currentTemplate={this.state.currentTemplate} templates={this.state.templates} workoutName={this.state.workoutName} name={this.props.location.state !== undefined ? this.props.location.state.name : null} quickStartSelected={this.state.quickStartSelected} day={this.state.day} hideDropDown={this.hideDropDown} hideNav={this.props.location.state !== undefined ? this.props.location.state.hideNav : null}/>
         </div>
 
         <div id={this.state.emptyTemplateSelected}>
-          <EmptyTemplate name={this.props.location.state !== undefined ? this.props.location.state.name : null} day={this.state.day} hideDropDown={this.hideDropDown} hideNav={this.props.location.state !== undefined ? this.props.location.state.hideNav : null}/>
+          <EmptyTemplate name={this.props.location.state !== undefined ? this.props.location.state.name : null} quickStartSelected={this.state.quickStartSelected} day={this.state.day} hideDropDown={this.hideDropDown} hideNav={this.props.location.state !== undefined ? this.props.location.state.hideNav : null}/>
         </div>
 
-      </div>
+<div id={this.state.pookClassName}>
+{this.state.templates[0].name === 'NATALIE' ? <div> {"have a good workout my pook! "}<i className='fa fa-heart'></i> </div> : <div id='hide'></div>}
+
+<div className='underHaveAGoodWorkout'></div>
+<div className='underHaveAGoodWorkout2'></div>
+
+</div>
+
+        </div>
+
       {/* <div className='block quickStartContainer'>
       <button id={this.state.quickStartSelected} onClick={this.handleQuickStart} className='button is-small is-info quickStartButton'>Quick Start - Empty Template</button>
       </div>

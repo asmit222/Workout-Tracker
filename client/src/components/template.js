@@ -21,6 +21,7 @@ class Template extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      animationname: '',
       historyBox: 'closed',
       historyPeek: 'hide',
       data: [],
@@ -147,6 +148,7 @@ var thisBind = this;
   }
 
   handleSmallButtonClick(e) {
+    console.log('quickstart: ', this.props.quickStartSelected)
     e.preventDefault();
     var thisBind = this;
 
@@ -596,6 +598,7 @@ var thisBind = this;
             this.props.hideDropDown();
             this.props.hideNav();
             this.setState({
+              animationName: 'forwardInAnimation',
               submitted: true,
             })
            var arr = [
@@ -701,7 +704,8 @@ for (var j = 0; j < arr[1][6].length; j++) {
         <div className='forwardInAnimation'>
               {this.state.historyBox === 'closed' ? <button onClick={this.handleSmallButtonClick} className="button is-small is-success smallHistoryButton"><span>Toggle history box</span> <i className="fa fa-angle-up downArrow" aria-hidden="true"></i></button> :    <button onClick={this.handleSmallButtonClick} className="button is-small is-warning smallHistoryButton"><span>Toggle history box</span> <i className="fa fa-angle-down downArrow" aria-hidden="true"></i></button>}
 
-        <Prompt when={true === true} message="Discard workout?" />
+              {this.props.quickStartSelected !== '' ? <Prompt message="Discard workout?" /> : <div id='hide'> </div>}
+
         <div id={this.state.historyPeek} className='block historyModalContainer'>
 {/*========================================================================================= */}
 
@@ -1268,12 +1272,12 @@ for (var j = 0; j < arr[1][6].length; j++) {
   } else {
     return (
       <React.Fragment>
-        <div className='forwardInAnimation'>
+        <div>
 
 <section id={this.state.hideButtons} className="hero whiteBorder2 is-dark">
  <div className="hero-body">
    <div className="container">
-     <h1 className="title">
+     <h1 className="title forwardInAnimation">
       Your workout has been submitted!
      </h1>
      <h2 className="subtitle">

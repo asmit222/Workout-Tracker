@@ -75,7 +75,8 @@ componentDidMount() {
     `${[thisBind.state.loginName, thisBind.state.loginPass]}`
   )
   .then((res) => {
-if(res.data.length > 0) {
+    console.log(res)
+if(res.data.length > 0 && this.state.loginName !== '') {
 thisBind.setState({
   animationName: 'loginAnimation'
 })
@@ -83,9 +84,7 @@ setTimeout(() => {
   thisBind.setState({
     name: thisBind.state.loginName,
   })
-}, 500)
-
-
+}, 200)
 } else {
   alert('invalid username or password');
 }
@@ -99,7 +98,7 @@ setTimeout(() => {
     e.preventDefault();
 
 if(this.state.loginPass.length < 3) {
-  alert('Please choose a password that is at least 3 characters long');
+  alert('To create an account, enter a unique username and a password that is at least 3 characters long');
 } else {
 
     axios.post('/createAccount',

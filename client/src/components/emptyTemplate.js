@@ -812,7 +812,9 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     return (
       <React.Fragment>
         <div className='forwardInAnimation'>
-        <Prompt when={true === true} message="Discard workout?" />
+
+        {this.props.quickStartSelected !== '' ? <Prompt message="Discard workout?" /> : <div id='hide'> </div>}
+
 
           <div className="block nameYourWorkout">
       <form>
