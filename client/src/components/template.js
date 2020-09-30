@@ -698,6 +698,7 @@ for (var j = 0; j < arr[1][6].length; j++) {
     if (this.state.submitted === false) {
     return (
       <React.Fragment>
+        <div className='forwardInAnimation'>
               {this.state.historyBox === 'closed' ? <button onClick={this.handleSmallButtonClick} className="button is-small is-success smallHistoryButton"><span>Toggle history box</span> <i className="fa fa-angle-up downArrow" aria-hidden="true"></i></button> :    <button onClick={this.handleSmallButtonClick} className="button is-small is-warning smallHistoryButton"><span>Toggle history box</span> <i className="fa fa-angle-down downArrow" aria-hidden="true"></i></button>}
 
         <Prompt when={true === true} message="Discard workout?" />
@@ -1260,12 +1261,14 @@ for (var j = 0; j < arr[1][6].length; j++) {
     <span>Submit workout</span>
 
             </button>
+            </div>
       </React.Fragment>
     );
 
   } else {
     return (
       <React.Fragment>
+        <div className='forwardInAnimation'>
 
 <section id={this.state.hideButtons} className="hero whiteBorder2 is-dark">
  <div className="hero-body">
@@ -1320,7 +1323,7 @@ for (var j = 0; j < arr[1][6].length; j++) {
                     </a>
                   </Link>
 
-
+                  </div>
       </React.Fragment>
     )
    }

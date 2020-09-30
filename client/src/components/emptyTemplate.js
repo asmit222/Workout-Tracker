@@ -811,6 +811,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     if (this.state.submitted === false) {
     return (
       <React.Fragment>
+        <div className='forwardInAnimation'>
         <Prompt when={true === true} message="Discard workout?" />
 
           <div className="block nameYourWorkout">
@@ -1361,12 +1362,14 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     <span>Submit workout</span>
 
             </button>
+            </div>
       </React.Fragment>
     );
 
   } else {
     return (
       <React.Fragment>
+        <div className='forwardInAnimation'>
 
 <section id={this.state.hideButtons} className="hero whiteBorder2 is-dark">
  <div className="hero-body">
@@ -1421,7 +1424,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
                     </a>
                   </Link>
 
-
+                  </div>
       </React.Fragment>
     )
    }

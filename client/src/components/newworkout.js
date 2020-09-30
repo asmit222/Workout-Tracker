@@ -147,7 +147,7 @@ setTimeout(() => console.log(this.state.templates), 2000);
     })
     return (
       <React.Fragment>
-      <div className="block">
+      <div className="block selectWorkoutAnimation">
         <div id={this.state.dropDown} className="field selector">
           <p className="control">
             <span className="select">

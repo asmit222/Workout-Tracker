@@ -613,7 +613,7 @@ thisBind.setState({
     const templates = this.state.templates.map((template, index) => {
       if(template.templateName.length > 0) {
 
-        return <div className="block">
+        return <div className="block forwardInAnimation">
         <section id={`${template.color}2`} className="hero" >
         <button value={template.templateName} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></button>
 
@@ -747,7 +747,7 @@ if(this.state.clicked === false) {
 
 <div id='createTemplateButton1' className='buttonContainer'>
             <div  onClick={this.handleClickCreateTemplate} id='loginButton' className=" marginbottom createTemplateButton is-dark">
-            <i className="fa fa-plus" aria-hidden="true"></i>
+            <i className="fa fa-plus fa-xs plusSign" aria-hidden="true"></i>
             </div>
       </div>
 

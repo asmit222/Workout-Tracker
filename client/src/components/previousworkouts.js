@@ -99,7 +99,7 @@ this.props.history.push('/Home')
  <div>
 
 {this.state.data.map((workout) =>(
-      <div  className="previousContainer previousWorkout">
+      <div  className="previousContainer previousWorkout forwardInAnimation">
 
         <div className='workoutName is-info'>{workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)}</div>
 
