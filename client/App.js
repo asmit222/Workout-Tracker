@@ -19,6 +19,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      animationName: '',
       creatingAccount: false,
       hideNav: '',
       loginName: '',
@@ -75,9 +76,16 @@ componentDidMount() {
   )
   .then((res) => {
 if(res.data.length > 0) {
+thisBind.setState({
+  animationName: 'loginAnimation'
+})
+setTimeout(() => {
   thisBind.setState({
     name: thisBind.state.loginName,
   })
+}, 500)
+
+
 } else {
   alert('invalid username or password');
 }
@@ -133,6 +141,7 @@ if(typeof res.data === 'object') {
     if (this.state.creatingAccount === false) {
     if (this.state.name.length > 0) {
   return (
+    <div className='fadeInAnimation'>
     <div className="container background">
 
       <HashRouter>
@@ -215,10 +224,12 @@ if(typeof res.data === 'object') {
 
 
       </HashRouter>
+     </div>
     </div>
    );
   } else {
     return (
+      <div className={this.state.animationName}>
       <div className='loginBackground'>
       <div className='buttonContainer'>
       <button onClick={this.handleSubmitLogin} id='loginButton'
@@ -248,7 +259,7 @@ if(typeof res.data === 'object') {
     </form>
 
 
-
+    </div>
     </div>
     )
   }

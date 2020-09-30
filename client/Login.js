@@ -19,6 +19,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      animationName: '',
       loginName: '',
       loginPass: '',
       name: ' '
@@ -57,9 +58,15 @@ this.handleChangeLogin2 = this.handleChangeLogin2.bind(this);
   )
   .then((response) => {
     thisBind.setState({
-           name: response.data,
-          });
-          thisBind.props.history.push('/Home');
+      animationName: 'loginAnimation'
+    })
+    setTimeout(() => {
+      thisBind.setState({
+        name: response.data,
+       });
+       thisBind.props.history.push('/Home');
+    }, 1000)
+
   }, (error) => {
     alert(error);
   });
@@ -69,7 +76,7 @@ this.handleChangeLogin2 = this.handleChangeLogin2.bind(this);
 
   render(props) {
     return (
-      <div>
+      <div className={this.state.animationName}>
       <div className='buttonContainer'>
       <button onClick={this.handleSubmitLogin} id='loginButton'
             href=""
