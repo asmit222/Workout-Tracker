@@ -181,11 +181,10 @@ setTimeout(() => console.log(this.state.templates), 2000);
         </div>
 
 <div id={this.state.pookClassName}>
-{this.state.templates[0].name === 'NATALIE' ? <div> {"have a good workout my pook! "}<i className='fa fa-heart'></i> </div> : <div id='hide'></div>}
-
+{this.state.templates[0].name === 'NATALIE' ? <div><div> {"have a good workout my pook! "}<i className='fa fa-heart'></i> </div>
 <div className='underHaveAGoodWorkout'></div>
-<div className='underHaveAGoodWorkout2'></div>
-
+<div className='underHaveAGoodWorkout2'></div></div>
+: <div id='hide'></div>}
 </div>
 
         </div>
