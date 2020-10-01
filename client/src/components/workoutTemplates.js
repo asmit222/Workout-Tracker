@@ -206,6 +206,30 @@ arr[4] = workoutNameSplit.join('');
             `${arr}`
           )
           .then((response) => {
+
+
+            axios.post('/getTemplates',
+            `${[thisBind.props.location.state.name]}`
+          )
+          .then((response) => {
+            response.data.reverse();
+
+            var oldTemplates = response.data
+  for(var i = 0; i < oldTemplates.length; i++) {
+    oldTemplates[i]['editable'] = false;
+  }
+  thisBind.setState({
+         templates: oldTemplates,
+        })
+
+            thisBind.setState({
+              name: response.data[0].name.toUpperCase(),
+                   templates: oldTemplates,
+                  })
+          }, (error) => {
+            alert(error);
+          });
+
             console.log('saved template!')
           }, (error) => {
             alert(error);
@@ -214,27 +238,7 @@ arr[4] = workoutNameSplit.join('');
     clicked: false,
   })
 
-          axios.post('/getTemplates',
-          `${[thisBind.props.location.state.name]}`
-        )
-        .then((response) => {
-          response.data.reverse();
 
-          var oldTemplates = response.data
-for(var i = 0; i < oldTemplates.length; i++) {
-  oldTemplates[i]['editable'] = false;
-}
-thisBind.setState({
-       templates: oldTemplates,
-      })
-
-          thisBind.setState({
-            name: response.data[0].name.toUpperCase(),
-                 templates: oldTemplates,
-                })
-        }, (error) => {
-          alert(error);
-        });
 
           }
         },
