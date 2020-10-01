@@ -224,10 +224,16 @@ table td {
   margin-top: 10px;
 }
 
+#customTable4 {
+  min-height: 250px;
+  margin-top: 10px;
+}
+
 .deleteButton {
   margin-top: 5px;
   margin-right: 5px;
   align-self: flex-end;
+  float: right;
 }
 
 .heroBody {
@@ -278,6 +284,7 @@ table td {
   font-size: x-small;
   float: right;
   margin-bottom: 10px;
+  margin-right: 5px;
 }
 
 .Black {
@@ -734,4 +741,38 @@ body {
   background-repeat: no-repeat;
   background-attachment: relative;
   /* background-size: cover; */
+}
+
+.editButton {
+  float: right;
+  margin-right: 5px;
+}
+
+.templateModal {
+  /* height: 500px;
+  z-index: 100;
+  float: right; */
+}
+
+.modalTitle {
+  height: 90%;
+}
+
+.modalInputBoxTitle {
+  border: none;
+  font-size: 16px;
+  background-color: hsl(0, 0%, 96%);
+}
+
+.modalInputBoxTitle:focus {
+  outline: none;
+}
+
+.templateTitle {
+  font-size: large;
+}
+
+#editButton1 {
+  color: rgb(61, 61, 61);
+  margin-right: 5px;
 }

@@ -19,6 +19,8 @@ class WorkoutTemplates extends Component {
   constructor(props) {
     super (props);
     this.state = {
+      planEditting: '',
+      editing: false,
       name: '',
       templates: [{'templateName': ''}, {'templateName': ''}],
       workoutName: 'Custom',
@@ -132,6 +134,198 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
 
     this.handleHomeClick = this.handleHomeClick.bind(this);
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
+
+    this.handleEditTemplateClick = this.handleEditTemplateClick.bind(this);
+
+    this.handleCancelTemplateUpdate = this.handleCancelTemplateUpdate.bind(this);
+
+    this.handleSaveChanges = this.handleSaveChanges.bind(this);
+  }
+
+  handleSaveChanges (e) {
+    e.preventDefault();
+    var thisBind = this;
+
+    confirmAlert({
+      title: 'Save changes?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+
+            axios.post('/deleteTemplate',
+            `${[this.state.planEditting, this.state.name]}`
+          )
+
+            this.setState({
+              editing: false,
+            })
+           var arr = [
+              [
+                this.state.workout1,
+                this.state.workout2,
+                this.state.workout3,
+                this.state.workout4,
+                this.state.workout5,
+                this.state.workout6,
+                this.state.workout7,
+              ],
+              [this.state.notes],
+              this.props.location.state.name,
+              this.props.day,
+              this.state.workoutName,
+            ];
+
+            var workoutNameSplit = arr[4].split('');
+
+for(var i = 0; i < workoutNameSplit.length; i++) {
+  if(workoutNameSplit[i] === '\\' || workoutNameSplit[i] === '"') {
+    workoutNameSplit.splice(i, 1);
+  }
+}
+arr[4] = workoutNameSplit.join('');
+
+
+           for (var i = 0; i < arr.length - 3; i++) {
+             for (var j = 0; j < arr[i].length; j++) {
+               if(typeof arr[i][j] === 'string') {
+                 var modified = arr[i][j];
+                 modified = modified.split(',').join('');
+                 arr[i][j] = modified;
+               } else {
+                 for (var k = 0; k < arr[i][j].length; k++) {
+                  var modified = arr[i][j][k];
+                  modified = modified.split(',').join('');
+                  arr[i][j][k] = modified;
+                 }
+               }
+             }
+           }
+
+            axios.post('/createTemplate',
+            `${arr}`
+          )
+          .then((response) => {
+            console.log('saved template!')
+          }, (error) => {
+            alert(error);
+          });
+  thisBind.setState({
+    clicked: false,
+  })
+
+          axios.post('/getTemplates',
+          `${[thisBind.props.location.state.name]}`
+        )
+        .then((response) => {
+          response.data.reverse();
+
+          var oldTemplates = response.data
+for(var i = 0; i < oldTemplates.length; i++) {
+  oldTemplates[i]['editable'] = false;
+}
+thisBind.setState({
+       templates: oldTemplates,
+      })
+
+          thisBind.setState({
+            name: response.data[0].name.toUpperCase(),
+                 templates: oldTemplates,
+                })
+        }, (error) => {
+          alert(error);
+        });
+
+          }
+        },
+        {
+          label: 'No',
+          onClick: () => console.log('Click No')
+        }
+      ]
+    });
+
+  }
+
+  handleCancelTemplateUpdate (e) {
+    const workoutPlanName = e.target.getAttribute('data-id');
+    e.preventDefault();
+    var oldTemplates = this.state.templates;
+
+
+
+            for(var i = 0; i < oldTemplates.length; i++) {
+              if(oldTemplates[i].templateName === workoutPlanName && this.state.editing) {
+                oldTemplates[i].editable = false;
+              }
+            }
+
+            this.setState({
+        editing: false,
+        templates: oldTemplates,
+            })
+
+
+
+
+
+
+
+
+  }
+
+  handleEditTemplateClick (e) {
+    e.preventDefault();
+    var thisBind = this;
+    const workoutPlanName = e.target.getAttribute('data-id');
+    this.setState({
+      planEditting: workoutPlanName,
+    })
+    var template;
+    for(var i = 0; i < this.state.templates.length; i++) {
+      if(this.state.templates[i].templateName === workoutPlanName) {
+        template = this.state.templates[i];
+      }
+    }
+
+    if(!this.state.editing) {
+    this.setState({
+workoutName: workoutPlanName,
+workout1: [template.workout1.split(',')[0], template.workout1.split(',')[1], template.workout1.split(',')[2]],
+      workout2: [template.workout2.split(',')[0], template.workout2.split(',')[1], template.workout2.split(',')[2]],
+      workout3: [template.workout3.split(',')[0], template.workout3.split(',')[1], template.workout3.split(',')[2]],
+      workout4: [template.workout4.split(',')[0], template.workout4.split(',')[1], template.workout4.split(',')[2]],
+      workout5: [
+        template.workout5.split(',')[0],
+        template.workout5.split(',')[1],
+        template.workout5.split(',')[2],
+      ],
+      workout6: [template.workout6.split(',')[0], template.workout6.split(',')[1], template.workout6.split(',')[2]],
+      workout7: [template.workout7.split(',')[0], template.workout7.split(',')[1], template.workout7.split(',')[2]],
+      editing: true,
+    })
+  } else {
+    alert('Please finish editing your current template before editting another')
+  }
+
+    var oldTemplates = this.state.templates;
+console.log('value: ', workoutPlanName);
+for(var i = 0; i < oldTemplates.length; i++) {
+  if(oldTemplates[i].templateName === workoutPlanName && !this.state.editing) {
+    oldTemplates[i].editable = true;
+  }
+}
+this.setState({
+  templates: oldTemplates,
+})
+
+console.log('templates:', this.state.templates);
+setTimeout(() => {
+
+  console.log('updatedState: ', this.state.workout1, this.state.workout7);
+}, 1000)
+
+
   }
 
   handleChangeColorPicker(e) {
@@ -153,12 +347,16 @@ axios.post('/getTemplates',
 `${[thisBind.props.location.state.name]}`
 )
 .then((response) => {
-console.log(response.data)
 response.data.reverse();
 
+var oldTemplates = response.data
+for(var i = 0; i < oldTemplates.length; i++) {
+  oldTemplates[i]['editable'] = false;
+}
 thisBind.setState({
-       templates: response.data,
+       templates: oldTemplates,
       })
+
 }, (error) => {
 alert(error);
 });
@@ -173,7 +371,7 @@ alert(error);
   handleDeleteClick(e) {
     e.preventDefault();
     const thisBind = this;
-    const value = e.target.value;
+    const value = e.target.getAttribute('data-id');
 
     confirmAlert({
       title: 'Delete template?',
@@ -195,9 +393,16 @@ alert(error);
             console.log(response.data)
             response.data.reverse();
 
+            var oldTemplates = response.data
+            for(var i = 0; i < oldTemplates.length; i++) {
+              oldTemplates[i]['editable'] = false;
+            }
+
             thisBind.setState({
-                   templates: response.data,
+                   templates: oldTemplates,
                   })
+
+
           }, (error) => {
             alert(error);
           });
@@ -234,6 +439,11 @@ handleChangeWorkoutName(e) {
   this.setState({
     workoutName: e.target.value,
   })
+  if(e.target.value === '' || e.target.value === ' ') {
+    this.setState({
+      workoutName: e.target.getAttribute('data-id'),
+    })
+  }
 }
 
 handleHomeClick () {
@@ -515,6 +725,14 @@ componentDidMount() {
           name: response.data[0].name.toUpperCase(),
                templates: response.data,
               })
+              var oldTemplates = this.state.templates
+for(var i = 0; i < oldTemplates.length; i++) {
+  oldTemplates[i]['editable'] = false;
+}
+thisBind.setState({
+       templates: oldTemplates,
+      })
+
       }, (error) => {
         alert(error);
       });
@@ -591,9 +809,14 @@ thisBind.setState({
       .then((response) => {
         response.data.reverse();
 
+        var oldTemplates = response.data
+        for(var i = 0; i < oldTemplates.length; i++) {
+          oldTemplates[i]['editable'] = false;
+        }
+
         thisBind.setState({
           name: response.data[0].name.toUpperCase(),
-               templates: response.data,
+               templates: oldTemplates,
               })
       }, (error) => {
         alert(error);
@@ -615,14 +838,24 @@ thisBind.setState({
 
         return <div className="block forwardInAnimation">
         <section id={`${template.color}2`} className="hero" >
-        <button value={template.templateName} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></button>
+
 
           <div className="hero-body heroBody">
             <div className="container">
 
-            {(template.color === 'Black' || template.color === 'Blue' ||template.color === 'Red') ? <span id='whiteText' className="title heroTitle">{template.templateName.slice(1, template.templateName.length - 1)}
+           <div>
+        <span data-id={template.templateName} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></span>
+
+             </div>
+
+
+
+            {(template.color === 'Black' || template.color === 'Blue' ||template.color === 'Red') ? <span id='whiteText' className="title heroTitle is-small templateTitle">{template.templateName.slice(1, template.templateName.length - 1)}
+
 
             <span id='colorSelector' className="field selector">
+
+
             <span className="select">
               <select
 
@@ -640,10 +873,14 @@ thisBind.setState({
               </select>
             </span>
         </span>
-        </span> : <span id='heroTitle' className="title heroTitle">{template.templateName.slice(1, template.templateName.length - 1)}
+
+        <span data-id={template.templateName} onClick={this.handleEditTemplateClick} id='editButton1' className='editButton fa fa-edit fa-2x'></span>
+
+
+        </span> : <span id='heroTitle' className="title heroTitle templateTitle">{template.templateName.slice(1, template.templateName.length - 1)}
 
 <span id='colorSelector' className="field selector">
-<span className="select">
+<span className="select ">
   <select
     onChange={this.handleChangeColorPicker}
   >
@@ -659,8 +896,11 @@ thisBind.setState({
   </select>
 </span>
 </span>
+<span data-id={template.templateName} onClick={this.handleEditTemplateClick} id='editButton1' className='editButton fa fa-edit fa-2x'></span>
 </span>}
 
+
+{ this.state.templates[index].editable === false ?
             <table id='customTable2' className="content is-small table is-bordered">
               <thead id="workoutheader">
                 <tr id='workoutHeader2'>
@@ -706,9 +946,214 @@ thisBind.setState({
                   <td>{template.workout7.split(',')[2]}</td>
                 </tr>
                 </tbody>
-                </table>
+                </table> :
 
 
+<div className="modal templateModal is-active">
+  <div className="modal-background"></div>
+  <div className="modal-card">
+    <header className="modal-card-head">
+      <p className="modal-card-title modalTitle">
+      <input
+      data-id={template.templateName}
+            placeholder={template.templateName.slice(1, template.templateName.length - 1)}
+className='modalInputBoxTitle'
+            onChange={this.handleChangeWorkoutName}
+            type="text"
+
+         ></input>
+        </p>
+
+
+    </header>
+    <section className="modal-card-body">
+<div>
+    <form autocomplete = 'off'>
+<table id='customTable4' className="forwardInAnimation content is-small table is-bordered">
+<thead id="workoutheader">
+  <tr id='workoutHeader2'>
+    <th>Workout</th>
+    <th>Sets</th>
+    <th>Reps</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><input
+            placeholder={template.workout1.split(',')[0]}
+            id="tdinput"
+            onChange={this.handleChangeSquat0}
+            type="text"
+            className="input"
+         ></input></td>
+    <td><input
+            placeholder={template.workout1.split(',')[1]}
+            id="tdinput"
+            onChange={this.handleChangeSquat1}
+            type="text"
+            className="input"
+         ></input></td>
+    <td><input
+            placeholder={template.workout1.split(',')[2]}
+            id="tdinput"
+            onChange={this.handleChangeSquat2}
+            type="text"
+            className="input"
+         ></input></td>
+  </tr>
+  <tr>
+    <td><input
+            placeholder={template.workout2.split(',')[0]}
+            id="tdinput"
+            onChange={this.handleChangeHipThrust0}
+            type="text"
+            className="input"
+         ></input></td>
+    <td><input
+            placeholder={template.workout2.split(',')[1]}
+            id="tdinput"
+            onChange={this.handleChangeHipThrust1}
+            type="text"
+            className="input"
+         ></input></td>
+    <td><input
+            placeholder={template.workout2.split(',')[2]}
+            id="tdinput"
+            onChange={this.handleChangeHipThrust2}
+            type="text"
+            className="input"
+         ></input></td>
+  </tr>
+  <tr>
+    <td><input
+            placeholder={template.workout3.split(',')[0]}
+            id="tdinput"
+            onChange={this.handleChangeBenchPress0}
+            type="text"
+            className="input"
+         ></input></td>
+    <td><input
+            placeholder={template.workout3.split(',')[1]}
+            id="tdinput"
+            onChange={this.handleChangeBenchPress1}
+            type="text"
+            className="input"
+         ></input></td>
+    <td><input
+            placeholder={template.workout3.split(',')[2]}
+            id="tdinput"
+            onChange={this.handleChangeBenchPress2}
+            type="text"
+            className="input"
+         ></input></td>
+  </tr>
+  <tr>
+    <td><input
+            placeholder={template.workout4.split(',')[0]}
+            id="tdinput"
+            onChange={this.handleChangeChinUps0}
+            type="text"
+            className="input"
+         ></input></td>
+    <td><input
+            placeholder={template.workout4.split(',')[1]}
+            id="tdinput"
+            onChange={this.handleChangeChinUps1}
+            type="text"
+            className="input"
+         ></input></td>
+    <td><input
+            placeholder={template.workout4.split(',')[2]}
+            id="tdinput"
+            onChange={this.handleChangeChinUps2}
+            type="text"
+            className="input"
+         ></input></td>
+  </tr>
+  <tr>
+    <td><input
+            placeholder={template.workout5.split(',')[0]}
+            id="tdinput"
+            onChange={this.handleChangeDBFarmerCarry0}
+            type="text"
+            className="input"
+         ></input></td>
+    <td><input
+            placeholder={template.workout5.split(',')[1]}
+            id="tdinput"
+            onChange={this.handleChangeDBFarmerCarry1}
+            type="text"
+            className="input"
+         ></input></td>
+    <td><input
+            placeholder={template.workout5.split(',')[2]}
+            id="tdinput"
+            onChange={this.handleChangeDBFarmerCarry2}
+            type="text"
+            className="input"
+         ></input></td>
+  </tr>
+  <tr>
+    <td><input
+            placeholder={template.workout6.split(',')[0]}
+            id="tdinput"
+            onChange={this.handleChangeFacePulls0}
+            type="text"
+            className="input"
+         ></input></td>
+    <td><input
+            placeholder={template.workout6.split(',')[1]}
+            id="tdinput"
+            onChange={this.handleChangeFacePulls1}
+            type="text"
+            className="input"
+         ></input></td>
+    <td><input
+            placeholder={template.workout6.split(',')[2]}
+            id="tdinput"
+            onChange={this.handleChangeFacePulls2}
+            type="text"
+            className="input"
+         ></input></td>
+  </tr>
+  <tr>
+    <td><input
+            placeholder={template.workout7.split(',')[0]}
+            id="tdinput"
+            onChange={this.handleChangeExtraWorkout0}
+            type="text"
+            className="input"
+         ></input></td>
+    <td><input
+            placeholder={template.workout7.split(',')[1]}
+            id="tdinput"
+            onChange={this.handleChangeExtraWorkout1}
+            type="text"
+            className="input"
+         ></input></td>
+    <td><input
+            placeholder={template.workout7.split(',')[2]}
+            id="tdinput"
+            onChange={this.handleChangeExtraWorkout2}
+            type="text"
+            className="input"
+         ></input></td>
+  </tr>
+  </tbody>
+  </table>
+  </form>
+  </div>
+
+    </section>
+    <footer className="modal-card-foot">
+      <button onClick={this.handleSaveChanges} className="button is-success">Save changes</button>
+      <button data-id={template.templateName} onClick={this.handleCancelTemplateUpdate} className="button">Cancel</button>
+    </footer>
+  </div>
+</div>
+
+
+      }
 
 
             </div>

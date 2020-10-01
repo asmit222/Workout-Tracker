@@ -273,6 +273,7 @@ const createAccount = function(data, callback) {
 
     const deleteTemplate = function(data, callback) {
 var dataSplit = JSON.stringify(data).split(',');
+console.log('datasplit: ', dataSplit);
 
       connection.connect((err) => {
         if(err) {
@@ -283,7 +284,16 @@ var dataSplit = JSON.stringify(data).split(',');
 
 console.log(dataSplit);
 const name = dataSplit[1].slice(0, dataSplit[1].length - 5);
-const template = dataSplit[0].slice(4, dataSplit[0].length - 2);
+var template = dataSplit[0].slice(4, dataSplit[0].length - 2);
+var templateSplit = template.split('');
+
+for(var i = 0; i < templateSplit.length; i++) {
+  if(templateSplit[i] === '\\' || templateSplit[i] === '"') {
+    templateSplit.splice(i, 1);
+  }
+}
+template = templateSplit.join('');
+
 console.log(name, template)
 
 

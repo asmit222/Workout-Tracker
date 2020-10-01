@@ -104,6 +104,7 @@ this.props.history.push('/Home')
         <div className='workoutName is-info'>{workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)}</div>
 
         <button value={[workout.workoutDate, workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)]} onClick={this.handleDeleteClick} className="delete deleteButtonHistory is-small "></button>
+
         <div className='scrollContainer2'>
         <table className="content is-small table is-bordered">
 <thead className="dateaboveprev">{workout.workoutDate}</thead>
