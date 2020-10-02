@@ -236,7 +236,20 @@ arr[4] = workoutNameSplit.join('');
             alert(error);
           });
   thisBind.setState({
+    workoutName: 'Custom',
     clicked: false,
+    workout1: [" ", " ", " "],
+      workout2: [" ", " ", " "],
+      workout3: [" ", " ", " "],
+      workout4: [" ", " ", " "],
+      workout5: [
+        " ",
+        " ",
+        " ",
+      ],
+      workout6: [" ", " ", " "],
+      workout7: [" ", " ", " "],
+      notes: "",
   })
 
           })
@@ -824,7 +837,20 @@ handleSubmitWorkout(e) {
           alert(error);
         });
 thisBind.setState({
+  workoutName: 'Custom',
   clicked: false,
+  workout1: [" ", " ", " "],
+      workout2: [" ", " ", " "],
+      workout3: [" ", " ", " "],
+      workout4: [" ", " ", " "],
+      workout5: [
+        " ",
+        " ",
+        " ",
+      ],
+      workout6: [" ", " ", " "],
+      workout7: [" ", " ", " "],
+      notes: "",
 })
 
 
