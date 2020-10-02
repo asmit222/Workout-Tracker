@@ -156,6 +156,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
             axios.post('/deleteTemplate',
             `${[this.state.planEditting, this.state.name]}`
           )
+          .then((response) => {
 
             this.setState({
               editing: false,
@@ -238,7 +239,7 @@ arr[4] = workoutNameSplit.join('');
     clicked: false,
   })
 
-
+          })
 
           }
         },
@@ -799,6 +800,25 @@ handleSubmitWorkout(e) {
           `${arr}`
         )
         .then((response) => {
+
+          axios.post('/getTemplates',
+          `${[thisBind.props.location.state.name]}`
+        )
+        .then((response) => {
+          response.data.reverse();
+
+          var oldTemplates = response.data
+          for(var i = 0; i < oldTemplates.length; i++) {
+            oldTemplates[i]['editable'] = false;
+          }
+
+          thisBind.setState({
+            name: response.data[0].name.toUpperCase(),
+                 templates: oldTemplates,
+                })
+        }, (error) => {
+          alert(error);
+        });
           console.log('saved template!')
         }, (error) => {
           alert(error);
@@ -807,24 +827,7 @@ thisBind.setState({
   clicked: false,
 })
 
-        axios.post('/getTemplates',
-        `${[thisBind.props.location.state.name]}`
-      )
-      .then((response) => {
-        response.data.reverse();
 
-        var oldTemplates = response.data
-        for(var i = 0; i < oldTemplates.length; i++) {
-          oldTemplates[i]['editable'] = false;
-        }
-
-        thisBind.setState({
-          name: response.data[0].name.toUpperCase(),
-               templates: oldTemplates,
-              })
-      }, (error) => {
-        alert(error);
-      });
 
         }
       },
