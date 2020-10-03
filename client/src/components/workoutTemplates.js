@@ -894,12 +894,18 @@ thisBind.setState({
 
            <div>
         <span data-id={template.templateName} data-attr={template.color} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></span>
-
              </div>
 
 
 
+
+
             {(template.color === 'Black' || template.color === 'Blue' ||template.color === 'Red') ? <span id='whiteText' className="title heroTitle is-small templateTitle">{template.templateName.slice(1, template.templateName.length - 1)}
+
+
+
+
+            {/* <span className='colorWheel'></span> */}
 
 
             <span id='colorSelector' className="field selector">
@@ -921,6 +927,9 @@ thisBind.setState({
                 <option value={template.templateName}>Gray</option>
               </select>
             </span>
+
+
+
         </span>
 
         <span data-id={template.templateName} onClick={this.handleEditTemplateClick} id='editButton1' className='editButton fa fa-edit fa-2x'></span>

@@ -702,7 +702,7 @@ for (var j = 0; j < arr[1][6].length; j++) {
     return (
       <React.Fragment>
         <div className='forwardInAnimation'>
-              {this.state.historyBox === 'closed' ? <button onClick={this.handleSmallButtonClick} className="button is-small is-success smallHistoryButton"><span>Toggle history box</span> <i className="fa fa-angle-up downArrow" aria-hidden="true"></i></button> :    <button onClick={this.handleSmallButtonClick} className="button is-small is-warning smallHistoryButton"><span>Toggle history box</span> <i className="fa fa-angle-down downArrow" aria-hidden="true"></i></button>}
+              {this.state.historyBox === 'closed' ? <button onClick={this.handleSmallButtonClick} className="button is-small is-success smallHistoryButton"><span>History box</span> <i className="fa fa-angle-up downArrow" aria-hidden="true"></i></button> :    <button onClick={this.handleSmallButtonClick} className="button is-small is-warning smallHistoryButton"><span>History box</span> <i className="fa fa-angle-down downArrow" aria-hidden="true"></i></button>}
 
               {this.props.quickStartSelected !== '' ? <Prompt message="Discard workout?" /> : <div id='hide'> </div>}
 
@@ -1292,7 +1292,7 @@ for (var j = 0; j < arr[1][6].length; j++) {
     name: this.props.name,
   }
 }}>
-                    <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="homeButton afterSubmitButtons button marginbottom buttonBackground">
+                    <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="forwardInAnimation homeButton afterSubmitButtons button marginbottom buttonBackground">
                       <span></span>
                     </a>
                   </Link>
@@ -1302,7 +1302,7 @@ for (var j = 0; j < arr[1][6].length; j++) {
     name: this.props.name,
   }
 }}>
-                    <a  id={this.state.hideButtons} onClick={this.handleHomeClick} className="button afterSubmitButtons marginbottom newWorkoutButton">
+                    <a  id={this.state.hideButtons} onClick={this.handleHomeClick} className="forwardInAnimation button afterSubmitButtons marginbottom newWorkoutButton">
                       <span ></span>
                     </a>
                   </Link>
@@ -1312,7 +1312,7 @@ for (var j = 0; j < arr[1][6].length; j++) {
     name: this.props.name,
   }
 }}>
-                    <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="button afterSubmitButtons marginbottom workoutTemplatesButton ">
+                    <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="forwardInAnimation button afterSubmitButtons marginbottom workoutTemplatesButton ">
                       <span ></span>
                     </a>
                   </Link>
@@ -1322,7 +1322,7 @@ for (var j = 0; j < arr[1][6].length; j++) {
     name: this.props.name,
   }
 }}>
-                    <a id={this.state.hideButtons} onClick={this.handlePreviousClick} className="historyButton afterSubmitButtons button marginbottom ">
+                    <a id={this.state.hideButtons} onClick={this.handlePreviousClick} className="forwardInAnimation historyButton afterSubmitButtons button marginbottom ">
                       <span ></span>
                     </a>
                   </Link>

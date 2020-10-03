@@ -67,9 +67,6 @@ console.log('day', day)
 
             var sql4 = `delete from workout1 where name = '${name}' and  workoutDate = '${date}';`;
 
-
-            // var sql4 = `update workout1 set name = '${name}', workoutPlan = '${day}', workoutDate = '${date}', workout1 = '${workout1}', workout2 = '${workout2}', workout3 = '${workout3}', workout4 = '${workout4}', workout5 = '${workout5}', workout6 = '${workout6}', workout7 = '${workout7}' , notes = '${notes}', color = '${color}' where name = '${name}' and  workoutDate = '${date}';`;
-
             connection.query(sql4, function(err, results) {
               if (err) {
                 console.log('error querying database: ', err);
@@ -85,42 +82,12 @@ console.log('day', day)
                     console.log('workout saved!');
                   }
                 });
-
               }
-
-
-
-
-
-
-
-
-
-
-
             });
-
-
-
-
-
-
-
-
-
-
-
-
           }
-
         });
-
-
       }
     })
-
-
-
 };
 
 const getWorkouts = function (data, callback) {

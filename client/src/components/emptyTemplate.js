@@ -823,7 +823,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
         </div>
       </form>
     </div>
-    {this.state.historyBox === 'closed' ? <button onClick={this.handleSmallButtonClick} className="button is-small is-success smallHistoryButton2"><span>Toggle history box</span> <i className="fa fa-angle-up downArrow" aria-hidden="true"></i></button> :    <button onClick={this.handleSmallButtonClick} className="button is-small is-warning smallHistoryButton2"><span>Toggle history box</span> <i className="fa fa-angle-down downArrow" aria-hidden="true"></i></button>}
+    {this.state.historyBox === 'closed' ? <button onClick={this.handleSmallButtonClick} className="button is-small is-success smallHistoryButton2"><span>History box</span> <i className="fa fa-angle-up downArrow" aria-hidden="true"></i></button> :    <button onClick={this.handleSmallButtonClick} className="button is-small is-warning smallHistoryButton2"><span>History box</span> <i className="fa fa-angle-down downArrow" aria-hidden="true"></i></button>}
 
 
         <div id={this.state.historyPeek} className='block historyModalContainer'>
@@ -1376,7 +1376,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
 <section id={this.state.hideButtons} className="hero whiteBorder2 is-dark">
  <div className="hero-body">
    <div className="container">
-     <h1 className="title">
+     <h1 className="title forwardInAnimation">
       Your workout has been submitted!
      </h1>
      <h2 className="subtitle">
@@ -1391,7 +1391,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     name: this.props.name,
   }
 }}>
-                    <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="homeButton afterSubmitButtons button marginbottom buttonBackground">
+                    <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="forwardInAnimation homeButton afterSubmitButtons button marginbottom buttonBackground">
                       <span></span>
                     </a>
                   </Link>
@@ -1401,7 +1401,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     name: this.props.name,
   }
 }}>
-                    <a  id={this.state.hideButtons} onClick={this.handleHomeClick} className="button afterSubmitButtons marginbottom newWorkoutButton">
+                    <a  id={this.state.hideButtons} onClick={this.handleHomeClick} className="forwardInAnimation button afterSubmitButtons marginbottom newWorkoutButton">
                       <span ></span>
                     </a>
                   </Link>
@@ -1411,7 +1411,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     name: this.props.name,
   }
 }}>
-                    <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="button afterSubmitButtons marginbottom workoutTemplatesButton ">
+                    <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="forwardInAnimation button afterSubmitButtons marginbottom workoutTemplatesButton ">
                       <span ></span>
                     </a>
                   </Link>
@@ -1421,7 +1421,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     name: this.props.name,
   }
 }}>
-                    <a id={this.state.hideButtons} onClick={this.handlePreviousClick} className="historyButton afterSubmitButtons button marginbottom ">
+                    <a id={this.state.hideButtons} onClick={this.handlePreviousClick} className="forwardInAnimation historyButton afterSubmitButtons button marginbottom ">
                       <span ></span>
                     </a>
                   </Link>
