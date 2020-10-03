@@ -776,3 +776,7 @@ body {
   color: rgb(61, 61, 61);
   margin-right: 5px;
 }
+
+.roundedCorners {
+  border-radius: 6px;
+}

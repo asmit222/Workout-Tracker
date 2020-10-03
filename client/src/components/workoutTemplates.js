@@ -207,29 +207,35 @@ arr[4] = workoutNameSplit.join('');
             `${arr}`
           )
           .then((response) => {
+console.log('colorhere: ', thisBind.state.planEditting, thisBind.state.currentColor)
+            axios.post('/changeColor',
+        `${[thisBind.state.planEditting, thisBind.state.currentColor]}`
+      )
+      .then((response) => {
 
+        axios.post('/getTemplates',
+        `${[thisBind.props.location.state.name]}`
+      )
+      .then((response) => {
+        response.data.reverse();
 
-            axios.post('/getTemplates',
-            `${[thisBind.props.location.state.name]}`
-          )
-          .then((response) => {
-            response.data.reverse();
+        var oldTemplates = response.data
+for(var i = 0; i < oldTemplates.length; i++) {
+oldTemplates[i]['editable'] = false;
+}
+thisBind.setState({
+     templates: oldTemplates,
+    })
 
-            var oldTemplates = response.data
-  for(var i = 0; i < oldTemplates.length; i++) {
-    oldTemplates[i]['editable'] = false;
-  }
-  thisBind.setState({
-         templates: oldTemplates,
-        })
+        thisBind.setState({
+          name: response.data[0].name.toUpperCase(),
+               templates: oldTemplates,
+              })
+      }, (error) => {
+        alert(error);
+      });
 
-            thisBind.setState({
-              name: response.data[0].name.toUpperCase(),
-                   templates: oldTemplates,
-                  })
-          }, (error) => {
-            alert(error);
-          });
+      })
 
             console.log('saved template!')
           }, (error) => {
@@ -296,15 +302,25 @@ arr[4] = workoutNameSplit.join('');
     e.preventDefault();
     var thisBind = this;
     const workoutPlanName = e.target.getAttribute('data-id');
-    this.setState({
-      planEditting: workoutPlanName,
-    })
-    var template;
-    for(var i = 0; i < this.state.templates.length; i++) {
-      if(this.state.templates[i].templateName === workoutPlanName) {
-        template = this.state.templates[i];
-      }
-    }
+var color;
+
+
+this.setState({
+  planEditting: workoutPlanName,
+})
+var template;
+for(var i = 0; i < this.state.templates.length; i++) {
+  if(this.state.templates[i].templateName === workoutPlanName) {
+    template = this.state.templates[i];
+    color = this.state.templates[i].color;
+  }
+}
+
+this.setState({
+  currentColor: color,
+})
+
+console.log('color: ', color, workoutPlanName)
 
     if(!this.state.editing) {
     this.setState({
@@ -870,14 +886,14 @@ thisBind.setState({
       if(template.templateName.length > 0) {
 
         return <div className="block forwardInAnimation">
-        <section id={`${template.color}2`} className="hero" >
+        <section id={`${template.color}2`} className="hero roundedCorners" >
 
 
           <div className="hero-body heroBody">
             <div className="container">
 
            <div>
-        <span data-id={template.templateName} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></span>
+        <span data-id={template.templateName} data-attr={template.color} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></span>
 
              </div>
 
