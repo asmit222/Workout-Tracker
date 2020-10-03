@@ -1426,6 +1426,20 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
                     </a>
                   </Link>
 
+
+                  <section id={this.state.hideButtons} className="hero whiteBorder3 is-dark">
+ <div className="hero-body">
+   <div className="container">
+     <h1 className="title forwardInAnimation">
+
+     </h1>
+     <h2 className="subtitle">
+     </h2>
+   </div>
+ </div>
+</section>
+
+
                   </div>
       </React.Fragment>
     )

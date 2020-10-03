@@ -1327,6 +1327,18 @@ for (var j = 0; j < arr[1][6].length; j++) {
                     </a>
                   </Link>
 
+                  <section id={this.state.hideButtons} className="hero whiteBorder3 is-dark">
+ <div className="hero-body">
+   <div className="container">
+     <h1 className="title forwardInAnimation">
+
+     </h1>
+     <h2 className="subtitle">
+     </h2>
+   </div>
+ </div>
+</section>
+
                   </div>
       </React.Fragment>
     )
