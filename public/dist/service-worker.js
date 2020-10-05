@@ -104,11 +104,14 @@ define("./service-worker.js",['./workbox-29fd0d52'], function (workbox) { 'use s
    */
 
   workbox.precacheAndRoute([{
-    "url": "index.html",
-    "revision": "cbeebd92106a4f127ad9732c8d65184c"
+    "url": "__offline_serviceworker",
+    "revision": "aadf9f370b9172188381e4d43a1294e5"
   }, {
-    "url": "manifest/manifest.json",
-    "revision": "4809e7f6a3e97c012014571e13f91c72"
+    "url": "bundle.js",
+    "revision": "49059c66e927e02764443efd74700b13"
+  }, {
+    "url": "index.html",
+    "revision": "dac53072af847ced143cfa83fccd1bcc"
   }], {});
   workbox.registerRoute(/http:\/\/localhost:2020\//, new workbox.StaleWhileRevalidate(), 'GET');
 
