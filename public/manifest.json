@@ -1,6 +1,6 @@
 {
-  "name": "Eazy-Trak",
-  "short_name": "Eazy-Trak",
+  "name": "Eazy Trak",
+  "short_name": "Eazy Trak",
   "description": "A simple way to log your workouts.",
   "display": "standalone",
   "start_url": ".",
