@@ -1,0 +1,20 @@
+{
+  "name": "Eazy-Trak",
+  "short_name": "Eazy-Trak",
+  "description": "A simple way to log your workouts.",
+  "display": "standalone",
+  "start_url": ".",
+
+  "icons": [
+    {
+      "src": "./favicon.ico",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "./logo.png",
+      "sizes": "225x225",
+      "type": "image/png"
+    }
+  ]
+}
