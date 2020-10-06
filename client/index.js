@@ -23,16 +23,6 @@ if ('serviceWorker' in navigator) {
      });
    }
 
-
-
-
-
-
-
-
-
-
-
    var CACHE_NAME = 'my-pwa-cache-v1';
    var urlsToCache = [
      '/',

@@ -14,22 +14,17 @@
       "type": "image/png"
     },
     {
-      "src": "./logo.png",
-      "sizes": "500x500",
-      "type": "image/png"
-    },
-    {
-      "src": "./logo2.png",
+      "src": "./logo225.png",
       "sizes": "225x225",
       "type": "image/png"
     },
     {
-      "src": "./test.png",
+      "src": "./logo192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "./test2.png",
+      "src": "./logo512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
