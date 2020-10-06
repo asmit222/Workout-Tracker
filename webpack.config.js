@@ -61,6 +61,10 @@ module.exports = {
           //   }]
 
           // }),
+//           new WorkboxPlugin.InjectManifest({
+// swSrc: './sw.js',
+// swDest: "sw.js"
+//           }),
           new OfflinePlugin({
             ServiceWorker: {
                 // output to root level of project
@@ -71,6 +75,7 @@ module.exports = {
                 minify: false
             }
         }),
+
           // new SWPrecacheWebpackPlugin({
           //   cacheId: 'offline-app',
           //   dontCacheBustUrlsMatching: /\.\w{8}\./,

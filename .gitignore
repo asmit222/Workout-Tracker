@@ -4,3 +4,6 @@ npm-debug.log
 .DS_Store
 /*.env
 .env
+/server.csr
+/server.pass.key
+/www_eazy-track_com.crt
