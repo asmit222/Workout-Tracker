@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 var OfflinePlugin = require('offline-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 
 
 module.exports = {
@@ -49,23 +50,27 @@ module.exports = {
         }
         ),
         // new WorkboxPlugin.GenerateSW({
-          // these options encourage the ServiceWorkers to get in there fast
-          // and not allow any straggling "old" SWs to hang around
-          // swDest: 'service-worker.js',
-          // clientsClaim: true,
-          // skipWaiting: true,
-          // maximumFileSizeToCacheInBytes: 5000000,
-          // runtimeCaching: [{
-          //     urlPattern: new RegExp('http://localhost:2020/'),
-          //     handler: 'StaleWhileRevalidate'
-          //   }]
+        //   // these options encourage the ServiceWorkers to get in there fast
+        //   // and not allow any straggling "old" SWs to hang around
+        //   // swDest: 'service-worker.js',
+        //   clientsClaim: true,
+        //   skipWaiting: true,
+        //   maximumFileSizeToCacheInBytes: 5000000,
+        //   runtimeCaching: [{
+        //       urlPattern: new RegExp('http://localhost:2020/'),
+        //       handler: 'StaleWhileRevalidate'
+        //     }]
 
-          // }),
+        //   }),
+
 //           new WorkboxPlugin.InjectManifest({
 // swSrc: './sw.js',
 // swDest: "sw.js"
 //           }),
+
+
           new OfflinePlugin({
+
             ServiceWorker: {
                 // output to root level of project
                 output: "../service-worker.js",
@@ -75,6 +80,7 @@ module.exports = {
                 minify: false
             }
         }),
+
 
           // new SWPrecacheWebpackPlugin({
           //   cacheId: 'offline-app',

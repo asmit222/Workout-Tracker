@@ -1,9 +1,11 @@
 {
-  "name": "Eazy-Trak",
-  "short_name": "Eazy-Trak",
+  "name": "Eazy Trak",
+  "short_name": "Eazy Trak",
   "description": "A simple way to log your workouts.",
   "display": "standalone",
   "start_url": "/",
+  "background_color": "#494e57",
+  "scope": "/",
 
   "icons": [
     {
@@ -12,8 +14,23 @@
       "type": "image/png"
     },
     {
-      "src": "./dumbbell2.png",
+      "src": "./logo.png",
+      "sizes": "500x500",
+      "type": "image/png"
+    },
+    {
+      "src": "./logo2.png",
       "sizes": "225x225",
+      "type": "image/png"
+    },
+    {
+      "src": "./test.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./test2.png",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ]
