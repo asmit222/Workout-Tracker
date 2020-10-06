@@ -8,7 +8,7 @@ var OfflinePlugin = require('offline-plugin');
 
 module.exports = {
   entry: "./client/index.js",
-  mode: "development",
+  mode: "production",
   module: {
     rules: [
       {
