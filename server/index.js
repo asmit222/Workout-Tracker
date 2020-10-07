@@ -14,14 +14,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname + '/../public')));
 
 
-app.use((req, res, next) => {
-  if (req.header('x-forwarded-proto') !== 'https') {
-    console.log('info: ', req.header, req.url)
-    res.redirect(`https://${req.header('host')}${req.url}`)
-  } else {
-    next()
-  }
-})
+// app.use((req, res, next) => {
+//   if (req.header('x-forwarded-proto') !== 'https') {
+//     console.log('info: ', req.header, req.url)
+//     res.redirect(`https://${req.header('host')}${req.url}`)
+//   } else {
+//     next()
+//   }
+// })
 
 
 app.listen(PORT, function() {
