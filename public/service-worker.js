@@ -9,12 +9,12 @@ var __wpo = {
   },
   "externals": [],
   "hashesMap": {
-    "de95ffabadd5f8702f62b644734bd32849a81c1b": "./dist/bundle.js",
+    "3d6c4b43252781e274a3bf18d0321b0746a18ef9": "./dist/bundle.js",
     "1f479ac78e61ec04ca610a280c74284cd70e09cb": "./dist/"
   },
   "strategy": "changed",
   "responseStrategy": "cache-first",
-  "version": "10/7/2020, 6:29:25 PM",
+  "version": "10/7/2020, 6:43:36 PM",
   "name": "webpack-offline",
   "pluginVersion": "5.0.7",
   "relativePaths": true

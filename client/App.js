@@ -347,7 +347,7 @@ setTimeout(() => {
 
     <div className={`modal ${this.state.modalState}`}>
   <div className="modal-background"></div>
-  <div className="modal-content">
+  <div className="modal-content createAccModal">
 
   <div className='buttonContainerModal'>
       <button onClick={this.handleSubmitCreateAccount}
