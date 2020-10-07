@@ -9,7 +9,7 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 
 module.exports = {
   entry: "./client/index.js",
-  mode: "development",
+  mode: "production",
   module: {
     rules: [
       {
