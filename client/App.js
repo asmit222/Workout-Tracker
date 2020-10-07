@@ -150,7 +150,7 @@ if(this.state.modalState === '') {
     console.log(res)
 if(res.data.length > 0 && this.state.loginName !== '') {
 thisBind.setState({
-  animationName: 'loginAnimation'
+  animationName: 'loginAnimation',
 })
 setTimeout(() => {
   thisBind.setState({
@@ -309,7 +309,12 @@ setTimeout(() => {
    );
   } else {
     return (
-      <div className={this.state.animationName}>
+
+
+        <div className={this.state.animationName}>
+
+
+
       <div className='loginBackground'>
       <div className='buttonContainer'>
       <button onClick={this.handleSubmitLogin} id='loginButton'
@@ -347,7 +352,7 @@ setTimeout(() => {
   <div className='buttonContainerModal'>
       <button onClick={this.handleSubmitCreateAccount}
             href=""
-            className="margin button is-dark"
+            className="margin button is-large is-dark"
           >
             Create Account
           </button>
@@ -359,6 +364,7 @@ setTimeout(() => {
         <input type="password" onClick={this.handleChangeLogin2} onChange={this.handleChangeLogin2} className={`input is-medium ${this.state.loginInputPass} `} placeholder="Password"></input>
       </div>
     </form>
+    <div className='centerMe'>choose a name and password</div>
 
   </div>
   <button onClick={this.handleModalXClick} className="modal-close is-large" aria-label="close"></button>

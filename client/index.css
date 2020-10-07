@@ -82,9 +82,9 @@ table td {
   margin-bottom: 5px;
 }
 .loginFormModal {
-  width: 50%;
-  margin-left: 25%;
-  margin-top: 3%;
+  width: 64%;
+  margin-top: 10%;
+  margin-left: 18%;
   margin-bottom: 5px;
 }
 
@@ -851,12 +851,19 @@ body {
   background-size: cover;
   /* background-color: hsl(0, 0%, 41%); */
   width: 80%;
-  border-radius: 8px;
+  border-radius: 10px;
+  height: 50vh;
+  align-items: center;
+  justify-content: center;
 }
 
 .buttonContainerModal {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 3%;
+  margin-top: 29%;
+}
+
+.centerMe {
+  text-align: center;
 }
