@@ -11,7 +11,6 @@ import newworkout from "./src/components/newworkout";
 import Previousworkouts from "./src/components/previousworkouts";
 import WorkoutTemplates from "./src/components/workoutTemplates";
 import Home from "./src/components/Home";
-import Login from "./Login";
 import axios from 'axios';
 
 
@@ -19,6 +18,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      modalState: '',
+      loginInputBorder: '',
+      loginInputName: 'loginInput',
+      loginInputPass: 'loginInput',
       animationName: '',
       creatingAccount: false,
       hideNav: '',
@@ -32,6 +35,15 @@ this.handleSubmitLogin = this.handleSubmitLogin.bind(this);
 this.handleHideNav = this.handleHideNav.bind(this);
 
 this.handleSubmitCreateAccount = this.handleSubmitCreateAccount.bind(this);
+
+this.handleModalXClick = this.handleModalXClick.bind(this);
+  }
+
+  handleModalXClick(e) {
+    e.preventDefault();
+    this.setState({
+      modalState: '',
+    })
   }
 
 componentDidMount() {
@@ -54,18 +66,78 @@ componentDidMount() {
   handleChangeLogin1 (e) {
     var thisBind = this;
     e.preventDefault();
+
+    if(this.state.modalState === '') {
     thisBind.setState({
       loginName: e.target.value
+    }, () => {
+
+      axios.post('/attemptLogin',
+      `${[thisBind.state.loginName, thisBind.state.loginPass]}`
+    )
+    .then((res) => {
+      console.log(res)
+  if(res.data.length > 0 && this.state.loginName !== '') {
+
+    thisBind.setState({
+  loginInputName: 'loginInput2',
+  loginInputPass: 'loginInput2'
+  })
+    } else {
+      thisBind.setState({
+        loginInputName: 'loginInput',
+        loginInputPass: 'loginInput',
+        loginInputBorder: 'loginInputBorder'
+        })
+    }
     })
+
+    })
+    } else {
+      thisBind.setState({
+        loginName: e.target.value
+    })
+}
   }
 
   handleChangeLogin2 (e) {
     var thisBind = this;
     e.preventDefault();
+
+if(this.state.modalState === '') {
+
     thisBind.setState({
       loginPass: e.target.value
+    }, () => {
+
+      axios.post('/attemptLogin',
+      `${[thisBind.state.loginName, thisBind.state.loginPass]}`
+    )
+    .then((res) => {
+      console.log(res)
+  if(res.data.length > 0 && this.state.loginName !== '') {
+
+    thisBind.setState({
+  loginInputName: 'loginInput2',
+  loginInputPass: 'loginInput2'
+  })
+    } else {
+      thisBind.setState({
+        loginInputName: 'loginInput',
+        loginInputPass: 'loginInput',
+        loginInputBorder: 'loginInputBorder'
+        })
+    }
     })
+
+    })
+  } else {
+    thisBind.setState({
+      loginPass: e.target.value
+  })
+
   }
+}
 
   handleSubmitLogin (e) {
     var thisBind = this;
@@ -97,42 +169,51 @@ setTimeout(() => {
     var thisBind = this;
     e.preventDefault();
 
-if(this.state.loginPass.length < 3) {
-  alert('To create an account, enter a unique username and a password that is at least 3 characters long');
-} else {
+    if(this.state.modalState === '') {
+      this.setState({
+        modalState: 'is-active',
+        loginInputName: 'loginInputModal',
+        loginInputPass: 'loginInputModal',
+      })
+    } else {
+      if(this.state.loginPass.length < 3) {
+        alert('To create an account, enter a unique username and a password that is at least 3 characters long');
+      } else {
 
-    axios.post('/createAccount',
-    `${[thisBind.state.loginName, thisBind.state.loginPass]}`
-  )
-  .then((res) => {
-if (res.data === '0') {
-  if(thisBind.state.loginName === '') {
-alert('Please enter a username and password')
-  } else {
-    alert('Username is taken');
-  }
-}
-if(typeof res.data === 'object') {
-  console.log('account created, logging in')
-  thisBind.setState({
-    creatingAccount: true,
-  })
+          axios.post('/createAccount',
+          `${[thisBind.state.loginName, thisBind.state.loginPass]}`
+        )
+        .then((res) => {
+      if (res.data === '0') {
+        if(thisBind.state.loginName === '') {
+      alert('Please enter a username and password')
+        } else {
+          alert('Username is taken');
+        }
+      }
+      if(typeof res.data === 'object') {
+        console.log('account created, logging in')
+        thisBind.setState({
+          creatingAccount: true,
+        })
 
-  setTimeout(() => {
-    thisBind.setState({
-      name: thisBind.state.loginName,
-      creatingAccount: false,
-    })
-  }, 2000);
-
-
+        setTimeout(() => {
+          thisBind.setState({
+            name: thisBind.state.loginName,
+            creatingAccount: false,
+          })
+        }, 2000);
 
 
-}
-  }, (error) => {
-    alert(error);
-  });
-  }
+
+
+      }
+        }, (error) => {
+          alert(error);
+        });
+        }
+    }
+
 }
 
   render() {
@@ -250,12 +331,39 @@ if(typeof res.data === 'object') {
           </button>
           </div>
 
-  <form id='loginForm'>
+
+  <form className='loginForm'>
       <div className="field control">
-        <input type="text" onChange={this.handleChangeLogin1} className="input is-medium loginInput" placeholder="Name"></input>
-        <input type="password" onChange={this.handleChangeLogin2} className="input is-medium loginInput" placeholder="Password"></input>
+        <input type="text" onClick={this.handleChangeLogin1} onChange={this.handleChangeLogin1} className={`input is-medium ${this.state.loginInputName} ${this.state.loginInputBorder}`} placeholder="Name"></input>
+        <input type="password" onClick={this.handleChangeLogin2} onChange={this.handleChangeLogin2} className={`input is-medium ${this.state.loginInputPass} ${this.state.loginInputBorder}`} placeholder="Password"></input>
       </div>
     </form>
+
+
+    <div className={`modal ${this.state.modalState}`}>
+  <div className="modal-background"></div>
+  <div className="modal-content">
+
+  <div className='buttonContainerModal'>
+      <button onClick={this.handleSubmitCreateAccount}
+            href=""
+            className="margin button is-dark"
+          >
+            Create Account
+          </button>
+          </div>
+
+  <form className='loginFormModal'>
+      <div className="field control">
+        <input type="text" onClick={this.handleChangeLogin1} onChange={this.handleChangeLogin1} className={`input is-medium ${this.state.loginInputName} `} placeholder="Name"></input>
+        <input type="password" onClick={this.handleChangeLogin2} onChange={this.handleChangeLogin2} className={`input is-medium ${this.state.loginInputPass} `} placeholder="Password"></input>
+      </div>
+    </form>
+
+  </div>
+  <button onClick={this.handleModalXClick} className="modal-close is-large" aria-label="close"></button>
+</div>
+
 
 
     </div>

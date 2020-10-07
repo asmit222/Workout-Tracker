@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Previousworkouts from "./previousworkouts";
-import Day1 from "./Day1";
 import EmptyTemplate from "./emptyTemplate";
 import axios from 'axios';
 import Template from './template'
@@ -24,7 +23,7 @@ class newworkout extends Component {
       workout6: " , , ",
       workout7: " , , "},
       workoutName: '',
-      templates: [{'templateName': 'one'}, {'templateName': 'two'}],
+      templates: [{'templateName': 'nonamelikethis'}, {'templateName': ''}],
       dropDown: '',
       day1Selected: "hide",
       emptyTemplateSelected: "hide1",
@@ -124,7 +123,6 @@ setTimeout(() => console.log(this.state.templates), 2000);
         pookClassName: 'pook'
       });
     } else {
-
       thisBind.setState({
         workoutName: e.target.value,
         day1Selected: "hide",
@@ -152,9 +150,13 @@ setTimeout(() => console.log(this.state.templates), 2000);
   }
 
   render() {
-    const templates = this.state.templates.map((template) => {
-    return <option>{template.templateName.slice(1, template.templateName.length - 1)}</option>
-    })
+    if(this.state.templates[0]['templateName'] !== 'nonamelikethis') {
+      var templates = this.state.templates.map((template) => {
+      return <option>{template.templateName.slice(1, template.templateName.length - 1)}</option>
+      })
+    } else {
+      var templates = <div id='hide'></div>
+    }
     return (
       <React.Fragment>
       <div className="block selectWorkoutAnimation">
