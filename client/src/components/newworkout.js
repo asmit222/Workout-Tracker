@@ -60,15 +60,18 @@ if (this.props.location.state !== undefined){
       `${[thisBind.props.location.state.name]}`
     )
     .then((response) => {
-      response.data.reverse();
-
-      thisBind.setState({
-             templates: response.data,
-            })
+      if(response.data.length > 0) {
+        response.data.reverse();
+        thisBind.setState({
+               templates: response.data,
+              })
+      }
+      // console.log('look here: ', response.data.length > 0)
     }, (error) => {
       alert(error);
     });
   } else {
+    console.log('testing');
     this.props.history.push('/Home')
   }
 setTimeout(() => console.log(this.state.templates), 2000);
