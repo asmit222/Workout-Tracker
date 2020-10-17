@@ -1009,7 +1009,7 @@ thisBind.setState({
 
 <div className="modal templateModal is-active">
   <div className="modal-background"></div>
-  <div className="modal-card">
+  <div id='modalCardTemplate' className="modal-card">
     <header className="modal-card-head">
       <p className="modal-card-title modalTitle">
       <input
