@@ -168,7 +168,6 @@ var thisBind = this;
 
   sendWorkout () {
     var thisBind = this;
-    setTimeout(() => {
       var arr = [
         [this.state.workoutDate],
         [
@@ -202,49 +201,7 @@ var thisBind = this;
        }
      }
 
-// for (var j = 0; j < arr[1][0].length; j++) {
-// if(arr[1][0][j] === "") {
-// arr[1][0][j] = thisBind.props.currentTemplate.workout1.split(',')[j];
-// }
-// }
-
-// for (var j = 0; j < arr[1][1].length; j++) {
-// if(arr[1][1][j] === "") {
-// arr[1][1][j] = thisBind.props.currentTemplate.workout2.split(',')[j];
-// }
-// }
-
-// for (var j = 0; j < arr[1][2].length; j++) {
-// if(arr[1][2][j] === "") {
-// arr[1][2][j] = thisBind.props.currentTemplate.workout3.split(',')[j];
-// }
-// }
-
-// for (var j = 0; j < arr[1][3].length; j++) {
-// if(arr[1][3][j] === "") {
-// arr[1][3][j] = thisBind.props.currentTemplate.workout4.split(',')[j];
-// }
-// }
-
-// for (var j = 0; j < arr[1][4].length; j++) {
-// if(arr[1][4][j] === "") {
-// arr[1][4][j] = thisBind.props.currentTemplate.workout5.split(',')[j];
-// }
-// }
-
-// for (var j = 0; j < arr[1][5].length; j++) {
-// if(arr[1][5][j] === "") {
-// arr[1][5][j] = thisBind.props.currentTemplate.workout6.split(',')[j];
-// }
-// }
-
-// for (var j = 0; j < arr[1][6].length; j++) {
-// if(arr[1][6][j] === "") {
-// arr[1][6][j] = thisBind.props.currentTemplate.workout7.split(',')[j];
-// }
-// }
-
-
+    // setTimeout(() => {
 
       axios.post('/test',
       `${arr}`
@@ -255,7 +212,7 @@ var thisBind = this;
       alert(error);
     });
 
-    }, 3000)
+    // }, 3000)
 
   }
 
@@ -286,12 +243,21 @@ var thisBind = this;
   }
 
   handleNotes(e) {
-    var thisBind = this;
     e.preventDefault();
-    this.setState({
-      notes: e.target.value,
-    });
-    this.sendWorkout();
+    var thisBind = this;
+var allowedCharacters = 'abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ-@#$/%.+()*^!= ';
+
+    if(allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
+
+      this.setState({
+        notes: e.target.value,
+      });
+      this.sendWorkout();
+    }
+
   }
 
   handleDateChange(e) {
@@ -595,6 +561,7 @@ var thisBind = this;
         {
           label: 'Submit',
           onClick: () => {
+
             this.props.hideDropDown();
             this.props.hideNav();
             this.setState({
@@ -617,6 +584,9 @@ var thisBind = this;
               this.props.day,
               this.props.workoutName,
             ];
+
+
+            console.log('notes: ', arr[2]);
 
            for (var i = 0; i < arr.length - 3; i++) {
              for (var j = 0; j < arr[i].length; j++) {
@@ -682,7 +652,7 @@ for (var j = 0; j < arr[1][6].length; j++) {
             `${arr}`
           )
           .then((response) => {
-            console.log('workout sent for Custom Workout!')
+            console.log('workout sent for workout!')
           }, (error) => {
             alert(error);
           });

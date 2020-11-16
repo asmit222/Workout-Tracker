@@ -54,7 +54,7 @@ app.post('/getWorkouts', function (req, res) {
 
 
 app.post('/test', function (req, res) {
-  console.log('trying to save workout');
+  console.log('trying to save workout helloooo');
   res.status(200);
   db.saveWorkout(JSON.stringify(req.body), () => console.log('saved workout!'));
   res.send('done')

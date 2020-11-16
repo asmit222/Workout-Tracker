@@ -1458,7 +1458,6 @@ if(this.state.clicked === false) {
               </tbody>
             </table>
 
-
             <button
               onClick={this.handleSubmitWorkout}
               href=""

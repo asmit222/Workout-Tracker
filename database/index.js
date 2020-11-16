@@ -10,6 +10,7 @@ const connection = mariadb.createConnection({
 });
 
 const saveWorkout = function(data, callback) {
+  console.log('saving final version of workout')
 
   connection.connect((err) => {
     if(err) {
@@ -18,6 +19,8 @@ const saveWorkout = function(data, callback) {
     } else {
 
       var dataSplit = data.split(',');
+
+      var name = dataSplit[51];
 
       var date = dataSplit[0].slice(2).split(' ').slice(1, 4).join(' ');
       var workout1 = [dataSplit[1], dataSplit[2], dataSplit[3], dataSplit[4], dataSplit[5], dataSplit[6], dataSplit[7]];
@@ -28,6 +31,7 @@ const saveWorkout = function(data, callback) {
       var workout6 = [dataSplit[36], dataSplit[37], dataSplit[38], dataSplit[39], dataSplit[40], dataSplit[41], dataSplit[42]];
       var workout7 = [dataSplit[43], dataSplit[44], dataSplit[45], dataSplit[46], dataSplit[47], dataSplit[48], dataSplit[49]];
       var notes = [`${dataSplit[50]}`];
+
 
       var notesSplit = notes[0].split(' ');
       for (var k = 0; k < notesSplit.length; k++) {
@@ -42,13 +46,15 @@ const saveWorkout = function(data, callback) {
         notes = [notesSplit.join('=')];
       }
 
-      setTimeout(() => {
-console.log('dataaaa: ', dataSplit, notes[0].indexOf('":"') !== -1);
-      }, 3000)
+//       setTimeout(() => {
+// console.log('dataaaa: ', dataSplit, notes[0].indexOf('":"') !== -1);
+//       }, 3000)
 
-      console.log('date: ', date);
+      // console.log('date: ', date);
 
-      var name = dataSplit[51];
+      console.log('name: ', name);
+
+
 
       var day = (notes[0].indexOf('=') !== -1 || notes[0].indexOf('":"') !== -1) ? JSON.stringify(dataSplit[53].slice(0, dataSplit[53].length - 2)) : JSON.stringify(dataSplit[53].slice(0, dataSplit[53].length - 5));
 

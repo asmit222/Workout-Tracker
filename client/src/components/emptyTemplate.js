@@ -211,7 +211,7 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
       `${arr}`
     )
     .then((response) => {
-      console.log('workout sent for Custom Workout!')
+      console.log('workout sent for Custom Template!')
     }, (error) => {
       alert(error);
     });
@@ -249,10 +249,19 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
   handleNotes(e) {
     var thisBind = this;
     e.preventDefault();
+    var allowedCharacters = 'abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ-@#$/%.+()*^!= ';
+
+    if(allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
+
+
     this.setState({
       notes: e.target.value,
     });
     this.sendWorkout();
+  }
   }
 
   handleDateChange(e) {
