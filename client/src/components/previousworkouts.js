@@ -28,7 +28,7 @@ handleDeleteClick (e) {
       {
         label: 'Delete',
         onClick: () => {
-// alert('that doesnt work yet, sorry...')
+          console.log('here', [workout.split(',')[1], workout.split(',')[0], thisBind.props.location.state.name])
 axios.post('/deleteWorkout',
 `${[workout.split(',')[1], workout.split(',')[0], thisBind.props.location.state.name]}`
 )
@@ -103,7 +103,7 @@ this.props.history.push('/Home')
 
         <div className='workoutName is-info'>{workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)}</div>
 
-        <button value={[workout.workoutDate, workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)]} onClick={this.handleDeleteClick} className="delete deleteButtonHistory is-small "></button>
+        <button value={[workout.id, workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)]} onClick={this.handleDeleteClick} className="delete deleteButtonHistory is-small "></button>
 
         <div className='scrollContainer2'>
         <table className="content is-small table is-bordered">

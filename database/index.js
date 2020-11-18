@@ -18,7 +18,10 @@ const saveWorkout = function(data, callback) {
       return;
     } else {
 
+
       var dataSplit = data.split(',');
+
+      console.log('datasplit is here ', data);
 
       var name = dataSplit[51];
 
@@ -46,14 +49,6 @@ const saveWorkout = function(data, callback) {
         notes = [notesSplit.join('=')];
       }
 
-//       setTimeout(() => {
-// console.log('dataaaa: ', dataSplit, notes[0].indexOf('":"') !== -1);
-//       }, 3000)
-
-      // console.log('date: ', date);
-
-      console.log('name: ', name);
-
 
 
       var day = (notes[0].indexOf('=') !== -1 || notes[0].indexOf('":"') !== -1) ? JSON.stringify(dataSplit[53].slice(0, dataSplit[53].length - 2)) : JSON.stringify(dataSplit[53].slice(0, dataSplit[53].length - 5));
@@ -62,23 +57,21 @@ var color;
   var sql3 = `select * from templates where templateName = '${day}';`;
 
         connection.query(sql3, function(err, results) {
-console.log('day', day)
           if (err) {
             console.log('error querying database: ', err);
           } else {
-            console.log('res: ', results);
             if(results[0] !== undefined) {
               color = results[0].color;
             }
 
-            var sql4 = `delete from workout1 where name = '${name}' and  workoutDate = '${date}';`;
+            // var sql4 = `delete from workout1 where name = '${name}' and  workoutDate = '${date}' and workoutPlan = '${day}';`;
 
-            connection.query(sql4, function(err, results) {
-              if (err) {
-                console.log('error querying database: ', err);
-              } else {
+            // connection.query(sql4, function(err, results) {
+            //   if (err) {
+            //     console.log('error querying database: ', err);
+            //   } else {
 
-                var sql = `INSERT IGNORE INTO workout1 VALUES ('${name}', '${day}', '${date}', '${workout1}', '${workout2}', '${workout3}', '${workout4}', '${workout5}', '${workout6}', '${workout7}', '${notes}', '${color}');`;
+                var sql = `INSERT IGNORE INTO workout1 (name, workoutPlan, workoutDate, workout1, workout2, workout3, workout4, workout5, workout6, workout7, notes, color) VALUES ('${name}', '${day}', '${date}', '${workout1}', '${workout2}', '${workout3}', '${workout4}', '${workout5}', '${workout6}', '${workout7}', '${notes}', '${color}');`;
 
                 connection.query(sql, function(err, results) {
                   if (err) {
@@ -87,8 +80,8 @@ console.log('day', day)
 
                     console.log('workout saved!');
                   }
-                });
-              }
+                // });
+              // }
             });
           }
         });
@@ -327,7 +320,7 @@ var color = dataSplit[1].slice(0, dataSplit[1].length - 5);
         var dataSplit = JSON.stringify(data).split(',');
         console.log('data!: ', dataSplit)
         var workoutName = dataSplit[0].slice(2, dataSplit[0].length);
-var date = dataSplit[1];
+var id = dataSplit[1];
 var name = dataSplit[2].slice(0, dataSplit[2].length - 5);
 
               connection.connect((err) => {
@@ -336,7 +329,7 @@ var name = dataSplit[2].slice(0, dataSplit[2].length - 5);
                     return;
                 } else {
 
-                  var sql = `delete from workout1 where workoutPlan = '"${workoutName}"' and workoutDate = '${date}' and name = '${name}';`
+                  var sql = `delete from workout1 where workoutPlan = '"${workoutName}"' and id = '${id}' and name = '${name}';`
                   connection.query(sql, function(err, res) {
                     if (err) {
                      console.log('error ! ! !: ', err);

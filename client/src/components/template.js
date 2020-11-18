@@ -21,6 +21,7 @@ class Template extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      allowedCharacters: 'abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ-@#$/%.+()*^!= ',
       animationname: '',
       historyBox: 'closed',
       historyPeek: 'hide',
@@ -221,7 +222,7 @@ var thisBind = this;
     this.setState({
       workoutName: e.target.value,
     })
-    this.sendWorkout();
+    // this.sendWorkout();
   }
 
   handleHomeClick () {
@@ -248,14 +249,14 @@ var thisBind = this;
 var allowedCharacters = 'abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ-@#$/%.+()*^!= ';
 
     if(allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
-      alert('that character is not allowed at this time :(');
+      // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
 
       this.setState({
         notes: e.target.value,
       });
-      this.sendWorkout();
+      // this.sendWorkout();
     }
 
   }
@@ -271,276 +272,523 @@ var allowedCharacters = 'abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRS
   }
 
   handleChangeSquat0(e) {
+
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
+
     e.preventDefault();
     this.state.workout1[0] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeSquat1(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout1[1] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeSquat2(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout1[2] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeSquat3(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout1[3] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeSquat4(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout1[4] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeSquat5(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout1[5] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeSquat6(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout1[6] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeHipThrust0(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout2[0] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeHipThrust1(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout2[1] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeHipThrust2(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout2[2] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeHipThrust3(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout2[3] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeHipThrust4(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout2[4] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeHipThrust5(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout2[5] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeHipThrust6(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout2[6] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
 
   handleChangeBenchPress0(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout3[0] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeBenchPress1(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout3[1] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeBenchPress2(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout3[2] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeBenchPress3(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout3[3] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeBenchPress4(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout3[4] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeBenchPress5(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout3[5] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeBenchPress6(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout3[6] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeChinUps0(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout4[0] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeChinUps1(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout4[1] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeChinUps2(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout4[2] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeChinUps3(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout4[3] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeChinUps4(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout4[4] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeChinUps5(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout4[5] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeChinUps6(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout4[6] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeDBFarmerCarry0(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout5[0] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeDBFarmerCarry1(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout5[1] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeDBFarmerCarry2(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout5[2] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeDBFarmerCarry3(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout5[3] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeDBFarmerCarry4(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout5[4] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeDBFarmerCarry5(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout5[5] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeDBFarmerCarry6(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout5[6] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
 
   handleChangeFacePulls0(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout6[0] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeFacePulls1(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout6[1] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeFacePulls2(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout6[2] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeFacePulls3(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout6[3] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeFacePulls4(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout6[4] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeFacePulls5(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout6[5] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeFacePulls6(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout6[6] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeExtraWorkout3(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout7[3] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeExtraWorkout4(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout7[4] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeExtraWorkout5(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout7[5] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
   handleChangeExtraWorkout6(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout7[6] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeExtraWorkout0(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout7[0] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeExtraWorkout1(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout7[1] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeExtraWorkout2(e) {
+    if(this.state.allowedCharacters.split('').indexOf(e.target.value[e.target.value.length - 1]) === -1) {
+      // alert('that character is not allowed at this time :(');
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
     e.preventDefault();
     this.state.workout7[2] = e.target.value;
-    this.sendWorkout();
+    // this.sendWorkout();
+    }
   }
 
   handleChangeDatePicker = date => {
