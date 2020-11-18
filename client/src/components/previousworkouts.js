@@ -23,7 +23,7 @@ handleDeleteClick (e) {
   console.log('workout: ', workout);
 
   confirmAlert({
-    title: `Delete ${workout.split(',')[1]} - ${workout.split(',')[0]} from history?`,
+    title: `Delete ${workout.split(',')[1]} - ${workout.split(',')[2]} from history?`,
     buttons: [
       {
         label: 'Delete',
@@ -103,7 +103,7 @@ this.props.history.push('/Home')
 
         <div className='workoutName is-info'>{workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)}</div>
 
-        <button value={[workout.id, workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)]} onClick={this.handleDeleteClick} className="delete deleteButtonHistory is-small "></button>
+        <button value={[workout.id, workout.workoutPlan.slice(1, workout.workoutPlan.length - 1), workout.workoutDate]} onClick={this.handleDeleteClick} className="delete deleteButtonHistory is-small "></button>
 
         <div className='scrollContainer2'>
         <table className="content is-small table is-bordered">
