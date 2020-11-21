@@ -21,6 +21,8 @@ class Template extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      plateAnswerClassName: "noWeight",
+      plateCalc: "no weight entered",
       allowedCharacters: 'abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ-@#$/%.+()*^!= ',
       animationname: '',
       historyBox: 'closed',
@@ -40,6 +42,8 @@ class Template extends Component {
       workoutDate: new Date(),
       submitted: false,
     };
+    this.handleChangePlateCalc = this.handleChangePlateCalc.bind(this);
+
 this.handleChangeWorkoutName = this.handleChangeWorkoutName.bind(this);
 
     this.handleChangeDatePicker = this.handleChangeDatePicker.bind(this);
@@ -130,6 +134,89 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     this.sendWorkout = this.sendWorkout.bind(this);
 
     this.handleSmallButtonClick = this.handleSmallButtonClick.bind(this);
+  }
+
+   handleChangePlateCalc(e) {
+     var plateAnswerClassName2 = 'noWeight';
+     var result;
+   if(e.target.value === "") {
+     result = 'no weight entered'
+   } else if (Number(e.target.value === 45)) {
+    result = 'the bar';
+   } else if ( (Number(e.target.value) % 5 !== 0 || Number(e.target.value) - 45 < 5) && e.target.value !== "" ) {
+    result = 'invalid weight'
+   } else {
+     plateAnswerClassName2 = 'validWeight';
+var numberOf45s = 0;
+var numberOf35s = 0;
+var numberOf25s = 0;
+var numberOf10s = 0;
+var numberOf5s = 0;
+var numberOf2AndAHalfs = 0;
+
+var totalWeight = Number(e.target.value) - 45;
+
+
+while (totalWeight - 90 >= 0) {
+  numberOf45s++;
+  totalWeight = totalWeight - 90;
+}
+while (totalWeight - 70 >= 0) {
+  numberOf35s++;
+  totalWeight = totalWeight - 70;
+}
+while (totalWeight - 50 >= 0) {
+  numberOf25s++;
+  totalWeight = totalWeight - 50;
+}
+while (totalWeight - 20 >= 0) {
+  numberOf10s++;
+  totalWeight = totalWeight - 20;
+}
+while (totalWeight - 10 >= 0) {
+  numberOf5s++;
+  totalWeight = totalWeight - 10;
+}
+while (totalWeight - 5 >= 0) {
+  numberOf2AndAHalfs++;
+  totalWeight = totalWeight - 5;
+}
+
+result = "";
+
+if(numberOf45s !== 0) {
+  result = result + `${numberOf45s}x45`
+}
+if(numberOf35s !== 0) {
+  result = result + ` ${numberOf35s}x35`
+}
+if(numberOf25s !== 0) {
+  result = result + ` ${numberOf25s}x25`
+}
+if(numberOf10s !== 0) {
+  result = result + ` ${numberOf10s}x10`
+}
+if(numberOf5s !== 0) {
+  result = result + ` ${numberOf5s}x5`
+}
+if(numberOf2AndAHalfs !== 0) {
+  result = result + ` ${numberOf2AndAHalfs}x2.5`
+}
+
+result = result + ' each side';
+
+console.log('hello', numberOf45s, numberOf35s, numberOf25s, numberOf10s, numberOf5s, numberOf2AndAHalfs)
+
+
+
+
+
+
+   }
+    this.setState({
+      plateAnswerClassName: plateAnswerClassName2,
+      plateCalc: result,
+    })
   }
 
   componentDidMount() {
@@ -921,6 +1008,12 @@ for (var j = 0; j < arr[1][6].length; j++) {
       <React.Fragment>
         <div className='forwardInAnimation'>
               {this.state.historyBox === 'closed' ? <button onClick={this.handleSmallButtonClick} className="button is-small is-success smallHistoryButton"><span>History box</span> <i className="fa fa-angle-up downArrow" aria-hidden="true"></i></button> :    <button onClick={this.handleSmallButtonClick} className="button is-small is-warning smallHistoryButton"><span>History box</span> <i className="fa fa-angle-down downArrow" aria-hidden="true"></i></button>}
+
+              <span>
+              <input onChange={this.handleChangePlateCalc} autocomplete="off" className="input is-info is-small weightCalcInput" type="text" placeholder="Plate Calculator"></input>
+                </span>
+
+    <span className={this.state.plateAnswerClassName}>{this.state.plateCalc}</span>
 
               {this.props.quickStartSelected !== '' ? <Prompt message="Discard workout?" /> : <div id='hide'> </div>}
 

@@ -878,3 +878,27 @@ body {
 #modalCardTemplate {
   width: 95% !important;
 }
+
+.weightCalcInput {
+  width: 15%;
+  min-width: 102px;
+  margin-left: 5px;
+  margin-bottom: 10px;
+  margin-top: -6px;
+}
+
+.validWeight {
+  color: green;
+  font-weight: 500;
+  margin-left: 5px;
+  margin-bottom: 10px;
+  margin-top: -6px;
+  font-size: x-small;
+}
+
+.noWeight {
+  margin-left: 5px;
+  margin-bottom: 10px;
+  margin-top: -6px;
+  color: red;
+}
