@@ -22,7 +22,7 @@ class Template extends Component {
     super(props);
     this.state = {
       plateAnswerClassName: "noWeight",
-      plateCalc: "no weight entered",
+      plateCalc: "",
       allowedCharacters: 'abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ-@#$/%.+()*^!= ',
       animationname: '',
       historyBox: 'closed',
@@ -140,8 +140,8 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
      var plateAnswerClassName2 = 'noWeight';
      var result;
    if(e.target.value === "") {
-     result = 'no weight entered'
-   } else if (Number(e.target.value === 45)) {
+     result = ''
+   } else if (Number(e.target.value) === 45) {
     result = 'the bar';
    } else if ( (Number(e.target.value) % 5 !== 0 || Number(e.target.value) - 45 < 5) && e.target.value !== "" ) {
     result = 'invalid weight'
