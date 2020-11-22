@@ -912,11 +912,11 @@ thisBind.setState({
 
 
             <span className="select">
-              <select
+              <select id='Gray2'
 
                 onChange={this.handleChangeColorPicker}
               >
-                <option>Color</option>
+                <option>{template.color}</option>
                 <option value={template.templateName}>Green</option>
                 <option value={template.templateName}>Blue</option>
                 <option value={template.templateName}>Turquoise</option>
@@ -932,7 +932,7 @@ thisBind.setState({
 
         </span>
 
-        <span data-id={template.templateName} onClick={this.handleEditTemplateClick} id='editButton1' className='editButton fa fa-edit fa-2x'></span>
+        <span data-id={template.templateName} onClick={this.handleEditTemplateClick} className='editButton2 fa fa-edit fa-2x'></span>
 
 
         </span> : <span id='heroTitle' className="title heroTitle templateTitle">{template.templateName.slice(1, template.templateName.length - 1)}
@@ -942,7 +942,7 @@ thisBind.setState({
   <select
     onChange={this.handleChangeColorPicker}
   >
-    <option>Color</option>
+    <option>{template.color}</option>
     <option value={template.templateName}>Green</option>
     <option value={template.templateName}>Blue</option>
     <option value={template.templateName}>Turquoise</option>

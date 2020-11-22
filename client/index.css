@@ -327,6 +327,7 @@ table td {
   margin-right: 5px;
 }
 
+
 .Black {
   border-left: solid 4px hsl(0, 0%, 21%);
   padding-left: 3px;
@@ -794,6 +795,12 @@ body {
   margin-right: 5px;
 }
 
+.editButton2 {
+  float: right;
+  margin-right: 5px;
+  color: rgb(241, 241, 241);
+}
+
 .templateModal {
   /* height: 500px;
   z-index: 100;
@@ -931,12 +938,22 @@ body {
   /* margin-top: 5vh; */
   margin-bottom: 5vh;
   background-color: #ebebeb;
+  margin-top: -3.5px;
 }
 
 @keyframes slide {
-  0% {bottom: -350px;}
+  0% {bottom: -350px;
+  background-color: hsl(48, 100%, 67%);
+  font-size: xx-large;
+  }
+  30% {background-color: hsl(48, 100%, 67%);}
+  50% {
+    background-color: orange;
+  }
   80% {bottom: 10px;}
   100% {
+    font-size: x-small;
+    background-color:hsl(348, 100%, 61%);
     bottom: 0;
   }
 }
