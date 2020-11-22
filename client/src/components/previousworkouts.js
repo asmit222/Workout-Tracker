@@ -101,7 +101,7 @@ this.props.history.push('/Home')
 {this.state.data.map((workout) =>(
       <div  className="previousContainer previousWorkout forwardInAnimation">
 
-        <div className='workoutName is-info'>{workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)}</div>
+        <div className='workoutName is-info'><span>{workout.workoutPlan.slice(1, workout.workoutPlan.length - 1)}</span></div>
 
         <button value={[workout.id, workout.workoutPlan.slice(1, workout.workoutPlan.length - 1), workout.workoutDate]} onClick={this.handleDeleteClick} className="delete deleteButtonHistory is-small "></button>
 

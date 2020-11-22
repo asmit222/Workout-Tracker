@@ -318,16 +318,18 @@ setTimeout(() => console.log(this.state.templates), 2000);
         </div>
 
 
-        <div id={this.state.showStats} className='barcontainer'>
+        <div id={this.state.showStats} className='forwardInAnimation barcontainer'>
   <div className='barcontainerheader'>
     {`Workouts ${this.state.currentYear}`}
   </div>
+
   <div className='bar' style={{height: `${this.state.workoutsPerMonthPercentages.jan}%`}}>
     {this.state.workoutsPerMonth.jan}
     <div className='barlabel'>
       Jan
     </div>
   </div>
+
   <div className='bar' style={{height: `${this.state.workoutsPerMonthPercentages.feb}%`}}>
   {this.state.workoutsPerMonth.feb}
     <div className='barlabel'>

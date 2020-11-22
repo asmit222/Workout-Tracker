@@ -244,6 +244,7 @@ setTimeout(() => {
                     </a>
                   </Link>
                 </p>
+
                 <p className="control">
                   <Link to={{
   pathname: '/newworkout',
@@ -272,6 +273,7 @@ setTimeout(() => {
                     </a>
                   </Link>
                 </p>
+
                 <p className="control">
                   <Link to={{
   pathname: '/previousworkouts',

@@ -21,6 +21,15 @@ class Template extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      show45: "",
+      show35: "",
+      show25: "",
+      show10: "",
+      show5: "",
+      show2point5: "",
+      showTextAnswer: "hide",
+      weightsCount: {"45": 0, "35": 0, "25": 0, "10": 0, "5": 0, "2.5": 0},
+      showWeightsContainer: "hide",
       plateAnswerClassName: "noWeight",
       plateCalc: "",
       allowedCharacters: 'abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ-@#$/%.+()*^!= ',
@@ -141,12 +150,28 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
      var result;
    if(e.target.value === "") {
      result = ''
+
+     this.setState({
+      showWeightsContainer: "hide",
+      showTextAnswer: "hide",
+    })
    } else if (Number(e.target.value) === 45) {
     result = 'the bar';
+    this.setState({
+      showTextAnswer: "",
+    })
    } else if ( (Number(e.target.value) % 5 !== 0 || Number(e.target.value) - 45 < 5) && e.target.value !== "" ) {
     result = 'invalid weight'
+    this.setState({
+      showWeightsContainer: 'hide',
+      showTextAnswer: "",
+    })
    } else {
-     plateAnswerClassName2 = 'validWeight';
+this.setState({
+  showWeightsContainer: "",
+  showTextAnswer: "hide",
+})
+
 var numberOf45s = 0;
 var numberOf35s = 0;
 var numberOf25s = 0;
@@ -182,35 +207,26 @@ while (totalWeight - 5 >= 0) {
   totalWeight = totalWeight - 5;
 }
 
-result = "";
-
-if(numberOf45s !== 0) {
-  result = result + `${numberOf45s}x45`
-}
-if(numberOf35s !== 0) {
-  result = result + ` ${numberOf35s}x35`
-}
-if(numberOf25s !== 0) {
-  result = result + ` ${numberOf25s}x25`
-}
-if(numberOf10s !== 0) {
-  result = result + ` ${numberOf10s}x10`
-}
-if(numberOf5s !== 0) {
-  result = result + ` ${numberOf5s}x5`
-}
-if(numberOf2AndAHalfs !== 0) {
-  result = result + ` ${numberOf2AndAHalfs}x2.5`
-}
-
-result = result + ' each side';
-
-console.log('hello', numberOf45s, numberOf35s, numberOf25s, numberOf10s, numberOf5s, numberOf2AndAHalfs)
+numberOf45s === 0 ? this.setState({show45: "hide"}) : this.setState({show45: ""});
+numberOf35s === 0 ? this.setState({show35: "hide"}) : this.setState({show35: ""});
+numberOf25s === 0 ? this.setState({show25: "hide"}) : this.setState({show25: ""});
+numberOf10s === 0 ? this.setState({show10: "hide"}) : this.setState({show10: ""});
+numberOf5s === 0 ? this.setState({show5: "hide"}) : this.setState({show5: ""});
+numberOf2AndAHalfs === 0 ? this.setState({show2point5: "hide"}) : this.setState({show2point5: ""});
 
 
+var oldWeightsCount = this.state.weightsCount;
+oldWeightsCount["45"] = numberOf45s;
+oldWeightsCount["35"] = numberOf35s;
+oldWeightsCount["25"] = numberOf25s;
+oldWeightsCount["10"] = numberOf10s;
+oldWeightsCount["5"] = numberOf5s;
+oldWeightsCount["2.5"] = numberOf2AndAHalfs;
 
 
-
+this.setState({
+  weightsCount: oldWeightsCount,
+})
 
    }
     this.setState({
@@ -1012,8 +1028,44 @@ for (var j = 0; j < arr[1][6].length; j++) {
               <span>
               <input onChange={this.handleChangePlateCalc} autocomplete="off" className="input is-info is-small weightCalcInput" type="text" placeholder="Plate Calculator"></input>
                 </span>
+                <div id={this.state.showWeightsContainer} className='weightsContainer forwardInAnimation'>
 
-    <span className={this.state.plateAnswerClassName}>{this.state.plateCalc}</span>
+                <span id={this.state.show45} className='textAndWeight45'>
+    <span className='textForWeights'>{this.state.weightsCount["45"]}</span>
+                <span className='weight45'></span>
+                  </span>
+
+                  <span  id={this.state.show35} className='textAndWeight35'>
+    <span className='textForWeights'>{this.state.weightsCount["35"]}</span>
+                <span className='weight35'></span>
+                  </span>
+
+                  <span  id={this.state.show25}  className='textAndWeight25'>
+    <span className='textForWeights'>{this.state.weightsCount["25"]}</span>
+                <span className='weight25'></span>
+                  </span>
+
+                  <span id={this.state.show10}  className='textAndWeight10'>
+    <span className='textForWeights'>{this.state.weightsCount["10"]}</span>
+                <span className='weight10'></span>
+                  </span>
+
+                  <span id={this.state.show5}  className='textAndWeight5'>
+    <span className='textForWeights'>{this.state.weightsCount["5"]}</span>
+                <span className='weight5'></span>
+                  </span>
+
+                  <span id={this.state.show2point5}  className='textAndWeight2point5'>
+    <span className='textForWeights'>{this.state.weightsCount["2.5"]}</span>
+                <span className='weight2point5'></span>
+                  </span>
+
+                  <span className='eachSide'>each side</span>
+
+
+                  </div>
+
+    <span id={this.state.showTextAnswer} className={`${this.state.plateAnswerClassName} forwardInAnimation`}>{this.state.plateCalc}</span>
 
               {this.props.quickStartSelected !== '' ? <Prompt message="Discard workout?" /> : <div id='hide'> </div>}
 
