@@ -914,11 +914,18 @@ var allowedCharacters = 'abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRS
           onClick: () => {
 
             this.props.hideDropDown();
-            this.props.hideNav();
+
             this.setState({
-              animationName: 'forwardInAnimation',
-              submitted: true,
+              submitted: 'inProgress',
             })
+
+            setTimeout(() => {
+              this.setState({
+                animationName: 'forwardInAnimation',
+                submitted: true,
+              }, () => {thisBind.props.history.push('/previousWorkouts')})
+            }, 2000)
+
            var arr = [
               [this.state.workoutDate],
               [
@@ -1019,7 +1026,7 @@ for (var j = 0; j < arr[1][6].length; j++) {
   }
 
   render() {
-    if (this.state.submitted === false) {
+    if (this.state.submitted !== 'inProgress' && this.state.submitted !== true) {
     return (
       <React.Fragment>
         <div className='forwardInAnimation'>
@@ -1067,7 +1074,7 @@ for (var j = 0; j < arr[1][6].length; j++) {
 
     <span id={this.state.showTextAnswer} className={`${this.state.plateAnswerClassName} forwardInAnimation`}>{this.state.plateCalc}</span>
 
-              {this.props.quickStartSelected !== '' ? <Prompt message="Discard workout?" /> : <div id='hide'> </div>}
+              {(this.props.quickStartSelected !== '' && !this.state.submitted) ? <Prompt message="Discard workout?" /> : <div id='hide'> </div>}
 
         <div id={this.state.historyPeek} className='block historyModalContainer'>
 {/*========================================================================================= */}
@@ -1632,10 +1639,84 @@ for (var j = 0; j < arr[1][6].length; j++) {
       </React.Fragment>
     );
 
+//   } else {
+//     return (
+//       <React.Fragment>
+//         <div>
+
+// <section id={this.state.hideButtons} className="hero whiteBorder2 is-dark">
+//  <div className="hero-body">
+//    <div className="container">
+//      <h1 className="title forwardInAnimation">
+//       Your workout has been submitted!
+//      </h1>
+//      <h2 className="subtitle">
+//      </h2>
+//    </div>
+//  </div>
+// </section>
+
+//  <Link to={{
+//   pathname: '/Home',
+//   state: {
+//     name: this.props.name,
+//   }
+// }}>
+//                     <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="forwardInAnimation homeButton afterSubmitButtons button marginbottom buttonBackground">
+//                       <span></span>
+//                     </a>
+//                   </Link>
+//                   <Link to={{
+//   pathname: '/newworkout',
+//   state: {
+//     name: this.props.name,
+//   }
+// }}>
+//                     <a  id={this.state.hideButtons} onClick={this.handleHomeClick} className="forwardInAnimation button afterSubmitButtons marginbottom newWorkoutButton">
+//                       <span ></span>
+//                     </a>
+//                   </Link>
+//                   <Link to={{
+//   pathname: '/workoutTemplates',
+//   state: {
+//     name: this.props.name,
+//   }
+// }}>
+//                     <a id={this.state.hideButtons} onClick={this.handleHomeClick} className="forwardInAnimation button afterSubmitButtons marginbottom workoutTemplatesButton ">
+//                       <span ></span>
+//                     </a>
+//                   </Link>
+//                   <Link to={{
+//   pathname: '/previousworkouts',
+//   state: {
+//     name: this.props.name,
+//   }
+// }}>
+//                     <a id={this.state.hideButtons} onClick={this.handlePreviousClick} className="forwardInAnimation historyButton afterSubmitButtons button marginbottom ">
+//                       <span ></span>
+//                     </a>
+//                   </Link>
+
+//                   <section id={this.state.hideButtons} className="hero whiteBorder3 is-dark">
+//  <div className="hero-body">
+//    <div className="container">
+//      <h1 className="title forwardInAnimation">
+
+//      </h1>
+//      <h2 className="subtitle">
+//      </h2>
+//    </div>
+//  </div>
+// </section>
+
+//                   </div>
+//       </React.Fragment>
+//     )
+//    }
   } else {
+
     return (
       <React.Fragment>
-        <div>
 
 <section id={this.state.hideButtons} className="hero whiteBorder2 is-dark">
  <div className="hero-body">
@@ -1702,10 +1783,11 @@ for (var j = 0; j < arr[1][6].length; j++) {
  </div>
 </section>
 
-                  </div>
       </React.Fragment>
     )
-   }
+
+
+  }
   }
 }
 

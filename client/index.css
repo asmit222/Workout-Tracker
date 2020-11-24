@@ -72,7 +72,7 @@ table td {
 }
 
 .marginbottom {
-  margin-bottom: 3px;
+  /* margin-bottom: 3px; */
 }
 
 .loginForm {
@@ -489,15 +489,15 @@ textarea {
 }
 
 .buttonBackground {
-  background-image: url("https://png.pngtree.com/png-vector/20190121/ourlarge/pngtree-vector-house-icon-png-image_332900.jpg");
-  background-position: center center;
+  background-image: url("https://i.ibb.co/qsRXfwm/homebutton.jpg");
+  background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
 }
 
 .workoutTemplatesButton {
-  min-height: 80px;
-  min-width: 80px;
+  /* min-height: 80px;
+  min-width: 80px; */
   background-image: url("https://cdn0.iconfinder.com/data/icons/ikooni-outline-seo-web/128/seo2-63-512.png");
   background-position: center center;
   background-repeat: no-repeat;
@@ -506,13 +506,14 @@ textarea {
 }
 
 .homeButton {
-  min-width: 80px;
-  min-height: 80px;
+  /* display: block;
+  min-width: 30px;
+  min-height: 30px; */
 }
 
 .historyButton {
-  min-width: 80px;
-  min-height: 80px;
+  /* min-width: 80px;
+  min-height: 80px; */
   background-image: url("https://img.icons8.com/nolan/2x/order-history.png");
   background-position: center center;
   background-repeat: no-repeat;
@@ -521,9 +522,9 @@ textarea {
 }
 
 .newWorkoutButton {
-  min-width: 117px;
-  min-height: 80px;
-  background-image: url("https://ramayogainstitute.com/wp-content/uploads/2020/03/Workout-Icon-copy-3-300x200.png");
+  /* min-width: 117px;
+  min-height: 80px; */
+  background-image: url("https://i.ibb.co/dKTwG6g/workoutbutton.png");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -546,12 +547,12 @@ textarea {
   border: solid 3px white;
 }
 
-.homeButton:active,
+/* .homeButton:active,
 .newWorkoutButton:active,
 .historyButton:active,
 .workoutTemplatesButton:active {
   border: solid rgb(218, 98, 255) 2px;
-}
+} */
 
 .background {
   /* background-color: #808080; */
@@ -1154,4 +1155,71 @@ background-image: url("https://i.ibb.co/dt9NtwG/45Weight.png");
 
 .workoutName > span {
   animation: slide4 forwards .5s;
+}
+
+/* ================================================================== */
+
+.navBar {
+  background-color: rgb(255, 255, 255);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+  border-top: solid rgb(187, 187, 187) 0.5px;
+  padding-top: 5px;
+  height: 50px;
+  display: flex;
+  /* justify-content: center; */
+
+}
+
+.historyButton, .homeButton, .newWorkoutButton, .workoutTemplatesButton {
+  /* width: 50px; */
+  background-color: white;
+
+  display: block;
+  width: 30px;
+  height: 30px;
+
+  /* justify-content: center;
+  justify-items: center; */
+  margin: auto;
+}
+
+
+.navIconP {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 17.5%;
+
+
+  text-align: center;
+  width: calc(100% / 4);
+  vertical-align: top;
+  text-align:center;
+
+  display: inline-block;
+}
+
+.center {
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: calc(100% / 4);
+
+
+width: 50px;
+
+
+}
+
+.iconText {
+  font-size: x-small;
+  color: rgb(56, 56, 56);
+}
+
+.homeIcon {
+  font-size: 1.5em;
 }

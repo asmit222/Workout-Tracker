@@ -226,7 +226,7 @@ setTimeout(() => {
 
       <HashRouter>
 
-        <nav className="nav">
+        {/* <nav className="nav navBar">
           <div className="nav-right nav-menu">
             <div className="nav-item">
               <div className="field is-grouped">
@@ -291,6 +291,89 @@ setTimeout(() => {
               </div>
             </div>
           </div>
+        </nav> */}
+
+
+        <nav className="nav navBar">
+          {/* <div className="nav-right nav-menu">
+            <div className="nav-item">
+              <div className="field is-grouped"> */}
+
+                <p className="control navIconP">
+                  <Link to={{
+  pathname: '/Home',
+  state: {
+    name: this.state.name,
+    hideNav: this.handleHideNav,
+  }
+}}>
+     <div className='center'>
+                    <a id={this.state.hideNav} className="homeButton  buttonBackground">
+                    </a>
+                    <div className='iconText iconTextHome'>Home</div>
+     </div>
+<span></span>
+                  </Link>
+                </p>
+
+                <p className="control navIconP">
+                  <Link to={{
+  pathname: '/newworkout',
+  state: {
+    name: this.state.name,
+    hideNav: this.handleHideNav,
+  }
+}}>
+   <div className='center'>
+
+                    <a  id={this.state.hideNav} className=" newWorkoutButton">
+                    </a>
+                    <div className='iconText'>Workout</div>
+   </div>
+                      <span ></span>
+                  </Link>
+                </p>
+
+
+                <p className="control navIconP">
+                  <Link to={{
+  pathname: '/workoutTemplates',
+  state: {
+    name: this.state.name,
+    hideNav: this.handleHideNav,
+  }
+}}>
+   <div className='center'>
+
+                    <a id={this.state.hideNav} className=" workoutTemplatesButton ">
+                    </a>
+                    <div className='iconText'>Templates</div>
+   </div>
+                      <span ></span>
+                  </Link>
+                </p>
+
+                <p className="control navIconP">
+                  <Link to={{
+  pathname: '/previousworkouts',
+  state: {
+    name: this.state.name,
+    hideNav: this.handleHideNav,
+  }
+}}>
+   <div className='center'>
+
+                    <a id={this.state.hideNav} className="historyButton  ">
+                    </a>
+                    <div className='iconText'>History</div>
+   </div>
+                      <span ></span>
+                  </Link>
+                </p>
+
+              {/* </div>
+            </div>
+          </div> */}
         </nav>
 
 
