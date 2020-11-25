@@ -199,6 +199,36 @@ table td {
   overflow: hidden;
 }
 
+/* ===================================================== */
+
+.meter2 {
+  width: 90%;
+  height: 10px;
+  position: relative;
+  background: #f3efe6;
+  overflow: hidden;
+}
+
+.progress2 {
+  background-color: hsl(348, 100%, 61%);
+  animation: progressBar 2s ease-in-out;
+  animation-fill-mode: both;
+}
+
+.meterContainer2 {
+  margin-top: 30%;
+  display: flex;
+ align-items: flex-start;
+
+}
+
+.meter2 span {
+  display: block;
+  height: 100%;
+}
+
+/* ======================================== */
+
 .meter span {
   display: block;
   height: 100%;
@@ -225,6 +255,9 @@ table td {
   align-items: center;
   justify-content: center;
 }
+
+
+
 
 .creatingAccountWords {
   display: flex;
@@ -545,6 +578,11 @@ textarea {
 
 .whiteBorder2 {
   border: solid 3px white;
+  /* margin-top: 10%; */
+  height: 100vh;
+
+  animation: fadeOut 0.2s;
+  animation-delay: 1.8s;
 }
 
 /* .homeButton:active,
@@ -554,10 +592,6 @@ textarea {
   border: solid rgb(218, 98, 255) 2px;
 } */
 
-.background {
-  /* background-color: #808080; */
-  /* height: 100vh; */
-}
 
 #workoutheader {
   background-color: #dbdbdb;
@@ -728,6 +762,21 @@ body {
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes forwardIn2 {
+  0% {
+    color: hsl(141, 53%, 53%);
+  }
+  25% {
+    color: hsl(48, 100%, 67%);
+  }
+  50% {
+    color: orange;
+  }
+  100% {
+    color: hsl(348, 100%, 61%);
   }
 }
 
@@ -903,6 +952,8 @@ body {
   margin-left: 5px;
   margin-bottom: 10px;
   margin-top: -6px;
+
+  font-size: 16px;
 }
 
 .validWeight {
@@ -1160,7 +1211,7 @@ background-image: url("https://i.ibb.co/dt9NtwG/45Weight.png");
 /* ================================================================== */
 
 .navBar {
-  background-color: rgb(255, 255, 255);
+  background-color: white;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -1170,8 +1221,9 @@ background-image: url("https://i.ibb.co/dt9NtwG/45Weight.png");
   height: 50px;
   display: flex;
   /* justify-content: center; */
-
 }
+
+
 
 .historyButton, .homeButton, .newWorkoutButton, .workoutTemplatesButton {
   /* width: 50px; */
@@ -1223,3 +1275,34 @@ width: 50px;
 .homeIcon {
   font-size: 1.5em;
 }
+
+#redirectingHome {
+  margin-top: 30px;
+  /* color: hsl(348, 100%, 61%); */
+  animation: forwardIn2 forwards 2s;
+}
+
+/* ========================================================== */
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  .weightCalcInput:focus {
+    font-size: 16px;
+    background: #eee;
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  .weightCalcInput {
+    font-size: 16px;
+  }
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 50px;
+  background-color: white;
+  width: 100%;
+}
+

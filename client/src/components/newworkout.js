@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Previousworkouts from "./previousworkouts";
 import EmptyTemplate from "./emptyTemplate";
+import Header from "./header";
 import axios from 'axios';
 import Template from './template'
 
@@ -299,6 +300,9 @@ setTimeout(() => console.log(this.state.templates), 2000);
     }
     return (
       <React.Fragment>
+
+
+
       <div className="block selectWorkoutAnimation">
         <div id={this.state.dropDown} className="field selector">
           <p className="control">

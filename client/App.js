@@ -10,6 +10,7 @@ import {
 import newworkout from "./src/components/newworkout";
 import Previousworkouts from "./src/components/previousworkouts";
 import WorkoutTemplates from "./src/components/workoutTemplates";
+import Header from "./src/components/header";
 import Home from "./src/components/Home";
 import axios from 'axios';
 
@@ -222,82 +223,15 @@ setTimeout(() => {
     if (this.state.name.length > 0) {
   return (
     <div className='fadeInAnimation'>
-    <div className="container background">
+
+
+{/* <Header /> */}
+    <div className="container">
 
       <HashRouter>
 
-        {/* <nav className="nav navBar">
-          <div className="nav-right nav-menu">
-            <div className="nav-item">
-              <div className="field is-grouped">
-
-                <p className="control">
-                  <Link to={{
-  pathname: '/Home',
-  state: {
-    name: this.state.name,
-    hideNav: this.handleHideNav,
-  }
-}}>
-                    <a id={this.state.hideNav} className="homeButton button marginbottom buttonBackground">
-<span></span>
-                    </a>
-                  </Link>
-                </p>
-
-                <p className="control">
-                  <Link to={{
-  pathname: '/newworkout',
-  state: {
-    name: this.state.name,
-    hideNav: this.handleHideNav,
-  }
-}}>
-                    <a  id={this.state.hideNav} className="button marginbottom newWorkoutButton">
-                      <span ></span>
-                    </a>
-                  </Link>
-                </p>
-
-
-                <p className="control">
-                  <Link to={{
-  pathname: '/workoutTemplates',
-  state: {
-    name: this.state.name,
-    hideNav: this.handleHideNav,
-  }
-}}>
-                    <a id={this.state.hideNav} className="button marginbottom workoutTemplatesButton ">
-                      <span ></span>
-                    </a>
-                  </Link>
-                </p>
-
-                <p className="control">
-                  <Link to={{
-  pathname: '/previousworkouts',
-  state: {
-    name: this.state.name,
-    hideNav: this.handleHideNav,
-  }
-}}>
-                    <a id={this.state.hideNav} className="historyButton button marginbottom ">
-                      <span ></span>
-                    </a>
-                  </Link>
-                </p>
-
-              </div>
-            </div>
-          </div>
-        </nav> */}
-
-
         <nav className="nav navBar">
-          {/* <div className="nav-right nav-menu">
-            <div className="nav-item">
-              <div className="field is-grouped"> */}
+
 
                 <p className="control navIconP">
                   <Link to={{
@@ -371,10 +305,13 @@ setTimeout(() => {
                   </Link>
                 </p>
 
-              {/* </div>
-            </div>
-          </div> */}
+
         </nav>
+
+
+
+
+
 
 
 

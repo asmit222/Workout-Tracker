@@ -1724,13 +1724,23 @@ for (var j = 0; j < arr[1][6].length; j++) {
      <h1 className="title forwardInAnimation">
       Your workout has been submitted!
      </h1>
-     <h2 className="subtitle">
+     <h2 id='redirectingHome' className="subtitle">
+       Redirecting...
      </h2>
+
+
+     <div className='meterContainer2'>
+    <div className="meter2">
+    <span className="progress2"></span>
+</div>
+</div>
+
+
    </div>
  </div>
 </section>
 
- <Link to={{
+ {/* <Link to={{
   pathname: '/Home',
   state: {
     name: this.props.name,
@@ -1769,9 +1779,9 @@ for (var j = 0; j < arr[1][6].length; j++) {
                     <a id={this.state.hideButtons} onClick={this.handlePreviousClick} className="forwardInAnimation historyButton afterSubmitButtons button marginbottom ">
                       <span ></span>
                     </a>
-                  </Link>
+                  </Link> */}
 
-                  <section id={this.state.hideButtons} className="hero whiteBorder3 is-dark">
+                  {/* <section id={this.state.hideButtons} className="hero is-dark">
  <div className="hero-body">
    <div className="container">
      <h1 className="title forwardInAnimation">
@@ -1781,7 +1791,7 @@ for (var j = 0; j < arr[1][6].length; j++) {
      </h2>
    </div>
  </div>
-</section>
+</section> */}
 
       </React.Fragment>
     )
