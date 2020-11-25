@@ -9,7 +9,7 @@ body {
 }
 
 .bg-img {
-  background-image: url("https://iili.io/dmhYSp.md.jpg");
+  background-image: url("https://i.ibb.co/mRL12cY/workout-background2.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -954,6 +954,7 @@ body {
   margin-top: -6px;
 
   font-size: 16px;
+  /* min-height: 40px; */
 }
 
 .validWeight {
@@ -1162,7 +1163,7 @@ background-image: url("https://i.ibb.co/dt9NtwG/45Weight.png");
     }
 
     .weight10 {
-      background-image: url("https://i.ibb.co/jJg8dHv/weight10.png");
+      background-image: url("https://i.ibb.co/dQ6qBDj/10000.png");
       }
 
       .weight5 {
@@ -1286,6 +1287,8 @@ width: 50px;
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   .weightCalcInput:focus {
+    margin-bottom: 0;
+    position: relative;
     font-size: 16px;
     background: #eee;
   }
