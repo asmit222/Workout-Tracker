@@ -463,6 +463,10 @@ table td {
   background-color: #dbdbdb;
 }
 
+#workoutHeader4 {
+  background-color: #f5f5f5;
+}
+
 #workoutWidth {
   min-width: 160px;
 }
@@ -596,6 +600,7 @@ textarea {
 #workoutheader {
   background-color: #dbdbdb;
 }
+
 
 .deleteButtonHistory {
   float: right;
@@ -1309,3 +1314,10 @@ width: 50px;
   width: 100%;
 }
 
+
+.threeDots {
+  margin-top: 5px;
+  margin-right: 5px;
+  align-self: flex-end;
+  float: right;
+}

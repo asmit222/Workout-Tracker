@@ -19,6 +19,8 @@ class WorkoutTemplates extends Component {
   constructor(props) {
     super (props);
     this.state = {
+      threeDotsHide: 'hide',
+      threeDotsShow: "",
       planEditting: '',
       editing: false,
       name: '',
@@ -42,6 +44,7 @@ class WorkoutTemplates extends Component {
       submitted: false,
 clicked: false,
     }
+    this.handleShowOptions = this.handleShowOptions.bind(this);
 
     this.handleChangeColorPicker = this.handleChangeColorPicker.bind(this);
 
@@ -140,6 +143,13 @@ this.handleChangeSquat2 = this.handleChangeSquat2.bind(this);
     this.handleCancelTemplateUpdate = this.handleCancelTemplateUpdate.bind(this);
 
     this.handleSaveChanges = this.handleSaveChanges.bind(this);
+  }
+
+  handleShowOptions(e) {
+this.setState({
+  threeDotsHide: "",
+  threeDotsShow: "hide",
+})
   }
 
   handleSaveChanges (e) {
@@ -299,6 +309,11 @@ thisBind.setState({
   }
 
   handleEditTemplateClick (e) {
+this.setState({
+  threeDotsHide: "hide",
+  threeDotsShow: "",
+})
+
     e.preventDefault();
     var thisBind = this;
     const workoutPlanName = e.target.getAttribute('data-id');
@@ -413,6 +428,11 @@ alert(error);
         {
           label: 'Delete',
           onClick: () => {
+
+            thisBind.setState({
+              threeDotsHide: "hide",
+              threeDotsShow: "",
+            })
 
             axios.post('/deleteTemplate',
             `${[value, this.state.name]}`
@@ -892,8 +912,15 @@ thisBind.setState({
           <div className="hero-body heroBody">
             <div className="container">
 
-           <div>
-        <span data-id={template.templateName} data-attr={template.color} onClick={this.handleDeleteClick} className="delete is-medium deleteButton"></span>
+
+
+
+           <div id={this.state.threeDotsHide}>
+        <span data-id={template.templateName} data-attr={template.color} onClick={this.handleDeleteClick} className="delete is-medium deleteButton forwardInAnimation"></span>
+             </div>
+
+             <div id={this.state.threeDotsShow}>
+        <span  onClick={this.handleShowOptions} className="fa fa-ellipsis-v threeDots"></span>
              </div>
 
 
@@ -907,8 +934,9 @@ thisBind.setState({
 
             {/* <span className='colorWheel'></span> */}
 
+            <span id={this.state.threeDotsHide}>
 
-            <span id='colorSelector' className="field selector">
+            <span id='colorSelector' className="forwardInAnimation field selector">
 
 
             <span className="select">
@@ -928,16 +956,15 @@ thisBind.setState({
               </select>
             </span>
 
-
-
         </span>
 
-        <span data-id={template.templateName} onClick={this.handleEditTemplateClick} className='editButton2 fa fa-edit fa-2x'></span>
+        <span data-id={template.templateName} onClick={this.handleEditTemplateClick} className='forwardInAnimation editButton2 fa fa-edit fa-2x'></span>
 
-
+</span>
         </span> : <span id='heroTitle' className="title heroTitle templateTitle">{template.templateName.slice(1, template.templateName.length - 1)}
 
-<span id='colorSelector' className="field selector">
+        <span id={this.state.threeDotsHide}>
+<span id='colorSelector' className="forwardInAnimation field selector">
 <span className="select ">
   <select
     onChange={this.handleChangeColorPicker}
@@ -954,14 +981,16 @@ thisBind.setState({
   </select>
 </span>
 </span>
-<span data-id={template.templateName} onClick={this.handleEditTemplateClick} id='editButton1' className='editButton fa fa-edit fa-2x'></span>
+<span data-id={template.templateName} onClick={this.handleEditTemplateClick} id='editButton1' className='forwardInAnimation editButton fa fa-edit fa-2x'></span>
+</span>
 </span>}
+
 
 
 { this.state.templates[index].editable === false ?
             <table id='customTable2' className="content is-small table is-bordered">
               <thead id="workoutheader">
-                <tr id='workoutHeader2'>
+                <tr id='workoutHeader4'>
                   <th>Workout</th>
                   <th>Sets</th>
                   <th>Reps</th>
@@ -1029,7 +1058,7 @@ className='modalInputBoxTitle'
     <form autocomplete = 'off'>
 <table id='customTable4' className="forwardInAnimation content is-small table is-bordered">
 <thead id="workoutheader">
-  <tr id='workoutHeader2'>
+  <tr id='workoutHeader4'>
     <th>Workout</th>
     <th>Sets</th>
     <th>Reps</th>
