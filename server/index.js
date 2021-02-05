@@ -60,12 +60,6 @@ app.get("/workbox-fe7d1311.js", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../workbox-fe7d1311.js"));
 });
 
-// app.get("*.js", function (req, res, next) {
-//   req.url = req.url + ".gz";
-//   res.set("Content-Encoding", "gzip");
-//   next();
-// });
-
 app.get("/service-worker.js", (req, res) => {
   // response.writeHead(200, {
   //   "Service-Worker-Allowed": "/",
@@ -78,6 +72,12 @@ app.get("/service-worker.js", (req, res) => {
 app.get("/", function (req, res) {
   res.render("index", {});
 });
+
+// app.get("*.js", function (req, res, next) {
+//   req.url = req.url + ".gz";
+//   res.set("Content-Encoding", "gzip");
+//   next();
+// });
 
 app.post("/userAndPassChecker", function (req, res) {
   res.status(200);

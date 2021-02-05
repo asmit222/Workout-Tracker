@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+// import "./index.css";
 import App from "./App";
-const path = require("path");
+// const path = require("path");
 import * as OfflinePluginRuntime from "offline-plugin/runtime";
 OfflinePluginRuntime.install();
 import registerServiceWorker from "./src/registerServiceWorker";
