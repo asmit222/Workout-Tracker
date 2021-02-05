@@ -67,10 +67,10 @@ app.get("*.js", function (req, res, next) {
 });
 
 app.get("/service-worker.js", (req, res) => {
-  // response.writeHead(200, {
-  //   "Service-Worker-Allowed": "/",
-  //   "Content-Type": "application/javascript",
-  // });
+  response.writeHead(200, {
+    "Service-Worker-Allowed": "/",
+    "Content-Type": "application/javascript",
+  });
   // res.sendFile(path.resolve(__dirname, "public", "dist", "service-worker.js"));
   res.sendFile(path.resolve(__dirname, "../service-worker.js"));
 });
