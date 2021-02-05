@@ -60,17 +60,17 @@ app.get("/workbox-fe7d1311.js", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../workbox-fe7d1311.js"));
 });
 
-app.get("*.js", function (req, res, next) {
-  req.url = req.url + ".gz";
-  res.set("Content-Encoding", "gzip");
-  next();
-});
+// app.get("*.js", function (req, res, next) {
+//   req.url = req.url + ".gz";
+//   res.set("Content-Encoding", "gzip");
+//   next();
+// });
 
 app.get("/service-worker.js", (req, res) => {
-  response.writeHead(200, {
-    "Service-Worker-Allowed": "/",
-    "Content-Type": "application/javascript",
-  });
+  // response.writeHead(200, {
+  //   "Service-Worker-Allowed": "/",
+  //   "Content-Type": "application/javascript",
+  // });
   // res.sendFile(path.resolve(__dirname, "public", "dist", "service-worker.js"));
   res.sendFile(path.resolve(__dirname, "../service-worker.js"));
 });
