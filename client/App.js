@@ -14,6 +14,8 @@ import Header from "./src/components/header";
 // import Home from "./src/components/Home";
 import axios from "axios";
 
+const InstallPWA = lazy(() => import("./src/components/InstallPWA"));
+
 const Previousworkouts = lazy(() =>
   import("./src/components/previousworkouts")
 );
@@ -242,6 +244,10 @@ class App extends Component {
               {/* <Header /> */}
               <div className="container">
                 <HashRouter>
+                  <Suspense fallback={<div id="hide"></div>}>
+                    <InstallPWA />
+                  </Suspense>
+
                   <nav className="nav navBar">
                     <p className="control navIconP">
                       <Link

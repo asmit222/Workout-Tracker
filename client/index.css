@@ -1325,3 +1325,9 @@ width: 50px;
 .previousWorkoutsWrapper, .templatesWrapper {
   margin-bottom: 70px;
 }
+
+#installButton {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
