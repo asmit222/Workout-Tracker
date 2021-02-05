@@ -49,8 +49,8 @@
     "dev:frontend": "nodemon server/index.js",
     "dev": "concurrently \"npm run webpack\" \"npm run dev:frontend\"",
     "start": "node server/index.js",
-    "build": "webpack --mode=development",
-    "buildProd": "webpack --mode=production",
+    "build": "webpack --mode=production",
+    "buildDev": "webpack --mode=development",
     "webpack": "webpack --watch"
   },
   "author": "",
