@@ -1,72 +1,101 @@
 const path = require("path");
-const WorkboxPlugin = require('workbox-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
-var OfflinePlugin = require('offline-plugin');
-const ManifestPlugin = require('webpack-manifest-plugin');
-
+const WorkboxPlugin = require("workbox-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+// const CopyWebpackPlugin = require("copy-webpack-plugin");
+// const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
+// var OfflinePlugin = require("offline-plugin");
+// const ManifestPlugin = require("webpack-manifest-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
   entry: "./client/index.js",
-  mode: "development",
+  mode: "production",
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
+        use: ["style-loader", "css-loader"],
       },
-
+      {
+        test: /\.(png|jpg)$/,
+        loader: "url-loader",
+      },
       {
         test: /\.js$|jsx/,
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: "babel-loader",
           options: {
-            presets: [
-              "@babel/preset-react",
-              "@babel/preset-env",
-            ],
+            presets: ["@babel/preset-react", "@babel/preset-env"],
           },
         },
       },
-
     ],
   },
-    // plugins: [
-    //   new HtmlWebpackPlugin({
-    //    title: 'Eazy-Trak',
-    //    template: path.resolve('public/index.html'),
-    //    filename: 'index.html',
-    //   }),
-    //   new CopyWebpackPlugin(
-    //     {
-    //       patterns: [
-    //         { from: 'public/index.html', to: 'index.html' }
-    //       ]
-    //     }
-    //     ),
+  // plugins: [
+  //   new HtmlWebpackPlugin({
+  //    title: 'Eazy-Trak',
+  //    template: path.resolve('public/index.html'),
+  //    filename: 'index.html',
+  //   }),
+  //   new CopyWebpackPlugin(
+  //     {
+  //       patterns: [
+  //         { from: 'public/index.html', to: 'index.html' }
+  //       ]
+  //     }
+  //     ),
 
+  //       new OfflinePlugin({
 
+  //         ServiceWorker: {
+  //             // output to root level of project
+  //             output: "../service-worker.js",
+  //             maximumFileSizeToCacheInBytes: 5000000,
 
-    //       new OfflinePlugin({
+  //             // prevent conflicts with minifiers
+  //             minify: false
+  //         }
+  //     }),
 
-    //         ServiceWorker: {
-    //             // output to root level of project
-    //             output: "../service-worker.js",
-    //             maximumFileSizeToCacheInBytes: 5000000,
-
-    //             // prevent conflicts with minifiers
-    //             minify: false
-    //         }
-    //     }),
-
-    // ],
+  // ],
   output: {
     path: path.resolve(__dirname, "public/dist"),
-    filename: "bundle.js",
+    filename: "bundle.[contenthash].js",
   },
+  plugins: [
+    // new CompressionPlugin(),
+    // new BundleAnalyzerPlugin(),
+    new HtmlWebpackPlugin({
+      template: "./public/template.html",
+      title: "Progressive Web Application",
+    }),
+    new WorkboxPlugin.GenerateSW({
+      exclude: [/\.(?:png|jpg|jpeg|svg)$/],
+      runtimeCaching: [
+        {
+          // Match any request that ends with .png, .jpg, .jpeg or .svg.
+          urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
+
+          // Apply a cache-first strategy.
+          handler: "CacheFirst",
+
+          options: {
+            // Use a custom cache name.
+            cacheName: "images",
+
+            // Only cache 10 images. edit: cache 10000
+            expiration: {
+              maxEntries: 10000,
+            },
+          },
+        },
+      ],
+      // these options encourage the ServiceWorkers to get in there fast
+      // and not allow any straggling "old" SWs to hang around
+      swDest: "../../service-worker.js",
+      clientsClaim: true,
+      skipWaiting: true,
+    }),
+  ],
 };

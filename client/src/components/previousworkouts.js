@@ -96,7 +96,7 @@ this.props.history.push('/Home')
 
   render() {
     return (
- <div>
+ <div className='previousWorkoutsWrapper'>
 
 {this.state.data.map((workout) =>(
       <div  className="previousContainer previousWorkout forwardInAnimation">

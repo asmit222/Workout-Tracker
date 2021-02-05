@@ -905,7 +905,7 @@ thisBind.setState({
     const templates = this.state.templates.map((template, index) => {
       if(template.templateName.length > 0) {
 
-        return <div className="block forwardInAnimation">
+        return <div className="block forwardInAnimation templatesWrapper">
         <section id={`${template.color}2`} className="hero roundedCorners" >
 
 
@@ -1307,7 +1307,7 @@ if(this.state.clicked === false) {
 
 
 <React.Fragment>
-        <div className="block forwardInAnimation">
+        <div className="block forwardInAnimation ">
           <form autocomplete="off">
 
           <div class="block nameYourWorkout templateName">

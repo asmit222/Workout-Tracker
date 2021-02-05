@@ -1321,3 +1321,7 @@ width: 50px;
   align-self: flex-end;
   float: right;
 }
+
+.previousWorkoutsWrapper, .templatesWrapper {
+  margin-bottom: 70px;
+}
