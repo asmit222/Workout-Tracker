@@ -192,3 +192,30 @@ app.post("/deleteWorkout", function (req, res) {
     }
   });
 });
+
+app.post("/submitRun", function (req, res) {
+  res.status(200);
+  db.submitRun(req.body, function (data) {
+    if (data) {
+      res.json(data);
+      console.log(data);
+    } else {
+      console.log("error");
+    }
+  });
+
+  // console.log(req.body);
+});
+
+app.post("/getRunData", function (req, res) {
+  res.status(200);
+
+  db.getRunData(JSON.stringify(req.body), function (data) {
+    if (data) {
+      res.json(data);
+      console.log(data);
+    } else {
+      console.log("error");
+    }
+  });
+});

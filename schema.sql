@@ -36,6 +36,17 @@ CREATE TABLE usersAndPasses (
  password varchar(50)
 );
 
+CREATE TABLE runData (
+id int NOT NULL AUTO_INCREMENT,
+  name varchar(50),
+  miles varchar(50),
+  minutes varchar(50),
+  notes varchar(1000),
+  date varchar(50),
+  PRIMARY KEY (id)
+);
+
+
 --  Execute this file from the command line by typing:
 --    mysql -u <USER> < schema.sql
 --    OR
