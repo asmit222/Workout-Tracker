@@ -14,7 +14,7 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  height: 95vh;
+  height: 100vh;
 }
 
 .section {
@@ -350,7 +350,7 @@ table td {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  height: 98vh;
+  height: 100vh;
 }
 
 #colorSelector {
