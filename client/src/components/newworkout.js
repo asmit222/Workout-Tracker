@@ -397,6 +397,15 @@ class newworkout extends Component {
       }
     });
 
+    var oldRuns = this.state.runsPerMonth;
+    for (var key in oldRuns) {
+      oldRuns[key] = Math.round(Number(oldRuns[key]) * 10) / 10;
+    }
+
+    this.setState({
+      runsPerMonth: oldRuns,
+    });
+
     var maxWorkoutsInAMonth = 0;
     for (var key in this.state.runsPerMonth) {
       if (this.state.runsPerMonth[key] > maxWorkoutsInAMonth) {
@@ -889,7 +898,7 @@ class newworkout extends Component {
             </div>
           </div>
 
-          {/* =============================================== cardio box ================================================================== */}
+          {/* =============================================== run box ================================================================== */}
 
           <div
             id={this.state.showStats}

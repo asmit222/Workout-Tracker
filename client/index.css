@@ -1476,6 +1476,7 @@ width: 50px;
 
 .bar2 {
   background:hsl(253, 57%, 16%) !important;
+  font-size: 0.48em !important;
 }
 
 .rc-time-picker {
