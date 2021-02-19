@@ -7,6 +7,12 @@ import Template from "./template";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { confirmAlert } from "react-confirm-alert";
 
+import moment from "moment";
+
+import TimePicker from "rc-time-picker";
+import ReactDOM from "react-dom";
+import "rc-time-picker/assets/index.css";
+
 var newDay;
 
 class newworkout extends Component {
@@ -113,27 +119,76 @@ class newworkout extends Component {
   }
 
   handleChangeMinutes(e) {
-    this.setState({
-      minutesRan: e.target.value,
-    });
+    // var time = JSON.stringify(e._d).split(" ")[4];
+    if (!e) {
+      this.setState({
+        minutesRan: "no time entered",
+      });
+    } else {
+      var time = JSON.stringify(e._d)
+        .split("")
+        .slice(
+          JSON.stringify(e._d).length - 14,
+          JSON.stringify(e._d).length - 6
+        )
+        .join("")
+        .split(":");
+
+      time[0] = Number(time[0] - 5).toString();
+      if (Number(time[0]) < 0) {
+        time[0] = JSON.stringify(Number(time[0]) + 24);
+      }
+
+      if (time[0].length === 1) {
+        time[0] === "0" + time[0];
+      }
+
+      time = time.join(":");
+
+      this.setState({
+        minutesRan: time,
+      });
+    }
   }
 
   handleChangeMiles(e) {
-    this.setState(
-      {
-        milesRan: e.target.value,
-      },
-      () => {
-        console.log(this.state.minutesRan, this.state.milesRan);
+    var index = "1234567890.";
+
+    var count = 0;
+
+    var arr = e.target.value.split("");
+    var boolean = true;
+
+    for (var i = 0; i < arr.length; i++) {
+      if (index.indexOf(arr[i]) === -1) {
+        boolean = false;
       }
-    );
+      if (arr[i] === ".") {
+        count++;
+      }
+    }
+    if (count > 1) {
+      boolean = false;
+    }
+
+    if (!boolean) {
+      console.log("numbers only");
+
+      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+    } else {
+      this.setState(
+        {
+          milesRan: e.target.value,
+        },
+        () => {
+          console.log(this.state.minutesRan, this.state.milesRan);
+        }
+      );
+    }
   }
 
   handleSaveRun() {
     const thisBind = this;
-    // this.setState({
-    //   runLogModalActive: "",
-    // });
 
     confirmAlert({
       title: "Submit run?",
@@ -660,13 +715,18 @@ class newworkout extends Component {
                   type="text"
                   placeholder="miles"
                 ></input>
-                <input
+                {/* <input
                   onChange={this.handleChangeMinutes}
                   id="runTimeInput"
                   className="input"
                   type="text"
-                  placeholder="minutes"
-                ></input>
+                  placeholder="min : sec"
+                ></input> */}
+
+                <TimePicker
+                  onChange={this.handleChangeMinutes}
+                  defaultValue={moment("00:00:00", "HH:mm:ss")}
+                />
               </section>
               <footer className="modal-card-foot">
                 <button

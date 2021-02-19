@@ -1455,12 +1455,12 @@ width: 50px;
 
 #milesInput {
   width: 20%;
-  min-width: 50px;
+  min-width: 60px;
 }
 
 #runTimeInput {
   width: 25%;
-  min-width: 70px;
+  min-width: 90px;
   margin-left: 10px;
 }
 
@@ -1470,9 +1470,20 @@ width: 50px;
 }
 
 .modalCardRunLog {
-  width: 95% !important;
+  width: 90% !important;
+
 }
 
 .bar2 {
   background:hsl(253, 57%, 16%) !important;
+}
+
+.rc-time-picker {
+  height: 40px;
+  margin-left: 10px;
+}
+
+.rc-time-picker-input {
+  height: 40px !important;
+  font-size: large;
 }
