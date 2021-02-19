@@ -205,6 +205,8 @@ class newworkout extends Component {
                         (response) => {
                           thisBind.setState(
                             {
+                              milesRan: "",
+                              minutesRan: "",
                               runData: response.data,
                             },
                             thisBind.setRunGraphData
