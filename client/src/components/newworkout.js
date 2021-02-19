@@ -141,24 +141,83 @@ class newworkout extends Component {
         {
           label: "Submit",
           onClick: () => {
-            axios
-              .post(
-                "/submitRun",
-                `${[
-                  thisBind.state.todayDate,
-                  thisBind.props.location.state.name,
-                  thisBind.state.milesRan,
-                  thisBind.state.minutesRan,
-                ]}`
-              )
-              .then(
-                (response) => {
-                  console.log("run saved!");
+            thisBind.exitRunLogModal();
+
+            thisBind.setState(
+              {
+                runsPerMonth: {
+                  jan: 0,
+                  feb: 0,
+                  mar: 0,
+                  apr: 0,
+                  may: 0,
+                  jun: 0,
+                  jul: 0,
+                  aug: 0,
+                  sep: 0,
+                  oct: 0,
+                  nov: 0,
+                  dec: 0,
                 },
-                (error) => {
-                  alert(error);
-                }
-              );
+                runsPerMonthPercentages: {
+                  jan: "0",
+                  feb: "0",
+                  mar: "0",
+                  apr: "0",
+                  may: "0",
+                  jun: "0",
+                  jul: "0",
+                  aug: "0",
+                  sep: "0",
+                  oct: "0",
+                  nov: "0",
+                  dec: "0",
+                },
+                runData: [],
+              },
+              () => {
+                axios
+                  .post(
+                    "/submitRun",
+                    `${[
+                      thisBind.state.todayDate,
+                      thisBind.props.location.state.name,
+                      thisBind.state.milesRan,
+                      thisBind.state.minutesRan,
+                    ]}`
+                  )
+                  .then(
+                    (response) => {
+                      console.log("run saved!");
+                    },
+                    (error) => {
+                      alert(error);
+                    }
+                  )
+                  .then((response) => {
+                    console.log("run saved!");
+                    axios
+                      .post(
+                        "/getRunData",
+                        `${[thisBind.props.location.state.name]}`
+                      )
+                      .then(
+                        (response) => {
+                          thisBind.setState(
+                            {
+                              runData: response.data,
+                            },
+                            thisBind.setRunGraphData
+                          );
+                          console.log("data1", response.data);
+                        },
+                        (error) => {
+                          alert(error);
+                        }
+                      );
+                  });
+              }
+            );
           },
         },
 

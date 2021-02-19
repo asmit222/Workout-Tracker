@@ -377,6 +377,7 @@ const submitRun = function (data, callback) {
     if (err) {
       console.log("error ! ! !: ", err);
     } else {
+      callback(results);
       console.log("res: ", results);
     }
   });
