@@ -1,1 +1,149 @@
-if(!self.define){const e=e=>{"require"!==e&&(e+=".js");let r=Promise.resolve();return d[e]||(r=new Promise(async r=>{if("document"in self){const d=document.createElement("script");d.src=e,document.head.appendChild(d),d.onload=r}else importScripts(e),r()})),r.then(()=>{if(!d[e])throw new Error(`Module ${e} didn’t register its module`);return d[e]})},r=(r,d)=>{Promise.all(r.map(e)).then(e=>d(1===e.length?e[0]:e))},d={require:Promise.resolve(r)};self.define=(r,s,i)=>{d[r]||(d[r]=Promise.resolve().then(()=>{let d={};const n={uri:location.origin+r.slice(1)};return Promise.all(s.map(r=>{switch(r){case"exports":return d;case"module":return n;default:return e(r)}})).then(e=>{const r=i(...e);return d.default||(d.default=r),d})}))}}define("./service-worker.js",["./workbox-fe7d1311"],(function(e){"use strict";e.skipWaiting(),e.clientsClaim(),e.precacheAndRoute([{url:"1.bundle.ab843f496365f83d50cd.js",revision:"efea871345bc7a78fb8f1b651589ed19"},{url:"2.bundle.1c2715630bd94bff3678.js",revision:"54b4df24f3010df154516a81d1d246dc"},{url:"3.bundle.1e0e76da6d1d680c1210.js",revision:"45a7bc7cb43c8ef527c0606453812479"},{url:"4.bundle.3c4d6c06c92e592ed1d7.js",revision:"834bc1121176d8292f6700271154d59b"},{url:"5.bundle.e3e586bbbc37b22dff7b.js",revision:"f8763e88f42ca0a29d17cca2eaada391"},{url:"6.bundle.f60d7255a464d843ff85.js",revision:"1ccd62a1fef9fe748aca34329fb1178c"},{url:"bundle.031e8d79afef67d57d37.js",revision:"d90e2b1ee3adfa097288bf83f36a842d"},{url:"index.html",revision:"0ff1775191357a3fc203ce37715ffc82"}],{}),e.registerRoute(/\.(?:png|jpg|jpeg|svg)$/,new e.CacheFirst({cacheName:"images",plugins:[new e.ExpirationPlugin({maxEntries:1e4,purgeOnQuotaError:!0})]}),"GET")}));
+/**
+ * Copyright 2018 Google Inc. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// If the loader is already loaded, just stop.
+if (!self.define) {
+  const singleRequire = name => {
+    if (name !== 'require') {
+      name = name + '.js';
+    }
+    let promise = Promise.resolve();
+    if (!registry[name]) {
+      
+        promise = new Promise(async resolve => {
+          if ("document" in self) {
+            const script = document.createElement("script");
+            script.src = name;
+            document.head.appendChild(script);
+            script.onload = resolve;
+          } else {
+            importScripts(name);
+            resolve();
+          }
+        });
+      
+    }
+    return promise.then(() => {
+      if (!registry[name]) {
+        throw new Error(`Module ${name} didn’t register its module`);
+      }
+      return registry[name];
+    });
+  };
+
+  const require = (names, resolve) => {
+    Promise.all(names.map(singleRequire))
+      .then(modules => resolve(modules.length === 1 ? modules[0] : modules));
+  };
+  
+  const registry = {
+    require: Promise.resolve(require)
+  };
+
+  self.define = (moduleName, depsNames, factory) => {
+    if (registry[moduleName]) {
+      // Module is already loading or loaded.
+      return;
+    }
+    registry[moduleName] = Promise.resolve().then(() => {
+      let exports = {};
+      const module = {
+        uri: location.origin + moduleName.slice(1)
+      };
+      return Promise.all(
+        depsNames.map(depName => {
+          switch(depName) {
+            case "exports":
+              return exports;
+            case "module":
+              return module;
+            default:
+              return singleRequire(depName);
+          }
+        })
+      ).then(deps => {
+        const facValue = factory(...deps);
+        if(!exports.default) {
+          exports.default = facValue;
+        }
+        return exports;
+      });
+    });
+  };
+}
+define("./service-worker.js",['./workbox-24f65e47'], function (workbox) { 'use strict';
+
+  /**
+  * Welcome to your Workbox-powered service worker!
+  *
+  * You'll need to register this file in your web app.
+  * See https://goo.gl/nhQhGp
+  *
+  * The rest of the code is auto-generated. Please don't update this file
+  * directly; instead, make changes to your Workbox build configuration
+  * and re-run your build process.
+  * See https://goo.gl/2aRDsh
+  */
+
+  workbox.skipWaiting();
+  workbox.clientsClaim();
+  /**
+   * The precacheAndRoute() method efficiently caches and responds to
+   * requests for URLs in the manifest.
+   * See https://goo.gl/S9QRab
+   */
+
+  workbox.precacheAndRoute([{
+    "url": "0.bundle.001fec5c82e9a8e7dd4d.js",
+    "revision": "e0091888113f00aec9d17dc657115f1c"
+  }, {
+    "url": "1.bundle.f3fe5451fb45fa6bdc5a.js",
+    "revision": "5652f85546585ca64846bca8de61e289"
+  }, {
+    "url": "2.bundle.a48cef2f33ca70a8bb0b.js",
+    "revision": "ef84dd6cbf7a329dc4d395e38304a37a"
+  }, {
+    "url": "3.bundle.601a0592f8c396092589.js",
+    "revision": "9bab8e0a6049fc7a315f1b48929a88f0"
+  }, {
+    "url": "4.bundle.15870e8831f7c9f447e8.js",
+    "revision": "355d131a68928c9e88fa54ab85796048"
+  }, {
+    "url": "5.bundle.a9237a6d17f8bf2f3ce5.js",
+    "revision": "6a1569466e703e42febd69f204c1d5ba"
+  }, {
+    "url": "6.bundle.e1817c3b864793c3a74a.js",
+    "revision": "463e50ef6c124f067e6e7653707bee1a"
+  }, {
+    "url": "7.bundle.1b11e6d80727aa5dcfc3.js",
+    "revision": "69464ec21218a70e2cf202a63312e4be"
+  }, {
+    "url": "8.bundle.438f7b3436ae89a85d9e.js",
+    "revision": "f37508b59214d232f8dda57e3c252086"
+  }, {
+    "url": "bundle.923e79dc6c062ad1e4f5.js",
+    "revision": "fe51800a5b8d66f6c4df8cf86f725854"
+  }, {
+    "url": "index.html",
+    "revision": "afad0ff1c696ee09631a2be44dd1b754"
+  }], {});
+  workbox.registerRoute(/\.(?:png|jpg|jpeg|svg)$/, new workbox.CacheFirst({
+    "cacheName": "images",
+    plugins: [new workbox.ExpirationPlugin({
+      maxEntries: 10000,
+      purgeOnQuotaError: true
+    })]
+  }), 'GET');
+
+});
+//# sourceMappingURL=service-worker.js.map
