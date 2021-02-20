@@ -73,7 +73,10 @@ class App extends Component {
       client = "NATALIE";
     }
 
-    if (userInfo.email === "CulNatalie@yahoo.com") {
+    if (
+      userInfo.email.toUppercase() === "CULNATALIE@YAHOO.COM" ||
+      userInfo.email.toUppercase() === "CULNATALIE@GMAIL.COM"
+    ) {
       client = "NATALIE";
     }
     if (userInfo.email === "asmit2222@gmail.com") {
