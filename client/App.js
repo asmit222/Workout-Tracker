@@ -73,6 +73,13 @@ class App extends Component {
       client = "NATALIE";
     }
 
+    if (userInfo.email === "CulNatalie@yahoo.com") {
+      client = "NATALIE";
+    }
+    if (userInfo.email === "asmit2222@gmail.com") {
+      client = "AUSTIN";
+    }
+
     this.setState(
       {
         loggedIn: true,
