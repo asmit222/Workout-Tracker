@@ -125,7 +125,7 @@ table td {
 }
 
 .buttonContainer {
-  margin-top: 20%;
+  margin-top: 45%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -351,6 +351,7 @@ table td {
   background-attachment: fixed;
   background-size: cover;
   height: 100vh;
+  width: 100%;
 }
 
 #colorSelector {
@@ -1489,10 +1490,31 @@ width: 50px;
   font-size: large;
 }
 
-.logOutButtonApp {
-  z-index: 999;
+.settingsCog {
+  z-index: 99;
   /* position: absolute; */
   /* top: 0;
   right: 0; */
-  float: left;
+  position: fixed;
+  top: 3px;
+  right: 3px;
+}
+
+.settingsCogNavbar {
+  color: rgb(99, 99, 99) !important;
+}
+
+.settingsModalCard {
+  width: 90%;
+}
+
+.logOutButtonApp {
+  /* margin-top: 45%; */
+}
+
+.settingsContainer {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
