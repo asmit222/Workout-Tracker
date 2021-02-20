@@ -236,7 +236,7 @@ class newworkout extends Component {
                     "/submitRun",
                     `${[
                       thisBind.state.todayDate,
-                      thisBind.props.location.state.name,
+                      thisBind.props.location.state.getName(),
                       thisBind.state.milesRan,
                       thisBind.state.minutesRan,
                     ]}`
@@ -254,7 +254,7 @@ class newworkout extends Component {
                     axios
                       .post(
                         "/getRunData",
-                        `${[thisBind.props.location.state.name]}`
+                        `${[thisBind.props.location.state.getName()]}`
                       )
                       .then(
                         (response) => {
@@ -560,23 +560,25 @@ class newworkout extends Component {
     var thisBind = this;
 
     if (this.props.location.state !== undefined) {
-      axios.post("/getRunData", `${[thisBind.props.location.state.name]}`).then(
-        (response) => {
-          thisBind.setState(
-            {
-              runData: response.data,
-            },
-            this.setRunGraphData
-          );
-          console.log(response.data);
-        },
-        (error) => {
-          alert(error);
-        }
-      );
+      axios
+        .post("/getRunData", `${[thisBind.props.location.state.getName()]}`)
+        .then(
+          (response) => {
+            thisBind.setState(
+              {
+                runData: response.data,
+              },
+              this.setRunGraphData
+            );
+            console.log(response.data);
+          },
+          (error) => {
+            alert(error);
+          }
+        );
 
       axios
-        .post("/getWorkouts", `${[thisBind.props.location.state.name]}`)
+        .post("/getWorkouts", `${[thisBind.props.location.state.getName()]}`)
         .then(
           (response) => {
             response.data.reverse();
@@ -594,7 +596,7 @@ class newworkout extends Component {
         );
 
       axios
-        .post("/getTemplates", `${[thisBind.props.location.state.name]}`)
+        .post("/getTemplates", `${[thisBind.props.location.state.getName()]}`)
         .then(
           (response) => {
             if (response.data.length > 0) {
