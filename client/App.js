@@ -69,6 +69,9 @@ class App extends Component {
     if (client.toString() === "google-oauth2|108136753024957011595") {
       client = "AUSTIN";
     }
+    if (client.toString() === "GOOGLE-OAUTH2|110269093498228868237") {
+      client = "NATALIE";
+    }
 
     this.setState(
       {
