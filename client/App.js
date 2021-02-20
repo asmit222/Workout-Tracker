@@ -13,6 +13,9 @@ import {
 import Header from "./src/components/header";
 // import Home from "./src/components/Home";
 import axios from "axios";
+import LoginButton from "./src/components/loginButton.js";
+import LogoutButton from "./src/components/logoutButton.js";
+import Profile from "./src/components/Profile.js";
 
 const Previousworkouts = lazy(() =>
   import("./src/components/previousworkouts")
@@ -38,6 +41,8 @@ class App extends Component {
       loginName: "",
       loginPass: "",
       name: "",
+      loggedIn: false,
+      clientId: "",
     };
     this.handleChangeLogin1 = this.handleChangeLogin1.bind(this);
     this.handleChangeLogin2 = this.handleChangeLogin2.bind(this);
@@ -47,6 +52,16 @@ class App extends Component {
     this.handleSubmitCreateAccount = this.handleSubmitCreateAccount.bind(this);
 
     this.handleModalXClick = this.handleModalXClick.bind(this);
+
+    this.handleLogIn = this.handleLogIn.bind(this);
+  }
+
+  handleLogIn(userInfo) {
+    this.setState({
+      loggedIn: true,
+      clientId: userInfo.sub,
+    });
+    console.log("userInfo: ", userInfo);
   }
 
   handleModalXClick(e) {
@@ -234,221 +249,233 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.creatingAccount === false) {
-      if (this.state.name.length > 0) {
-        return (
-          <Suspense fallback={<div id="hide"></div>}>
-            <div className="fadeInAnimation">
-              {/* <Header /> */}
-              <div className="container">
-                <HashRouter>
-                  <nav className="nav navBar">
-                    <p className="control navIconP">
-                      <Link
-                        to={{
-                          pathname: "/Home",
-                          state: {
-                            name: this.state.name,
-                            hideNav: this.handleHideNav,
-                          },
-                        }}
-                      >
-                        <div className="center">
-                          <a
-                            id={this.state.hideNav}
-                            className="homeButton  buttonBackground"
-                          ></a>
-                          <div className="iconText iconTextHome">Home</div>
-                        </div>
-                        <span></span>
-                      </Link>
-                    </p>
-
-                    <p className="control navIconP">
-                      <Link
-                        to={{
-                          pathname: "/newworkout",
-                          state: {
-                            name: this.state.name,
-                            hideNav: this.handleHideNav,
-                          },
-                        }}
-                      >
-                        <div className="center">
-                          <a
-                            id={this.state.hideNav}
-                            className=" newWorkoutButton"
-                          ></a>
-                          <div className="iconText">Workout</div>
-                        </div>
-                        <span></span>
-                      </Link>
-                    </p>
-
-                    <p className="control navIconP">
-                      <Link
-                        to={{
-                          pathname: "/workoutTemplates",
-                          state: {
-                            name: this.state.name,
-                            hideNav: this.handleHideNav,
-                          },
-                        }}
-                      >
-                        <div className="center">
-                          <a
-                            id={this.state.hideNav}
-                            className=" workoutTemplatesButton "
-                          ></a>
-                          <div className="iconText">Templates</div>
-                        </div>
-                        <span></span>
-                      </Link>
-                    </p>
-                    <p className="control navIconP">
-                      <Link
-                        to={{
-                          pathname: "/previousworkouts",
-                          state: {
-                            name: this.state.name,
-                            hideNav: this.handleHideNav,
-                          },
-                        }}
-                      >
-                        <div className="center">
-                          <a
-                            id={this.state.hideNav}
-                            className="historyButton  "
-                          ></a>
-                          <div className="iconText">History</div>
-                        </div>
-                        <span></span>
-                      </Link>
-                    </p>
-                  </nav>
-
-                  <div className="content">
-                    <Route exact path="/" component={Home} />
-                    <Route exact path="/Home" component={Home} />
-                    <Route path="/newworkout" component={newworkout} />
-                    <Route
-                      path="/workoutTemplates"
-                      component={WorkoutTemplates}
-                    />
-                    <Route
-                      path="/previousworkouts"
-                      component={Previousworkouts}
-                    />
-                  </div>
-                </HashRouter>
-              </div>
-            </div>
-          </Suspense>
-        );
-      } else {
-        return (
-          <div className={this.state.animationName}>
-            <Suspense fallback={<div id="hide"></div>}>
-              <LazyCss />
-            </Suspense>
-
-            <div className="loginBackground">
-              <div className="buttonContainer">
-                <button
-                  onClick={this.handleSubmitLogin}
-                  id="loginButton"
-                  href=""
-                  className="margin button is-info is-large"
-                >
-                  Log in
-                </button>
-              </div>
-
-              <div className="or">or</div>
-
-              <div className="buttonContainer2">
-                <button
-                  onClick={this.handleSubmitCreateAccount}
-                  href=""
-                  className="margin button is-dark"
-                >
-                  Create Account
-                </button>
-              </div>
-
-              <form className="loginForm">
-                <div className="field control">
-                  <input
-                    type="text"
-                    onClick={this.handleChangeLogin1}
-                    onChange={this.handleChangeLogin1}
-                    className={`input is-medium ${this.state.loginInputName} ${this.state.loginInputBorder}`}
-                    placeholder="Name"
-                  ></input>
-                  <input
-                    type="password"
-                    onClick={this.handleChangeLogin2}
-                    onChange={this.handleChangeLogin2}
-                    className={`input is-medium ${this.state.loginInputPass} ${this.state.loginInputBorder}`}
-                    placeholder="Password"
-                  ></input>
-                </div>
-              </form>
-
-              <div className={`modal ${this.state.modalState}`}>
-                <div className="modal-background"></div>
-                <div className="modal-content createAccModal">
-                  <div className="buttonContainerModal">
-                    <button
-                      onClick={this.handleSubmitCreateAccount}
-                      href=""
-                      className="margin button is-large is-dark"
-                    >
-                      Create Account
-                    </button>
-                  </div>
-
-                  <form className="loginFormModal">
-                    <div className="field control">
-                      <input
-                        type="text"
-                        onClick={this.handleChangeLogin1}
-                        onChange={this.handleChangeLogin1}
-                        className={`input is-medium ${this.state.loginInputName} `}
-                        placeholder="Name"
-                      ></input>
-                      <input
-                        type="password"
-                        onClick={this.handleChangeLogin2}
-                        onChange={this.handleChangeLogin2}
-                        className={`input is-medium ${this.state.loginInputPass} `}
-                        placeholder="Password"
-                      ></input>
-                    </div>
-                  </form>
-                  <div className="centerMe">choose a name and password</div>
-                </div>
-                <button
-                  onClick={this.handleModalXClick}
-                  className="modal-close is-large"
-                  aria-label="close"
-                ></button>
-              </div>
-            </div>
-          </div>
-        );
-      }
-    } else {
+    if (!this.state.loggedIn) {
       return (
         <React.Fragment>
-          <div className="meterContainer">
-            <div className="meter">
-              <span className="progress"></span>
-            </div>
-          </div>
-          <div className="creatingAccountWords">Creating Account...</div>
+          <LoginButton className="button is-info" />
+          <LogoutButton className="button is-warning logOutButtonApp" />
+          <Profile logIn={this.handleLogIn} />
         </React.Fragment>
       );
+    } else {
+      if (this.state.creatingAccount === false) {
+        if (this.state.name.length > 0) {
+          return (
+            <Suspense fallback={<div id="hide"></div>}>
+              <div className="fadeInAnimation">
+                {/* <Header /> */}
+                <div className="container">
+                  <HashRouter>
+                    <nav className="nav navBar">
+                      <p className="control navIconP">
+                        <Link
+                          to={{
+                            pathname: "/Home",
+                            state: {
+                              name: this.state.name,
+                              hideNav: this.handleHideNav,
+                            },
+                          }}
+                        >
+                          <div className="center">
+                            <a
+                              id={this.state.hideNav}
+                              className="homeButton  buttonBackground"
+                            ></a>
+                            <div className="iconText iconTextHome">Home</div>
+                          </div>
+                          <span></span>
+                        </Link>
+                      </p>
+
+                      <p className="control navIconP">
+                        <Link
+                          to={{
+                            pathname: "/newworkout",
+                            state: {
+                              name: this.state.name,
+                              hideNav: this.handleHideNav,
+                            },
+                          }}
+                        >
+                          <div className="center">
+                            <a
+                              id={this.state.hideNav}
+                              className=" newWorkoutButton"
+                            ></a>
+                            <div className="iconText">Workout</div>
+                          </div>
+                          <span></span>
+                        </Link>
+                      </p>
+
+                      <p className="control navIconP">
+                        <Link
+                          to={{
+                            pathname: "/workoutTemplates",
+                            state: {
+                              name: this.state.name,
+                              hideNav: this.handleHideNav,
+                            },
+                          }}
+                        >
+                          <div className="center">
+                            <a
+                              id={this.state.hideNav}
+                              className=" workoutTemplatesButton "
+                            ></a>
+                            <div className="iconText">Templates</div>
+                          </div>
+                          <span></span>
+                        </Link>
+                      </p>
+                      <p className="control navIconP">
+                        <Link
+                          to={{
+                            pathname: "/previousworkouts",
+                            state: {
+                              name: this.state.name,
+                              hideNav: this.handleHideNav,
+                            },
+                          }}
+                        >
+                          <div className="center">
+                            <a
+                              id={this.state.hideNav}
+                              className="historyButton  "
+                            ></a>
+                            <div className="iconText">History</div>
+                          </div>
+                          <span></span>
+                        </Link>
+                      </p>
+                    </nav>
+
+                    <div className="content">
+                      <LogoutButton className="button is-warning logOutButtonApp" />
+
+                      <Route exact path="/" component={Home} />
+                      <Route exact path="/Home" component={Home} />
+                      <Route path="/newworkout" component={newworkout} />
+                      <Route
+                        path="/workoutTemplates"
+                        component={WorkoutTemplates}
+                      />
+                      <Route
+                        path="/previousworkouts"
+                        component={Previousworkouts}
+                      />
+                    </div>
+                  </HashRouter>
+                </div>
+              </div>
+            </Suspense>
+          );
+        } else {
+          return (
+            <div className={this.state.animationName}>
+              <Suspense fallback={<div id="hide"></div>}>
+                <LazyCss />
+              </Suspense>
+
+              <div className="loginBackground">
+                <div className="buttonContainer">
+                  <button
+                    onClick={this.handleSubmitLogin}
+                    id="loginButton"
+                    href=""
+                    className="margin button is-info is-large"
+                  >
+                    Log in
+                  </button>
+                </div>
+
+                <div className="or">or</div>
+
+                <div className="buttonContainer2">
+                  <button
+                    onClick={this.handleSubmitCreateAccount}
+                    href=""
+                    className="margin button is-dark"
+                  >
+                    Create Account
+                  </button>
+                </div>
+
+                <form className="loginForm">
+                  <div className="field control">
+                    <input
+                      type="text"
+                      onClick={this.handleChangeLogin1}
+                      onChange={this.handleChangeLogin1}
+                      className={`input is-medium ${this.state.loginInputName} ${this.state.loginInputBorder}`}
+                      placeholder="Name"
+                    ></input>
+                    <input
+                      type="password"
+                      onClick={this.handleChangeLogin2}
+                      onChange={this.handleChangeLogin2}
+                      className={`input is-medium ${this.state.loginInputPass} ${this.state.loginInputBorder}`}
+                      placeholder="Password"
+                    ></input>
+                  </div>
+                </form>
+
+                <div className={`modal ${this.state.modalState}`}>
+                  <div className="modal-background"></div>
+                  <div className="modal-content createAccModal">
+                    <div className="buttonContainerModal">
+                      <button
+                        onClick={this.handleSubmitCreateAccount}
+                        href=""
+                        className="margin button is-large is-dark"
+                      >
+                        Create Account
+                      </button>
+                    </div>
+
+                    <form className="loginFormModal">
+                      <div className="field control">
+                        <input
+                          type="text"
+                          onClick={this.handleChangeLogin1}
+                          onChange={this.handleChangeLogin1}
+                          className={`input is-medium ${this.state.loginInputName} `}
+                          placeholder="Name"
+                        ></input>
+                        <input
+                          type="password"
+                          onClick={this.handleChangeLogin2}
+                          onChange={this.handleChangeLogin2}
+                          className={`input is-medium ${this.state.loginInputPass} `}
+                          placeholder="Password"
+                        ></input>
+                      </div>
+                    </form>
+                    <div className="centerMe">choose a name and password</div>
+                  </div>
+                  <button
+                    onClick={this.handleModalXClick}
+                    className="modal-close is-large"
+                    aria-label="close"
+                  ></button>
+                </div>
+              </div>
+            </div>
+          );
+        }
+      } else {
+        return (
+          <React.Fragment>
+            <div className="meterContainer">
+              <div className="meter">
+                <span className="progress"></span>
+              </div>
+            </div>
+            <div className="creatingAccountWords">Creating Account...</div>
+          </React.Fragment>
+        );
+      }
     }
   }
 }
