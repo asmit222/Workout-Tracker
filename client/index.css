@@ -1488,3 +1488,11 @@ width: 50px;
   height: 40px !important;
   font-size: large;
 }
+
+.logOutButtonApp {
+  z-index: 999;
+  /* position: absolute; */
+  /* top: 0;
+  right: 0; */
+  float: left;
+}
