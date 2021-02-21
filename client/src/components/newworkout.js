@@ -248,6 +248,26 @@ class newworkout extends Component {
               () => {
                 axios
                   .post(
+                    "/test",
+                    `${[
+                      thisBind.state.todayDate,
+                      thisBind.props.location.state.getName(),
+                      thisBind.state.milesRan,
+                      thisBind.state.minutesRan,
+                      "354634563dfghdfgh439003235",
+                    ]}`
+                  )
+                  .then(
+                    (response) => {
+                      console.log("workout sent for workout!");
+                    },
+                    (error) => {
+                      // alert(error);
+                    }
+                  );
+
+                axios
+                  .post(
                     "/submitRun",
                     `${[
                       thisBind.state.todayDate,
@@ -444,11 +464,13 @@ class newworkout extends Component {
   setGraphData() {
     var monthArr = [];
     for (var i = 0; i < this.state.data.length; i++) {
-      if (
-        this.state.data[i].workoutDate.split(" ")[2].toString() ===
-        this.state.currentYear.toString()
-      ) {
-        monthArr.push(this.state.data[i].workoutDate.split(" ")[0]);
+      if (this.state.data[i].workoutPlan !== "354634563dfghdfgh439003235") {
+        if (
+          this.state.data[i].workoutDate.split(" ")[2].toString() ===
+          this.state.currentYear.toString()
+        ) {
+          monthArr.push(this.state.data[i].workoutDate.split(" ")[0]);
+        }
       }
     }
     monthArr.forEach((month) => {
