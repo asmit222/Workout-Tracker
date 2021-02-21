@@ -2,6 +2,7 @@ import React, { Component, useState, useEffect } from "react";
 import App from "../../App";
 import axios from "axios";
 import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 class Previousworkouts extends Component {
   constructor(props) {
@@ -45,7 +46,14 @@ class Previousworkouts extends Component {
     e.preventDefault();
     var thisBind = this;
     var workout = e.target.value;
-    console.log("workout: ", workout);
+
+    if (workout.split(",")[1] === "54634563dfghdfgh43900323") {
+      workout = workout.split(",");
+      workout[1] = "Run";
+      workout = workout.join(",");
+    }
+
+    console.log("workoutt: ", workout);
 
     confirmAlert({
       title: `Delete ${workout.split(",")[1]} - ${
@@ -274,11 +282,21 @@ class Previousworkouts extends Component {
               )}
             </div>
           ) : (
-            <div className="runHistoryContainer">
+            <div className="runHistoryContainer forwardInAnimation">
+              <button
+                value={[
+                  workout.id,
+                  workout.workoutPlan.slice(1, workout.workoutPlan.length - 1),
+                  workout.workoutDate,
+                ]}
+                onClick={this.handleDeleteClick}
+                className="delete deleteButtonHistory2 is-small "
+              ></button>
+
               <button id="runButtonHistory" className="button"></button>
               <span className="dateaboveprev2">{workout.workoutDate}</span>
               <div>
-                <span className="milesAndTimeSpan">miles: </span>
+                <span className="milesAndTimeSpan">distance: </span>
                 <span className="milesandtimedata">{workout.workout1}</span>
               </div>
               <div>

@@ -28,17 +28,6 @@ const saveWorkout = function (data, callback) {
 
     var notes = "";
 
-    console.log(
-      "date ",
-      date,
-      "name ",
-      name,
-      "miles ",
-      miles,
-      "minutes ",
-      minutes
-    );
-
     var sql = `INSERT INTO workout1 (name, workoutPlan, workoutDate, workout1, workout2) VALUES ('${name}', '${runCode}', '${date}', '${miles}', '${minutes}');`;
 
     connection.query(sql, function (err, results) {
@@ -378,7 +367,11 @@ const changeColor = function (data, callback) {
 const deleteWorkout = function (data, callback) {
   var dataSplit = JSON.stringify(data).split(",");
   console.log("data!: ", dataSplit);
-  var workoutName = dataSplit[0].slice(2, dataSplit[0].length);
+
+  var workoutName = dataSplit[0].slice(2);
+
+  console.log("workoutName: ", workoutName);
+
   var id = dataSplit[1];
   var name = dataSplit[2].slice(0, dataSplit[2].length - 5);
 
@@ -387,7 +380,13 @@ const deleteWorkout = function (data, callback) {
       console.log("error connecting to database: ", err);
       return;
     } else {
-      var sql = `delete from workout1 where workoutPlan = '"${workoutName}"' and id = '${id}' and name = '${name}';`;
+      if (workoutName === "Run") {
+        var sql = `delete from workout1 where id = '${id}' and name = '${name}';`;
+      } else {
+        var sql = `delete from workout1 where workoutPlan = '"${workoutName}"' and id = '${id}' and name = '${name}';`;
+      }
+
+      console.log("sql: ", sql);
       connection.query(sql, function (err, res) {
         if (err) {
           console.log("error ! ! !: ", err);
