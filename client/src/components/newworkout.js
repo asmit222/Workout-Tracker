@@ -103,6 +103,7 @@ class newworkout extends Component {
       minutesRan: "",
       runData: [],
       todayDate: new Date(),
+      hideRunButton: "runButton",
     };
     this.handleDaySelection = this.handleDaySelection.bind(this);
     this.hideDropDown = this.hideDropDown.bind(this);
@@ -116,6 +117,20 @@ class newworkout extends Component {
     this.handleChangeMiles = this.handleChangeMiles.bind(this);
     this.handleChangeMinutes = this.handleChangeMinutes.bind(this);
     this.setRunGraphData = this.setRunGraphData.bind(this);
+
+    this.hideThenShowRunButton = this.hideThenShowRunButton.bind(this);
+  }
+
+  hideThenShowRunButton() {
+    this.setState({
+      hideRunButton: "hide",
+    });
+
+    setTimeout(() => {
+      this.setState({
+        hideRunButton: "runButton",
+      });
+    }, 2000);
   }
 
   handleChangeMinutes(e) {
@@ -776,7 +791,7 @@ class newworkout extends Component {
             </div>
             <button
               onClick={this.openRunLogModal}
-              id="runButton"
+              id={this.state.hideRunButton}
               className="button"
             ></button>
           </div>
@@ -1036,6 +1051,7 @@ class newworkout extends Component {
               quickStartSelected={this.state.quickStartSelected}
               day={this.state.day}
               hideDropDown={this.hideDropDown}
+              hideThenShowRunButton={this.hideThenShowRunButton}
               hideNav={
                 this.props.location.state !== undefined
                   ? this.props.location.state.hideNav

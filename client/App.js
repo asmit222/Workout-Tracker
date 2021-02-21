@@ -44,6 +44,9 @@ class App extends Component {
       name: "",
       loggedIn: false,
       clientId: "",
+      picture: "",
+      email: "",
+      loggingIn: false,
     };
     this.handleChangeLogin1 = this.handleChangeLogin1.bind(this);
     this.handleChangeLogin2 = this.handleChangeLogin2.bind(this);
@@ -56,6 +59,36 @@ class App extends Component {
 
     this.handleLogIn = this.handleLogIn.bind(this);
     this.getName = this.getName.bind(this);
+
+    this.getPicture = this.getPicture.bind(this);
+    this.getEmail = this.getEmail.bind(this);
+
+    this.handleLoggingIn = this.handleLoggingIn.bind(this);
+
+    this.getLoggingIn = this.getLoggingIn.bind(this);
+  }
+
+  getLoggingIn() {
+    return this.state.loggingIn;
+  }
+
+  handleLoggingIn() {
+    this.setState(
+      {
+        loggingIn: true,
+      },
+      () => {
+        console.log(this.state.loggingIn);
+      }
+    );
+  }
+
+  getEmail() {
+    return this.state.email;
+  }
+
+  getPicture() {
+    return this.state.picture;
   }
 
   getName() {
@@ -79,9 +112,12 @@ class App extends Component {
 
     this.setState(
       {
+        loggingIn: true,
         loggedIn: true,
         clientId: client,
         name: client,
+        picture: userInfo.picture,
+        email: userInfo.email,
       },
       () => {
         console.log("userInfo: ", userInfo, "name: ", this.state.name);
@@ -303,11 +339,11 @@ class App extends Component {
   }
 
   render() {
-    if (!this.state.loggedIn) {
+    if (!this.state.loggedIn && !this.state.loggingIn) {
       return (
         <React.Fragment>
-          <LoginButton className="logInButtonApp button is-info" />
-          <Profile logIn={this.handleLogIn} />
+          <LoginButton loggingIn={this.getLoggingIn} />
+          <Profile logIn={this.handleLogIn} loggingIn={this.handleLoggingIn} />
         </React.Fragment>
       );
     } else {
@@ -317,27 +353,6 @@ class App extends Component {
             <div className="fadeInAnimation">
               {/* <Header /> */}
               <div className="container">
-                {/* ============================================ settings modal ============================================= */}
-                {/*
-                  <div className="modal is-active">
-                    <div className="modal-background"></div>
-                    <div className="settingsModalCard modal-card">
-                      <header className="modal-card-head">
-                        <p className="modal-card-title">Settings</p>
-                        <button className="delete" aria-label="close"></button>
-                      </header>
-                      <section className="modal-card-body"></section>
-                      <footer className="modal-card-foot">
-                        <button className="button is-success">
-                          Save changes
-                        </button>
-                        <button className="button">Cancel</button>
-                      </footer>
-                    </div>
-                  </div> */}
-
-                {/* ============================================================================================================== */}
-
                 <HashRouter>
                   <nav className="nav navBar">
                     <p className="control navIconP">
@@ -434,8 +449,10 @@ class App extends Component {
                           pathname: "/settings",
                           state: {
                             getName: this.getName,
+                            getPicture: this.getPicture,
                             // name: this.state.name,
                             hideNav: this.handleHideNav,
+                            getEmail: this.getEmail,
                           },
                         }}
                       >

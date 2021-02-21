@@ -13,7 +13,10 @@ const Profile = (props) => {
   return (
     isAuthenticated && (
       <div>
-        {props.logIn(user)}
+        {(function () {
+          props.loggingIn();
+          props.logIn(user);
+        })()}
         {/* <img src={user.picture} alt={user.name} />
         <h2>{user.name}</h2>
         <p>{user.email}</p>

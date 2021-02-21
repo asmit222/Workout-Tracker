@@ -1510,11 +1510,36 @@ width: 50px;
 
 .logOutButtonApp {
   /* margin-top: 45%; */
+  position: absolute;
+  bottom: 60px;
+  width: 90% !important;
 }
 
 .settingsContainer {
   height: 95vh;
+
+}
+
+.picWrapper {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 5px;
+height: 40vh;
+}
+
+.logOutButtonAppWrapper {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+}
+
+.profilePic {
+  border-radius: 50%;
+}
+
+.settingsEmail {
+  text-align: center;
 }
