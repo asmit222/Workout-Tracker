@@ -158,7 +158,10 @@ class WorkoutTemplates extends Component {
             axios
               .post(
                 "/deleteTemplate",
-                `${[this.state.planEditting, this.state.name]}`
+                `${[
+                  this.state.planEditting,
+                  thisBind.props.location.state.getName(),
+                ]}`
               )
               .then((response) => {
                 this.setState({
@@ -175,7 +178,7 @@ class WorkoutTemplates extends Component {
                     this.state.workout7,
                   ],
                   [this.state.notes],
-                  this.props.location.state.name,
+                  thisBind.props.location.state.getName(),
                   this.props.day,
                   this.state.workoutName,
                 ];
@@ -242,7 +245,7 @@ class WorkoutTemplates extends Component {
                               });
 
                               thisBind.setState({
-                                name: response.data[0].name.toUpperCase(),
+                                name: thisBind.props.location.state.getName(),
                                 templates: oldTemplates,
                               });
                             },
@@ -452,40 +455,45 @@ class WorkoutTemplates extends Component {
               threeDotsShow: "",
             });
 
-            axios.post("/deleteTemplate", `${[value, this.state.name]}`).then(
-              (res) => {
-                if (typeof res === "object") {
-                  axios
-                    .post(
-                      "/getTemplates",
-                      `${[thisBind.props.location.state.getName()]}`
-                    )
-                    .then(
-                      (response) => {
-                        console.log(response.data);
-                        response.data.reverse();
+            axios
+              .post(
+                "/deleteTemplate",
+                `${[value, thisBind.props.location.state.getName()]}`
+              )
+              .then(
+                (res) => {
+                  if (typeof res === "object") {
+                    axios
+                      .post(
+                        "/getTemplates",
+                        `${[thisBind.props.location.state.getName()]}`
+                      )
+                      .then(
+                        (response) => {
+                          console.log(response.data);
+                          response.data.reverse();
 
-                        var oldTemplates = response.data;
-                        for (var i = 0; i < oldTemplates.length; i++) {
-                          oldTemplates[i]["editable"] = false;
+                          var oldTemplates = response.data;
+                          for (var i = 0; i < oldTemplates.length; i++) {
+                            oldTemplates[i]["editable"] = false;
+                          }
+
+                          thisBind.setState({
+                            templates: oldTemplates,
+                          });
+                        },
+                        (error) => {
+                          alert(error);
                         }
+                      );
 
-                        thisBind.setState({
-                          templates: oldTemplates,
-                        });
-                      },
-                      (error) => {
-                        alert(error);
-                      }
-                    );
-
-                  console.log("deleted!");
+                    console.log("deleted!");
+                  }
+                },
+                (error) => {
+                  alert(error);
                 }
-              },
-              (error) => {
-                alert(error);
-              }
-            );
+              );
           },
         },
         {
@@ -787,7 +795,7 @@ class WorkoutTemplates extends Component {
             response.data.reverse();
 
             thisBind.setState({
-              name: response.data[0].name.toUpperCase(),
+              name: thisBind.props.location.state.getName(),
               templates: response.data,
             });
             var oldTemplates = this.state.templates;
@@ -872,7 +880,7 @@ class WorkoutTemplates extends Component {
                       }
 
                       thisBind.setState({
-                        name: response.data[0].name.toUpperCase(),
+                        name: thisBind.props.location.state.getName(),
                         templates: oldTemplates,
                       });
                     },

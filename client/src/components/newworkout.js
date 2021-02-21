@@ -1030,7 +1030,7 @@ class newworkout extends Component {
               workoutName={this.state.workoutName}
               name={
                 this.props.location.state !== undefined
-                  ? this.props.location.state.name
+                  ? this.props.location.state.getName()
                   : null
               }
               quickStartSelected={this.state.quickStartSelected}
@@ -1048,7 +1048,7 @@ class newworkout extends Component {
             <EmptyTemplate
               name={
                 this.props.location.state !== undefined
-                  ? this.props.location.state.name
+                  ? this.props.location.state.getName()
                   : null
               }
               quickStartSelected={this.state.quickStartSelected}

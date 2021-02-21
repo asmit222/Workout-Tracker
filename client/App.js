@@ -345,7 +345,7 @@ class App extends Component {
                         to={{
                           pathname: "/Home",
                           state: {
-                            name: this.state.name,
+                            // name: this.state.name,
                             getName: this.getName,
                             hideNav: this.handleHideNav,
                           },
@@ -412,7 +412,7 @@ class App extends Component {
                           pathname: "/previousworkouts",
                           state: {
                             getName: this.getName,
-                            name: this.state.name,
+                            // name: this.state.name,
                             hideNav: this.handleHideNav,
                           },
                         }}
@@ -434,7 +434,7 @@ class App extends Component {
                           pathname: "/settings",
                           state: {
                             getName: this.getName,
-                            name: this.state.name,
+                            // name: this.state.name,
                             hideNav: this.handleHideNav,
                           },
                         }}
