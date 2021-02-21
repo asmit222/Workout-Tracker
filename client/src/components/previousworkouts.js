@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import App from "../../App";
 import axios from "axios";
 import { confirmAlert } from "react-confirm-alert";
@@ -82,6 +82,7 @@ class Previousworkouts extends Component {
 
   componentDidMount() {
     this._isMounted = true;
+    console.log("mounted");
 
     var thisBind = this;
 

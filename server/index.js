@@ -198,7 +198,7 @@ app.post("/submitRun", function (req, res) {
   db.submitRun(req.body, function (data) {
     if (data) {
       res.json(data);
-      console.log(data);
+      // console.log(data);
     } else {
       console.log("error");
     }
@@ -213,7 +213,7 @@ app.post("/getRunData", function (req, res) {
   db.getRunData(JSON.stringify(req.body), function (data) {
     if (data) {
       res.json(data);
-      console.log(data);
+      // console.log(data);
     } else {
       console.log("error");
     }
