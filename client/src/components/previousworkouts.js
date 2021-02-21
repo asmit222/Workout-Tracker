@@ -39,7 +39,9 @@ class Previousworkouts extends Component {
 
     var avgMins = avgSeconds / 60;
 
-    return this.minTommss(avgMins);
+    return this.minTommss(avgMins) === "NaN:NaN"
+      ? "n/a"
+      : this.minTommss(avgMins);
   }
 
   handleDeleteClick(e) {
