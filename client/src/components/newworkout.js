@@ -399,6 +399,7 @@ class newworkout extends Component {
                             thisBind.setRunGraphData
                           );
                           console.log("data1", response.data);
+                          thisBind.exitRunLogModal();
                         },
                         (error) => {
                           alert(error);
@@ -407,7 +408,6 @@ class newworkout extends Component {
                   });
               }
             );
-            thisBind.exitRunLogModal();
           },
         },
 
