@@ -15,6 +15,10 @@ import "rc-time-picker/assets/index.css";
 
 var newDay;
 
+var timeTime = "00:00:00";
+
+var timeCounterInterval = false;
+
 class newworkout extends Component {
   constructor(props) {
     super(props);
@@ -104,6 +108,14 @@ class newworkout extends Component {
       runData: [],
       todayDate: new Date(),
       hideRunButton: "runButton",
+      workoutsYet: false,
+      runsYet: false,
+      runButtonValue: "start run",
+      runStatus: false,
+      runButtonClassName: "is-info",
+      startedRunning: false,
+      playOrPauseIcon: "fa-play",
+      timeValue: moment(timeTime, "HH:mm:ss"),
     };
     this.handleDaySelection = this.handleDaySelection.bind(this);
     this.hideDropDown = this.hideDropDown.bind(this);
@@ -119,6 +131,91 @@ class newworkout extends Component {
     this.setRunGraphData = this.setRunGraphData.bind(this);
 
     this.hideThenShowRunButton = this.hideThenShowRunButton.bind(this);
+
+    this.handleStartRun = this.handleStartRun.bind(this);
+
+    this.handleResetRunButton = this.handleResetRunButton.bind(this);
+  }
+
+  handleResetRunButton() {
+    this.setState({
+      timeCounterTime: "00:00:00",
+      startedRunning: false,
+      runStatus: false,
+      runButtonClassName: "is-info",
+      runButtonValue: "start run",
+      playOrPauseIcon: "fa-play",
+    });
+
+    timeTime = "00:00:00";
+    this.setState({
+      timeValue: moment(timeTime, "HH:mm:ss"),
+    });
+  }
+
+  handleStartRun() {
+    if (!this.state.runStatus) {
+      timeCounterInterval = setInterval(() => {
+        var timeSplit = timeTime.split(":");
+
+        if (Number(timeSplit[2]) < 59) {
+          timeSplit[2] = (Number(timeSplit[2]) + 1).toString();
+        } else if (Number(timeSplit[1]) < 59) {
+          if (Number(timeSplit[1]) < 59) {
+            timeSplit[1] = (Number(timeSplit[1]) + 1).toString();
+            timeSplit[2] = "00";
+          } else {
+            timeSplit[0] = (Number(timeSplit[0]) + 1).toString();
+            timeSplit[1] = "00";
+            timeSplit[2] = "00";
+          }
+        }
+
+        for (var i = 0; i < timeSplit.length; i++) {
+          if (timeSplit[i].length < 2) {
+            timeSplit[i] = "0" + timeSplit[i];
+          }
+        }
+
+        timeTime = timeSplit.join(":");
+
+        this.setState({
+          timeValue: moment(timeTime, "HH:mm:ss"),
+          minutesRan: timeTime,
+        });
+      }, 1000);
+
+      this.setState({
+        runStatus: true,
+        startedRunning: true,
+        runButtonValue: "pause",
+        playOrPauseIcon: "fa-pause",
+        runButtonClassName: "is-warning",
+      });
+    } else {
+      if (this.state.startedRunning) {
+        if (timeCounterInterval) {
+          clearInterval(timeCounterInterval);
+        }
+
+        this.setState({
+          runStatus: false,
+          runButtonValue: "resume",
+          playOrPauseIcon: "fa-play",
+          runButtonClassName: "is-info",
+        });
+      } else {
+        if (timeCounterInterval) {
+          clearInterval(timeCounterInterval);
+        }
+        this.setState({
+          runStatus: false,
+          runButtonValue: "start run",
+          playOrPauseIcon: "fa-play",
+          runButtonClassName: "is-info",
+        });
+      }
+    }
   }
 
   hideThenShowRunButton() {
@@ -162,6 +259,7 @@ class newworkout extends Component {
 
       this.setState({
         minutesRan: time,
+        timeValue: moment(time, "HH:mm:ss"),
       });
     }
   }
@@ -211,8 +309,6 @@ class newworkout extends Component {
         {
           label: "Submit",
           onClick: () => {
-            thisBind.exitRunLogModal();
-
             thisBind.setState(
               {
                 runsPerMonth: {
@@ -246,6 +342,7 @@ class newworkout extends Component {
                 runData: [],
               },
               () => {
+                console.log("here: ", thisBind.state.minutesRan);
                 axios
                   .post(
                     "/test",
@@ -310,6 +407,7 @@ class newworkout extends Component {
                   });
               }
             );
+            thisBind.exitRunLogModal();
           },
         },
 
@@ -322,10 +420,17 @@ class newworkout extends Component {
   }
 
   exitRunLogModal() {
+    timeTime = "00:00:00";
     this.setState({
       runLogModalActive: "",
+      timeValue: moment(timeTime, "HH:mm:ss"),
+      minutesRan: "00:00:00",
     });
+    if (timeCounterInterval) {
+      clearInterval(timeCounterInterval);
+    }
   }
+
   openRunLogModal() {
     this.setState({
       runLogModalActive: "is-active",
@@ -346,6 +451,12 @@ class newworkout extends Component {
       }
     }
     monthArr.forEach((month) => {
+      if (!this.state.runsYet) {
+        this.setState({
+          runsYet: true,
+        });
+      }
+
       if (month[0] === "Jan") {
         var old = this.state.runsPerMonth;
         old.jan = old.jan + Number(month[1]);
@@ -474,6 +585,12 @@ class newworkout extends Component {
       }
     }
     monthArr.forEach((month) => {
+      if (!this.state.workoutsYet) {
+        this.setState({
+          workoutsYet: true,
+        });
+      }
+
       if (month === "Jan") {
         var old = this.state.workoutsPerMonth;
         old.jan = old.jan + 1;
@@ -774,7 +891,43 @@ class newworkout extends Component {
                 <TimePicker
                   onChange={this.handleChangeMinutes}
                   defaultValue={moment("00:00:00", "HH:mm:ss")}
+                  value={this.state.timeValue}
                 />
+                <div className="runButtonsDiv">
+                  <button
+                    onClick={this.handleStartRun}
+                    id="startRunButton"
+                    className={`button ${this.state.runButtonClassName}`}
+                  >
+                    <span className="icon is-small playButton">
+                      <i className={`fa ${this.state.playOrPauseIcon}`}></i>
+                    </span>
+                    {/* {this.state.runButtonValue} */}
+                  </button>
+
+                  {!this.state.startedRunning ? (
+                    <button
+                      disabled
+                      className={`button resetRunButton is-danger`}
+                      onClick={this.handleResetRunButton}
+                    >
+                      <span className="icon is-small refreshButton">
+                        <i className="fa fa-refresh"></i>
+                      </span>
+                      {/* reset */}
+                    </button>
+                  ) : (
+                    <button
+                      onClick={this.handleResetRunButton}
+                      className={`button resetRunButton is-danger`}
+                    >
+                      <span className="icon is-small refreshButton">
+                        <i className="fa fa-refresh"></i>
+                      </span>
+                      {/* reset */}
+                    </button>
+                  )}
+                </div>
               </section>
               <footer className="modal-card-foot">
                 <button
@@ -825,6 +978,12 @@ class newworkout extends Component {
             <div className="barcontainerheader">
               {`Workouts ${this.state.currentYear}`}
             </div>
+
+            {!this.state.workoutsYet ? (
+              <div className="noWorkoutsYetText">no workouts yet</div>
+            ) : (
+              <span id="hide"></span>
+            )}
 
             <div
               className="bar"
@@ -946,6 +1105,12 @@ class newworkout extends Component {
             <div className="barcontainerheader">
               {`Miles Ran ${this.state.currentYear}`}
             </div>
+
+            {!this.state.runsYet ? (
+              <div className="noRunsYetText">no runs yet</div>
+            ) : (
+              <span id="hide"></span>
+            )}
 
             <div
               className="bar bar2"
