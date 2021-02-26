@@ -233,7 +233,6 @@ class newworkout extends Component {
   }
 
   handleChangeMinutes(e) {
-    // var time = JSON.stringify(e._d).split(" ")[4];
     if (!e) {
       this.setState({
         minutesRan: "no time entered",
@@ -305,120 +304,124 @@ class newworkout extends Component {
   handleSaveRun() {
     const thisBind = this;
 
-    confirmAlert({
-      title: "Submit run?",
-      buttons: [
-        {
-          label: "Submit",
-          onClick: () => {
-            thisBind.setState(
-              {
-                runsPerMonth: {
-                  jan: 0,
-                  feb: 0,
-                  mar: 0,
-                  apr: 0,
-                  may: 0,
-                  jun: 0,
-                  jul: 0,
-                  aug: 0,
-                  sep: 0,
-                  oct: 0,
-                  nov: 0,
-                  dec: 0,
+    if (this.state.milesRan === "") {
+      alert("don't forget to enter your distance!");
+    } else {
+      confirmAlert({
+        title: "Submit run?",
+        buttons: [
+          {
+            label: "Submit",
+            onClick: () => {
+              thisBind.setState(
+                {
+                  runsPerMonth: {
+                    jan: 0,
+                    feb: 0,
+                    mar: 0,
+                    apr: 0,
+                    may: 0,
+                    jun: 0,
+                    jul: 0,
+                    aug: 0,
+                    sep: 0,
+                    oct: 0,
+                    nov: 0,
+                    dec: 0,
+                  },
+                  runsPerMonthPercentages: {
+                    jan: "0",
+                    feb: "0",
+                    mar: "0",
+                    apr: "0",
+                    may: "0",
+                    jun: "0",
+                    jul: "0",
+                    aug: "0",
+                    sep: "0",
+                    oct: "0",
+                    nov: "0",
+                    dec: "0",
+                  },
+                  runData: [],
                 },
-                runsPerMonthPercentages: {
-                  jan: "0",
-                  feb: "0",
-                  mar: "0",
-                  apr: "0",
-                  may: "0",
-                  jun: "0",
-                  jul: "0",
-                  aug: "0",
-                  sep: "0",
-                  oct: "0",
-                  nov: "0",
-                  dec: "0",
-                },
-                runData: [],
-              },
-              () => {
-                console.log("here: ", thisBind.state.minutesRan);
-                axios
-                  .post(
-                    "/test",
-                    `${[
-                      thisBind.state.todayDate,
-                      thisBind.props.location.state.getName(),
-                      thisBind.state.milesRan,
-                      thisBind.state.minutesRan,
-                      "354634563dfghdfgh439003235",
-                    ]}`
-                  )
-                  .then(
-                    (response) => {
-                      console.log("workout sent for workout!");
-                    },
-                    (error) => {
-                      // alert(error);
-                    }
-                  );
+                () => {
+                  console.log("here: ", thisBind.state.minutesRan);
+                  axios
+                    .post(
+                      "/test",
+                      `${[
+                        thisBind.state.todayDate,
+                        thisBind.props.location.state.getName(),
+                        thisBind.state.milesRan,
+                        thisBind.state.minutesRan,
+                        "354634563dfghdfgh439003235",
+                      ]}`
+                    )
+                    .then(
+                      (response) => {
+                        console.log("workout sent for workout!");
+                      },
+                      (error) => {
+                        // alert(error);
+                      }
+                    );
 
-                axios
-                  .post(
-                    "/submitRun",
-                    `${[
-                      thisBind.state.todayDate,
-                      thisBind.props.location.state.getName(),
-                      thisBind.state.milesRan,
-                      thisBind.state.minutesRan,
-                    ]}`
-                  )
-                  .then(
-                    (response) => {
+                  axios
+                    .post(
+                      "/submitRun",
+                      `${[
+                        thisBind.state.todayDate,
+                        thisBind.props.location.state.getName(),
+                        thisBind.state.milesRan,
+                        thisBind.state.minutesRan,
+                      ]}`
+                    )
+                    .then(
+                      (response) => {
+                        console.log("run saved!");
+                      },
+                      (error) => {
+                        alert(error);
+                      }
+                    )
+                    .then((response) => {
                       console.log("run saved!");
-                    },
-                    (error) => {
-                      alert(error);
-                    }
-                  )
-                  .then((response) => {
-                    console.log("run saved!");
-                    axios
-                      .post(
-                        "/getRunData",
-                        `${[thisBind.props.location.state.getName()]}`
-                      )
-                      .then(
-                        (response) => {
-                          thisBind.setState(
-                            {
-                              milesRan: "",
-                              minutesRan: "",
-                              runData: response.data,
-                            },
-                            thisBind.setRunGraphData
-                          );
-                          console.log("data1", response.data);
-                          thisBind.exitRunLogModal();
-                        },
-                        (error) => {
-                          alert(error);
-                        }
-                      );
-                  });
-              }
-            );
+                      axios
+                        .post(
+                          "/getRunData",
+                          `${[thisBind.props.location.state.getName()]}`
+                        )
+                        .then(
+                          (response) => {
+                            thisBind.setState(
+                              {
+                                milesRan: "",
+                                minutesRan: "",
+                                runData: response.data,
+                              },
+                              thisBind.setRunGraphData
+                            );
+                            console.log("data1", response.data);
+                            thisBind.exitRunLogModal();
+                          },
+                          (error) => {
+                            alert(error);
+                          }
+                        );
+                    });
+                }
+              );
+            },
           },
-        },
 
-        {
-          label: "Cancel",
-          onClick: () => console.log("user clicked no"),
-        },
-      ],
-    });
+          {
+            label: "Cancel",
+            onClick: () => console.log("user clicked no"),
+          },
+        ],
+      });
+    }
   }
 
   exitRunLogModal() {
@@ -564,7 +567,7 @@ class newworkout extends Component {
     for (var key in this.state.runsPerMonthPercentages) {
       var workouts = this.state.runsPerMonth[key];
       workouts = workouts / maxWorkoutsInAMonth;
-      workouts = workouts * 0.8 * 100;
+      workouts = workouts * 0.65 * 100;
 
       var old = this.state.runsPerMonthPercentages;
       old[key] = workouts.toString();
@@ -689,7 +692,7 @@ class newworkout extends Component {
     for (var key in this.state.workoutsPerMonthPercentages) {
       var workouts = this.state.workoutsPerMonth[key];
       workouts = workouts / maxWorkoutsInAMonth;
-      workouts = workouts * 0.8 * 100;
+      workouts = workouts * 0.65 * 100;
 
       var old = this.state.workoutsPerMonthPercentages;
       old[key] = workouts.toString();

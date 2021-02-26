@@ -990,8 +990,8 @@ body {
   border-radius: 5px 5px 0 0;
   width: 100%;
   margin: 0 auto;
-  min-height: 70vw;
-  max-height: 70vw;
+  min-height: 40vw;
+  max-height: 40vw;
   min-width: 40%;
   max-width: 100%;
   z-index: 1;
@@ -1007,8 +1007,8 @@ body {
   border-radius: 5px 5px 0 0;
   width: 100%;
   margin: 0 auto;
-  min-height: 70vw;
-  max-height: 70vw;
+  min-height: 40vw;
+  max-height: 40vw;
   min-width: 40%;
   max-width: 100%;
   z-index: 1;
@@ -1605,13 +1605,13 @@ margin-left: 5px;
 
 .noWorkoutsYetText {
   position: relative;
-  top: 130px;
+  top: 60px;
   text-align: center;
 }
 
 .noRunsYetText {
   position: relative;
-  top: 130px;
+  top: 60px;
   text-align: center;
 }
 
