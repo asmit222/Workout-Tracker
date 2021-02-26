@@ -303,7 +303,11 @@ class Previousworkouts extends Component {
               </div>
               <div>
                 <span className="milesAndTimeSpan">time: </span>
-                <span className="milesandtimedata">{workout.workout2}</span>
+                <span className="milesandtimedata">
+                  {Number(workout.workout2.split(":")[0]) * 1 !== 0
+                    ? workout.workout2
+                    : workout.workout2.split(":").slice(1).join(":")}
+                </span>
               </div>
               <div>
                 <span className="milesAndTimeSpan">avg mile: </span>

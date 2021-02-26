@@ -147,6 +147,10 @@ class newworkout extends Component {
       playOrPauseIcon: "fa-play",
     });
 
+    if (timeCounterInterval) {
+      clearInterval(timeCounterInterval);
+    }
+
     timeTime = "00:00:00";
     this.setState({
       timeValue: moment(timeTime, "HH:mm:ss"),
@@ -161,14 +165,12 @@ class newworkout extends Component {
         if (Number(timeSplit[2]) < 59) {
           timeSplit[2] = (Number(timeSplit[2]) + 1).toString();
         } else if (Number(timeSplit[1]) < 59) {
-          if (Number(timeSplit[1]) < 59) {
-            timeSplit[1] = (Number(timeSplit[1]) + 1).toString();
-            timeSplit[2] = "00";
-          } else {
-            timeSplit[0] = (Number(timeSplit[0]) + 1).toString();
-            timeSplit[1] = "00";
-            timeSplit[2] = "00";
-          }
+          timeSplit[1] = (Number(timeSplit[1]) + 1).toString();
+          timeSplit[2] = "00";
+        } else {
+          timeSplit[0] = (Number(timeSplit[0]) + 1).toString();
+          timeSplit[1] = "00";
+          timeSplit[2] = "00";
         }
 
         for (var i = 0; i < timeSplit.length; i++) {
@@ -870,7 +872,7 @@ class newworkout extends Component {
             <div className="modal-background"></div>
             <div className="modal-card modalCardRunLog forwardInAnimation">
               <header className="modal-card-head">
-                <p className="modal-card-title modalTitleLogRun">Log run</p>
+                <p className="modal-card-title modalTitleLogRun">Run</p>
               </header>
               <section className="modal-card-body">
                 <input
@@ -880,13 +882,6 @@ class newworkout extends Component {
                   type="text"
                   placeholder="miles"
                 ></input>
-                {/* <input
-                  onChange={this.handleChangeMinutes}
-                  id="runTimeInput"
-                  className="input"
-                  type="text"
-                  placeholder="min : sec"
-                ></input> */}
 
                 <TimePicker
                   onChange={this.handleChangeMinutes}
