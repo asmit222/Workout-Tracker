@@ -1258,7 +1258,7 @@ class Template extends Component {
             ) : (
               <button
                 onClick={this.handleSmallButtonClick}
-                className="button is-small is-warning smallHistoryButton"
+                className="button is-small is-dark smallHistoryButton"
               >
                 <span>History box</span>{" "}
                 <i

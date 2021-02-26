@@ -613,7 +613,7 @@ textarea {
 
 .historyModalContainer {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3), inset 0 -3px 3px rgba(0, 0, 0, 0.1);
-  border: solid hsl(48, 100%, 67%) 3px;
+  border: solid hsl(0, 0%, 21%) 3px;
   border-radius: 10px;
   position: relative;
   max-height: 260px;
@@ -1605,13 +1605,13 @@ margin-left: 5px;
 
 .noWorkoutsYetText {
   position: relative;
-  top: 60px;
+  top: 70px;
   text-align: center;
 }
 
 .noRunsYetText {
   position: relative;
-  top: 60px;
+  top: 70px;
   text-align: center;
 }
 

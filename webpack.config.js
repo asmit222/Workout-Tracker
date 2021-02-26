@@ -7,7 +7,6 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
 
 module.exports = {
   entry: "./client/index.js",
-  mode: "production",
   module: {
     rules: [
       {

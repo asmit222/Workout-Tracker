@@ -18,6 +18,7 @@
     "concurrently": "^5.3.0",
     "cors": "^2.8.5",
     "css-loader": "^4.2.2",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-static-gzip": "^2.1.1",
     "file-loader": "^6.1.0",
@@ -61,7 +62,7 @@
     "dev": "concurrently \"npm run webpack\" \"npm run dev:frontend\"",
     "start": "node server/index.js",
     "build": "webpack --mode=production",
-    "buildDev": "webpack --mode=development",
+    "buildDev": "npx webpack --mode=development",
     "webpack": "webpack --watch"
   },
   "author": "",
