@@ -1446,6 +1446,15 @@ class WorkoutTemplates extends Component {
               </div>
             </div>
 
+            {this.state.templates.length === 0 ? (
+              <div className="noTemplatesText forwardInAnimation">
+                No templates yet! Press the plus sign to create your first
+                template
+              </div>
+            ) : (
+              <div id="hide"></div>
+            )}
+
             {templates}
 
             {/* <div>

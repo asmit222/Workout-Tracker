@@ -734,6 +734,9 @@ body {
 .fadeInAnimation {
   animation: fadeIn ease 0.2s;
 }
+.fadeInAnimationNoWorkoutsYet {
+  animation: forwardIn21 forwards 2s;
+}
 
 @keyframes fadeIn {
   0% {
@@ -764,6 +767,19 @@ body {
 
 @keyframes forwardIn {
   0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes forwardIn21 {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  40% {
     transform: scale(0.6);
     opacity: 0;
   }
@@ -1630,4 +1646,14 @@ margin-left: 5px;
 
 .playButton, .refreshButton {
   margin-right: 5px;
+}
+
+.noTemplatesText {
+  text-align: center;
+  margin-top: 20vh;
+}
+
+.noWorkoutsYetText {
+  text-align: center;
+  margin-top: 20vh;
 }

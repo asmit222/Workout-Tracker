@@ -146,6 +146,14 @@ class Previousworkouts extends Component {
   render() {
     return (
       <div className="previousWorkoutsWrapper">
+        {this.state.data.length === 0 ? (
+          <div className="fadeInAnimationNoWorkoutsYet noWorkoutsYetText">
+            No workouts yet
+          </div>
+        ) : (
+          <div id="hide"></div>
+        )}
+
         {this.state.data.map((workout) =>
           workout.workoutPlan !== "354634563dfghdfgh439003235" ? (
             <div className="previousContainer previousWorkout forwardInAnimation">
