@@ -42,7 +42,7 @@ if (env === "production") {
     },
     plugins: [
       new webpack.DefinePlugin({
-        "process.env.NODE_ENV": env || "",
+        "process.env.NODE_ENV": JSON.stringify(env || ""),
       }),
       // new CompressionPlugin(),
       // new BundleAnalyzerPlugin(),
@@ -112,7 +112,7 @@ if (env === "production") {
     },
     plugins: [
       new webpack.DefinePlugin({
-        "process.env.NODE_ENV": env || "",
+        "process.env.NODE_ENV": JSON.stringify(env || ""),
       }),
       // new CompressionPlugin(),
       // new BundleAnalyzerPlugin(),
