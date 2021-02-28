@@ -371,12 +371,12 @@ const deleteWorkout = function (data, callback) {
   var workoutName = dataSplit[0].slice(2);
 
   // console.log("workoutName: ", workoutName);
+  var name = dataSplit[2];
 
   var id = dataSplit[1];
   if (workoutName === "Run") {
     var date = dataSplit[3];
     var miles = dataSplit[4].slice(0, dataSplit[4].length - 5);
-    var name = dataSplit[2];
 
     connection.connect((err) => {
       if (err) {
@@ -394,8 +394,6 @@ const deleteWorkout = function (data, callback) {
         });
       }
     });
-  } else {
-    name = dataSplit[2].slice(0, dataSplit[2].length - 5);
   }
 
   connection.connect((err) => {
