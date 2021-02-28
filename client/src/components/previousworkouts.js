@@ -65,10 +65,12 @@ class Previousworkouts extends Component {
         {
           label: "Delete",
           onClick: () => {
-            console.log("here", [
+            console.log("here2", [
               workout.split(",")[1],
               workout.split(",")[0],
               thisBind.props.location.state.getName(),
+              workout.split(",")[2],
+              workout.split(",")[3],
             ]);
             axios
               .post(
@@ -77,6 +79,8 @@ class Previousworkouts extends Component {
                   workout.split(",")[1],
                   workout.split(",")[0],
                   thisBind.props.location.state.getName(),
+                  workout.split(",")[2],
+                  workout.split(",")[3],
                 ]}`
               )
               .then(
@@ -298,6 +302,8 @@ class Previousworkouts extends Component {
                   workout.id,
                   workout.workoutPlan.slice(1, workout.workoutPlan.length - 1),
                   workout.workoutDate,
+                  workout.workout1,
+                  workout.workout2,
                 ]}
                 onClick={this.handleDeleteClick}
                 className="delete deleteButtonHistory2 is-small "

@@ -366,14 +366,37 @@ const changeColor = function (data, callback) {
 
 const deleteWorkout = function (data, callback) {
   var dataSplit = JSON.stringify(data).split(",");
-  console.log("data!: ", dataSplit);
+  console.log("data!=D: ", dataSplit);
 
   var workoutName = dataSplit[0].slice(2);
 
-  console.log("workoutName: ", workoutName);
+  // console.log("workoutName: ", workoutName);
 
   var id = dataSplit[1];
-  var name = dataSplit[2].slice(0, dataSplit[2].length - 5);
+  if (workoutName === "Run") {
+    var date = dataSplit[3];
+    var miles = dataSplit[4].slice(0, dataSplit[4].length - 5);
+    var name = dataSplit[2];
+
+    connection.connect((err) => {
+      if (err) {
+        console.log("error connecting to database: ", err);
+        return;
+      } else {
+        var sql = `delete from runData where date = '${date}' and name = '${name}' and miles = '${miles}';`;
+        console.log("sql: ", sql);
+        connection.query(sql, function (err, res) {
+          if (err) {
+            console.log("error ! ! !: ", err);
+          } else {
+            console.log(res);
+          }
+        });
+      }
+    });
+  } else {
+    name = dataSplit[2].slice(0, dataSplit[2].length - 5);
+  }
 
   connection.connect((err) => {
     if (err) {

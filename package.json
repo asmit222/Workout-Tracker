@@ -64,7 +64,7 @@
     "start": "node server/index.js",
     "build": "npx webpack",
     "webpack": "webpack --watch",
-    "env": ""
+    "env": "production"
   },
   "author": "",
   "license": "ISC"
