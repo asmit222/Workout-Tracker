@@ -5,8 +5,7 @@ const CompressionPlugin = require("compression-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 require("dotenv").config();
-
-var SRC = path.resolve(__dirname, "src");
+var webpack = require("webpack");
 
 var env = process.env.npm_package_scripts_env;
 
@@ -42,6 +41,9 @@ if (env === "production") {
       filename: "bundle.[contenthash].js",
     },
     plugins: [
+      new webpack.DefinePlugin({
+        "process.env.NODE_ENV": env || "",
+      }),
       // new CompressionPlugin(),
       // new BundleAnalyzerPlugin(),
       new HtmlWebpackPlugin({
@@ -109,6 +111,9 @@ if (env === "production") {
       filename: "bundle.js",
     },
     plugins: [
+      new webpack.DefinePlugin({
+        "process.env.NODE_ENV": env || "",
+      }),
       // new CompressionPlugin(),
       // new BundleAnalyzerPlugin(),
       // new HtmlWebpackPlugin({

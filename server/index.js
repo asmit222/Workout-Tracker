@@ -6,8 +6,13 @@ var PORT = process.env.PORT || 2020;
 var path = require("path");
 const db = require("../database");
 var expressStaticGzip = require("express-static-gzip");
+require("dotenv").config();
 
-app.use(expressStaticGzip(path.join(__dirname, "dist"), {}));
+var env = process.env.npm_package_scripts_env;
+
+if (env === "production") {
+  app.use(expressStaticGzip(path.join(__dirname, "dist"), {}));
+}
 
 app.use(
   cors({ origin: "*", preflightContinue: false, optionsSuccessStatus: 204 })

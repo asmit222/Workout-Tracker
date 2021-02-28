@@ -8,6 +8,8 @@ OfflinePluginRuntime.install();
 import registerServiceWorker from "./src/registerServiceWorker";
 import { Auth0Provider } from "@auth0/auth0-react";
 
+var env = process.env.NODE_ENV;
+
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 
@@ -22,45 +24,47 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("service-worker.js", { scope: "/" })
-      .then((registration) => {
-        console.log("SW registered: ", registration);
+if (env === "production") {
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker
+        .register("service-worker.js", { scope: "/" })
+        .then((registration) => {
+          console.log("SW registered: ", registration);
+        })
+        .catch((registrationError) => {
+          console.log("SW registration failed: ", registrationError);
+        });
+    });
+  }
+
+  var CACHE_NAME = "my-pwa-cache-v1";
+  var urlsToCache = [
+    "/",
+    "/client/index.css",
+    "/client/index.js",
+    "/public/index.html",
+    "/dist/bundle.js",
+    "/bundle.js",
+    "/dist/",
+    "/dist",
+    "/dist/index.html",
+  ];
+  self.addEventListener("install", function (event) {
+    event.waitUntil(
+      caches.open(CACHE_NAME).then(function (cache) {
+        // Open a cache and cache our files
+        return cache.addAll(urlsToCache);
       })
-      .catch((registrationError) => {
-        console.log("SW registration failed: ", registrationError);
-      });
+    );
+  });
+
+  self.addEventListener("fetch", function (event) {
+    console.log(event.request.url);
+    event.respondWith(
+      caches.match(event.request).then(function (response) {
+        return response || fetch(event.request);
+      })
+    );
   });
 }
-
-var CACHE_NAME = "my-pwa-cache-v1";
-var urlsToCache = [
-  "/",
-  "/client/index.css",
-  "/client/index.js",
-  "/public/index.html",
-  "/dist/bundle.js",
-  "/bundle.js",
-  "/dist/",
-  "/dist",
-  "/dist/index.html",
-];
-self.addEventListener("install", function (event) {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(function (cache) {
-      // Open a cache and cache our files
-      return cache.addAll(urlsToCache);
-    })
-  );
-});
-
-self.addEventListener("fetch", function (event) {
-  console.log(event.request.url);
-  event.respondWith(
-    caches.match(event.request).then(function (response) {
-      return response || fetch(event.request);
-    })
-  );
-});
