@@ -1601,11 +1601,11 @@ class Template extends Component {
               {this.state.plateCalc}
             </span>
 
-            {this.props.quickStartSelected !== "" && !this.state.submitted ? (
+            {/* {this.props.quickStartSelected !== "" && !this.state.submitted ? (
               <Prompt message="Discard workout?" />
             ) : (
               <div id="hide"> </div>
-            )}
+            )} */}
 
             <div
               id={this.state.historyPeek}
