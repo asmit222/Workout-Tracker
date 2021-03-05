@@ -147,7 +147,7 @@ class Template extends Component {
 
   handleResetTable() {
     confirmAlert({
-      title: "Reset table?",
+      title: "Reset workout?",
       buttons: [
         {
           label: "Reset",
@@ -1548,7 +1548,7 @@ class Template extends Component {
               onClick={this.handleResetTable}
               className="button is-danger is-small resetTableButton"
             >
-              Reset table
+              Reset workout
             </button>
             <div
               id={this.state.showWeightsContainer}
