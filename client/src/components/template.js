@@ -286,7 +286,11 @@ class Template extends Component {
 
   hydrateStateWithLocalStorage() {
     var allStorage = this.getAllStorage();
-    if (JSON.stringify(allStorage) !== "{}") {
+    console.log(allStorage.workout1);
+    if (
+      JSON.stringify(allStorage) !== "{}" &&
+      allStorage.workout1 !== undefined
+    ) {
       this.setState({
         workout1: allStorage.workout1,
         workout2: allStorage.workout2,
