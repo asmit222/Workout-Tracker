@@ -288,19 +288,21 @@ class Template extends Component {
   hydrateStateWithLocalStorage() {
     console.log("all storage: ", this.getAllStorage());
     var allStorage = this.getAllStorage();
-    this.state = allStorage;
-    console.log("state: ", this.state);
-    console.log("workout1: ", this.state.workout1);
-    this.setState({
-      workout1: this.state.workout1,
-      workout2: this.state.workout2,
-      workout3: this.state.workout3,
-      workout4: this.state.workout4,
-      workout5: this.state.workout5,
-      workout6: this.state.workout6,
-      workout7: this.state.workout7,
-      userNameHold: this.state.userNameHold,
-    });
+    if (JSON.stringify(allStorage) !== "{}") {
+      this.state = allStorage;
+      console.log("state: ", this.state);
+      console.log("workout1: ", this.state.workout1);
+      this.setState({
+        workout1: this.state.workout1,
+        workout2: this.state.workout2,
+        workout3: this.state.workout3,
+        workout4: this.state.workout4,
+        workout5: this.state.workout5,
+        workout6: this.state.workout6,
+        workout7: this.state.workout7,
+        userNameHold: this.state.userNameHold,
+      });
+    }
   }
 
   saveStateToLocalStorage() {
