@@ -51,6 +51,7 @@ class Template extends Component {
       notes: "",
       workoutDate: new Date(),
       submitted: false,
+      userNameHold: "",
     };
     this.handleChangePlateCalc = this.handleChangePlateCalc.bind(this);
 
@@ -140,6 +141,34 @@ class Template extends Component {
     this.sendWorkout = this.sendWorkout.bind(this);
 
     this.handleSmallButtonClick = this.handleSmallButtonClick.bind(this);
+
+    this.handleResetTable = this.handleResetTable.bind(this);
+  }
+
+  handleResetTable() {
+    confirmAlert({
+      title: "Reset table?",
+      buttons: [
+        {
+          label: "Reset",
+          onClick: () => {
+            this.setState({
+              workout1: ["", "", "", "", "", "", ""],
+              workout2: ["", "", "", "", "", "", ""],
+              workout3: ["", "", "", "", "", "", ""],
+              workout4: ["", "", "", "", "", "", ""],
+              workout5: ["", "", "", "", "", "", ""],
+              workout6: ["", "", "", "", "", "", ""],
+              workout7: ["", "", "", "", "", "", ""],
+            });
+          },
+        },
+        {
+          label: "Cancel",
+          onClick: () => console.log("user clicked no"),
+        },
+      ],
+    });
   }
 
   handleChangePlateCalc(e) {
@@ -243,8 +272,65 @@ class Template extends Component {
     });
   }
 
+  getAllStorage() {
+    var values = {},
+      keys = Object.keys(localStorage),
+      i = keys.length;
+
+    while (i--) {
+      values[keys[i]] = JSON.parse(localStorage.getItem(keys[i]));
+      // values.push(localStorage.getItem(keys[i]));
+    }
+
+    return values;
+  }
+
+  hydrateStateWithLocalStorage() {
+    console.log("all storage: ", this.getAllStorage());
+    var allStorage = this.getAllStorage();
+    this.state = allStorage;
+    console.log("state: ", this.state);
+    console.log("workout1: ", this.state.workout1);
+    this.setState({
+      workout1: this.state.workout1,
+      workout2: this.state.workout2,
+      workout3: this.state.workout3,
+      workout4: this.state.workout4,
+      workout5: this.state.workout5,
+      workout6: this.state.workout6,
+      workout7: this.state.workout7,
+      userNameHold: this.state.userNameHold,
+    });
+  }
+
+  saveStateToLocalStorage() {
+    localStorage.clear();
+    // for every item in React state
+    for (let key in this.state) {
+      // save to localStorage
+      localStorage.setItem(key, JSON.stringify(this.state[key]));
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener(
+      "beforeunload",
+      this.saveStateToLocalStorage.bind(this)
+    );
+
+    // saves if component has a chance to unmount
+    this.saveStateToLocalStorage();
+  }
+
   componentDidMount() {
     var thisBind = this;
+    console.log("workout1 here: ", this.state.workout1);
+    this.hydrateStateWithLocalStorage();
+
+    window.addEventListener(
+      "beforeunload",
+      this.saveStateToLocalStorage.bind(this)
+    );
 
     axios.post("/getWorkouts", `${[thisBind.props.name]}`).then(
       (response) => {
@@ -385,13 +471,18 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout1[0] = e.target.value;
+      var oldWorkout1 = this.state.workout1;
+      oldWorkout1[0] = e.target.value;
+      this.setState({
+        workout1: oldWorkout1,
+      });
+
       // this.sendWorkout();
     }
   }
@@ -400,14 +491,17 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout1[1] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout1 = this.state.workout1;
+      oldWorkout1[1] = e.target.value;
+      this.setState({
+        workout1: oldWorkout1,
+      });
     }
   }
 
@@ -415,14 +509,17 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout1[2] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout1 = this.state.workout1;
+      oldWorkout1[2] = e.target.value;
+      this.setState({
+        workout1: oldWorkout1,
+      });
     }
   }
 
@@ -430,14 +527,17 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout1[3] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout1 = this.state.workout1;
+      oldWorkout1[3] = e.target.value;
+      this.setState({
+        workout1: oldWorkout1,
+      });
     }
   }
 
@@ -445,14 +545,17 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout1[4] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout1 = this.state.workout1;
+      oldWorkout1[4] = e.target.value;
+      this.setState({
+        workout1: oldWorkout1,
+      });
     }
   }
 
@@ -460,14 +563,17 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout1[5] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout1 = this.state.workout1;
+      oldWorkout1[5] = e.target.value;
+      this.setState({
+        workout1: oldWorkout1,
+      });
     }
   }
 
@@ -475,14 +581,17 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout1[6] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout1 = this.state.workout1;
+      oldWorkout1[6] = e.target.value;
+      this.setState({
+        workout1: oldWorkout1,
+      });
     }
   }
 
@@ -490,14 +599,17 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout2[0] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout2 = this.state.workout2;
+      oldWorkout2[0] = e.target.value;
+      this.setState({
+        workout2: oldWorkout2,
+      });
     }
   }
 
@@ -505,14 +617,17 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout2[1] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout2 = this.state.workout2;
+      oldWorkout2[1] = e.target.value;
+      this.setState({
+        workout2: oldWorkout2,
+      });
     }
   }
 
@@ -520,14 +635,17 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout2[2] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout2 = this.state.workout2;
+      oldWorkout2[2] = e.target.value;
+      this.setState({
+        workout2: oldWorkout2,
+      });
     }
   }
 
@@ -535,56 +653,68 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout2[3] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout2 = this.state.workout2;
+      oldWorkout2[3] = e.target.value;
+      this.setState({
+        workout2: oldWorkout2,
+      });
     }
   }
   handleChangeHipThrust4(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout2[4] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout2 = this.state.workout2;
+      oldWorkout2[4] = e.target.value;
+      this.setState({
+        workout2: oldWorkout2,
+      });
     }
   }
   handleChangeHipThrust5(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout2[5] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout2 = this.state.workout2;
+      oldWorkout2[5] = e.target.value;
+      this.setState({
+        workout2: oldWorkout2,
+      });
     }
   }
   handleChangeHipThrust6(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout2[6] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout2 = this.state.workout2;
+      oldWorkout2[6] = e.target.value;
+      this.setState({
+        workout2: oldWorkout2,
+      });
     }
   }
 
@@ -592,14 +722,17 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout3[0] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout3 = this.state.workout3;
+      oldWorkout3[0] = e.target.value;
+      this.setState({
+        workout3: oldWorkout3,
+      });
     }
   }
 
@@ -607,14 +740,17 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout3[1] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout3 = this.state.workout3;
+      oldWorkout3[1] = e.target.value;
+      this.setState({
+        workout3: oldWorkout3,
+      });
     }
   }
 
@@ -622,112 +758,136 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout3[2] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout3 = this.state.workout3;
+      oldWorkout3[2] = e.target.value;
+      this.setState({
+        workout3: oldWorkout3,
+      });
     }
   }
   handleChangeBenchPress3(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout3[3] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout3 = this.state.workout3;
+      oldWorkout3[3] = e.target.value;
+      this.setState({
+        workout3: oldWorkout3,
+      });
     }
   }
   handleChangeBenchPress4(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout3[4] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout3 = this.state.workout3;
+      oldWorkout3[4] = e.target.value;
+      this.setState({
+        workout3: oldWorkout3,
+      });
     }
   }
   handleChangeBenchPress5(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout3[5] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout3 = this.state.workout3;
+      oldWorkout3[5] = e.target.value;
+      this.setState({
+        workout3: oldWorkout3,
+      });
     }
   }
   handleChangeBenchPress6(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout3[6] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout3 = this.state.workout3;
+      oldWorkout3[6] = e.target.value;
+      this.setState({
+        workout3: oldWorkout3,
+      });
     }
   }
   handleChangeChinUps0(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout4[0] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout4 = this.state.workout4;
+      oldWorkout4[0] = e.target.value;
+      this.setState({
+        workout4: oldWorkout4,
+      });
     }
   }
   handleChangeChinUps1(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout4[1] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout4 = this.state.workout4;
+      oldWorkout4[1] = e.target.value;
+      this.setState({
+        workout4: oldWorkout4,
+      });
     }
   }
   handleChangeChinUps2(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout4[2] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout4 = this.state.workout4;
+      oldWorkout4[2] = e.target.value;
+      this.setState({
+        workout4: oldWorkout4,
+      });
     }
   }
 
@@ -735,56 +895,68 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout4[3] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout4 = this.state.workout4;
+      oldWorkout4[3] = e.target.value;
+      this.setState({
+        workout4: oldWorkout4,
+      });
     }
   }
   handleChangeChinUps4(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout4[4] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout4 = this.state.workout4;
+      oldWorkout4[4] = e.target.value;
+      this.setState({
+        workout4: oldWorkout4,
+      });
     }
   }
   handleChangeChinUps5(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout4[5] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout4 = this.state.workout4;
+      oldWorkout4[5] = e.target.value;
+      this.setState({
+        workout4: oldWorkout4,
+      });
     }
   }
   handleChangeChinUps6(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout4[6] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout4 = this.state.workout4;
+      oldWorkout4[6] = e.target.value;
+      this.setState({
+        workout4: oldWorkout4,
+      });
     }
   }
 
@@ -792,14 +964,17 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout5[0] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout5 = this.state.workout5;
+      oldWorkout5[0] = e.target.value;
+      this.setState({
+        workout5: oldWorkout5,
+      });
     }
   }
 
@@ -807,14 +982,17 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout5[1] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout5 = this.state.workout5;
+      oldWorkout5[1] = e.target.value;
+      this.setState({
+        workout5: oldWorkout5,
+      });
     }
   }
 
@@ -822,14 +1000,17 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout5[2] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout5 = this.state.workout5;
+      oldWorkout5[2] = e.target.value;
+      this.setState({
+        workout5: oldWorkout5,
+      });
     }
   }
 
@@ -837,56 +1018,68 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout5[3] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout5 = this.state.workout5;
+      oldWorkout5[3] = e.target.value;
+      this.setState({
+        workout5: oldWorkout5,
+      });
     }
   }
   handleChangeDBFarmerCarry4(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout5[4] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout5 = this.state.workout5;
+      oldWorkout5[4] = e.target.value;
+      this.setState({
+        workout5: oldWorkout5,
+      });
     }
   }
   handleChangeDBFarmerCarry5(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout5[5] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout5 = this.state.workout5;
+      oldWorkout5[5] = e.target.value;
+      this.setState({
+        workout5: oldWorkout5,
+      });
     }
   }
   handleChangeDBFarmerCarry6(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout5[6] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout5 = this.state.workout5;
+      oldWorkout5[6] = e.target.value;
+      this.setState({
+        workout5: oldWorkout5,
+      });
     }
   }
 
@@ -894,14 +1087,17 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout6[0] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout6 = this.state.workout6;
+      oldWorkout6[0] = e.target.value;
+      this.setState({
+        workout6: oldWorkout6,
+      });
     }
   }
 
@@ -909,14 +1105,17 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout6[1] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout6 = this.state.workout6;
+      oldWorkout6[1] = e.target.value;
+      this.setState({
+        workout6: oldWorkout6,
+      });
     }
   }
 
@@ -924,70 +1123,85 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout6[2] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout6 = this.state.workout6;
+      oldWorkout6[2] = e.target.value;
+      this.setState({
+        workout6: oldWorkout6,
+      });
     }
   }
   handleChangeFacePulls3(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout6[3] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout6 = this.state.workout6;
+      oldWorkout6[3] = e.target.value;
+      this.setState({
+        workout6: oldWorkout6,
+      });
     }
   }
   handleChangeFacePulls4(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout6[4] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout6 = this.state.workout6;
+      oldWorkout6[4] = e.target.value;
+      this.setState({
+        workout6: oldWorkout6,
+      });
     }
   }
   handleChangeFacePulls5(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout6[5] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout6 = this.state.workout6;
+      oldWorkout6[5] = e.target.value;
+      this.setState({
+        workout6: oldWorkout6,
+      });
     }
   }
   handleChangeFacePulls6(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout6[6] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout6 = this.state.workout6;
+      oldWorkout6[6] = e.target.value;
+      this.setState({
+        workout6: oldWorkout6,
+      });
     }
   }
 
@@ -995,56 +1209,68 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout7[3] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout7 = this.state.workout7;
+      oldWorkout7[3] = e.target.value;
+      this.setState({
+        workout7: oldWorkout7,
+      });
     }
   }
   handleChangeExtraWorkout4(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout7[4] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout7 = this.state.workout7;
+      oldWorkout7[4] = e.target.value;
+      this.setState({
+        workout7: oldWorkout7,
+      });
     }
   }
   handleChangeExtraWorkout5(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout7[5] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout7 = this.state.workout7;
+      oldWorkout7[5] = e.target.value;
+      this.setState({
+        workout7: oldWorkout7,
+      });
     }
   }
   handleChangeExtraWorkout6(e) {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout7[6] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout7 = this.state.workout7;
+      oldWorkout7[6] = e.target.value;
+      this.setState({
+        workout7: oldWorkout7,
+      });
     }
   }
 
@@ -1052,14 +1278,17 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout7[0] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout7 = this.state.workout7;
+      oldWorkout7[0] = e.target.value;
+      this.setState({
+        workout7: oldWorkout7,
+      });
     }
   }
 
@@ -1067,14 +1296,17 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout7[1] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout7 = this.state.workout7;
+      oldWorkout7[1] = e.target.value;
+      this.setState({
+        workout7: oldWorkout7,
+      });
     }
   }
 
@@ -1082,14 +1314,17 @@ class Template extends Component {
     if (
       this.state.allowedCharacters
         .split("")
-        .indexOf(e.target.value[e.target.value.length - 1]) === -1
+        .indexOf(e.target.value[e.target.value.length - 1]) === -1 &&
+      e.target.value !== ""
     ) {
       // alert('that character is not allowed at this time :(');
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     } else {
-      e.preventDefault();
-      this.state.workout7[2] = e.target.value;
-      // this.sendWorkout();
+      var oldWorkout7 = this.state.workout7;
+      oldWorkout7[2] = e.target.value;
+      this.setState({
+        workout7: oldWorkout7,
+      });
     }
   }
 
@@ -1111,6 +1346,28 @@ class Template extends Component {
         {
           label: "Submit",
           onClick: () => {
+            var changeNulls = (arr) => {
+              for (var i = 0; i < arr.length; i++) {
+                if (arr[i] === null) {
+                  arr[i] = "";
+                }
+              }
+            };
+
+            var workoutsArray = [
+              this.state.workout1,
+              this.state.workout2,
+              this.state.workout3,
+              this.state.workout4,
+              this.state.workout5,
+              this.state.workout6,
+              this.state.workout7,
+            ];
+
+            for (var i = 0; i < workoutsArray.length; i++) {
+              changeNulls(workoutsArray[i]);
+            }
+
             this.props.hideThenShowRunButton();
             this.props.hideDropDown();
 
@@ -1277,6 +1534,12 @@ class Template extends Component {
                 placeholder="Plate Calculator"
               ></input>
             </span>
+            <button
+              onClick={this.handleResetTable}
+              className="button is-danger is-small resetTableButton"
+            >
+              Reset table
+            </button>
             <div
               id={this.state.showWeightsContainer}
               className="weightsContainer forwardInAnimation"
@@ -1517,6 +1780,7 @@ class Template extends Component {
                               this.props.currentTemplate.workout1.split(",")[0]
                             }
                             id="tdinput"
+                            value={this.state.workout1[0]}
                             onChange={this.handleChangeSquat0}
                             type="text"
                             className="input"
@@ -1529,6 +1793,7 @@ class Template extends Component {
                               this.props.currentTemplate.workout1.split(",")[1]
                             }
                             id="tdinput"
+                            value={this.state.workout1[1]}
                             onChange={this.handleChangeSquat1}
                             type="text"
                             className="input"
@@ -1540,6 +1805,7 @@ class Template extends Component {
                             placeholder={
                               this.props.currentTemplate.workout1.split(",")[2]
                             }
+                            value={this.state.workout1[2]}
                             id="tdinput"
                             onChange={this.handleChangeSquat2}
                             type="text"
@@ -1550,6 +1816,7 @@ class Template extends Component {
                           {" "}
                           <input
                             id="tdinput"
+                            value={this.state.workout1[3]}
                             onChange={this.handleChangeSquat3}
                             type="text"
                             className="input"
@@ -1558,6 +1825,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout1[4]}
                             onChange={this.handleChangeSquat4}
                             type="text"
                             className="input"
@@ -1566,6 +1834,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout1[5]}
                             onChange={this.handleChangeSquat5}
                             type="text"
                             className="input"
@@ -1574,6 +1843,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout1[6]}
                             onChange={this.handleChangeSquat6}
                             type="text"
                             className="input"
@@ -1588,6 +1858,7 @@ class Template extends Component {
                               this.props.currentTemplate.workout2.split(",")[0]
                             }
                             id="tdinput"
+                            value={this.state.workout2[0]}
                             onChange={this.handleChangeHipThrust0}
                             type="text"
                             className="input"
@@ -1600,6 +1871,7 @@ class Template extends Component {
                               this.props.currentTemplate.workout2.split(",")[1]
                             }
                             id="tdinput"
+                            value={this.state.workout2[1]}
                             onChange={this.handleChangeHipThrust1}
                             type="text"
                             className="input"
@@ -1612,6 +1884,7 @@ class Template extends Component {
                               this.props.currentTemplate.workout2.split(",")[2]
                             }
                             id="tdinput"
+                            value={this.state.workout2[2]}
                             onChange={this.handleChangeHipThrust2}
                             type="text"
                             className="input"
@@ -1621,6 +1894,7 @@ class Template extends Component {
                           {" "}
                           <input
                             id="tdinput"
+                            value={this.state.workout2[3]}
                             onChange={this.handleChangeHipThrust3}
                             type="text"
                             className="input"
@@ -1629,6 +1903,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout2[4]}
                             onChange={this.handleChangeHipThrust4}
                             type="text"
                             className="input"
@@ -1637,6 +1912,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout2[5]}
                             onChange={this.handleChangeHipThrust5}
                             type="text"
                             className="input"
@@ -1645,6 +1921,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout2[6]}
                             onChange={this.handleChangeHipThrust6}
                             type="text"
                             className="input"
@@ -1658,6 +1935,7 @@ class Template extends Component {
                               this.props.currentTemplate.workout3.split(",")[0]
                             }
                             id="tdinput"
+                            value={this.state.workout3[0]}
                             onChange={this.handleChangeBenchPress0}
                             type="text"
                             className="input"
@@ -1669,6 +1947,7 @@ class Template extends Component {
                               this.props.currentTemplate.workout3.split(",")[1]
                             }
                             id="tdinput"
+                            value={this.state.workout3[1]}
                             onChange={this.handleChangeBenchPress1}
                             type="text"
                             className="input"
@@ -1680,6 +1959,7 @@ class Template extends Component {
                               this.props.currentTemplate.workout3.split(",")[2]
                             }
                             id="tdinput"
+                            value={this.state.workout3[2]}
                             onChange={this.handleChangeBenchPress2}
                             type="text"
                             className="input"
@@ -1689,6 +1969,7 @@ class Template extends Component {
                           {" "}
                           <input
                             id="tdinput"
+                            value={this.state.workout3[3]}
                             onChange={this.handleChangeBenchPress3}
                             type="text"
                             className="input"
@@ -1697,6 +1978,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout3[4]}
                             onChange={this.handleChangeBenchPress4}
                             type="text"
                             className="input"
@@ -1705,6 +1987,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout3[5]}
                             onChange={this.handleChangeBenchPress5}
                             type="text"
                             className="input"
@@ -1713,6 +1996,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout3[6]}
                             onChange={this.handleChangeBenchPress6}
                             type="text"
                             className="input"
@@ -1727,6 +2011,7 @@ class Template extends Component {
                               this.props.currentTemplate.workout4.split(",")[0]
                             }
                             id="tdinput"
+                            value={this.state.workout4[0]}
                             onChange={this.handleChangeChinUps0}
                             type="text"
                             className="input"
@@ -1739,6 +2024,7 @@ class Template extends Component {
                               this.props.currentTemplate.workout4.split(",")[1]
                             }
                             id="tdinput"
+                            value={this.state.workout4[1]}
                             onChange={this.handleChangeChinUps1}
                             type="text"
                             className="input"
@@ -1751,6 +2037,7 @@ class Template extends Component {
                               this.props.currentTemplate.workout4.split(",")[2]
                             }
                             id="tdinput"
+                            value={this.state.workout4[2]}
                             onChange={this.handleChangeChinUps2}
                             type="text"
                             className="input"
@@ -1760,6 +2047,7 @@ class Template extends Component {
                           {" "}
                           <input
                             id="tdinput"
+                            value={this.state.workout4[3]}
                             onChange={this.handleChangeChinUps3}
                             type="text"
                             className="input"
@@ -1768,6 +2056,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout4[4]}
                             onChange={this.handleChangeChinUps4}
                             type="text"
                             className="input"
@@ -1776,6 +2065,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout4[5]}
                             onChange={this.handleChangeChinUps5}
                             type="text"
                             className="input"
@@ -1784,6 +2074,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout4[6]}
                             onChange={this.handleChangeChinUps6}
                             type="text"
                             className="input"
@@ -1798,6 +2089,7 @@ class Template extends Component {
                               this.props.currentTemplate.workout5.split(",")[0]
                             }
                             id="tdinput"
+                            value={this.state.workout5[0]}
                             onChange={this.handleChangeDBFarmerCarry0}
                             type="text"
                             className="input"
@@ -1810,6 +2102,7 @@ class Template extends Component {
                               this.props.currentTemplate.workout5.split(",")[1]
                             }
                             id="tdinput"
+                            value={this.state.workout5[1]}
                             onChange={this.handleChangeDBFarmerCarry1}
                             type="text"
                             className="input"
@@ -1822,6 +2115,7 @@ class Template extends Component {
                               this.props.currentTemplate.workout5.split(",")[2]
                             }
                             id="tdinput"
+                            value={this.state.workout5[2]}
                             onChange={this.handleChangeDBFarmerCarry2}
                             type="text"
                             className="input"
@@ -1831,6 +2125,7 @@ class Template extends Component {
                           {" "}
                           <input
                             id="tdinput"
+                            value={this.state.workout5[3]}
                             onChange={this.handleChangeDBFarmerCarry3}
                             type="text"
                             className="input"
@@ -1839,6 +2134,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout5[4]}
                             onChange={this.handleChangeDBFarmerCarry4}
                             type="text"
                             className="input"
@@ -1847,6 +2143,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout5[5]}
                             onChange={this.handleChangeDBFarmerCarry5}
                             type="text"
                             className="input"
@@ -1855,6 +2152,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout5[6]}
                             onChange={this.handleChangeDBFarmerCarry6}
                             type="text"
                             className="input"
@@ -1869,6 +2167,7 @@ class Template extends Component {
                               this.props.currentTemplate.workout6.split(",")[0]
                             }
                             id="tdinput"
+                            value={this.state.workout6[0]}
                             onChange={this.handleChangeFacePulls0}
                             type="text"
                             className="input"
@@ -1881,6 +2180,7 @@ class Template extends Component {
                               this.props.currentTemplate.workout6.split(",")[1]
                             }
                             id="tdinput"
+                            value={this.state.workout6[1]}
                             onChange={this.handleChangeFacePulls1}
                             type="text"
                             className="input"
@@ -1893,6 +2193,7 @@ class Template extends Component {
                               this.props.currentTemplate.workout6.split(",")[2]
                             }
                             id="tdinput"
+                            value={this.state.workout6[2]}
                             onChange={this.handleChangeFacePulls2}
                             type="text"
                             className="input"
@@ -1902,6 +2203,7 @@ class Template extends Component {
                           {" "}
                           <input
                             id="tdinput"
+                            value={this.state.workout6[3]}
                             onChange={this.handleChangeFacePulls3}
                             type="text"
                             className="input"
@@ -1910,6 +2212,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout6[4]}
                             onChange={this.handleChangeFacePulls4}
                             type="text"
                             className="input"
@@ -1918,6 +2221,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout6[5]}
                             onChange={this.handleChangeFacePulls5}
                             type="text"
                             className="input"
@@ -1926,6 +2230,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout6[6]}
                             onChange={this.handleChangeFacePulls6}
                             type="text"
                             className="input"
@@ -1939,6 +2244,7 @@ class Template extends Component {
                               this.props.currentTemplate.workout7.split(",")[0]
                             }
                             id="tdinput"
+                            value={this.state.workout7[0]}
                             onChange={this.handleChangeExtraWorkout0}
                             type="text"
                             className="input"
@@ -1950,6 +2256,7 @@ class Template extends Component {
                               this.props.currentTemplate.workout7.split(",")[1]
                             }
                             id="tdinput"
+                            value={this.state.workout7[1]}
                             onChange={this.handleChangeExtraWorkout1}
                             type="text"
                             className="input"
@@ -1961,6 +2268,7 @@ class Template extends Component {
                               this.props.currentTemplate.workout7.split(",")[2]
                             }
                             id="tdinput"
+                            value={this.state.workout7[2]}
                             onChange={this.handleChangeExtraWorkout2}
                             type="text"
                             className="input"
@@ -1970,6 +2278,7 @@ class Template extends Component {
                           {" "}
                           <input
                             id="tdinput"
+                            value={this.state.workout7[3]}
                             onChange={this.handleChangeExtraWorkout3}
                             type="text"
                             className="input"
@@ -1978,6 +2287,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout7[4]}
                             onChange={this.handleChangeExtraWorkout4}
                             type="text"
                             className="input"
@@ -1986,6 +2296,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout7[5]}
                             onChange={this.handleChangeExtraWorkout5}
                             type="text"
                             className="input"
@@ -1994,6 +2305,7 @@ class Template extends Component {
                         <td>
                           <input
                             id="tdinput"
+                            value={this.state.workout7[6]}
                             onChange={this.handleChangeExtraWorkout6}
                             type="text"
                             className="input"

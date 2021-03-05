@@ -116,6 +116,7 @@ class newworkout extends Component {
       startedRunning: false,
       playOrPauseIcon: "fa-play",
       timeValue: moment(timeTime, "HH:mm:ss"),
+      personUsername: "",
     };
     this.handleDaySelection = this.handleDaySelection.bind(this);
     this.hideDropDown = this.hideDropDown.bind(this);
@@ -715,10 +716,85 @@ class newworkout extends Component {
     });
   }
 
+  // getAllStorage() {
+  //   var values = {},
+  //     keys = Object.keys(localStorage),
+  //     i = keys.length;
+
+  //   while (i--) {
+  //     values[keys[i]] = JSON.parse(localStorage.getItem(keys[i]));
+  //     // values.push(localStorage.getItem(keys[i]));
+  //   }
+
+  //   return values;
+  // }
+
+  // hydrateStateWithLocalStorage() {
+  //   var thisBind = this;
+  //   console.log("all storage: ", this.getAllStorage());
+  //   var allStorage = this.getAllStorage();
+
+  //   this.state = allStorage;
+
+  //   console.log("state: ", this.state);
+
+  //   this.setState(
+  //     {
+  //       workoutName: this.state.workoutName,
+  //       day1Selected: this.state.day1Selected,
+  //       emptyTemplateSelected: this.state.emptyTemplateSelected,
+  //       templateSelected: this.state.templateSelected,
+  //       quickStartSelected: this.state.quickStartSelected,
+  //       pookClassName: this.state.pookClassName,
+  //       showStats: this.state.showStats,
+  //       currentTemplate: this.state.currentTemplate,
+  //       personUsername: this.state.personUsername,
+  //     },
+  //     () => {
+  //       console.log(
+  //         "currentTemplate: ",
+  //         this.state.currentTemplate,
+  //         "person: ",
+  //         this.state.personUsername
+  //         // thisBind.props.location.state.getName()
+  //       );
+  //     }
+  //   );
+  // }
+
+  // saveStateToLocalStorage() {
+  //   localStorage.clear();
+  //   // for every item in React state
+  //   for (let key in this.state) {
+  //     // save to localStorage
+  //     localStorage.setItem(key, JSON.stringify(this.state[key]));
+  //   }
+  // }
+
+  // componentWillUnmount() {
+  //   window.removeEventListener(
+  //     "beforeunload",
+  //     this.saveStateToLocalStorage.bind(this)
+  //   );
+
+  //   // saves if component has a chance to unmount
+  //   this.saveStateToLocalStorage();
+  // }
+
   componentDidMount() {
+    // this.hydrateStateWithLocalStorage();
+
+    // window.addEventListener(
+    //   "beforeunload",
+    //   this.saveStateToLocalStorage.bind(this)
+    // );
+
     var thisBind = this;
 
     if (this.props.location.state !== undefined) {
+      this.setState({
+        personUsername: thisBind.props.location.state.getName(),
+      });
       axios
         .post("/getRunData", `${[thisBind.props.location.state.getName()]}`)
         .then(
@@ -729,7 +805,7 @@ class newworkout extends Component {
               },
               this.setRunGraphData
             );
-            console.log(response.data);
+            console.log("run data: ", response.data);
           },
           (error) => {
             alert(error);
@@ -771,7 +847,7 @@ class newworkout extends Component {
         );
     } else {
       console.log("testing");
-      this.props.history.push("/Home");
+      // this.props.history.push("/Home");
     }
     setTimeout(() => console.log(this.state.templates), 2000);
   }
@@ -879,6 +955,8 @@ class newworkout extends Component {
               </header>
               <section className="modal-card-body">
                 <input
+                  // value={this.state.storageState ? this.state.storageState.milesRan : this.state.milesRan}
+                  value={this.state.milesRan}
                   onChange={this.handleChangeMiles}
                   id="milesInput"
                   className="input"
