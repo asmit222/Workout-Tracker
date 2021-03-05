@@ -722,11 +722,11 @@ class EmptyTemplate extends Component {
       return (
         <React.Fragment>
           <div className="forwardInAnimation">
-            {this.props.quickStartSelected !== "" ? (
+            {/* {this.props.quickStartSelected !== "" ? (
               <Prompt message="Discard workout?" />
             ) : (
               <div id="hide"> </div>
-            )}
+            )} */}
 
             <div className="block nameYourWorkout">
               <form>

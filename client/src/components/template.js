@@ -279,27 +279,22 @@ class Template extends Component {
 
     while (i--) {
       values[keys[i]] = JSON.parse(localStorage.getItem(keys[i]));
-      // values.push(localStorage.getItem(keys[i]));
     }
 
     return values;
   }
 
   hydrateStateWithLocalStorage() {
-    console.log("all storage: ", this.getAllStorage());
     var allStorage = this.getAllStorage();
     if (JSON.stringify(allStorage) !== "{}") {
-      this.state = allStorage;
-      console.log("state: ", this.state);
-      console.log("workout1: ", this.state.workout1);
       this.setState({
-        workout1: this.state.workout1,
-        workout2: this.state.workout2,
-        workout3: this.state.workout3,
-        workout4: this.state.workout4,
-        workout5: this.state.workout5,
-        workout6: this.state.workout6,
-        workout7: this.state.workout7,
+        workout1: allStorage.workout1,
+        workout2: allStorage.workout2,
+        workout3: allStorage.workout3,
+        workout4: allStorage.workout4,
+        workout5: allStorage.workout5,
+        workout6: allStorage.workout6,
+        workout7: allStorage.workout7,
         userNameHold: this.state.userNameHold,
       });
     }
@@ -307,9 +302,8 @@ class Template extends Component {
 
   saveStateToLocalStorage() {
     localStorage.clear();
-    // for every item in React state
+
     for (let key in this.state) {
-      // save to localStorage
       localStorage.setItem(key, JSON.stringify(this.state[key]));
     }
   }
@@ -321,12 +315,26 @@ class Template extends Component {
     );
 
     // saves if component has a chance to unmount
-    this.saveStateToLocalStorage();
+    var arr = [
+      this.state.workout1,
+      this.state.workout2,
+      this.state.workout3,
+      this.state.workout4,
+      this.state.workout5,
+      this.state.workout6,
+      this.state.workout7,
+    ];
+
+    if (
+      JSON.stringify(arr) !==
+      '[["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]]'
+    ) {
+      this.saveStateToLocalStorage();
+    }
   }
 
   componentDidMount() {
     var thisBind = this;
-    console.log("workout1 here: ", this.state.workout1);
     this.hydrateStateWithLocalStorage();
 
     window.addEventListener(

@@ -716,79 +716,7 @@ class newworkout extends Component {
     });
   }
 
-  // getAllStorage() {
-  //   var values = {},
-  //     keys = Object.keys(localStorage),
-  //     i = keys.length;
-
-  //   while (i--) {
-  //     values[keys[i]] = JSON.parse(localStorage.getItem(keys[i]));
-  //     // values.push(localStorage.getItem(keys[i]));
-  //   }
-
-  //   return values;
-  // }
-
-  // hydrateStateWithLocalStorage() {
-  //   var thisBind = this;
-  //   console.log("all storage: ", this.getAllStorage());
-  //   var allStorage = this.getAllStorage();
-
-  //   this.state = allStorage;
-
-  //   console.log("state: ", this.state);
-
-  //   this.setState(
-  //     {
-  //       workoutName: this.state.workoutName,
-  //       day1Selected: this.state.day1Selected,
-  //       emptyTemplateSelected: this.state.emptyTemplateSelected,
-  //       templateSelected: this.state.templateSelected,
-  //       quickStartSelected: this.state.quickStartSelected,
-  //       pookClassName: this.state.pookClassName,
-  //       showStats: this.state.showStats,
-  //       currentTemplate: this.state.currentTemplate,
-  //       personUsername: this.state.personUsername,
-  //     },
-  //     () => {
-  //       console.log(
-  //         "currentTemplate: ",
-  //         this.state.currentTemplate,
-  //         "person: ",
-  //         this.state.personUsername
-  //         // thisBind.props.location.state.getName()
-  //       );
-  //     }
-  //   );
-  // }
-
-  // saveStateToLocalStorage() {
-  //   localStorage.clear();
-  //   // for every item in React state
-  //   for (let key in this.state) {
-  //     // save to localStorage
-  //     localStorage.setItem(key, JSON.stringify(this.state[key]));
-  //   }
-  // }
-
-  // componentWillUnmount() {
-  //   window.removeEventListener(
-  //     "beforeunload",
-  //     this.saveStateToLocalStorage.bind(this)
-  //   );
-
-  //   // saves if component has a chance to unmount
-  //   this.saveStateToLocalStorage();
-  // }
-
   componentDidMount() {
-    // this.hydrateStateWithLocalStorage();
-
-    // window.addEventListener(
-    //   "beforeunload",
-    //   this.saveStateToLocalStorage.bind(this)
-    // );
-
     var thisBind = this;
 
     if (this.props.location.state !== undefined) {
@@ -847,7 +775,7 @@ class newworkout extends Component {
         );
     } else {
       console.log("testing");
-      // this.props.history.push("/Home");
+      this.props.history.push("/Home");
     }
     setTimeout(() => console.log(this.state.templates), 2000);
   }
