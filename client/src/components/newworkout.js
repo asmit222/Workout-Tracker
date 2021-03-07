@@ -322,7 +322,7 @@ class newworkout extends Component {
                 this.setState({
                   runSubmittedModal: "",
                 });
-              }, 1000);
+              }, 1500);
 
               thisBind.setState(
                 {
