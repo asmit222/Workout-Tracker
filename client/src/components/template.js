@@ -333,7 +333,9 @@ class Template extends Component {
       JSON.stringify(arr) !==
       '[["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]]'
     ) {
-      this.saveStateToLocalStorage();
+      if (!this.state.submitted) {
+        this.saveStateToLocalStorage();
+      }
     }
   }
 
@@ -1360,6 +1362,8 @@ class Template extends Component {
         {
           label: "Submit",
           onClick: () => {
+            localStorage.clear();
+
             var changeNulls = (arr) => {
               for (var i = 0; i < arr.length; i++) {
                 if (arr[i] === null) {

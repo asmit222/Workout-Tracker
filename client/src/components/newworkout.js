@@ -1106,7 +1106,7 @@ class newworkout extends Component {
             id={this.state.showStats}
             className="forwardInAnimation barcontainer2"
           >
-            <div className="barcontainerheader">
+            <div className="barcontainerheader2">
               {`Miles Ran ${this.state.currentYear}`}
             </div>
 
@@ -1226,6 +1226,17 @@ class newworkout extends Component {
               <div className="barlabel">Dec</div>
             </div>
           </div>
+
+          {/* <div
+            id={this.state.showStats}
+            className="forwardInAnimation barcontainer3"
+          >
+            <div className="barcontainerheader3">{`Your Stats`}</div>
+
+            <div className="statsTextContainer">
+              <div>{`total workouts: `}</div>
+            </div>
+          </div> */}
 
           {/* ====================================================================================================== */}
 
