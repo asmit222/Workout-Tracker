@@ -120,8 +120,6 @@ class App extends Component {
         email: userInfo.email,
       },
       () => {
-        console.log("userInfo: ", userInfo, "name: ", this.state.name);
-
         axios.post("/createAccount", `${[thisBind.state.name, ""]}`).then(
           (res) => {
             console.log("account created");
@@ -193,7 +191,6 @@ class App extends Component {
               `${[thisBind.state.loginName, thisBind.state.loginPass]}`
             )
             .then((res) => {
-              console.log(res);
               if (res.data.length > 0 && this.state.loginName !== "") {
                 thisBind.setState({
                   loginInputName: "loginInput2",
@@ -232,7 +229,6 @@ class App extends Component {
               `${[thisBind.state.loginName, thisBind.state.loginPass]}`
             )
             .then((res) => {
-              console.log(res);
               if (res.data.length > 0 && this.state.loginName !== "") {
                 thisBind.setState({
                   loginInputName: "loginInput2",
@@ -254,37 +250,6 @@ class App extends Component {
       });
     }
   }
-
-  // handleSubmitLogin(e) {
-  //   var thisBind = this;
-  //   e.preventDefault();
-
-  //   axios
-  //     .post(
-  //       "/attemptLogin",
-  //       `${[thisBind.state.loginName, thisBind.state.loginPass]}`
-  //     )
-  //     .then(
-  //       (res) => {
-  //         console.log(res);
-  //         if (res.data.length > 0 && this.state.loginName !== "") {
-  //           thisBind.setState({
-  //             animationName: "loginAnimation",
-  //           });
-  //           setTimeout(() => {
-  //             thisBind.setState({
-  //               name: thisBind.state.loginName,
-  //             });
-  //           }, 200);
-  //         } else {
-  //           alert("invalid username or password");
-  //         }
-  //       },
-  //       (error) => {
-  //         alert(error);
-  //       }
-  //     );
-  // }
 
   handleSubmitCreateAccount(e) {
     var thisBind = this;

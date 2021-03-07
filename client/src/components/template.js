@@ -286,7 +286,6 @@ class Template extends Component {
 
   hydrateStateWithLocalStorage() {
     var allStorage = this.getAllStorage();
-    console.log(allStorage.workout1);
     if (
       JSON.stringify(allStorage) !== "{}" &&
       allStorage.workout1 !== undefined
@@ -362,7 +361,6 @@ class Template extends Component {
   }
 
   handleSmallButtonClick(e) {
-    console.log("quickstart: ", this.props.quickStartSelected);
     e.preventDefault();
     var thisBind = this;
 
@@ -1352,7 +1350,6 @@ class Template extends Component {
   };
 
   handleSubmitWorkout(e) {
-    console.log(this.props.currentTemplate);
     var thisBind = this;
     e.preventDefault();
 
@@ -1421,8 +1418,6 @@ class Template extends Component {
               this.props.day,
               this.props.workoutName,
             ];
-
-            console.log("notes: ", arr[2]);
 
             for (var i = 0; i < arr.length - 3; i++) {
               for (var j = 0; j < arr[i].length; j++) {

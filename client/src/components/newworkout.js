@@ -117,6 +117,7 @@ class newworkout extends Component {
       playOrPauseIcon: "fa-play",
       timeValue: moment(timeTime, "HH:mm:ss"),
       personUsername: "",
+      runSubmittedModal: "",
     };
     this.handleDaySelection = this.handleDaySelection.bind(this);
     this.hideDropDown = this.hideDropDown.bind(this);
@@ -314,6 +315,15 @@ class newworkout extends Component {
           {
             label: "Submit",
             onClick: () => {
+              thisBind.setState({
+                runSubmittedModal: "is-active",
+              });
+              setTimeout(() => {
+                this.setState({
+                  runSubmittedModal: "",
+                });
+              }, 1000);
+
               thisBind.setState(
                 {
                   runsPerMonth: {
@@ -347,7 +357,6 @@ class newworkout extends Component {
                   runData: [],
                 },
                 () => {
-                  console.log("here: ", thisBind.state.minutesRan);
                   axios
                     .post(
                       "/test",
@@ -403,7 +412,6 @@ class newworkout extends Component {
                               },
                               thisBind.setRunGraphData
                             );
-                            console.log("data1", response.data);
                             thisBind.exitRunLogModal();
                           },
                           (error) => {
@@ -733,7 +741,6 @@ class newworkout extends Component {
               },
               this.setRunGraphData
             );
-            console.log("run data: ", response.data);
           },
           (error) => {
             alert(error);
@@ -751,7 +758,6 @@ class newworkout extends Component {
               },
               this.setGraphData
             );
-            console.log(response.data);
           },
           (error) => {
             alert(error);
@@ -777,7 +783,6 @@ class newworkout extends Component {
       console.log("testing");
       this.props.history.push("/Home");
     }
-    setTimeout(() => console.log(this.state.templates), 2000);
   }
 
   hideDropDown(e) {
@@ -793,7 +798,6 @@ class newworkout extends Component {
   }
 
   handleDaySelection(e) {
-    console.log(e.target.value);
     var thisBind = this;
     e.preventDefault();
     newDay = e.target.value;
@@ -951,6 +955,17 @@ class newworkout extends Component {
           </div>
 
           {/* ===================================================================================== */}
+
+          {/* =========================== run submitted modal ================================= */}
+          <div className={`modal ${this.state.runSubmittedModal}`}>
+            <div className="modal-background modalBackgroundRunSubmitted"></div>
+            <div className="modal-content modal-content-run-submitted">
+              <div className="runSubmittedText forwardInAnimation">
+                Run submitted!
+              </div>
+            </div>
+          </div>
+          {/* ================================================================================ */}
 
           <div className="headerNewWorkoutPageDiv">
             <div id={this.state.dropDown} className="field selector">
