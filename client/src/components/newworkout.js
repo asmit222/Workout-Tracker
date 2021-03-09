@@ -634,13 +634,12 @@ class newworkout extends Component {
     }
   }
 
-  setGraphData() {
+  setGraphData(stringYear) {
     var monthArr = [];
     for (var i = 0; i < this.state.data.length; i++) {
       if (this.state.data[i].workoutPlan !== "354634563dfghdfgh439003235") {
         if (
-          this.state.data[i].workoutDate.split(" ")[2].toString() ===
-          this.state.currentYear.toString()
+          this.state.data[i].workoutDate.split(" ")[2].toString() === stringYear
         ) {
           monthArr.push(this.state.data[i].workoutDate.split(" ")[0]);
         }
@@ -804,7 +803,9 @@ class newworkout extends Component {
               {
                 data: response.data,
               },
-              this.setGraphData
+              () => {
+                this.setGraphData(this.state.currentYear.toString());
+              }
             );
             console.log("all workouts: ", this.state.data);
 
@@ -1046,8 +1047,14 @@ class newworkout extends Component {
             className="forwardInAnimation barcontainer"
           >
             <div className="barcontainerheader">
-              {`Workouts ${this.state.currentYear}`}
+              <i className="fa fa-angle-left fa-2x"></i>{" "}
+              <i className="fa fa-angle-right fa-2x"></i>{" "}
+              <span className="workoutYearSpan">{`Workouts ${this.state.currentYear}`}</span>
             </div>
+
+            {/* <div className="angleLeftDiv">
+              <i className="fa fa-angle-left fa-4x"></i>
+            </div> */}
 
             {!this.state.workoutsYet ? (
               <div className="noWorkoutsYetText">no workouts yet</div>
@@ -1173,7 +1180,12 @@ class newworkout extends Component {
             className="forwardInAnimation barcontainer2"
           >
             <div className="barcontainerheader2">
-              {`Miles Ran ${this.state.currentYear}`}
+              <i className="fa fa-angle-left fa-2x"></i>{" "}
+              <i className="fa fa-angle-right fa-2x"></i>{" "}
+              <span className="runYearSpan">
+                {" "}
+                {`Miles Ran ${this.state.currentYear}`}
+              </span>
             </div>
 
             {!this.state.runsYet ? (
