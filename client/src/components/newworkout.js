@@ -25,21 +25,8 @@ class newworkout extends Component {
     this.state = {
       data: [],
       currentYear: new Date().getFullYear(),
+      currentYear2: new Date().getFullYear(),
       workoutsPerMonth: {
-        jan: 0,
-        feb: 0,
-        mar: 0,
-        apr: 0,
-        may: 0,
-        jun: 0,
-        jul: 0,
-        aug: 0,
-        sep: 0,
-        oct: 0,
-        nov: 0,
-        dec: 0,
-      },
-      runsPerMonth: {
         jan: 0,
         feb: 0,
         mar: 0,
@@ -66,6 +53,20 @@ class newworkout extends Component {
         oct: "0",
         nov: "0",
         dec: "0",
+      },
+      runsPerMonth: {
+        jan: 0,
+        feb: 0,
+        mar: 0,
+        apr: 0,
+        may: 0,
+        jun: 0,
+        jul: 0,
+        aug: 0,
+        sep: 0,
+        oct: 0,
+        nov: 0,
+        dec: 0,
       },
       runsPerMonthPercentages: {
         jan: "0",
@@ -125,6 +126,8 @@ class newworkout extends Component {
       bestAvgTimeMile: 0,
       avgTimeMile: 0,
       avgDistRan: 0,
+      changingWorkoutGraphYear: "",
+      changingRunGraphYear: "",
     };
     this.handleDaySelection = this.handleDaySelection.bind(this);
     this.hideDropDown = this.hideDropDown.bind(this);
@@ -145,6 +148,123 @@ class newworkout extends Component {
 
     this.handleResetRunButton = this.handleResetRunButton.bind(this);
     this.calculateStats = this.calculateStats.bind(this);
+    this.handleChangeWorkoutYearGraph = this.handleChangeWorkoutYearGraph.bind(
+      this
+    );
+    this.handleChangeWorkoutYearGraph2 = this.handleChangeWorkoutYearGraph2.bind(
+      this
+    );
+
+    this.handleChangeRunYearGraph = this.handleChangeRunYearGraph.bind(this);
+    this.handleChangeRunYearGraph2 = this.handleChangeRunYearGraph2.bind(this);
+  }
+
+  handleChangeRunYearGraph() {
+    var year = new Date().getFullYear().toString().split("");
+
+    if (Number(year[year.length - 1]) === 9) {
+      year[year.length - 2] = Number(year[year.length - 2] + 1).toString();
+      year[year.length - 1] = "0";
+      year = Number(year.join(""));
+    } else {
+      year = this.state.currentYear2 + 1;
+    }
+
+    this.setState(
+      {
+        currentYear2: year,
+        changingRunGraphYear: "changingRunGraphYear",
+      },
+      () => {
+        setTimeout(() => {
+          this.setState({
+            changingRunGraphYear: "",
+          });
+          this.setRunGraphData(year.toString());
+        }, 300);
+      }
+    );
+  }
+
+  handleChangeRunYearGraph2() {
+    var year = new Date().getFullYear().toString().split("");
+
+    if (Number(year[year.length - 1]) === 0) {
+      year[year.length - 2] = Number(year[year.length - 2] - 1).toString();
+      year[year.length - 1] = "9";
+      year = Number(year.join(""));
+    } else {
+      year = this.state.currentYear2 - 1;
+    }
+
+    this.setState(
+      {
+        currentYear2: year,
+        changingRunGraphYear: "changingRunGraphYear",
+      },
+      () => {
+        setTimeout(() => {
+          this.setState({
+            changingRunGraphYear: "",
+          });
+          this.setRunGraphData(year.toString());
+        }, 300);
+      }
+    );
+  }
+
+  handleChangeWorkoutYearGraph2() {
+    var year = new Date().getFullYear().toString().split("");
+
+    if (Number(year[year.length - 1]) === 0) {
+      year[year.length - 2] = Number(year[year.length - 2] - 1).toString();
+      year[year.length - 1] = "9";
+      year = Number(year.join(""));
+    } else {
+      year = this.state.currentYear - 1;
+    }
+
+    this.setState(
+      {
+        currentYear: year,
+        changingWorkoutGraphYear: "changingWorkoutGraphYear",
+      },
+      () => {
+        setTimeout(() => {
+          this.setState({
+            changingWorkoutGraphYear: "",
+          });
+          this.setGraphData(year.toString());
+        }, 300);
+      }
+    );
+  }
+
+  handleChangeWorkoutYearGraph() {
+    var year = new Date().getFullYear().toString().split("");
+
+    if (Number(year[year.length - 1]) === 9) {
+      year[year.length - 2] = Number(year[year.length - 2] + 1).toString();
+      year[year.length - 1] = "0";
+      year = Number(year.join(""));
+    } else {
+      year = this.state.currentYear + 1;
+    }
+
+    this.setState(
+      {
+        currentYear: year,
+        changingWorkoutGraphYear: "changingWorkoutGraphYear",
+      },
+      () => {
+        setTimeout(() => {
+          this.setState({
+            changingWorkoutGraphYear: "",
+          });
+          this.setGraphData(year.toString());
+        }, 300);
+      }
+    );
   }
 
   calculateStats() {
@@ -500,262 +620,331 @@ class newworkout extends Component {
   }
 
   setRunGraphData() {
-    var monthArr = [];
-    for (var i = 0; i < this.state.runData.length; i++) {
-      if (
-        this.state.runData[i].date.split(" ")[2].toString() ===
-        this.state.currentYear.toString()
-      ) {
-        monthArr.push([
-          this.state.runData[i].date.split(" ")[0],
-          this.state.runData[i].miles,
-        ]);
-      }
-    }
-    monthArr.forEach((month) => {
-      if (!this.state.runsYet) {
-        this.setState({
-          runsYet: true,
-        });
-      }
+    this.setState(
+      {
+        runsPerMonth: {
+          jan: 0,
+          feb: 0,
+          mar: 0,
+          apr: 0,
+          may: 0,
+          jun: 0,
+          jul: 0,
+          aug: 0,
+          sep: 0,
+          oct: 0,
+          nov: 0,
+          dec: 0,
+        },
+        runsPerMonthPercentages: {
+          jan: "0",
+          feb: "0",
+          mar: "0",
+          apr: "0",
+          may: "0",
+          jun: "0",
+          jul: "0",
+          aug: "0",
+          sep: "0",
+          oct: "0",
+          nov: "0",
+          dec: "0",
+        },
+      },
+      () => {
+        var monthArr = [];
+        for (var i = 0; i < this.state.runData.length; i++) {
+          if (
+            this.state.runData[i].date.split(" ")[2].toString() ===
+            this.state.currentYear2.toString()
+          ) {
+            monthArr.push([
+              this.state.runData[i].date.split(" ")[0],
+              this.state.runData[i].miles,
+            ]);
+          }
+        }
+        monthArr.forEach((month) => {
+          if (!this.state.runsYet) {
+            this.setState({
+              runsYet: true,
+            });
+          }
 
-      if (month[0] === "Jan") {
-        var old = this.state.runsPerMonth;
-        old.jan = old.jan + Number(month[1]);
-        this.setState({
-          runsPerMonth: old,
+          if (month[0] === "Jan") {
+            var old = this.state.runsPerMonth;
+            old.jan = old.jan + Number(month[1]);
+            this.setState({
+              runsPerMonth: old,
+            });
+          }
+          if (month[0] === "Feb") {
+            var old = this.state.runsPerMonth;
+            old.feb = old.feb + Number(month[1]);
+            this.setState({
+              runsPerMonth: old,
+            });
+          }
+          if (month[0] === "Mar") {
+            var old = this.state.runsPerMonth;
+            old.mar = old.mar + Number(month[1]);
+            this.setState({
+              runsPerMonth: old,
+            });
+          }
+          if (month[0] === "Apr") {
+            var old = this.state.runsPerMonth;
+            old.apr = old.apr + Number(month[1]);
+            this.setState({
+              runsPerMonth: old,
+            });
+          }
+          if (month[0] === "May") {
+            var old = this.state.runsPerMonth;
+            old.may = old.may + Number(month[1]);
+            this.setState({
+              runsPerMonth: old,
+            });
+          }
+          if (month[0] === "Jun") {
+            var old = this.state.runsPerMonth;
+            old.jun = old.jun + Number(month[1]);
+            this.setState({
+              runsPerMonth: old,
+            });
+          }
+          if (month[0] === "Jul") {
+            var old = this.state.runsPerMonth;
+            old.jul = old.jul + Number(month[1]);
+            this.setState({
+              runsPerMonth: old,
+            });
+          }
+          if (month[0] === "Aug") {
+            var old = this.state.runsPerMonth;
+            old.aug = old.aug + Number(month[1]);
+            this.setState({
+              runsPerMonth: old,
+            });
+          }
+          if (month[0] === "Sep") {
+            var old = this.state.runsPerMonth;
+            old.sep = old.sep + Number(month[1]);
+            this.setState({
+              runsPerMonth: old,
+            });
+          }
+          if (month[0] === "Oct") {
+            var old = this.state.runsPerMonth;
+            old.oct = old.oct + Number(month[1]);
+            this.setState({
+              runsPerMonth: old,
+            });
+          }
+          if (month[0] === "Nov") {
+            var old = this.state.runsPerMonth;
+            old.nov = old.nov + Number(month[1]);
+            this.setState({
+              runsPerMonth: old,
+            });
+          }
+          if (month[0] === "Dec") {
+            var old = this.state.runsPerMonth;
+            old.dec = old.dec + Number(month[1]);
+            this.setState({
+              runsPerMonth: old,
+            });
+          }
         });
-      }
-      if (month[0] === "Feb") {
-        var old = this.state.runsPerMonth;
-        old.feb = old.feb + Number(month[1]);
-        this.setState({
-          runsPerMonth: old,
-        });
-      }
-      if (month[0] === "Mar") {
-        var old = this.state.runsPerMonth;
-        old.mar = old.mar + Number(month[1]);
-        this.setState({
-          runsPerMonth: old,
-        });
-      }
-      if (month[0] === "Apr") {
-        var old = this.state.runsPerMonth;
-        old.apr = old.apr + Number(month[1]);
-        this.setState({
-          runsPerMonth: old,
-        });
-      }
-      if (month[0] === "May") {
-        var old = this.state.runsPerMonth;
-        old.may = old.may + Number(month[1]);
-        this.setState({
-          runsPerMonth: old,
-        });
-      }
-      if (month[0] === "Jun") {
-        var old = this.state.runsPerMonth;
-        old.jun = old.jun + Number(month[1]);
-        this.setState({
-          runsPerMonth: old,
-        });
-      }
-      if (month[0] === "Jul") {
-        var old = this.state.runsPerMonth;
-        old.jul = old.jul + Number(month[1]);
-        this.setState({
-          runsPerMonth: old,
-        });
-      }
-      if (month[0] === "Aug") {
-        var old = this.state.runsPerMonth;
-        old.aug = old.aug + Number(month[1]);
-        this.setState({
-          runsPerMonth: old,
-        });
-      }
-      if (month[0] === "Sep") {
-        var old = this.state.runsPerMonth;
-        old.sep = old.sep + Number(month[1]);
-        this.setState({
-          runsPerMonth: old,
-        });
-      }
-      if (month[0] === "Oct") {
-        var old = this.state.runsPerMonth;
-        old.oct = old.oct + Number(month[1]);
-        this.setState({
-          runsPerMonth: old,
-        });
-      }
-      if (month[0] === "Nov") {
-        var old = this.state.runsPerMonth;
-        old.nov = old.nov + Number(month[1]);
-        this.setState({
-          runsPerMonth: old,
-        });
-      }
-      if (month[0] === "Dec") {
-        var old = this.state.runsPerMonth;
-        old.dec = old.dec + Number(month[1]);
-        this.setState({
-          runsPerMonth: old,
-        });
-      }
-    });
 
-    var oldRuns = this.state.runsPerMonth;
-    for (var key in oldRuns) {
-      oldRuns[key] = Math.round(Number(oldRuns[key]) * 10) / 10;
-    }
+        var oldRuns = this.state.runsPerMonth;
+        for (var key in oldRuns) {
+          oldRuns[key] = Math.round(Number(oldRuns[key]) * 10) / 10;
+        }
 
-    this.setState({
-      runsPerMonth: oldRuns,
-    });
+        this.setState({
+          runsPerMonth: oldRuns,
+        });
 
-    var maxWorkoutsInAMonth = 0;
-    for (var key in this.state.runsPerMonth) {
-      if (this.state.runsPerMonth[key] > maxWorkoutsInAMonth) {
-        maxWorkoutsInAMonth = this.state.runsPerMonth[key];
+        var maxWorkoutsInAMonth = 0;
+        for (var key in this.state.runsPerMonth) {
+          if (this.state.runsPerMonth[key] > maxWorkoutsInAMonth) {
+            maxWorkoutsInAMonth = this.state.runsPerMonth[key];
+          }
+        }
+
+        for (var key in this.state.runsPerMonthPercentages) {
+          var workouts = this.state.runsPerMonth[key];
+          workouts = workouts / maxWorkoutsInAMonth;
+          workouts = workouts * 0.65 * 100;
+
+          var old = this.state.runsPerMonthPercentages;
+          old[key] = workouts.toString();
+          this.setState({
+            runsPerMonthPercentages: old,
+          });
+        }
       }
-    }
-
-    for (var key in this.state.runsPerMonthPercentages) {
-      var workouts = this.state.runsPerMonth[key];
-      workouts = workouts / maxWorkoutsInAMonth;
-      workouts = workouts * 0.65 * 100;
-
-      var old = this.state.runsPerMonthPercentages;
-      old[key] = workouts.toString();
-      this.setState({
-        runsPerMonthPercentages: old,
-      });
-    }
+    );
   }
 
   setGraphData(stringYear) {
-    var monthArr = [];
-    for (var i = 0; i < this.state.data.length; i++) {
-      if (this.state.data[i].workoutPlan !== "354634563dfghdfgh439003235") {
-        if (
-          this.state.data[i].workoutDate.split(" ")[2].toString() === stringYear
-        ) {
-          monthArr.push(this.state.data[i].workoutDate.split(" ")[0]);
+    this.setState(
+      {
+        workoutsPerMonth: {
+          jan: 0,
+          feb: 0,
+          mar: 0,
+          apr: 0,
+          may: 0,
+          jun: 0,
+          jul: 0,
+          aug: 0,
+          sep: 0,
+          oct: 0,
+          nov: 0,
+          dec: 0,
+        },
+        workoutsPerMonthPercentages: {
+          jan: "0",
+          feb: "0",
+          mar: "0",
+          apr: "0",
+          may: "0",
+          jun: "0",
+          jul: "0",
+          aug: "0",
+          sep: "0",
+          oct: "0",
+          nov: "0",
+          dec: "0",
+        },
+      },
+      () => {
+        var monthArr = [];
+        for (var i = 0; i < this.state.data.length; i++) {
+          if (this.state.data[i].workoutPlan !== "354634563dfghdfgh439003235") {
+            if (
+              this.state.data[i].workoutDate.split(" ")[2].toString() ===
+              stringYear
+            ) {
+              monthArr.push(this.state.data[i].workoutDate.split(" ")[0]);
+            }
+          }
+        }
+        monthArr.forEach((month) => {
+          if (!this.state.workoutsYet) {
+            this.setState({
+              workoutsYet: true,
+            });
+          }
+
+          if (month === "Jan") {
+            var old = this.state.workoutsPerMonth;
+            old.jan = old.jan + 1;
+            this.setState({
+              workoutsPerMonth: old,
+            });
+          }
+          if (month === "Feb") {
+            var old = this.state.workoutsPerMonth;
+            old.feb = old.feb + 1;
+            this.setState({
+              workoutsPerMonth: old,
+            });
+          }
+          if (month === "Mar") {
+            var old = this.state.workoutsPerMonth;
+            old.mar = old.mar + 1;
+            this.setState({
+              workoutsPerMonth: old,
+            });
+          }
+          if (month === "Apr") {
+            var old = this.state.workoutsPerMonth;
+            old.apr = old.apr + 1;
+            this.setState({
+              workoutsPerMonth: old,
+            });
+          }
+          if (month === "May") {
+            var old = this.state.workoutsPerMonth;
+            old.may = old.may + 1;
+            this.setState({
+              workoutsPerMonth: old,
+            });
+          }
+          if (month === "Jun") {
+            var old = this.state.workoutsPerMonth;
+            old.jun = old.jun + 1;
+            this.setState({
+              workoutsPerMonth: old,
+            });
+          }
+          if (month === "Jul") {
+            var old = this.state.workoutsPerMonth;
+            old.jul = old.jul + 1;
+            this.setState({
+              workoutsPerMonth: old,
+            });
+          }
+          if (month === "Aug") {
+            var old = this.state.workoutsPerMonth;
+            old.aug = old.aug + 1;
+            this.setState({
+              workoutsPerMonth: old,
+            });
+          }
+          if (month === "Sep") {
+            var old = this.state.workoutsPerMonth;
+            old.sep = old.sep + 1;
+            this.setState({
+              workoutsPerMonth: old,
+            });
+          }
+          if (month === "Oct") {
+            var old = this.state.workoutsPerMonth;
+            old.oct = old.oct + 1;
+            this.setState({
+              workoutsPerMonth: old,
+            });
+          }
+          if (month === "Nov") {
+            var old = this.state.workoutsPerMonth;
+            old.nov = old.nov + 1;
+            this.setState({
+              workoutsPerMonth: old,
+            });
+          }
+          if (month === "Dec") {
+            var old = this.state.workoutsPerMonth;
+            old.dec = old.dec + 1;
+            this.setState({
+              workoutsPerMonth: old,
+            });
+          }
+        });
+
+        var maxWorkoutsInAMonth = 0;
+        for (var key in this.state.workoutsPerMonth) {
+          if (this.state.workoutsPerMonth[key] > maxWorkoutsInAMonth) {
+            maxWorkoutsInAMonth = this.state.workoutsPerMonth[key];
+          }
+        }
+
+        for (var key in this.state.workoutsPerMonthPercentages) {
+          var workouts = this.state.workoutsPerMonth[key];
+          workouts = workouts / maxWorkoutsInAMonth;
+          workouts = workouts * 0.65 * 100;
+
+          var old = this.state.workoutsPerMonthPercentages;
+          old[key] = workouts.toString();
+          this.setState({
+            workoutsPerMonthPercentages: old,
+          });
         }
       }
-    }
-    monthArr.forEach((month) => {
-      if (!this.state.workoutsYet) {
-        this.setState({
-          workoutsYet: true,
-        });
-      }
-
-      if (month === "Jan") {
-        var old = this.state.workoutsPerMonth;
-        old.jan = old.jan + 1;
-        this.setState({
-          workoutsPerMonth: old,
-        });
-      }
-      if (month === "Feb") {
-        var old = this.state.workoutsPerMonth;
-        old.feb = old.feb + 1;
-        this.setState({
-          workoutsPerMonth: old,
-        });
-      }
-      if (month === "Mar") {
-        var old = this.state.workoutsPerMonth;
-        old.mar = old.mar + 1;
-        this.setState({
-          workoutsPerMonth: old,
-        });
-      }
-      if (month === "Apr") {
-        var old = this.state.workoutsPerMonth;
-        old.apr = old.apr + 1;
-        this.setState({
-          workoutsPerMonth: old,
-        });
-      }
-      if (month === "May") {
-        var old = this.state.workoutsPerMonth;
-        old.may = old.may + 1;
-        this.setState({
-          workoutsPerMonth: old,
-        });
-      }
-      if (month === "Jun") {
-        var old = this.state.workoutsPerMonth;
-        old.jun = old.jun + 1;
-        this.setState({
-          workoutsPerMonth: old,
-        });
-      }
-      if (month === "Jul") {
-        var old = this.state.workoutsPerMonth;
-        old.jul = old.jul + 1;
-        this.setState({
-          workoutsPerMonth: old,
-        });
-      }
-      if (month === "Aug") {
-        var old = this.state.workoutsPerMonth;
-        old.aug = old.aug + 1;
-        this.setState({
-          workoutsPerMonth: old,
-        });
-      }
-      if (month === "Sep") {
-        var old = this.state.workoutsPerMonth;
-        old.sep = old.sep + 1;
-        this.setState({
-          workoutsPerMonth: old,
-        });
-      }
-      if (month === "Oct") {
-        var old = this.state.workoutsPerMonth;
-        old.oct = old.oct + 1;
-        this.setState({
-          workoutsPerMonth: old,
-        });
-      }
-      if (month === "Nov") {
-        var old = this.state.workoutsPerMonth;
-        old.nov = old.nov + 1;
-        this.setState({
-          workoutsPerMonth: old,
-        });
-      }
-      if (month === "Dec") {
-        var old = this.state.workoutsPerMonth;
-        old.dec = old.dec + 1;
-        this.setState({
-          workoutsPerMonth: old,
-        });
-      }
-    });
-
-    var maxWorkoutsInAMonth = 0;
-    for (var key in this.state.workoutsPerMonth) {
-      if (this.state.workoutsPerMonth[key] > maxWorkoutsInAMonth) {
-        maxWorkoutsInAMonth = this.state.workoutsPerMonth[key];
-      }
-    }
-
-    for (var key in this.state.workoutsPerMonthPercentages) {
-      var workouts = this.state.workoutsPerMonth[key];
-      workouts = workouts / maxWorkoutsInAMonth;
-      workouts = workouts * 0.65 * 100;
-
-      var old = this.state.workoutsPerMonthPercentages;
-      old[key] = workouts.toString();
-      this.setState({
-        workoutsPerMonthPercentages: old,
-      });
-    }
+    );
   }
 
   handleQuickStart(e) {
@@ -1047,8 +1236,14 @@ class newworkout extends Component {
             className="forwardInAnimation barcontainer"
           >
             <div className="barcontainerheader">
-              <i className="fa fa-angle-left fa-2x"></i>{" "}
-              <i className="fa fa-angle-right fa-2x"></i>{" "}
+              <i
+                onClick={this.handleChangeWorkoutYearGraph2}
+                className="fa fa-angle-left fa-2x"
+              ></i>{" "}
+              <i
+                onClick={this.handleChangeWorkoutYearGraph}
+                className="fa fa-angle-right fa-2x"
+              ></i>{" "}
               <span className="workoutYearSpan">{`Workouts ${this.state.currentYear}`}</span>
             </div>
 
@@ -1063,7 +1258,8 @@ class newworkout extends Component {
             )}
 
             <div
-              className="bar"
+              id={this.state.changingWorkoutGraphYear}
+              className={`bar`}
               style={{
                 height: `${this.state.workoutsPerMonthPercentages.jan}%`,
               }}
@@ -1073,7 +1269,8 @@ class newworkout extends Component {
             </div>
 
             <div
-              className="bar"
+              id={this.state.changingWorkoutGraphYear}
+              className={`bar`}
               style={{
                 height: `${this.state.workoutsPerMonthPercentages.feb}%`,
               }}
@@ -1082,7 +1279,8 @@ class newworkout extends Component {
               <div className="barlabel">Feb</div>
             </div>
             <div
-              className="bar"
+              id={this.state.changingWorkoutGraphYear}
+              className={`bar`}
               style={{
                 height: `${this.state.workoutsPerMonthPercentages.mar}%`,
               }}
@@ -1091,7 +1289,8 @@ class newworkout extends Component {
               <div className="barlabel">Mar</div>
             </div>
             <div
-              className="bar"
+              id={this.state.changingWorkoutGraphYear}
+              className={`bar`}
               style={{
                 height: `${this.state.workoutsPerMonthPercentages.apr}%`,
               }}
@@ -1100,7 +1299,8 @@ class newworkout extends Component {
               <div className="barlabel">Apr </div>
             </div>
             <div
-              className="bar"
+              id={this.state.changingWorkoutGraphYear}
+              className={`bar`}
               style={{
                 height: `${this.state.workoutsPerMonthPercentages.may}%`,
               }}
@@ -1109,7 +1309,8 @@ class newworkout extends Component {
               <div className="barlabel">May</div>
             </div>
             <div
-              className="bar"
+              id={this.state.changingWorkoutGraphYear}
+              className={`bar`}
               style={{
                 height: `${this.state.workoutsPerMonthPercentages.jun}%`,
               }}
@@ -1118,7 +1319,8 @@ class newworkout extends Component {
               <div className="barlabel">Jun</div>
             </div>
             <div
-              className="bar"
+              id={this.state.changingWorkoutGraphYear}
+              className={`bar`}
               style={{
                 height: `${this.state.workoutsPerMonthPercentages.jul}%`,
               }}
@@ -1127,7 +1329,8 @@ class newworkout extends Component {
               <div className="barlabel">Jul</div>
             </div>
             <div
-              className="bar"
+              id={this.state.changingWorkoutGraphYear}
+              className={`bar`}
               style={{
                 height: `${this.state.workoutsPerMonthPercentages.aug}%`,
               }}
@@ -1136,7 +1339,8 @@ class newworkout extends Component {
               <div className="barlabel">Aug</div>
             </div>
             <div
-              className="bar"
+              id={this.state.changingWorkoutGraphYear}
+              className={`bar`}
               style={{
                 height: `${this.state.workoutsPerMonthPercentages.sep}%`,
               }}
@@ -1145,7 +1349,8 @@ class newworkout extends Component {
               <div className="barlabel">Sep</div>
             </div>
             <div
-              className="bar"
+              id={this.state.changingWorkoutGraphYear}
+              className={`bar`}
               style={{
                 height: `${this.state.workoutsPerMonthPercentages.oct}%`,
               }}
@@ -1154,7 +1359,8 @@ class newworkout extends Component {
               <div className="barlabel">Oct </div>
             </div>
             <div
-              className="bar"
+              id={this.state.changingWorkoutGraphYear}
+              className={`bar`}
               style={{
                 height: `${this.state.workoutsPerMonthPercentages.nov}%`,
               }}
@@ -1163,7 +1369,8 @@ class newworkout extends Component {
               <div className="barlabel">Nov</div>
             </div>
             <div
-              className="bar"
+              id={this.state.changingWorkoutGraphYear}
+              className={`bar`}
               style={{
                 height: `${this.state.workoutsPerMonthPercentages.dec}%`,
               }}
@@ -1180,11 +1387,17 @@ class newworkout extends Component {
             className="forwardInAnimation barcontainer2"
           >
             <div className="barcontainerheader2">
-              <i className="fa fa-angle-left fa-2x"></i>{" "}
-              <i className="fa fa-angle-right fa-2x"></i>{" "}
+              <i
+                onClick={this.handleChangeRunYearGraph2}
+                className="fa fa-angle-left fa-2x"
+              ></i>{" "}
+              <i
+                onClick={this.handleChangeRunYearGraph}
+                className="fa fa-angle-right fa-2x"
+              ></i>{" "}
               <span className="runYearSpan">
                 {" "}
-                {`Miles Ran ${this.state.currentYear}`}
+                {`Miles Ran ${this.state.currentYear2}`}
               </span>
             </div>
 
@@ -1195,6 +1408,7 @@ class newworkout extends Component {
             )}
 
             <div
+              id={this.state.changingRunGraphYear}
               className="bar bar2"
               style={{
                 height: `${this.state.runsPerMonthPercentages.jan}%`,
@@ -1205,6 +1419,7 @@ class newworkout extends Component {
             </div>
 
             <div
+              id={this.state.changingRunGraphYear}
               className="bar bar2"
               style={{
                 height: `${this.state.runsPerMonthPercentages.feb}%`,
@@ -1214,6 +1429,7 @@ class newworkout extends Component {
               <div className="barlabel">Feb</div>
             </div>
             <div
+              id={this.state.changingRunGraphYear}
               className="bar bar2"
               style={{
                 height: `${this.state.runsPerMonthPercentages.mar}%`,
@@ -1223,6 +1439,7 @@ class newworkout extends Component {
               <div className="barlabel">Mar</div>
             </div>
             <div
+              id={this.state.changingRunGraphYear}
               className="bar bar2"
               style={{
                 height: `${this.state.runsPerMonthPercentages.apr}%`,
@@ -1232,6 +1449,7 @@ class newworkout extends Component {
               <div className="barlabel">Apr </div>
             </div>
             <div
+              id={this.state.changingRunGraphYear}
               className="bar bar2"
               style={{
                 height: `${this.state.runsPerMonthPercentages.may}%`,
@@ -1241,6 +1459,7 @@ class newworkout extends Component {
               <div className="barlabel">May</div>
             </div>
             <div
+              id={this.state.changingRunGraphYear}
               className="bar bar2"
               style={{
                 height: `${this.state.runsPerMonthPercentages.jun}%`,
@@ -1250,6 +1469,7 @@ class newworkout extends Component {
               <div className="barlabel">Jun</div>
             </div>
             <div
+              id={this.state.changingRunGraphYear}
               className="bar bar2"
               style={{
                 height: `${this.state.runsPerMonthPercentages.jul}%`,
@@ -1259,6 +1479,7 @@ class newworkout extends Component {
               <div className="barlabel">Jul</div>
             </div>
             <div
+              id={this.state.changingRunGraphYear}
               className="bar bar2"
               style={{
                 height: `${this.state.runsPerMonthPercentages.aug}%`,
@@ -1268,6 +1489,7 @@ class newworkout extends Component {
               <div className="barlabel">Aug</div>
             </div>
             <div
+              id={this.state.changingRunGraphYear}
               className="bar bar2"
               style={{
                 height: `${this.state.runsPerMonthPercentages.sep}%`,
@@ -1277,6 +1499,7 @@ class newworkout extends Component {
               <div className="barlabel">Sep</div>
             </div>
             <div
+              id={this.state.changingRunGraphYear}
               className="bar bar2"
               style={{
                 height: `${this.state.runsPerMonthPercentages.oct}%`,
@@ -1286,6 +1509,7 @@ class newworkout extends Component {
               <div className="barlabel">Oct </div>
             </div>
             <div
+              id={this.state.changingRunGraphYear}
               className="bar bar2"
               style={{
                 height: `${this.state.runsPerMonthPercentages.nov}%`,
@@ -1295,6 +1519,7 @@ class newworkout extends Component {
               <div className="barlabel">Nov</div>
             </div>
             <div
+              id={this.state.changingRunGraphYear}
               className="bar bar2"
               style={{
                 height: `${this.state.runsPerMonthPercentages.dec}%`,
@@ -1311,7 +1536,9 @@ class newworkout extends Component {
             id={this.state.showStats}
             className="forwardInAnimation barcontainer3"
           >
-            <div className="barcontainerheader3">{`Your Stats[WIP]`}</div>
+            <div className="barcontainerheader3">
+              <span className="runYearSpan">{`Your Stats[WIP]`}</span>
+            </div>
 
             <div className="statsTextContainer">
               <div className="statsDiv firstStatsDiv">
