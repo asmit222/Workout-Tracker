@@ -1038,8 +1038,6 @@ body {
   border-radius: 5px 5px 0 0;
   width: 100%;
   margin: 0 auto;
-  min-height: 40vw;
-  max-height: 40vw;
   min-width: 40%;
   max-width: 100%;
   z-index: 1;
@@ -1047,6 +1045,8 @@ body {
   margin-bottom: 5vh;
   background-color: #ebebeb;
   margin-top: -3.5px;
+height: 53vw;
+margin-bottom: 70px;
 }
 
 @keyframes slide {
@@ -1514,7 +1514,7 @@ width: 50px;
   width: 45px;
 
   margin-left: 10px;
-  margin-top: -6px;
+  margin-top: -6.5px;
   /* border: solid 0.5px #06142b; */
 }
 
@@ -1703,11 +1703,10 @@ margin-left: 5px;
 }
 
 .statsTextContainer {
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   width: 100%;
-height: 40vw;
 }
 
 .modal-content-run-submitted {
@@ -1722,3 +1721,26 @@ height: 40vw;
   color: white;
 }
 
+.statsDiv {
+  width: 100%;
+  margin-left: 5px;
+  font-size: small;
+  text-align: center;
+}
+
+.firstStatsDiv {
+  margin-top: 60px;
+}
+
+.statsSpan {
+  font-weight: 600;
+  color: #1c55b1;
+}
+
+.horizontalDivider {
+  width: 95%;
+  border-top: solid 1px rgba(128, 128, 128, 0.459);
+  margin-left: 2.5%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

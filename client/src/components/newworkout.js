@@ -118,6 +118,13 @@ class newworkout extends Component {
       timeValue: moment(timeTime, "HH:mm:ss"),
       personUsername: "",
       runSubmittedModal: "",
+      totalWorkoutsNotRuns: 0,
+      totalWorkoutsNotRunsThisYear: 0,
+      totalRuns: 0,
+      totalMilesRan: 0,
+      bestAvgTimeMile: 0,
+      avgTimeMile: 0,
+      avgDistRan: 0,
     };
     this.handleDaySelection = this.handleDaySelection.bind(this);
     this.hideDropDown = this.hideDropDown.bind(this);
@@ -137,6 +144,47 @@ class newworkout extends Component {
     this.handleStartRun = this.handleStartRun.bind(this);
 
     this.handleResetRunButton = this.handleResetRunButton.bind(this);
+    this.calculateStats = this.calculateStats.bind(this);
+  }
+
+  calculateStats() {
+    var totalWorkouts = 0;
+    var totalRunz = 0;
+    var totalMilezRan = 0;
+    var totalworkoutsThisYear = 0;
+    var avgTimeMile = 0;
+    var bestAvgTimeMile = 0;
+    var avgDistanceRan = 0;
+
+    var totalMiles = 0;
+    var totalTime = 0;
+
+    for (var i = 0; i < this.state.data.length; i++) {
+      if (this.state.data[i].workoutPlan !== "354634563dfghdfgh439003235") {
+        totalWorkouts++;
+        console.log(
+          this.state.data[i].workoutDate.split(" ")[2],
+          new Date().getFullYear().toString()
+        );
+        if (
+          this.state.data[i].workoutDate.split(" ")[2] ===
+          new Date().getFullYear().toString()
+        ) {
+          totalworkoutsThisYear++;
+        }
+      } else if (
+        this.state.data[i].workoutPlan === "354634563dfghdfgh439003235"
+      ) {
+        totalRunz++;
+        totalMilezRan = totalMilezRan + Number(this.state.data[i].workout1);
+      }
+    }
+    this.setState({
+      totalWorkoutsNotRuns: totalWorkouts,
+      totalRuns: totalRunz,
+      totalMilesRan: totalMilezRan,
+      totalWorkoutsNotRunsThisYear: totalworkoutsThisYear,
+    });
   }
 
   handleResetRunButton() {
@@ -758,6 +806,9 @@ class newworkout extends Component {
               },
               this.setGraphData
             );
+            console.log("all workouts: ", this.state.data);
+
+            this.calculateStats();
           },
           (error) => {
             alert(error);
@@ -1242,16 +1293,46 @@ class newworkout extends Component {
             </div>
           </div>
 
-          {/* <div
+          {/* ==================================================== stats ======================================= */}
+
+          <div
             id={this.state.showStats}
             className="forwardInAnimation barcontainer3"
           >
-            <div className="barcontainerheader3">{`Your Stats`}</div>
+            <div className="barcontainerheader3">{`Your Stats[WIP]`}</div>
 
             <div className="statsTextContainer">
-              <div>{`total workouts: `}</div>
+              <div className="statsDiv firstStatsDiv">
+                <span className="statsSpan">total workouts: </span>
+                {this.state.totalWorkoutsNotRuns}
+              </div>
+              <div className="statsDiv">
+                <span className="statsSpan">workouts this year: </span>
+                {this.state.totalWorkoutsNotRunsThisYear}
+              </div>
+              <div className="horizontalDivider"></div>
+              <div className="statsDiv">
+                <span className="statsSpan">total runs: </span>
+                {this.state.totalRuns}
+              </div>
+              <div className="statsDiv">
+                <span className="statsSpan">total miles ran: </span>
+                {this.state.totalMilesRan}
+              </div>
+              {/* <div className="statsDiv">
+                <span className="statsSpan">avg time per mile: </span>
+                {this.state.avgTimeMile}
+              </div>
+              <div className="statsDiv">
+                <span className="statsSpan">best avg time per mile: </span>
+                {this.state.bestAvgTimeMile}
+              </div>
+              <div className="statsDiv">
+                <span className="statsSpan">avg distance ran: </span>
+                {this.state.avgDistRan}
+              </div> */}
             </div>
-          </div> */}
+          </div>
 
           {/* ====================================================================================================== */}
 
