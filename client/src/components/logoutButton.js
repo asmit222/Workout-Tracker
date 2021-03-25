@@ -12,6 +12,7 @@ const LogoutButton = () => {
         <button
           className={`logOutButtonApp ${logoutButtonClassName} button is-danger`}
           onClick={() => {
+            localStorage.clear();
             logout();
             setLogoutButtonClassName("is-loading");
           }}
