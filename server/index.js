@@ -224,3 +224,31 @@ app.post("/getRunData", function (req, res) {
     }
   });
 });
+
+app.post("/savePR", function (req, res) {
+  res.status(200);
+
+  // console.log(req.body);
+
+  db.submitPR(req.body, function (data) {
+    if (data) {
+      res.json(data);
+      // console.log(data);
+    } else {
+      console.log("error");
+    }
+  });
+});
+
+app.post("/getPRs", function (req, res) {
+  // console.log(req.body);
+
+  db.getPRs(req.body, function (data) {
+    if (data) {
+      res.json(data);
+      // console.log(data);
+    } else {
+      console.log("error");
+    }
+  });
+});

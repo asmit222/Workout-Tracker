@@ -1606,7 +1606,7 @@ width: 50px;
   align-items: center;
   width: 100%;
   margin-bottom: 5px;
-height: 40vh;
+height: 50px;
 }
 
 .logOutButtonAppWrapper {
@@ -1618,6 +1618,9 @@ height: 40vh;
 
 .profilePic {
   border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  margin-left: 5px;
 }
 
 .settingsEmail {
@@ -1793,4 +1796,41 @@ margin-left: 5px;
 #changingWorkoutGraphYear, #changingRunGraphYear {
 animation: fadeOut3 forwards .300s;
 
+}
+
+.PRsWrapper {
+  margin-top: 10px;
+  min-height: 50vh;
+padding-bottom: 50vh;
+}
+
+.PRsTableContainer {
+  width: 100%;
+}
+
+.buttonContainerAddPR {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.addPRButton {
+  width: 30%;
+}
+
+.PRModal {
+  width: 90%;
+}
+
+.prTag {
+  margin-right: 5px;
+}
+
+.prTagDiv {
+  margin-bottom: 10px;
+}
+
+.theadpersonalrecords {
+  font-size: large;
 }

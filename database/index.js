@@ -462,6 +462,37 @@ const getRunData = function (data, callback) {
   });
 };
 
+const submitPR = function (data, callback) {
+  // var dataSplit = JSON.stringify(data).split(",");
+  console.log("data!: ", data);
+
+  var sql = `insert into PRTable (name, exercise, weight, reps) values ('${data.name}', '${data.exercise}', '${data.weight}', '${data.reps}')`;
+
+  connection.query(sql, function (err, results) {
+    if (err) {
+      console.log("error ! ! !: ", err);
+    } else {
+      callback(results);
+      console.log("res: ", results);
+    }
+  });
+};
+
+const getPRs = function (data, callback) {
+  var name = JSON.stringify(data).slice(2, JSON.stringify(data).length - 5);
+
+  var sql = `select * from PRTable where name = '${name}';`;
+
+  connection.query(sql, function (err, results) {
+    if (err) {
+      console.log("error ! ! !: ", err);
+    } else {
+      callback(results);
+      console.log("res: ", results);
+    }
+  });
+};
+
 module.exports.saveWorkout = saveWorkout;
 module.exports.getWorkouts = getWorkouts;
 module.exports.addTemplate = addTemplate;
@@ -473,3 +504,5 @@ module.exports.changeColor = changeColor;
 module.exports.deleteWorkout = deleteWorkout;
 module.exports.submitRun = submitRun;
 module.exports.getRunData = getRunData;
+module.exports.submitPR = submitPR;
+module.exports.getPRs = getPRs;
