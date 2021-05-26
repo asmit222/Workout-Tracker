@@ -44,17 +44,12 @@ class Settings extends Component {
 
     axios.post("/savePR", obj).then(
       (response) => {
-        console.log("PR saved!");
         axios.post("/getPRs", `${[user]}`).then(
           (response) => {
-            this.setState(
-              {
-                PRdata: response.data,
-              },
-              () => {
-                console.log(this.state.PRdata);
-              }
-            );
+            var reversed = response.data.reverse();
+            this.setState({
+              PRdata: reversed,
+            });
             this.handleActivePrModal();
           },
           (error) => {
@@ -126,9 +121,10 @@ class Settings extends Component {
 
       axios.post("/getPRs", `${[user]}`).then(
         (response) => {
+          var reversed = response.data.reverse();
           this.setState(
             {
-              PRdata: response.data,
+              PRdata: reversed,
             },
             () => {
               console.log(this.state.PRdata);
@@ -146,27 +142,40 @@ class Settings extends Component {
     if (this.props.location.state) {
       return (
         <div className="settingsContainer">
-          <div className="picWrapper">
-            <img
-              className="profilePic"
-              src={this.props.location.state.getPicture()}
-              alt={this.props.location.state.getName()}
-            />
-            <div id="hide"> </div>
-          </div>
+          <div className="stickyTopBox">
+            <div className="picWrapper">
+              <img
+                className="profilePic"
+                src={this.props.location.state.getPicture()}
+                alt={this.props.location.state.getName()}
+              />
+              <div id="hide"> </div>
+            </div>
 
-          <div className="settingsEmail">
-            {this.props.location.state.getEmail()}
-          </div>
+            <div className="settingsEmail">
+              {this.props.location.state.getEmail()}
+            </div>
 
-          <div className="horizontalDivider"></div>
+            <div className="horizontalDivider"></div>
 
-          <div className="PRsWrapper forwardInAnimation">
+            <div className="PRsWrapper forwardInAnimation">
+              <div className="theadpersonalrecords">
+                Personal Records{" "}
+                <button
+                  onClick={this.handleActivePrModal}
+                  className="button is-success addPRButton is-small"
+                >
+                  Add PR
+                </button>
+              </div>
+            </div>
             <div className="table-container PRsTableContainer">
-              <table className="table is-bordered is-striped">
-                <thead className="theadpersonalrecords">Personal Records</thead>
+              <table className="table PRsTable is-bordered is-striped">
+                {/* <thead className="theadpersonalrecords">
+
+                </thead> */}
                 <tbody>
-                  <tr>
+                  <tr className="trHeaderPRs">
                     <th>Exercise</th>
                     <th>Weight</th>
                     <th>Reps</th>
@@ -183,14 +192,7 @@ class Settings extends Component {
                 </tbody>
               </table>
             </div>
-            <div className="buttonContainerAddPR">
-              <button
-                onClick={this.handleActivePrModal}
-                className="button is-success addPRButton"
-              >
-                Add PR
-              </button>
-            </div>
+            <div className="bottomPaddingSettingsPage"></div>
           </div>
 
           <div className="logOutButtonAppWrapper">
