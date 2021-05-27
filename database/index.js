@@ -473,7 +473,6 @@ const submitPR = function (data, callback) {
       console.log("error ! ! !: ", err);
     } else {
       callback(results);
-      console.log("res: ", results);
     }
   });
 };
@@ -488,7 +487,6 @@ const getPRs = function (data, callback) {
       console.log("error ! ! !: ", err);
     } else {
       callback(results);
-      console.log("res: ", results);
     }
   });
 };
