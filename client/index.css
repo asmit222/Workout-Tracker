@@ -1408,10 +1408,11 @@ background-image: url("https://i.ibb.co/dt9NtwG/45Weight.png");
   background-color: white;
   position: fixed;
   bottom: 0;
+  right: 0;
   width: 100%;
   z-index: 333;
   border-top: solid rgb(187, 187, 187) 0.5px;
-  padding-top: 5px;
+  padding-top: 2.5px;
   height: 55px;
   display: flex;
   /* justify-content: center; */

@@ -195,9 +195,13 @@ class Settings extends Component {
             <div className="bottomPaddingSettingsPage"></div>
           </div>
 
-          <div className="logOutButtonAppWrapper">
-            <LogoutButton />
-          </div>
+          {this.state.PRModalActive === "" ? (
+            <div className="logOutButtonAppWrapper">
+              <LogoutButton />
+            </div>
+          ) : (
+            <div id="hide"></div>
+          )}
 
           <div className={`modal ${this.state.PRModalActive}`}>
             <div className="modal-background"></div>
