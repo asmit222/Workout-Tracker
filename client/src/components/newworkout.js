@@ -1317,7 +1317,8 @@ class newworkout extends Component {
                     onChange={this.handleChangeSearchExercises}
                     className="input"
                   ></input>
-                  {this.state.muscleGroupClicked ? (
+                  {this.state.muscleGroupClicked &&
+                  this.state.exercisesSearchValue === "" ? (
                     <button
                       onClick={() => {
                         this.setState({
@@ -1333,16 +1334,30 @@ class newworkout extends Component {
                   )}
                 </div>
 
+                {!this.state.muscleGroupClicked &&
+                this.state.exercisesSearchValue === "" ? (
+                  <div className="muscleGroupsTitle">
+                    <h4>Muscle groups</h4>
+                  </div>
+                ) : (
+                  <div id="hide"></div>
+                )}
+
                 <div
                   className={
-                    !this.state.muscleGroupClicked
-                      ? "exercisesModalBody"
+                    this.state.exercisesSearchValue === ""
+                      ? !this.state.muscleGroupClicked
+                        ? "exercisesModalBody"
+                        : "exercisesModalBody2"
+                      : !this.state.muscleGroupClicked
+                      ? "exercisesModalBody3"
                       : "exercisesModalBody2"
                   }
                 >
                   <div className="horizontalDivider"></div>
 
-                  {!this.state.muscleGroupClicked
+                  {!this.state.muscleGroupClicked ||
+                  this.state.exercisesSearchValue !== ""
                     ? this.state.exercisesSearchValue === ""
                       ? this.state.exerciseMuscleGroups.map((muscleGroup) => {
                           return (
@@ -1368,7 +1383,9 @@ class newworkout extends Component {
                           .map((exercise) => {
                             return (
                               <div>
-                                <div>{exercise.workout}</div>
+                                <div className="exerciseWorkoutText">
+                                  {exercise.workout}
+                                </div>
                                 <div className="muscleGroupText2">
                                   {exercise.muscleGroup}
                                 </div>
@@ -1379,7 +1396,9 @@ class newworkout extends Component {
                     : this.state.muscleGroupExercises.map((exercise) => {
                         return (
                           <div>
-                            <div>{exercise.workout}</div>
+                            <div className="exerciseWorkoutText">
+                              {exercise.workout}
+                            </div>
                             <div className="muscleGroupText2">
                               {exercise.muscleGroup}
                             </div>

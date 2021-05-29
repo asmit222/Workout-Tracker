@@ -1963,10 +1963,19 @@ margin-bottom: -10px;
   margin-top: 5px;
 }
 
-.exercisesModalBody {
+.exercisesModalBody3 {
   margin-top: 50px;
 }
 
 .exercisesModalBody2 {
   margin-top: 90px;
+}
+
+.muscleGroupsTitle {
+  margin-top: 65px;
+}
+
+.exerciseWorkoutText {
+  color: rgb(0, 25, 250);
+  text-decoration: underline;
 }
