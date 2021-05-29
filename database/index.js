@@ -491,6 +491,34 @@ const getPRs = function (data, callback) {
   });
 };
 
+const deletePR = function (data, callback) {
+  var id = JSON.stringify(data).slice(2, JSON.stringify(data).length - 5);
+
+  var sql = `delete from PRTable where id = '${id}';`;
+
+  connection.query(sql, function (err, results) {
+    if (err) {
+      console.log("error ! ! !: ", err);
+    } else {
+      callback(results);
+    }
+  });
+};
+
+const updatePR = function (data, callback) {
+  var row = data;
+
+  var sql = `update PRTable set weight = '${row.weight}', reps = '${row.reps}' where id = '${row.id}';`;
+
+  connection.query(sql, function (err, results) {
+    if (err) {
+      console.log("error ! ! !: ", err);
+    } else {
+      callback(results);
+    }
+  });
+};
+
 module.exports.saveWorkout = saveWorkout;
 module.exports.getWorkouts = getWorkouts;
 module.exports.addTemplate = addTemplate;
@@ -504,3 +532,5 @@ module.exports.submitRun = submitRun;
 module.exports.getRunData = getRunData;
 module.exports.submitPR = submitPR;
 module.exports.getPRs = getPRs;
+module.exports.deletePR = deletePR;
+module.exports.updatePR = updatePR;

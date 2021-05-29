@@ -252,3 +252,29 @@ app.post("/getPRs", function (req, res) {
     }
   });
 });
+
+app.post("/deletePR", function (req, res) {
+  // console.log(req.body);
+
+  db.deletePR(req.body, function (data) {
+    if (data) {
+      res.json(data);
+      // console.log(data);
+    } else {
+      console.log("error");
+    }
+  });
+});
+
+app.post("/updatePR", function (req, res) {
+  // console.log(req.body);
+
+  db.updatePR(req.body, function (data) {
+    if (data) {
+      res.json(data);
+      // console.log(data);
+    } else {
+      console.log("error");
+    }
+  });
+});

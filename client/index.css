@@ -1883,3 +1883,31 @@ z-index: 10;
 .trHeaderPRs {
 font-weight: 700;
 }
+
+.rowModalCard {
+  width: 90%;
+}
+
+.deleteRowButton {
+  float: right;
+}
+
+.prRowInput {
+  margin-bottom: 5px;
+}
+
+.prRowP {
+margin-bottom: -10px;
+}
+
+.noPRsYet {
+ color: gray;
+}
+
+.noPrsYetWrapperDiv {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20vh;
+}
