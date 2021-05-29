@@ -1374,7 +1374,7 @@ class newworkout extends Component {
               onClick={this.handleActivateExercisesModal}
               className="button is-dark is-small exploreWorkoutsButton"
             >
-              Explore workouts
+              Explore exercises
             </button>
           </div>
 
