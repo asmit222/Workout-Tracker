@@ -7,6 +7,7 @@ var path = require("path");
 const db = require("../database");
 var expressStaticGzip = require("express-static-gzip");
 require("dotenv").config();
+const request = require("request");
 
 var env = process.env.npm_package_scripts_env;
 
@@ -278,3 +279,22 @@ app.post("/updatePR", function (req, res) {
     }
   });
 });
+
+// app.get("/getWorkoutsAPI", function (req, res) {
+//   console.log("hi");
+//   res.status(200);
+//   request(
+//     {
+//       url: "https://wger.de/api/v2/exercise/?language=1",
+//       // headers: {
+//       //   Authorization: "f_ZqboPvOWAZoxfDXp5bNlMp50jhJzKMk2KiYI9NVU0",
+//       // },
+//     },
+//     function (error, response, body) {
+//       if (!error && response.statusCode == 200) {
+//         console.log(body);
+//         res.send(body);
+//       }
+//     }
+//   );
+// });

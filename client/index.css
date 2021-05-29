@@ -1538,7 +1538,7 @@ width: 50px;
   height: 40px;
   width: 45px;
 
-  margin-left: 10px;
+  margin-left: 15px;
   margin-top: -6.5px;
   /* border: solid 0.5px #06142b; */
 }
@@ -1910,4 +1910,22 @@ margin-bottom: -10px;
   align-items: center;
   justify-content: center;
   height: 20vh;
+}
+
+.exploreWorkoutsButton {
+  margin-top: -6.5px;
+  margin-left: 15px;
+  height: 40px;
+
+}
+
+.modalCardExercises {
+  position: fixed;
+  top: 10px;
+  bottom: 65px;
+  width: 95%;
+}
+
+.muscleGroupText {
+  color: red;
 }
