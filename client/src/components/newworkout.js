@@ -156,6 +156,11 @@ class newworkout extends Component {
       currentVideoID3: "",
       currentVideoID4: "",
       currentVideoID5: "",
+      currentVideoTitle1: "",
+      currentVideoTitle2: "",
+      currentVideoTitle3: "",
+      currentVideoTitle4: "",
+      currentVideoTitle5: "",
     };
     this.handleDaySelection = this.handleDaySelection.bind(this);
     this.hideDropDown = this.hideDropDown.bind(this);
@@ -215,6 +220,12 @@ class newworkout extends Component {
           currentVideoID3: res.data[2].channel.raw.id.videoId,
           currentVideoID4: res.data[3].channel.raw.id.videoId,
           currentVideoID5: res.data[4].channel.raw.id.videoId,
+
+          currentVideoTitle1: res.data[0].channel.raw.snippet.title,
+          currentVideoTitle2: res.data[1].channel.raw.snippet.title,
+          currentVideoTitle3: res.data[2].channel.raw.snippet.title,
+          currentVideoTitle4: res.data[3].channel.raw.snippet.title,
+          currentVideoTitle5: res.data[4].channel.raw.snippet.title,
         });
       });
   }
@@ -1354,26 +1365,35 @@ class newworkout extends Component {
               </header>
               <section className="modal-card-body">
                 <div className="youtubeVideoWrapper">
+                  <h6>{this.state.currentVideoTitle1}</h6>
                   <YouTube
                     opts={this.state.opts}
                     videoId={this.state.currentVideoID1}
                     onReady={this._onReady}
                   />
+                  <div className="horizontalDivider"></div>
+                  <h6>{this.state.currentVideoTitle2}</h6>
                   <YouTube
                     opts={this.state.opts}
                     videoId={this.state.currentVideoID2}
                     onReady={this._onReady}
                   />
+                  <div className="horizontalDivider"></div>
+                  <h6>{this.state.currentVideoTitle3}</h6>
                   <YouTube
                     opts={this.state.opts}
                     videoId={this.state.currentVideoID3}
                     onReady={this._onReady}
                   />
+                  <div className="horizontalDivider"></div>
+                  <h6>{this.state.currentVideoTitle4}</h6>
                   <YouTube
                     opts={this.state.opts}
                     videoId={this.state.currentVideoID4}
                     onReady={this._onReady}
                   />
+                  <div className="horizontalDivider"></div>
+                  <h6>{this.state.currentVideoTitle5}</h6>
                   <YouTube
                     opts={this.state.opts}
                     videoId={this.state.currentVideoID5}
