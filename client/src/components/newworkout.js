@@ -208,6 +208,11 @@ class newworkout extends Component {
     this.handleClickMuscleGroup = this.handleClickMuscleGroup.bind(this);
 
     this.handleClickExerciseText = this.handleClickExerciseText.bind(this);
+    this.capitalizeFirstLetter = this.capitalizeFirstLetter.bind(this);
+  }
+
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   handleClickExerciseText(exercise) {
@@ -1379,9 +1384,13 @@ class newworkout extends Component {
             <div className="modal-background"></div>
             <div className="modal-card modalCardExerciseVideo forwardInAnimation">
               <header className="modal-card-head">
-                <p className="modal-card-title">
-                  {this.state.currentExerciseForVideo}
-                </p>
+                <div>
+                  <p className="modal-card-title ">
+                    {`${this.capitalizeFirstLetter(
+                      this.state.currentExerciseForVideo
+                    )} videos`}
+                  </p>
+                </div>
               </header>
               <section className="modal-card-body modalCardBodyVideo">
                 <div className="youtubeVideoWrapper">
@@ -1576,7 +1585,7 @@ class newworkout extends Component {
                                 }}
                                 className="muscleGroupText"
                               >
-                                {muscleGroup}
+                                {this.capitalizeFirstLetter(muscleGroup)}
                               </div>
                               <div className="horizontalDivider"></div>
                             </div>
@@ -1599,10 +1608,12 @@ class newworkout extends Component {
                                   }}
                                   className="exerciseWorkoutText"
                                 >
-                                  {exercise.workout}
+                                  {this.capitalizeFirstLetter(exercise.workout)}
                                 </div>
                                 <div className="muscleGroupText2">
-                                  {exercise.muscleGroup}
+                                  {this.capitalizeFirstLetter(
+                                    exercise.muscleGroup
+                                  )}
                                 </div>
                                 <div className="horizontalDivider"></div>
                               </div>
@@ -1617,10 +1628,10 @@ class newworkout extends Component {
                               }}
                               className="exerciseWorkoutText"
                             >
-                              {exercise.workout}
+                              {this.capitalizeFirstLetter(exercise.workout)}
                             </div>
                             <div className="muscleGroupText2">
-                              {exercise.muscleGroup}
+                              {this.capitalizeFirstLetter(exercise.muscleGroup)}
                             </div>
                             <div className="horizontalDivider"></div>
                           </div>

@@ -1931,6 +1931,7 @@ margin-bottom: -10px;
 .muscleGroupText {
   color: rgb(0, 25, 250);
   text-decoration: underline;
+  font-size: large;
 }
 
 .muscleGroupText2 {
@@ -2000,4 +2001,6 @@ padding-left: 2px;
 
 .videoTitleSpan {
   font-weight: 600;
+  margin-bottom: 5px;
 }
+
