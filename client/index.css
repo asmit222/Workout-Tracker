@@ -1929,5 +1929,44 @@ margin-bottom: -10px;
 }
 
 .muscleGroupText {
+  color: rgb(0, 25, 250);
+  text-decoration: underline;
+}
+
+.muscleGroupText2 {
   color: red;
+}
+
+.searchExercisesWrapperDiv {
+  position: absolute;
+  top: 55px;
+  background-color: white;
+  padding-bottom: 20px;
+  margin-top: 10px;
+  padding-top: 3px;
+  margin-bottom: 20px;
+}
+
+.searchExercisesWrapperDiv2 {
+  position: absolute;
+  top: 55px;
+  right: 20px;
+  left: 20px;
+  background-color: white;
+  padding-bottom: 20px;
+  margin-top: 10px;
+  padding-top: 3px;
+  margin-bottom: 20px;
+}
+
+.backButton {
+  margin-top: 5px;
+}
+
+.exercisesModalBody {
+  margin-top: 50px;
+}
+
+.exercisesModalBody2 {
+  margin-top: 90px;
 }

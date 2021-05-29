@@ -131,7 +131,11 @@ class newworkout extends Component {
       changingWorkoutGraphYear: "",
       changingRunGraphYear: "",
       exercises: [],
+      exerciseMuscleGroups: [],
       exercisesModalActive: "",
+      exercisesSearchValue: "",
+      muscleGroupClicked: false,
+      muscleGroupExercises: [],
     };
     this.handleDaySelection = this.handleDaySelection.bind(this);
     this.hideDropDown = this.hideDropDown.bind(this);
@@ -162,6 +166,29 @@ class newworkout extends Component {
 
     this.handleActivateExercisesModal =
       this.handleActivateExercisesModal.bind(this);
+
+    this.handleChangeSearchExercises =
+      this.handleChangeSearchExercises.bind(this);
+
+    this.handleClickMuscleGroup = this.handleClickMuscleGroup.bind(this);
+  }
+
+  handleClickMuscleGroup(muscleGroup) {
+    console.log("hi");
+    var filteredExercises = this.state.exercises.filter((exercise) => {
+      return exercise.muscleGroup === muscleGroup;
+    });
+
+    this.setState({
+      muscleGroupExercises: filteredExercises,
+      muscleGroupClicked: true,
+    });
+  }
+
+  handleChangeSearchExercises(e) {
+    this.setState({
+      exercisesSearchValue: e.target.value,
+    });
   }
 
   handleActivateExercisesModal() {
@@ -976,10 +1003,30 @@ class newworkout extends Component {
     var thisBind = this;
 
     if (this.props.location.state !== undefined) {
-      this.setState({
-        personUsername: thisBind.props.location.state.getName(),
-        exercises: exercises,
-      });
+      this.setState(
+        {
+          personUsername: thisBind.props.location.state.getName(),
+          exercises: exercises,
+        },
+        () => {
+          console.log(this.state.exercises);
+
+          var muscleGroups = [];
+
+          for (var i = 0; i < this.state.exercises.length; i++) {
+            if (
+              muscleGroups.indexOf(this.state.exercises[i].muscleGroup) === -1
+            ) {
+              muscleGroups.push(this.state.exercises[i].muscleGroup);
+            }
+          }
+
+          console.log("groups: ", muscleGroups);
+          this.setState({
+            exerciseMuscleGroups: muscleGroups,
+          });
+        }
+      );
       axios
         .post("/getRunData", `${[thisBind.props.location.state.getName()]}`)
         .then(
@@ -1257,17 +1304,90 @@ class newworkout extends Component {
                 <p className="modal-card-title">Exercises (WIP)</p>
               </header>
               <section className="modal-card-body">
-                {this.state.exercises.map((exercise) => {
-                  return (
-                    <div>
-                      <div>{exercise.workout}</div>
-                      <div className="muscleGroupText">
-                        {exercise.muscleGroup}
-                      </div>
-                      <div className="horizontalDivider"></div>
-                    </div>
-                  );
-                })}
+                <div
+                  className={
+                    !this.state.muscleGroupClicked
+                      ? "searchExercisesWrapperDiv"
+                      : "searchExercisesWrapperDiv2"
+                  }
+                >
+                  <span>Search Exercises</span>
+                  <input
+                    value={this.state.exercisesSearchValue}
+                    onChange={this.handleChangeSearchExercises}
+                    className="input"
+                  ></input>
+                  {this.state.muscleGroupClicked ? (
+                    <button
+                      onClick={() => {
+                        this.setState({
+                          muscleGroupClicked: false,
+                        });
+                      }}
+                      className="button is-small backButton is-info"
+                    >
+                      Return to muscle groups
+                    </button>
+                  ) : (
+                    <div id="hide"></div>
+                  )}
+                </div>
+
+                <div
+                  className={
+                    !this.state.muscleGroupClicked
+                      ? "exercisesModalBody"
+                      : "exercisesModalBody2"
+                  }
+                >
+                  <div className="horizontalDivider"></div>
+
+                  {!this.state.muscleGroupClicked
+                    ? this.state.exercisesSearchValue === ""
+                      ? this.state.exerciseMuscleGroups.map((muscleGroup) => {
+                          return (
+                            <div>
+                              <div
+                                onClick={() => {
+                                  this.handleClickMuscleGroup(muscleGroup);
+                                }}
+                                className="muscleGroupText"
+                              >
+                                {muscleGroup}
+                              </div>
+                              <div className="horizontalDivider"></div>
+                            </div>
+                          );
+                        })
+                      : this.state.exercises
+                          .filter((exercise) => {
+                            return exercise.workout.includes(
+                              this.state.exercisesSearchValue
+                            );
+                          })
+                          .map((exercise) => {
+                            return (
+                              <div>
+                                <div>{exercise.workout}</div>
+                                <div className="muscleGroupText2">
+                                  {exercise.muscleGroup}
+                                </div>
+                                <div className="horizontalDivider"></div>
+                              </div>
+                            );
+                          })
+                    : this.state.muscleGroupExercises.map((exercise) => {
+                        return (
+                          <div>
+                            <div>{exercise.workout}</div>
+                            <div className="muscleGroupText2">
+                              {exercise.muscleGroup}
+                            </div>
+                            <div className="horizontalDivider"></div>
+                          </div>
+                        );
+                      })}
+                </div>
               </section>
               <footer className="modal-card-foot">
                 <button
