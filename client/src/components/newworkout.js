@@ -156,11 +156,21 @@ class newworkout extends Component {
       currentVideoID3: "",
       currentVideoID4: "",
       currentVideoID5: "",
+      currentVideoID6: "",
+      currentVideoID7: "",
+      currentVideoID8: "",
+      currentVideoID9: "",
+      currentVideoID10: "",
       currentVideoTitle1: "",
       currentVideoTitle2: "",
       currentVideoTitle3: "",
       currentVideoTitle4: "",
       currentVideoTitle5: "",
+      currentVideoTitle6: "",
+      currentVideoTitle7: "",
+      currentVideoTitle8: "",
+      currentVideoTitle9: "",
+      currentVideoTitle10: "",
     };
     this.handleDaySelection = this.handleDaySelection.bind(this);
     this.hideDropDown = this.hideDropDown.bind(this);
@@ -220,12 +230,22 @@ class newworkout extends Component {
           currentVideoID3: res.data[2].channel.raw.id.videoId,
           currentVideoID4: res.data[3].channel.raw.id.videoId,
           currentVideoID5: res.data[4].channel.raw.id.videoId,
+          currentVideoID6: res.data[5].channel.raw.id.videoId,
+          currentVideoID7: res.data[6].channel.raw.id.videoId,
+          currentVideoID8: res.data[7].channel.raw.id.videoId,
+          currentVideoID9: res.data[8].channel.raw.id.videoId,
+          currentVideoID10: res.data[9].channel.raw.id.videoId,
 
           currentVideoTitle1: res.data[0].channel.raw.snippet.title,
           currentVideoTitle2: res.data[1].channel.raw.snippet.title,
           currentVideoTitle3: res.data[2].channel.raw.snippet.title,
           currentVideoTitle4: res.data[3].channel.raw.snippet.title,
           currentVideoTitle5: res.data[4].channel.raw.snippet.title,
+          currentVideoTitle6: res.data[5].channel.raw.snippet.title,
+          currentVideoTitle7: res.data[6].channel.raw.snippet.title,
+          currentVideoTitle8: res.data[7].channel.raw.snippet.title,
+          currentVideoTitle9: res.data[8].channel.raw.snippet.title,
+          currentVideoTitle10: res.data[9].channel.raw.snippet.title,
         });
       });
   }
@@ -243,7 +263,7 @@ class newworkout extends Component {
 
   handleChangeSearchExercises(e) {
     this.setState({
-      exercisesSearchValue: e.target.value,
+      exercisesSearchValue: e.target.value.toLowerCase(),
     });
   }
 
@@ -1363,40 +1383,106 @@ class newworkout extends Component {
                   {this.state.currentExerciseForVideo}
                 </p>
               </header>
-              <section className="modal-card-body">
+              <section className="modal-card-body modalCardBodyVideo">
                 <div className="youtubeVideoWrapper">
-                  <h6>{this.state.currentVideoTitle1}</h6>
+                  <span className="videoTitleSpan">
+                    {" "}
+                    {this.state.currentVideoTitle1}
+                  </span>
                   <YouTube
                     opts={this.state.opts}
                     videoId={this.state.currentVideoID1}
                     onReady={this._onReady}
                   />
                   <div className="horizontalDivider"></div>
-                  <h6>{this.state.currentVideoTitle2}</h6>
+                  <span className="videoTitleSpan">
+                    {" "}
+                    {this.state.currentVideoTitle2}
+                  </span>
                   <YouTube
                     opts={this.state.opts}
                     videoId={this.state.currentVideoID2}
                     onReady={this._onReady}
                   />
                   <div className="horizontalDivider"></div>
-                  <h6>{this.state.currentVideoTitle3}</h6>
+                  <span className="videoTitleSpan">
+                    {" "}
+                    {this.state.currentVideoTitle3}
+                  </span>
                   <YouTube
                     opts={this.state.opts}
                     videoId={this.state.currentVideoID3}
                     onReady={this._onReady}
                   />
                   <div className="horizontalDivider"></div>
-                  <h6>{this.state.currentVideoTitle4}</h6>
+                  <span className="videoTitleSpan">
+                    {" "}
+                    {this.state.currentVideoTitle4}
+                  </span>
                   <YouTube
                     opts={this.state.opts}
                     videoId={this.state.currentVideoID4}
                     onReady={this._onReady}
                   />
                   <div className="horizontalDivider"></div>
-                  <h6>{this.state.currentVideoTitle5}</h6>
+                  <span className="videoTitleSpan">
+                    {" "}
+                    {this.state.currentVideoTitle5}
+                  </span>
                   <YouTube
                     opts={this.state.opts}
                     videoId={this.state.currentVideoID5}
+                    onReady={this._onReady}
+                  />
+                  <div className="horizontalDivider"></div>
+
+                  <span className="videoTitleSpan">
+                    {" "}
+                    {this.state.currentVideoTitle6}
+                  </span>
+                  <YouTube
+                    opts={this.state.opts}
+                    videoId={this.state.currentVideoID6}
+                    onReady={this._onReady}
+                  />
+                  <div className="horizontalDivider"></div>
+                  <span className="videoTitleSpan">
+                    {" "}
+                    {this.state.currentVideoTitle7}
+                  </span>
+                  <YouTube
+                    opts={this.state.opts}
+                    videoId={this.state.currentVideoID7}
+                    onReady={this._onReady}
+                  />
+                  <div className="horizontalDivider"></div>
+                  <span className="videoTitleSpan">
+                    {" "}
+                    {this.state.currentVideoTitle8}
+                  </span>
+                  <YouTube
+                    opts={this.state.opts}
+                    videoId={this.state.currentVideoID8}
+                    onReady={this._onReady}
+                  />
+                  <div className="horizontalDivider"></div>
+                  <span className="videoTitleSpan">
+                    {" "}
+                    {this.state.currentVideoTitle9}
+                  </span>
+                  <YouTube
+                    opts={this.state.opts}
+                    videoId={this.state.currentVideoID9}
+                    onReady={this._onReady}
+                  />
+                  <div className="horizontalDivider"></div>
+                  <span className="videoTitleSpan">
+                    {" "}
+                    {this.state.currentVideoTitle10}
+                  </span>
+                  <YouTube
+                    opts={this.state.opts}
+                    videoId={this.state.currentVideoID10}
                     onReady={this._onReady}
                   />
                 </div>
@@ -1423,7 +1509,7 @@ class newworkout extends Component {
             <div className="modal-background"></div>
             <div className="modal-card modalCardExercises forwardInAnimation">
               <header className="modal-card-head">
-                <p className="modal-card-title">Exercises (WIP)</p>
+                <p className="modal-card-title">Exercises</p>
               </header>
               <section className="modal-card-body">
                 <div

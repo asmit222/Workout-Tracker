@@ -1934,7 +1934,7 @@ margin-bottom: -10px;
 }
 
 .muscleGroupText2 {
-  color: red;
+  color: rgb(155, 155, 155);
 }
 
 .searchExercisesWrapperDiv {
@@ -1991,4 +1991,13 @@ margin-bottom: -10px;
 
 .youtubeVideoWrapper {
   width: 100%;
+}
+
+.modalCardBodyVideo {
+padding-right: 2px;
+padding-left: 2px;
+}
+
+.videoTitleSpan {
+  font-weight: 600;
 }

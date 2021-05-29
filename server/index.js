@@ -307,7 +307,7 @@ app.get("/getYoutubeVideo/:searchString", function (req, res) {
   res.status(200);
 
   youtube
-    .searchVideos(`how to ${req.params.searchString}`, 5)
+    .searchVideos(`how to ${req.params.searchString} tutorial`, 10)
     .then((results) => {
       res.send(results);
     })
