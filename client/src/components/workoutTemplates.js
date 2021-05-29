@@ -14,6 +14,8 @@ import axios from "axios";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { confirmAlert } from "react-confirm-alert";
 
+import { exercises } from "./exercises";
+
 class WorkoutTemplates extends Component {
   constructor(props) {
     super(props);
@@ -85,27 +87,20 @@ class WorkoutTemplates extends Component {
     this.handleChangeChinUps5 = this.handleChangeChinUps5.bind(this);
     this.handleChangeChinUps6 = this.handleChangeChinUps6.bind(this);
 
-    this.handleChangeDBFarmerCarry0 = this.handleChangeDBFarmerCarry0.bind(
-      this
-    );
-    this.handleChangeDBFarmerCarry1 = this.handleChangeDBFarmerCarry1.bind(
-      this
-    );
-    this.handleChangeDBFarmerCarry2 = this.handleChangeDBFarmerCarry2.bind(
-      this
-    );
-    this.handleChangeDBFarmerCarry3 = this.handleChangeDBFarmerCarry3.bind(
-      this
-    );
-    this.handleChangeDBFarmerCarry4 = this.handleChangeDBFarmerCarry4.bind(
-      this
-    );
-    this.handleChangeDBFarmerCarry5 = this.handleChangeDBFarmerCarry5.bind(
-      this
-    );
-    this.handleChangeDBFarmerCarry6 = this.handleChangeDBFarmerCarry6.bind(
-      this
-    );
+    this.handleChangeDBFarmerCarry0 =
+      this.handleChangeDBFarmerCarry0.bind(this);
+    this.handleChangeDBFarmerCarry1 =
+      this.handleChangeDBFarmerCarry1.bind(this);
+    this.handleChangeDBFarmerCarry2 =
+      this.handleChangeDBFarmerCarry2.bind(this);
+    this.handleChangeDBFarmerCarry3 =
+      this.handleChangeDBFarmerCarry3.bind(this);
+    this.handleChangeDBFarmerCarry4 =
+      this.handleChangeDBFarmerCarry4.bind(this);
+    this.handleChangeDBFarmerCarry5 =
+      this.handleChangeDBFarmerCarry5.bind(this);
+    this.handleChangeDBFarmerCarry6 =
+      this.handleChangeDBFarmerCarry6.bind(this);
 
     this.handleChangeFacePulls0 = this.handleChangeFacePulls0.bind(this);
     this.handleChangeFacePulls1 = this.handleChangeFacePulls1.bind(this);
@@ -131,9 +126,8 @@ class WorkoutTemplates extends Component {
 
     this.handleEditTemplateClick = this.handleEditTemplateClick.bind(this);
 
-    this.handleCancelTemplateUpdate = this.handleCancelTemplateUpdate.bind(
-      this
-    );
+    this.handleCancelTemplateUpdate =
+      this.handleCancelTemplateUpdate.bind(this);
 
     this.handleSaveChanges = this.handleSaveChanges.bind(this);
   }
@@ -788,6 +782,18 @@ class WorkoutTemplates extends Component {
     var thisBind = this;
 
     if (this.props.location.state !== undefined) {
+      console.log(exercises);
+      // axios
+      //   .get("getWorkoutsAPI", {
+      //     headers: {
+      //       "Access-Control-Allow-Origin": "*",
+      //       Authorization: "Token a6f7eb10d6dc29a8047f1f932fe0c16806b50fe9",
+      //     },
+      //   })
+      //   .then((res) => {
+      //     console.log(res);
+      //   });
+
       axios
         .post("/getTemplates", `${[thisBind.props.location.state.getName()]}`)
         .then(

@@ -13,6 +13,8 @@ import TimePicker from "rc-time-picker";
 import ReactDOM from "react-dom";
 import "rc-time-picker/assets/index.css";
 
+import { exercises } from "./exercises";
+
 var newDay;
 
 var timeTime = "00:00:00";
@@ -128,6 +130,8 @@ class newworkout extends Component {
       avgDistRan: 0,
       changingWorkoutGraphYear: "",
       changingRunGraphYear: "",
+      exercises: [],
+      exercisesModalActive: "",
     };
     this.handleDaySelection = this.handleDaySelection.bind(this);
     this.hideDropDown = this.hideDropDown.bind(this);
@@ -148,15 +152,23 @@ class newworkout extends Component {
 
     this.handleResetRunButton = this.handleResetRunButton.bind(this);
     this.calculateStats = this.calculateStats.bind(this);
-    this.handleChangeWorkoutYearGraph = this.handleChangeWorkoutYearGraph.bind(
-      this
-    );
-    this.handleChangeWorkoutYearGraph2 = this.handleChangeWorkoutYearGraph2.bind(
-      this
-    );
+    this.handleChangeWorkoutYearGraph =
+      this.handleChangeWorkoutYearGraph.bind(this);
+    this.handleChangeWorkoutYearGraph2 =
+      this.handleChangeWorkoutYearGraph2.bind(this);
 
     this.handleChangeRunYearGraph = this.handleChangeRunYearGraph.bind(this);
     this.handleChangeRunYearGraph2 = this.handleChangeRunYearGraph2.bind(this);
+
+    this.handleActivateExercisesModal =
+      this.handleActivateExercisesModal.bind(this);
+  }
+
+  handleActivateExercisesModal() {
+    this.setState({
+      exercisesModalActive:
+        this.state.exercisesModalActive === "" ? "is-active" : "",
+    });
   }
 
   handleChangeRunYearGraph() {
@@ -966,6 +978,7 @@ class newworkout extends Component {
     if (this.props.location.state !== undefined) {
       this.setState({
         personUsername: thisBind.props.location.state.getName(),
+        exercises: exercises,
       });
       axios
         .post("/getRunData", `${[thisBind.props.location.state.getName()]}`)
@@ -1229,6 +1242,42 @@ class newworkout extends Component {
               id={this.state.hideRunButton}
               className="button"
             ></button>
+            <button
+              onClick={this.handleActivateExercisesModal}
+              className="button is-dark is-small exploreWorkoutsButton"
+            >
+              Explore Workouts
+            </button>
+          </div>
+
+          <div className={`modal ${this.state.exercisesModalActive}`}>
+            <div className="modal-background"></div>
+            <div className="modal-card modalCardExercises forwardInAnimation">
+              <header className="modal-card-head">
+                <p className="modal-card-title">Exercises (WIP)</p>
+              </header>
+              <section className="modal-card-body">
+                {this.state.exercises.map((exercise) => {
+                  return (
+                    <div>
+                      <div>{exercise.workout}</div>
+                      <div className="muscleGroupText">
+                        {exercise.muscleGroup}
+                      </div>
+                      <div className="horizontalDivider"></div>
+                    </div>
+                  );
+                })}
+              </section>
+              <footer className="modal-card-foot">
+                <button
+                  onClick={this.handleActivateExercisesModal}
+                  className="button is-dark"
+                >
+                  Exit
+                </button>
+              </footer>
+            </div>
           </div>
 
           <div
