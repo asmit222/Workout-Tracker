@@ -8,6 +8,10 @@ const db = require("../database");
 var expressStaticGzip = require("express-static-gzip");
 require("dotenv").config();
 const request = require("request");
+const API_KEY = "AIzaSyBL3-BSNp2ldFECHQ36SsyO_l-AHwRHLH0";
+
+const YouTube = require("simple-youtube-api");
+const youtube = new YouTube(API_KEY);
 
 var env = process.env.npm_package_scripts_env;
 
@@ -298,3 +302,14 @@ app.post("/updatePR", function (req, res) {
 //     }
 //   );
 // });
+
+app.get("/getYoutubeVideo/:searchString", function (req, res) {
+  res.status(200);
+
+  youtube
+    .searchVideos(`how to ${req.params.searchString}`, 5)
+    .then((results) => {
+      res.send(results);
+    })
+    .catch(console.log);
+});

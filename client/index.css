@@ -1979,3 +1979,16 @@ margin-bottom: -10px;
   color: rgb(0, 25, 250);
   text-decoration: underline;
 }
+
+.modalCardExerciseVideo {
+  position: absolute;
+  top: 10px;
+  bottom: 65px;
+  width: 95%;
+  right: 10px;
+  left: -10px;
+}
+
+.youtubeVideoWrapper {
+  width: 100%;
+}

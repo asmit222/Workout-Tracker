@@ -15,6 +15,10 @@ import "rc-time-picker/assets/index.css";
 
 import { exercises } from "./exercises";
 
+import YouTube from "react-youtube";
+
+// import searchYouTube from "./searchYoutube";
+
 var newDay;
 
 var timeTime = "00:00:00";
@@ -136,6 +140,22 @@ class newworkout extends Component {
       exercisesSearchValue: "",
       muscleGroupClicked: false,
       muscleGroupExercises: [],
+      exerciseVideoModalActive: "",
+      currentExerciseForVideo: "",
+      currentVideo: {},
+      videos: [],
+      opts: {
+        // height: "390",
+        width: "100%",
+        playerVars: {
+          autoplay: 0,
+        },
+      },
+      currentVideoID1: "",
+      currentVideoID2: "",
+      currentVideoID3: "",
+      currentVideoID4: "",
+      currentVideoID5: "",
     };
     this.handleDaySelection = this.handleDaySelection.bind(this);
     this.hideDropDown = this.hideDropDown.bind(this);
@@ -171,10 +191,35 @@ class newworkout extends Component {
       this.handleChangeSearchExercises.bind(this);
 
     this.handleClickMuscleGroup = this.handleClickMuscleGroup.bind(this);
+
+    this.handleClickExerciseText = this.handleClickExerciseText.bind(this);
+  }
+
+  handleClickExerciseText(exercise) {
+    this.setState({
+      exerciseVideoModalActive: "is-active",
+      currentExerciseForVideo: exercise,
+      exercisesModalActive: "",
+    });
+
+    axios
+      .get(`getYoutubeVideo/${exercise}`, {
+        headers: { "Access-Control-Allow-Origin": "*" },
+      })
+      .then((res) => {
+        console.log(res.data);
+
+        this.setState({
+          currentVideoID1: res.data[0].channel.raw.id.videoId,
+          currentVideoID2: res.data[1].channel.raw.id.videoId,
+          currentVideoID3: res.data[2].channel.raw.id.videoId,
+          currentVideoID4: res.data[3].channel.raw.id.videoId,
+          currentVideoID5: res.data[4].channel.raw.id.videoId,
+        });
+      });
   }
 
   handleClickMuscleGroup(muscleGroup) {
-    console.log("hi");
     var filteredExercises = this.state.exercises.filter((exercise) => {
       return exercise.muscleGroup === muscleGroup;
     });
@@ -1293,9 +1338,66 @@ class newworkout extends Component {
               onClick={this.handleActivateExercisesModal}
               className="button is-dark is-small exploreWorkoutsButton"
             >
-              Explore Workouts
+              Explore workouts
             </button>
           </div>
+
+          {/*============================= exercise video modal ======================================*/}
+
+          <div className={`modal ${this.state.exerciseVideoModalActive}`}>
+            <div className="modal-background"></div>
+            <div className="modal-card modalCardExerciseVideo forwardInAnimation">
+              <header className="modal-card-head">
+                <p className="modal-card-title">
+                  {this.state.currentExerciseForVideo}
+                </p>
+              </header>
+              <section className="modal-card-body">
+                <div className="youtubeVideoWrapper">
+                  <YouTube
+                    opts={this.state.opts}
+                    videoId={this.state.currentVideoID1}
+                    onReady={this._onReady}
+                  />
+                  <YouTube
+                    opts={this.state.opts}
+                    videoId={this.state.currentVideoID2}
+                    onReady={this._onReady}
+                  />
+                  <YouTube
+                    opts={this.state.opts}
+                    videoId={this.state.currentVideoID3}
+                    onReady={this._onReady}
+                  />
+                  <YouTube
+                    opts={this.state.opts}
+                    videoId={this.state.currentVideoID4}
+                    onReady={this._onReady}
+                  />
+                  <YouTube
+                    opts={this.state.opts}
+                    videoId={this.state.currentVideoID5}
+                    onReady={this._onReady}
+                  />
+                </div>
+              </section>
+              <footer className="modal-card-foot">
+                <button
+                  onClick={() => {
+                    this.setState({
+                      exercisesModalActive: "is-active",
+                      exerciseVideoModalActive: "",
+                    });
+                  }}
+                  className="button is-dark"
+                >
+                  Close
+                </button>
+              </footer>
+            </div>
+          </div>
+
+          {/* ======================================================== ========================================*/}
 
           <div className={`modal ${this.state.exercisesModalActive}`}>
             <div className="modal-background"></div>
@@ -1383,7 +1485,14 @@ class newworkout extends Component {
                           .map((exercise) => {
                             return (
                               <div>
-                                <div className="exerciseWorkoutText">
+                                <div
+                                  onClick={() => {
+                                    this.handleClickExerciseText(
+                                      exercise.workout
+                                    );
+                                  }}
+                                  className="exerciseWorkoutText"
+                                >
                                   {exercise.workout}
                                 </div>
                                 <div className="muscleGroupText2">
@@ -1396,7 +1505,12 @@ class newworkout extends Component {
                     : this.state.muscleGroupExercises.map((exercise) => {
                         return (
                           <div>
-                            <div className="exerciseWorkoutText">
+                            <div
+                              onClick={() => {
+                                this.handleClickExerciseText(exercise.workout);
+                              }}
+                              className="exerciseWorkoutText"
+                            >
                               {exercise.workout}
                             </div>
                             <div className="muscleGroupText2">
