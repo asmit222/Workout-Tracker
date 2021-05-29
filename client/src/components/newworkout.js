@@ -1633,7 +1633,7 @@ class newworkout extends Component {
                   onClick={this.handleActivateExercisesModal}
                   className="button is-dark"
                 >
-                  Exit
+                  Close
                 </button>
               </footer>
             </div>
