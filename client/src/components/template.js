@@ -94,27 +94,20 @@ class Template extends Component {
     this.handleChangeChinUps5 = this.handleChangeChinUps5.bind(this);
     this.handleChangeChinUps6 = this.handleChangeChinUps6.bind(this);
 
-    this.handleChangeDBFarmerCarry0 = this.handleChangeDBFarmerCarry0.bind(
-      this
-    );
-    this.handleChangeDBFarmerCarry1 = this.handleChangeDBFarmerCarry1.bind(
-      this
-    );
-    this.handleChangeDBFarmerCarry2 = this.handleChangeDBFarmerCarry2.bind(
-      this
-    );
-    this.handleChangeDBFarmerCarry3 = this.handleChangeDBFarmerCarry3.bind(
-      this
-    );
-    this.handleChangeDBFarmerCarry4 = this.handleChangeDBFarmerCarry4.bind(
-      this
-    );
-    this.handleChangeDBFarmerCarry5 = this.handleChangeDBFarmerCarry5.bind(
-      this
-    );
-    this.handleChangeDBFarmerCarry6 = this.handleChangeDBFarmerCarry6.bind(
-      this
-    );
+    this.handleChangeDBFarmerCarry0 =
+      this.handleChangeDBFarmerCarry0.bind(this);
+    this.handleChangeDBFarmerCarry1 =
+      this.handleChangeDBFarmerCarry1.bind(this);
+    this.handleChangeDBFarmerCarry2 =
+      this.handleChangeDBFarmerCarry2.bind(this);
+    this.handleChangeDBFarmerCarry3 =
+      this.handleChangeDBFarmerCarry3.bind(this);
+    this.handleChangeDBFarmerCarry4 =
+      this.handleChangeDBFarmerCarry4.bind(this);
+    this.handleChangeDBFarmerCarry5 =
+      this.handleChangeDBFarmerCarry5.bind(this);
+    this.handleChangeDBFarmerCarry6 =
+      this.handleChangeDBFarmerCarry6.bind(this);
 
     this.handleChangeFacePulls0 = this.handleChangeFacePulls0.bind(this);
     this.handleChangeFacePulls1 = this.handleChangeFacePulls1.bind(this);
@@ -1386,21 +1379,22 @@ class Template extends Component {
             this.props.hideThenShowRunButton();
             this.props.hideDropDown();
 
-            this.setState({
-              submitted: "inProgress",
-            });
+            // this.setState({
+            //   submitted: "inProgress",
+            // });
 
-            setTimeout(() => {
-              this.setState(
-                {
-                  animationName: "forwardInAnimation",
-                  submitted: true,
-                },
-                () => {
-                  thisBind.props.history.push("/previousWorkouts");
-                }
-              );
-            }, 2000);
+            // setTimeout(() => {
+            alert("workout submitted!");
+            this.setState(
+              {
+                animationName: "forwardInAnimation",
+                submitted: true,
+              },
+              () => {
+                thisBind.props.history.push("/previousWorkouts");
+              }
+            );
+            // }, 2000);
 
             var arr = [
               [this.state.workoutDate],
@@ -1437,57 +1431,50 @@ class Template extends Component {
 
             for (var j = 0; j < arr[1][0].length; j++) {
               if (arr[1][0][j] === "") {
-                arr[1][0][j] = thisBind.props.currentTemplate.workout1.split(
-                  ","
-                )[j];
+                arr[1][0][j] =
+                  thisBind.props.currentTemplate.workout1.split(",")[j];
               }
             }
 
             for (var j = 0; j < arr[1][1].length; j++) {
               if (arr[1][1][j] === "") {
-                arr[1][1][j] = thisBind.props.currentTemplate.workout2.split(
-                  ","
-                )[j];
+                arr[1][1][j] =
+                  thisBind.props.currentTemplate.workout2.split(",")[j];
               }
             }
 
             for (var j = 0; j < arr[1][2].length; j++) {
               if (arr[1][2][j] === "") {
-                arr[1][2][j] = thisBind.props.currentTemplate.workout3.split(
-                  ","
-                )[j];
+                arr[1][2][j] =
+                  thisBind.props.currentTemplate.workout3.split(",")[j];
               }
             }
 
             for (var j = 0; j < arr[1][3].length; j++) {
               if (arr[1][3][j] === "") {
-                arr[1][3][j] = thisBind.props.currentTemplate.workout4.split(
-                  ","
-                )[j];
+                arr[1][3][j] =
+                  thisBind.props.currentTemplate.workout4.split(",")[j];
               }
             }
 
             for (var j = 0; j < arr[1][4].length; j++) {
               if (arr[1][4][j] === "") {
-                arr[1][4][j] = thisBind.props.currentTemplate.workout5.split(
-                  ","
-                )[j];
+                arr[1][4][j] =
+                  thisBind.props.currentTemplate.workout5.split(",")[j];
               }
             }
 
             for (var j = 0; j < arr[1][5].length; j++) {
               if (arr[1][5][j] === "") {
-                arr[1][5][j] = thisBind.props.currentTemplate.workout6.split(
-                  ","
-                )[j];
+                arr[1][5][j] =
+                  thisBind.props.currentTemplate.workout6.split(",")[j];
               }
             }
 
             for (var j = 0; j < arr[1][6].length; j++) {
               if (arr[1][6][j] === "") {
-                arr[1][6][j] = thisBind.props.currentTemplate.workout7.split(
-                  ","
-                )[j];
+                arr[1][6][j] =
+                  thisBind.props.currentTemplate.workout7.split(",")[j];
               }
             }
 

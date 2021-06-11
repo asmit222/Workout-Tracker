@@ -896,7 +896,7 @@ class newworkout extends Component {
         for (var key in this.state.runsPerMonthPercentages) {
           var workouts = this.state.runsPerMonth[key];
           workouts = workouts / maxWorkoutsInAMonth;
-          workouts = workouts * 0.65 * 100;
+          workouts = workouts * 0.45 * 100 + 18;
 
           var old = this.state.runsPerMonthPercentages;
           old[key] = workouts.toString();
@@ -1054,8 +1054,14 @@ class newworkout extends Component {
 
         for (var key in this.state.workoutsPerMonthPercentages) {
           var workouts = this.state.workoutsPerMonth[key];
+
+          // if (workouts > 3) {
+          //   workouts = workouts / maxWorkoutsInAMonth;
+          //   workouts = workouts * 0.65 * 100;
+          // } else {
           workouts = workouts / maxWorkoutsInAMonth;
-          workouts = workouts * 0.65 * 100;
+          workouts = workouts * 0.45 * 100 + 18;
+          // }
 
           var old = this.state.workoutsPerMonthPercentages;
           old[key] = workouts.toString();
