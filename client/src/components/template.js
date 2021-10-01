@@ -1379,11 +1379,6 @@ class Template extends Component {
             this.props.hideThenShowRunButton();
             this.props.hideDropDown();
 
-            // this.setState({
-            //   submitted: "inProgress",
-            // });
-
-            // setTimeout(() => {
             this.setState(
               {
                 animationName: "forwardInAnimation",
