@@ -1384,7 +1384,6 @@ class Template extends Component {
             // });
 
             // setTimeout(() => {
-            alert("workout submitted!");
             this.setState(
               {
                 animationName: "forwardInAnimation",
@@ -1481,6 +1480,7 @@ class Template extends Component {
             axios.post("/test", `${arr}`).then(
               (response) => {
                 console.log("workout sent for workout!");
+                alert("workout submitted!");
               },
               (error) => {
                 alert(error);
