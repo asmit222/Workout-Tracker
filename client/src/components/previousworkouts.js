@@ -132,10 +132,57 @@ class Previousworkouts extends Component {
         .post("/getWorkouts", `${[thisBind.props.location.state.getName()]}`)
         .then(
           (response) => {
-            response.data.reverse();
-            thisBind.setState({
-              data: response.data,
+            function workoutBefore(w1Date, w2Date) {
+              var obj = {
+                Jan: 0,
+                Feb: 1,
+                Mar: 2,
+                Apr: 3,
+                May: 4,
+                Jun: 5,
+                Jul: 6,
+                Aug: 7,
+                Sep: 8,
+                Oct: 9,
+                Nov: 10,
+                Dec: 11,
+              };
+
+              if (Number(w1Date.split(" ")[2]) < Number(w2Date.split(" ")[2])) {
+                return false;
+              }
+              if (
+                Number(w1Date.split(" ")[2]) === Number(w2Date.split(" ")[2]) &&
+                obj[w1Date.split(" ")[0]] < obj[w2Date.split(" ")[0]]
+              ) {
+                return false;
+              }
+              if (
+                Number(w1Date.split(" ")[2]) === Number(w2Date.split(" ")[2]) &&
+                obj[w1Date.split(" ")[0]] === obj[w2Date.split(" ")[0]] &&
+                Number(w1Date.split(" ")[1]) < Number(w2Date.split(" ")[1])
+              ) {
+                return false;
+              }
+
+              return true;
+            }
+
+            var arrayToSort = response.data;
+            arrayToSort.sort(function (workout1, workout2) {
+              return workoutBefore(workout1.workoutDate, workout2.workoutDate)
+                ? -1
+                : 0;
             });
+
+            thisBind.setState(
+              {
+                data: response.data,
+              },
+              () => {
+                console.log("previous workouts: ", this.state.data);
+              }
+            );
           },
           (error) => {
             alert(error);
