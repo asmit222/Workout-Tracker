@@ -145,7 +145,6 @@ class newworkout extends Component {
       currentVideo: {},
       videos: [],
       opts: {
-        // height: "390",
         width: "100%",
         playerVars: {
           autoplay: 0,
@@ -1263,7 +1262,7 @@ class newworkout extends Component {
     } else {
       var templates = <div id="hide"></div>;
     }
-    return (
+    return this.state.personUsername !== "" ? (
       <React.Fragment>
         <div className="block selectWorkoutAnimation">
           {/* =============================== running modal ====================================== */}
@@ -2067,6 +2066,8 @@ class newworkout extends Component {
       </div>
       </div> */}
       </React.Fragment>
+    ) : (
+      <div>loading...</div>
     );
   }
 }
