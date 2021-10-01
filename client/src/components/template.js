@@ -1476,7 +1476,6 @@ class Template extends Component {
               (response) => {
                 alert("workout submitted!");
                 console.log("workout sent for workout!");
-                alert("workout submitted!");
               },
               (error) => {
                 alert(error);
