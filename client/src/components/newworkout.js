@@ -1065,10 +1065,13 @@ class newworkout extends Component {
 
           var old = this.state.workoutsPerMonthPercentages;
           old[key] = workouts.toString();
-          this.setState({
-            workoutsPerMonthPercentages: old,
-            doneSettingWorkoutGraph: true,
-          });
+          this.setState(
+            {
+              workoutsPerMonthPercentages: old,
+              doneSettingWorkoutGraph: true,
+            },
+            console.log("yay done!")
+          );
         }
       }
     );
@@ -2070,7 +2073,11 @@ class newworkout extends Component {
       </div> */}
       </React.Fragment>
     ) : (
-      <div>loading...</div>
+      <div className="loadingScreenWorkouts">
+        <div className="innerDivLoadingScreenNewWorkout">
+          <i className="fa fa-spinner fa-5x fa-spin" />
+        </div>
+      </div>
     );
   }
 }
