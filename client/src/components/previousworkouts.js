@@ -198,8 +198,10 @@ class Previousworkouts extends Component {
     return (
       <div className="previousWorkoutsWrapper">
         {this.state.data.length === 0 ? (
-          <div className="fadeInAnimationNoWorkoutsYet noWorkoutsYetText">
-            No workouts yet
+          <div className="loadingScreenWorkouts">
+            <div className="innerDivLoadingScreenNewWorkout">
+              <i className="fa fa-spinner fa-5x fa-spin" />
+            </div>
           </div>
         ) : (
           <div id="hide"></div>
