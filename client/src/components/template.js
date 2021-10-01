@@ -1479,6 +1479,7 @@ class Template extends Component {
 
             axios.post("/test", `${arr}`).then(
               (response) => {
+                alert("workout submitted!");
                 console.log("workout sent for workout!");
                 alert("workout submitted!");
               },
