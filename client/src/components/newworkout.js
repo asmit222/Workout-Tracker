@@ -170,6 +170,7 @@ class newworkout extends Component {
       currentVideoTitle8: "",
       currentVideoTitle9: "",
       currentVideoTitle10: "",
+      doneSettingWorkoutGraph: false,
     };
     this.handleDaySelection = this.handleDaySelection.bind(this);
     this.hideDropDown = this.hideDropDown.bind(this);
@@ -1066,6 +1067,7 @@ class newworkout extends Component {
           old[key] = workouts.toString();
           this.setState({
             workoutsPerMonthPercentages: old,
+            doneSettingWorkoutGraph: true,
           });
         }
       }
@@ -1262,7 +1264,8 @@ class newworkout extends Component {
     } else {
       var templates = <div id="hide"></div>;
     }
-    return this.state.personUsername !== "" ? (
+    return this.state.personUsername !== "" &&
+      this.state.doneSettingWorkoutGraph ? (
       <React.Fragment>
         <div className="block selectWorkoutAnimation">
           {/* =============================== running modal ====================================== */}
