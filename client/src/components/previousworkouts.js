@@ -177,7 +177,7 @@ class Previousworkouts extends Component {
 
             thisBind.setState(
               {
-                data: response.data,
+                data: arrayToSort,
               },
               () => {
                 console.log("previous workouts: ", this.state.data);
