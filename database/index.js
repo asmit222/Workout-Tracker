@@ -1,537 +1,336 @@
-const mariadb = require("mariadb/callback");
-const mariadbConfig = require("./config.js");
-const { Pool } = require("pg");
+const mysql = require("mysql2");
 
+// Parse Railway connection string
 let url = process.env.MYSQL_URL || "";
-
 if (url.startsWith("mysql://")) {
-  url = url.replace(/^mysql:\/\//, "mariadb://");
+  url = url.replace(/^mysql:\/\//, "mysql://"); // mysql2 supports mysql://
 }
 
-const connection = mariadb.createConnection(url);
+// Create pool
+const pool = mysql.createPool(url + "?connectionLimit=10").promise();
 
-const saveWorkout = function (data, callback) {
-  console.log("saving final version of workout");
-
-  if (
-    JSON.stringify(data)
-      .split(",")[4]
-      .slice(0, JSON.stringify(data).split(",")[4].length - 9) ===
-    "354634563dfghdfgh439003235"
-  ) {
-    var dataSplit = JSON.stringify(data).split(",");
-
-    var date = dataSplit[0].slice(2).split(" ").slice(1, 4).join(" ");
-    var name = dataSplit[1];
-    var miles = dataSplit[2];
-    var minutes = dataSplit[3];
-    var runCode = "354634563dfghdfgh439003235";
-
-    var notes = "";
-
-    var sql = `INSERT INTO workout1 (name, workoutPlan, workoutDate, workout1, workout2) VALUES ('${name}', '${runCode}', '${date}', '${miles}', '${minutes}');`;
-
-    connection.query(sql, function (err, results) {
-      if (err) {
-        console.log("error querying database: ", err);
-      } else {
-        console.log("run saved in workout table!");
-      }
-      // });
-      // }
-    });
-  } else {
-    connection.connect((err) => {
-      if (err) {
-        console.log("error connecting to database: ", err);
-        return;
-      } else {
-        var dataSplit = data.split(",");
-
-        console.log("datasplit is here ", data);
-
-        var name = dataSplit[51];
-
-        var date = dataSplit[0].slice(2).split(" ").slice(1, 4).join(" ");
-        var workout1 = [
-          dataSplit[1],
-          dataSplit[2],
-          dataSplit[3],
-          dataSplit[4],
-          dataSplit[5],
-          dataSplit[6],
-          dataSplit[7],
-        ];
-        var workout2 = [
-          dataSplit[8],
-          dataSplit[9],
-          dataSplit[10],
-          dataSplit[11],
-          dataSplit[12],
-          dataSplit[13],
-          dataSplit[14],
-        ];
-        var workout3 = [
-          dataSplit[15],
-          dataSplit[16],
-          dataSplit[17],
-          dataSplit[18],
-          dataSplit[19],
-          dataSplit[20],
-          dataSplit[21],
-        ];
-        var workout4 = [
-          dataSplit[22],
-          dataSplit[23],
-          dataSplit[24],
-          dataSplit[25],
-          dataSplit[26],
-          dataSplit[27],
-          dataSplit[28],
-        ];
-        var workout5 = [
-          dataSplit[29],
-          dataSplit[30],
-          dataSplit[31],
-          dataSplit[32],
-          dataSplit[33],
-          dataSplit[34],
-          dataSplit[35],
-        ];
-        var workout6 = [
-          dataSplit[36],
-          dataSplit[37],
-          dataSplit[38],
-          dataSplit[39],
-          dataSplit[40],
-          dataSplit[41],
-          dataSplit[42],
-        ];
-        var workout7 = [
-          dataSplit[43],
-          dataSplit[44],
-          dataSplit[45],
-          dataSplit[46],
-          dataSplit[47],
-          dataSplit[48],
-          dataSplit[49],
-        ];
-        var notes = [`${dataSplit[50]}`];
-
-        var notesSplit = notes[0].split(" ");
-        for (var k = 0; k < notesSplit.length; k++) {
-          if (notesSplit[k] === '":"') {
-            notesSplit[k] = "=";
-          }
-        }
-        notes = [notesSplit.join(" ")];
-
-        if (notes[0].indexOf('":"') !== -1) {
-          notesSplit = notes[0].split('":"');
-          notes = [notesSplit.join("=")];
-        }
-
-        var day =
-          notes[0].indexOf("=") !== -1 || notes[0].indexOf('":"') !== -1
-            ? JSON.stringify(dataSplit[53].slice(0, dataSplit[53].length - 2))
-            : JSON.stringify(dataSplit[53].slice(0, dataSplit[53].length - 5));
-
-        var color;
-        var sql3 = `select * from templates where templateName = '${day}';`;
-
-        connection.query(sql3, function (err, results) {
-          if (err) {
-            console.log("error querying database: ", err);
-          } else {
-            if (results[0] !== undefined) {
-              color = results[0].color;
-            }
-
-            // var sql4 = `delete from workout1 where name = '${name}' and  workoutDate = '${date}' and workoutPlan = '${day}';`;
-
-            // connection.query(sql4, function(err, results) {
-            //   if (err) {
-            //     console.log('error querying database: ', err);
-            //   } else {
-
-            var sql = `INSERT IGNORE INTO workout1 (name, workoutPlan, workoutDate, workout1, workout2, workout3, workout4, workout5, workout6, workout7, notes, color) VALUES ('${name}', '${day}', '${date}', '${workout1}', '${workout2}', '${workout3}', '${workout4}', '${workout5}', '${workout6}', '${workout7}', '${notes}', '${color}');`;
-
-            connection.query(sql, function (err, results) {
-              if (err) {
-                console.log("error querying database: ", err);
-              } else {
-                console.log("workout saved!");
-              }
-              // });
-              // }
-            });
-          }
-        });
-      }
-    });
+// Query helper
+const query = async (sql, params = []) => {
+  try {
+    const [rows] = await pool.query(sql, params);
+    return rows;
+  } catch (err) {
+    console.error("DB Query Error:", err);
+    throw err;
   }
 };
 
-const getWorkouts = function (data, callback) {
-  connection.connect((err) => {
-    if (err) {
-      console.log("error connecting to database: ", err);
-      return;
-    }
-    console.log("connection established");
-    var name = data.slice(2, data.length - 5);
-    var sql = `select * from workout1 where name = '${name.toUpperCase()}'`;
-    connection.query(sql, function (err, results) {
-      if (err) {
-        console.log("error querying database: ", err);
-      } else {
-        callback(results);
-      }
-    });
-  });
-};
+// ======================== FUNCTIONS ========================
 
-const addTemplate = function (data, callback) {
-  connection.connect((err) => {
-    if (err) {
-      console.log("error connecting to database: ", err);
-      return;
+const saveWorkout = async function (data, callback) {
+  console.log("saving final version of workout");
+  try {
+    const dataStr = JSON.stringify(data);
+    if (
+      dataStr.split(",")[4].slice(0, dataStr.split(",")[4].length - 9) ===
+      "354634563dfghdfgh439003235"
+    ) {
+      let dataSplit = dataStr.split(",");
+      let date = dataSplit[0].slice(2).split(" ").slice(1, 4).join(" ");
+      let name = dataSplit[1];
+      let miles = dataSplit[2];
+      let minutes = dataSplit[3];
+      let runCode = "354634563dfghdfgh439003235";
+
+      await query(
+        `INSERT INTO workout1 (name, workoutPlan, workoutDate, workout1, workout2)
+                   VALUES (?, ?, ?, ?, ?)`,
+        [name, runCode, date, miles, minutes]
+      );
+      console.log("run saved in workout table!");
     } else {
-      var dataSplit = data.split(",");
-      var workout1 = [dataSplit[0].slice(2), dataSplit[1], dataSplit[2]];
-      var workout2 = [dataSplit[3], dataSplit[4], dataSplit[5]];
-      var workout3 = [dataSplit[6], dataSplit[7], dataSplit[8]];
-      var workout4 = [dataSplit[9], dataSplit[10], dataSplit[11]];
-      var workout5 = [dataSplit[12], dataSplit[13], dataSplit[14]];
-      var workout6 = [dataSplit[15], dataSplit[16], dataSplit[17]];
-      var workout7 = [dataSplit[18], dataSplit[19], dataSplit[20]];
-
-      var name = dataSplit[22];
-      var workoutName = JSON.stringify(
-        dataSplit[24].slice(0, dataSplit[24].length - 5)
+      let dataSplit = data.split(",");
+      let name = dataSplit[51];
+      let date = dataSplit[0].slice(2).split(" ").slice(1, 4).join(" ");
+      let workouts = [];
+      for (let i = 1; i <= 49; i += 7) workouts.push(dataSplit.slice(i, i + 7));
+      let notes = dataSplit[50];
+      let day = JSON.stringify(
+        dataSplit[53].slice(0, dataSplit[53].length - 2)
       );
 
-      var sql = `INSERT INTO templates VALUES ('${name.toUpperCase()}', '${workoutName}', '${workout1}', '${workout2}', '${workout3}', '${workout4}', '${workout5}', '${workout6}', '${workout7}', 'Red');`;
+      let color;
+      let templates = await query(
+        `SELECT * FROM templates WHERE templateName = ?`,
+        [day]
+      );
+      if (templates[0]) color = templates[0].color;
 
-      connection.query(sql, function (err, results) {
-        if (err) {
-          console.log("error querying database: ", err);
-        } else {
-          console.log("template saved!");
-        }
-      });
+      await query(
+        `INSERT IGNORE INTO workout1
+                   (name, workoutPlan, workoutDate, workout1, workout2, workout3, workout4,
+                    workout5, workout6, workout7, notes, color)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [name, day, date, ...workouts, notes, color]
+      );
+      console.log("workout saved!");
     }
-  });
-};
-
-const getTemplates = function (data, callback) {
-  connection.connect((err) => {
-    if (err) {
-      console.log("error connecting to database: ", err);
-      return;
-    } else {
-      var name = data.slice(2, data.length - 5);
-      var sql = `select * from templates where name = '${name.toUpperCase()}'`;
-      connection.query(sql, function (err, results) {
-        if (err) {
-          console.log("error ! ! !: ", err);
-        } else {
-          callback(results);
-        }
-      });
-    }
-  });
-};
-
-const createAccount = function (data, callback) {
-  connection.connect((err) => {
-    if (err) {
-      console.log("error connecting to database: ", err);
-      return;
-    } else {
-      const dataSplit = data.split(",");
-      var name = dataSplit[0].slice(2).toUpperCase();
-      var password = dataSplit[1].slice(0, dataSplit[1].length - 5);
-
-      var sql = `select * from usersAndPasses where name = '${name}'`;
-      connection.query(sql, function (err, results) {
-        if (err) {
-          console.log("error ! ! !: ", err);
-        } else {
-          if (results.length === 0) {
-            var sql = `insert into usersAndPasses values ('${name}', '${password}')`;
-            connection.query(sql, function (err, results) {
-              if (err) {
-                console.log("error ! ! !: ", err);
-              } else {
-                callback(results);
-              }
-            });
-          } else {
-            callback("0");
-          }
-        }
-      });
-    }
-  });
-};
-
-const attemptLogin = function (data, callback) {
-  connection.connect((err) => {
-    if (err) {
-      console.log("error connecting to database: ", err);
-      return;
-    } else {
-      const dataSplit = data.split(",");
-      var name = dataSplit[0].slice(2).toUpperCase();
-      var password = dataSplit[1].slice(0, dataSplit[1].length - 5);
-
-      var sql = `select * from usersAndPasses where name = '${name}' and password = '${password}';`;
-      connection.query(sql, function (err, res) {
-        if (err) {
-          console.log("error ! ! !: ", err);
-        } else {
-          callback(res);
-        }
-      });
-    }
-  });
-};
-
-const deleteTemplate = function (data, callback) {
-  var dataSplit = JSON.stringify(data).split(",");
-  console.log("datasplit: ", dataSplit);
-
-  connection.connect((err) => {
-    if (err) {
-      console.log("error connecting to database: ", err);
-      return;
-    } else {
-      console.log(dataSplit);
-      const name = dataSplit[1].slice(0, dataSplit[1].length - 5);
-      var template = dataSplit[0].slice(4, dataSplit[0].length - 2);
-      var templateSplit = template.split("");
-
-      for (var i = 0; i < templateSplit.length; i++) {
-        if (templateSplit[i] === "\\" || templateSplit[i] === '"') {
-          templateSplit.splice(i, 1);
-        }
-      }
-      template = templateSplit.join("");
-
-      console.log(name, template);
-
-      var sql = `delete from templates where templateName = '${JSON.stringify(
-        template
-      )}' and name = '${name}';`;
-      connection.query(sql, function (err, res) {
-        if (err) {
-          console.log("error ! ! !: ", err);
-        } else {
-          callback(res);
-        }
-      });
-    }
-  });
-};
-
-const changeColor = function (data, callback) {
-  connection.connect((err) => {
-    if (err) {
-      console.log("error connecting to database: ", err);
-      return;
-    } else {
-      const dataSplit = JSON.stringify(data).split(",");
-
-      var templateName = dataSplit[0].slice(4, dataSplit[0].length - 2);
-      var color = dataSplit[1].slice(0, dataSplit[1].length - 5);
-
-      var sql = `update templates set color = '${color}' where templateName = '"${templateName}"';`;
-      connection.query(sql, function (err, res) {
-        if (err) {
-          console.log("error ! ! !: ", err);
-        } else {
-          callback(res);
-        }
-      });
-
-      var sql2 = `update workout1 set color = '${color}' where workoutPlan = '"${templateName}"';`;
-      connection.query(sql2, function (err, res) {
-        if (err) {
-          console.log("error ! ! !: ", err);
-        }
-      });
-    }
-  });
-};
-
-const deleteWorkout = function (data, callback) {
-  var dataSplit = JSON.stringify(data).split(",");
-  console.log("data!=D: ", dataSplit);
-
-  var workoutName = dataSplit[0].slice(2);
-
-  // console.log("workoutName: ", workoutName);
-  var name = dataSplit[2];
-
-  var id = dataSplit[1];
-  if (workoutName === "Run") {
-    var date = dataSplit[3];
-    var miles = dataSplit[4].slice(0, dataSplit[4].length - 5);
-
-    connection.connect((err) => {
-      if (err) {
-        console.log("error connecting to database: ", err);
-        return;
-      } else {
-        var sql = `delete from runData where date = '${date}' and name = '${name}' and miles = '${miles}';`;
-        console.log("sql: ", sql);
-        connection.query(sql, function (err, res) {
-          if (err) {
-            console.log("error ! ! !: ", err);
-          } else {
-            console.log(res);
-          }
-        });
-      }
-    });
+    callback && callback();
+  } catch (err) {
+    console.error("Error saving workout:", err);
+    callback && callback(err);
   }
-
-  connection.connect((err) => {
-    if (err) {
-      console.log("error connecting to database: ", err);
-      return;
-    } else {
-      if (workoutName === "Run") {
-        var sql = `delete from workout1 where id = '${id}' and name = '${name}';`;
-      } else {
-        var sql = `delete from workout1 where workoutPlan = '"${workoutName}"' and id = '${id}' and name = '${name}';`;
-      }
-
-      console.log("sql: ", sql);
-      connection.query(sql, function (err, res) {
-        if (err) {
-          console.log("error ! ! !: ", err);
-        } else {
-          console.log(res);
-          callback(res);
-        }
-      });
-    }
-  });
 };
 
-const submitRun = function (data, callback) {
-  var dataSplit = JSON.stringify(data).split(",");
-  console.log("data!: ", dataSplit);
-
-  var date = dataSplit[0].slice(2).split(" ").slice(1, 4).join(" ");
-  var name = dataSplit[1];
-  var miles = dataSplit[2];
-  var minutes = dataSplit[3].slice(0, dataSplit[3].length - 5);
-
-  var notes = "";
-
-  var sql = `insert into runData (name, miles, minutes, notes, date) values ('${name}', '${miles}', '${minutes}', '${notes}', '${date}')`;
-
-  connection.query(sql, function (err, results) {
-    if (err) {
-      console.log("error ! ! !: ", err);
-    } else {
-      callback(results);
-      console.log("res: ", results);
-    }
-  });
+const getWorkouts = async function (data, callback) {
+  try {
+    let name = data.slice(2, data.length - 5).toUpperCase();
+    const results = await query(`SELECT * FROM workout1 WHERE name = ?`, [
+      name,
+    ]);
+    callback && callback(results);
+  } catch (err) {
+    console.error("Error getting workouts:", err);
+    callback && callback(err);
+  }
 };
 
-const getRunData = function (data, callback) {
-  connection.connect((err) => {
-    if (err) {
-      console.log("error connecting to database: ", err);
-      return;
-    } else {
-      var name = data.slice(2, data.length - 5);
-      var sql = `select * from runData where name = '${name.toUpperCase()}'`;
-      connection.query(sql, function (err, results) {
-        if (err) {
-          console.log("error ! ! !: ", err);
-        } else {
-          callback(results);
-        }
-      });
-    }
-  });
+const addTemplate = async function (data, callback) {
+  try {
+    let dataSplit = data.split(",");
+    let name = dataSplit[22].toUpperCase();
+    let workoutName = JSON.stringify(
+      dataSplit[24].slice(0, dataSplit[24].length - 5)
+    );
+    let workouts = [];
+    for (let i = 0; i < 21; i += 3) workouts.push(dataSplit.slice(i, i + 3));
+
+    await query(
+      `INSERT INTO templates VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'Red')`,
+      [name, workoutName, ...workouts]
+    );
+    console.log("template saved!");
+    callback && callback();
+  } catch (err) {
+    console.error("Error adding template:", err);
+    callback && callback(err);
+  }
 };
 
-const submitPR = function (data, callback) {
-  // var dataSplit = JSON.stringify(data).split(",");
-  console.log("data!: ", data);
-
-  var sql = `insert into PRTable (name, exercise, weight, reps) values ('${data.name}', '${data.exercise}', '${data.weight}', '${data.reps}')`;
-
-  connection.query(sql, function (err, results) {
-    if (err) {
-      console.log("error ! ! !: ", err);
-    } else {
-      callback(results);
-    }
-  });
+const getTemplates = async function (data, callback) {
+  try {
+    let name = data.slice(2, data.length - 5);
+    const results = await query(`SELECT * FROM templates WHERE name = ?`, [
+      name.toUpperCase(),
+    ]);
+    callback && callback(results);
+  } catch (err) {
+    console.error("Error getting templates:", err);
+    callback && callback(err);
+  }
 };
 
-const getPRs = function (data, callback) {
-  var name = JSON.stringify(data).slice(2, JSON.stringify(data).length - 5);
+const createAccount = async function (data, callback) {
+  try {
+    const dataSplit = data.split(",");
+    let name = dataSplit[0].slice(2).toUpperCase();
+    let password = dataSplit[1].slice(0, dataSplit[1].length - 5);
 
-  var sql = `select * from PRTable where name = '${name}';`;
-
-  connection.query(sql, function (err, results) {
-    if (err) {
-      console.log("error ! ! !: ", err);
+    let existing = await query(`SELECT * FROM usersAndPasses WHERE name = ?`, [
+      name,
+    ]);
+    if (existing.length === 0) {
+      await query(`INSERT INTO usersAndPasses VALUES (?, ?)`, [name, password]);
+      callback && callback({ success: true });
     } else {
-      callback(results);
+      callback && callback("0");
     }
-  });
+  } catch (err) {
+    console.error("Error creating account:", err);
+    callback && callback(err);
+  }
 };
 
-const deletePR = function (data, callback) {
-  var id = JSON.stringify(data).slice(2, JSON.stringify(data).length - 5);
+const attemptLogin = async function (data, callback) {
+  try {
+    const dataSplit = data.split(",");
+    let name = dataSplit[0].slice(2).toUpperCase();
+    let password = dataSplit[1].slice(0, dataSplit[1].length - 5);
 
-  var sql = `delete from PRTable where id = '${id}';`;
-
-  connection.query(sql, function (err, results) {
-    if (err) {
-      console.log("error ! ! !: ", err);
-    } else {
-      callback(results);
-    }
-  });
+    const res = await query(
+      `SELECT * FROM usersAndPasses WHERE name = ? AND password = ?`,
+      [name, password]
+    );
+    callback && callback(res);
+  } catch (err) {
+    console.error("Error logging in:", err);
+    callback && callback(err);
+  }
 };
 
-const updatePR = function (data, callback) {
-  var row = data;
+const deleteTemplate = async function (data, callback) {
+  try {
+    const dataSplit = JSON.stringify(data).split(",");
+    const name = dataSplit[1].slice(0, dataSplit[1].length - 5);
+    let template = dataSplit[0]
+      .slice(4, dataSplit[0].length - 2)
+      .replace(/["\\]/g, "");
 
-  var sql = `update PRTable set weight = '${row.weight}', reps = '${row.reps}' where id = '${row.id}';`;
-
-  connection.query(sql, function (err, results) {
-    if (err) {
-      console.log("error ! ! !: ", err);
-    } else {
-      callback(results);
-    }
-  });
+    await query(`DELETE FROM templates WHERE templateName = ? AND name = ?`, [
+      JSON.stringify(template),
+      name,
+    ]);
+    callback && callback({ success: true });
+  } catch (err) {
+    console.error("Error deleting template:", err);
+    callback && callback(err);
+  }
 };
 
-module.exports.saveWorkout = saveWorkout;
-module.exports.getWorkouts = getWorkouts;
-module.exports.addTemplate = addTemplate;
-module.exports.getTemplates = getTemplates;
-module.exports.createAccount = createAccount;
-module.exports.attemptLogin = attemptLogin;
-module.exports.deleteTemplate = deleteTemplate;
-module.exports.changeColor = changeColor;
-module.exports.deleteWorkout = deleteWorkout;
-module.exports.submitRun = submitRun;
-module.exports.getRunData = getRunData;
-module.exports.submitPR = submitPR;
-module.exports.getPRs = getPRs;
-module.exports.deletePR = deletePR;
-module.exports.updatePR = updatePR;
+const changeColor = async function (data, callback) {
+  try {
+    const dataSplit = JSON.stringify(data).split(",");
+    let templateName = dataSplit[0].slice(4, dataSplit[0].length - 2);
+    let color = dataSplit[1].slice(0, dataSplit[1].length - 5);
+
+    await query(`UPDATE templates SET color = ? WHERE templateName = ?`, [
+      color,
+      `"${templateName}"`,
+    ]);
+    await query(`UPDATE workout1 SET color = ? WHERE workoutPlan = ?`, [
+      color,
+      `"${templateName}"`,
+    ]);
+    callback && callback({ success: true });
+  } catch (err) {
+    console.error("Error changing color:", err);
+    callback && callback(err);
+  }
+};
+
+const deleteWorkout = async function (data, callback) {
+  try {
+    const dataSplit = JSON.stringify(data).split(",");
+    let workoutName = dataSplit[0].slice(2);
+    let name = dataSplit[2];
+    let id = dataSplit[1];
+
+    if (workoutName === "Run") {
+      let date = dataSplit[3];
+      let miles = dataSplit[4].slice(0, dataSplit[4].length - 5);
+      await query(
+        `DELETE FROM runData WHERE date = ? AND name = ? AND miles = ?`,
+        [date, name, miles]
+      );
+    }
+
+    if (workoutName === "Run") {
+      await query(`DELETE FROM workout1 WHERE id = ? AND name = ?`, [id, name]);
+    } else {
+      await query(
+        `DELETE FROM workout1 WHERE workoutPlan = ? AND id = ? AND name = ?`,
+        [`"${workoutName}"`, id, name]
+      );
+    }
+    callback && callback({ success: true });
+  } catch (err) {
+    console.error("Error deleting workout:", err);
+    callback && callback(err);
+  }
+};
+
+const submitRun = async function (data, callback) {
+  try {
+    const dataSplit = JSON.stringify(data).split(",");
+    let date = dataSplit[0].slice(2).split(" ").slice(1, 4).join(" ");
+    let name = dataSplit[1];
+    let miles = dataSplit[2];
+    let minutes = dataSplit[3].slice(0, dataSplit[3].length - 5);
+
+    await query(
+      `INSERT INTO runData (name, miles, minutes, notes, date)
+                 VALUES (?, ?, ?, ?, ?)`,
+      [name, miles, minutes, "", date]
+    );
+    callback && callback({ success: true });
+  } catch (err) {
+    console.error("Error submitting run:", err);
+    callback && callback(err);
+  }
+};
+
+const getRunData = async function (data, callback) {
+  try {
+    let name = data.slice(2, data.length - 5).toUpperCase();
+    const results = await query(`SELECT * FROM runData WHERE name = ?`, [name]);
+    callback && callback(results);
+  } catch (err) {
+    console.error("Error getting run data:", err);
+    callback && callback(err);
+  }
+};
+
+const submitPR = async function (data, callback) {
+  try {
+    await query(
+      `INSERT INTO PRTable (name, exercise, weight, reps)
+                 VALUES (?, ?, ?, ?)`,
+      [data.name, data.exercise, data.weight, data.reps]
+    );
+    callback && callback({ success: true });
+  } catch (err) {
+    console.error("Error submitting PR:", err);
+    callback && callback(err);
+  }
+};
+
+const getPRs = async function (data, callback) {
+  try {
+    let name = JSON.stringify(data).slice(2, JSON.stringify(data).length - 5);
+    const results = await query(`SELECT * FROM PRTable WHERE name = ?`, [name]);
+    callback && callback(results);
+  } catch (err) {
+    console.error("Error getting PRs:", err);
+    callback && callback(err);
+  }
+};
+
+const deletePR = async function (data, callback) {
+  try {
+    let id = JSON.stringify(data).slice(2, JSON.stringify(data).length - 5);
+    await query(`DELETE FROM PRTable WHERE id = ?`, [id]);
+    callback && callback({ success: true });
+  } catch (err) {
+    console.error("Error deleting PR:", err);
+    callback && callback(err);
+  }
+};
+
+const updatePR = async function (data, callback) {
+  try {
+    let row = data;
+    await query(`UPDATE PRTable SET weight = ?, reps = ? WHERE id = ?`, [
+      row.weight,
+      row.reps,
+      row.id,
+    ]);
+    callback && callback({ success: true });
+  } catch (err) {
+    console.error("Error updating PR:", err);
+    callback && callback(err);
+  }
+};
+
+// ======================== EXPORTS ========================
+module.exports = {
+  saveWorkout,
+  getWorkouts,
+  addTemplate,
+  getTemplates,
+  createAccount,
+  attemptLogin,
+  deleteTemplate,
+  changeColor,
+  deleteWorkout,
+  submitRun,
+  getRunData,
+  submitPR,
+  getPRs,
+  deletePR,
+  updatePR,
+};
