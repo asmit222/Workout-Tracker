@@ -2,12 +2,7 @@ const mariadb = require("mariadb/callback");
 const mariadbConfig = require("./config.js");
 const { Pool } = require("pg");
 
-const connection = mariadb.createConnection({
-  host: "database-1.cscmgcicurmq.us-east-1.rds.amazonaws.com",
-  user: "root",
-  password: "samaung1",
-  database: "test",
-});
+const connection = mariadb.createConnection(process.env.MYSQL_URL);
 
 const saveWorkout = function (data, callback) {
   console.log("saving final version of workout");
