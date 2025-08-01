@@ -2,7 +2,13 @@ const mariadb = require("mariadb/callback");
 const mariadbConfig = require("./config.js");
 const { Pool } = require("pg");
 
-const connection = mariadb.createConnection(process.env.MYSQL_URL);
+let url = process.env.MYSQL_URL || "";
+
+if (url.startsWith("mysql://")) {
+  url = url.replace(/^mysql:\/\//, "mariadb://");
+}
+
+const connection = mariadb.createConnection(url);
 
 const saveWorkout = function (data, callback) {
   console.log("saving final version of workout");
