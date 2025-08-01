@@ -1,13 +1,22 @@
 const mysql = require("mysql2");
+require("dotenv").config();
 
-// Parse Railway connection string
-let url = process.env.MYSQL_URL || "";
-if (url.startsWith("mysql://")) {
-  url = url.replace(/^mysql:\/\//, "mysql://"); // mysql2 supports mysql://
+
+// Parse Railway MySQL URL
+let url = process.env.MYSQL_URL;
+
+if (!url) {
+  throw new Error("MYSQL_URL is not set in environment variables");
 }
 
-// Create pool
-const pool = mysql.createPool(url + "?connectionLimit=10").promise();
+
+// Create pool with proper connection params
+const pool = mysql.createPool({
+  uri: url,                // mysql2 will parse full URI
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+}).promise();
 
 // Query helper
 const query = async (sql, params = []) => {
@@ -333,4 +342,5 @@ module.exports = {
   getPRs,
   deletePR,
   updatePR,
+  query
 };
